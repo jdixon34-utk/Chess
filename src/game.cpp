@@ -18,9 +18,9 @@ void Game::INITIALIZE_KING_LOOKUP_TBL(){
         //Kings move to the left
         if((i-1) % 8 != 7){
             KING_LOOKUP_TBL[i] |= 1ULL << (i-1);
-            // Up Left
+            // Left-Up
             if(i-1 < 57) KING_LOOKUP_TBL[i] |= 1ULL << (i+7);
-            // Up Down
+            // Left-Down
             if(i-1 > 7) KING_LOOKUP_TBL[i] |= 1ULL << (i-9);
         }
 
