@@ -1,13 +1,38 @@
+#include <iostream>
 #include <string>
 #include "game.h"
 #include "board.h"
 #include "move.h"
 
-void INITIALIZE_KING_LOOKUP_TBL(){
+void Game::INITIALIZE_KING_LOOKUP_TBL(){
+    for(unsigned long long i=0; i<64; i++){
+        //Kings move to the right
+        if((i+1) % 8){
+            KING_LOOKUP_TBL[i] |= 1ULL << (i+1);
+            // Up to the Right
+            if(i+1 < 57) KING_LOOKUP_TBL[i] |= 1ULL << (i+9);
+            //Down to the Right
+            if(i+1 > 7) KING_LOOKUP_TBL[i] |= 1ULL << (i-7);
+        }
+        
+        //Kings move to the left
+        if((i-1) % 8 != 7){
+            KING_LOOKUP_TBL[i] |= 1ULL << (i-1);
+            // Up Left
+            if(i-1 < 57) KING_LOOKUP_TBL[i] |= 1ULL << (i+7);
+            // Up Down
+            if(i-1 > 7) KING_LOOKUP_TBL[i] |= 1ULL << (i-9);
+        }
 
+        //King moves up
+        if(i < 57) KING_LOOKUP_TBL[i] |= 1ULL << (i+8);
+
+        //King moves down
+        if(i > 7) KING_LOOKUP_TBL[i] |= 1ULL << (i-8);
+    }
 }
 
-void INITIALIZE_KNIGHT_LOOKUP_TBL(){
+void Game::INITIALIZE_KNIGHT_LOOKUP_TBL(){
     unsigned long long tmpBitBoard;
     int rNew;
     int cNew;
@@ -60,7 +85,7 @@ void INITIALIZE_KNIGHT_LOOKUP_TBL(){
     }
 }
 
-void INITIALIZE_RAYS(){
+void Game::INITIALIZE_RAYS(){
 	int pos;
 	for (int i = 0; i < 64; i++) {
 		//north
@@ -87,6 +112,6 @@ void INITIALIZE_RAYS(){
 	}
 }
 
-string playTurn(string FEN){
+std::string Game::playTurn(std::string FEN){
 
 }
