@@ -8,7 +8,7 @@ Bishop
 Rook
 King
 Queen
-Flip board?
+Flip board
 
 Backend:
 Make FEN string
