@@ -61,7 +61,30 @@ void INITIALIZE_KNIGHT_LOOKUP_TBL(){
 }
 
 void INITIALIZE_RAYS(){
-	
+	int pos;
+	for (int i = 0; i < 64; i++) {
+		//north
+		pos = i;
+		RAYS[i][0] = 0;
+		while(pos+8 < 63){
+			pos += 8;
+			RAYS[i][0] |= (1ULL << pos);
+		}
+		pos = i;
+		//ne
+		//e
+		pos = i;
+		RAYS[i][2] = 0;
+		while((pos+1)%8 != 0){
+			pos += 1;
+			RAYS[i][2] |= (1ULL << pos);
+		}
+		//se
+		//s
+		//sw
+		//w
+		//nw
+	}
 }
 
 string playTurn(string FEN){
