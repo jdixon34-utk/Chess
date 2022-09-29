@@ -13,12 +13,12 @@ void INITIALIZE_KNIGHT_LOOKUP_TBL(){
 
 void INITIALIZE_RAYS(){
 	int pos;
-	for (size_t i = 0; i < RAYS.size(); i++) {
+	for (int i = 0; i < 64; i++) {
 		//north
 		pos = i;
 		while(pos+8 < 63){
 			pos += 8;
-			RAYS[i][0] |= 1UL << (pos);
+			RAYS[i][0] |= (1UL << pos);
 		}
 		pos = i;
 		//ne
@@ -26,7 +26,7 @@ void INITIALIZE_RAYS(){
 		pos = i;
 		while((pos+1)%8 != 0){
 			pos += 1;
-			RAYS[i][2] |= 1UL << (pos);
+			RAYS[i][2] |= (1UL << pos);
 		}
 		//se
 		//s
