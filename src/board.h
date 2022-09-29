@@ -32,7 +32,7 @@ private:
 	unsigned long long blackPawns;
 	
 	std::vector<class Move> moves; //Move is a struct that will be defined somewhere else
-						      //it just holds the information of a move: "from" square, "to" square, and other small info
+					//it just holds the information of a move: "from" square, "to" square, and other small info
 
 public:
 
