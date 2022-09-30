@@ -24,7 +24,7 @@ private:
     unsigned long long FILE_G = 0x4040404040404040;
     unsigned long long FILE_H = 0x8080808080808080;
     unsigned long long KING_LOOKUP_TBL[64] = {0};
-    unsigned long long KNIGHT_LOOKUP_TBL[64];
+    unsigned long long KNIGHT_LOOKUP_TBL[64] = {0};
     unsigned long long RAYS[64][8]; //all rays from one of 64 squares in one of 8 directions(N, NE, E, SE, etc.)
 								    //used for sliding pieces only
 
