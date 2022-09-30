@@ -1,17 +1,20 @@
 #ifndef BOARD_H
 #define BOARD_H
 #include <vector>
+#include <string>
 
 class Board{
 private:
 
-    //important info given from FEN string
+    	//important info given from FEN string
 	bool whiteTurn;
 	bool whiteCastleRightsKS;
 	bool whiteCastleRightsQS;
 	bool blackCastleRightsKS;
 	bool blackCastleRightsQS;
-	char enPassantTargetSquare;
+	char enPassantTargetSquare;//square that a pawn that has moved forward 2 spaces goes over
+	int halfMoveClock;//The number of halfmoves since the last capture or pawn advance, used for the fifty-move rule
+    	int fullMoveNumber;//The number of the full moves. It starts at 1 and is incremented after Black's move
 
 	unsigned long long allPieces;
 
@@ -36,7 +39,8 @@ private:
 
 public:
 
-	void genBoardFromFEN(char* FEN);
+	void genBoardFromFEN(string FEN);
+	void printBitBoard(unsigned long long bitBoard);
 
 	void genMoves();
 
