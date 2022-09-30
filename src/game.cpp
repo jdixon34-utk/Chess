@@ -3,6 +3,7 @@
 #include "game.h"
 #include "board.h"
 #include "move.h"
+using namespace std;
 
 void Game::INITIALIZE_KING_LOOKUP_TBL(){
     for(unsigned long long i=0; i<64; i++){
@@ -112,6 +113,6 @@ void Game::INITIALIZE_RAYS(){
 	}
 }
 
-std::string Game::playTurn(std::string FEN){
+string Game::playTurn(string FEN){
 
 }
