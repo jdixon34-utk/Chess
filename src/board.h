@@ -39,7 +39,7 @@ private:
 
 public:
 
-	void genBoardFromFEN(string FEN);
+	void genBoardFromFEN(std::string FEN);
 	void printBitBoard(unsigned long long bitBoard);
 
 	void genMoves();
