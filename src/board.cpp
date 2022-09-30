@@ -108,6 +108,16 @@ void Board::genBoardFromFEN(string FEN){
     fullMoveNumber = stoi(num);
 }
 
+void Board::printBitBoard(unsigned long long bitBoard){
+    for(int r = 7; r >= 0; r--){
+        for(int c = 0; c < 8; c++){
+            if(bitBoard & (1ULL << ((r * 8) + c))) printf("1 ");
+            else printf(". ");
+        }
+        printf("\n");
+    }
+}
+
 void Board::genMoves(){
 
 }
