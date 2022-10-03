@@ -41,6 +41,7 @@ public:
 
 	void genBoardFromFEN(std::string FEN);
 	void printBitBoard(unsigned long long bitBoard);
+	void printPosition();
 
 	void genMoves();
 
