@@ -116,6 +116,49 @@ void Board::printBitBoard(unsigned long long bitBoard){
         }
         printf("\n");
     }
+    printf("\n");
+}
+
+void Board::printPosition(){
+    printf("All Pieces\n");
+    printBitBoard(allPieces);
+    printf("White Pieces\n");
+    printBitBoard(whitePieces);
+    printf("White King\n");
+    printBitBoard(whiteKing);
+    printf("White Queen\n");
+    printBitBoard(whiteQueen);
+    printf("White Rooks\n");
+    printBitBoard(whiteRooks);
+    printf("White Bishops\n");
+    printBitBoard(whiteBishops);
+    printf("White Knights\n");
+    printBitBoard(whiteKnights);
+    printf("White Pawns\n");
+    printBitBoard(whitePawns);
+    printf("Black Pieces\n");
+    printBitBoard(blackPieces);
+    printf("Black King\n");
+    printBitBoard(blackKing);
+    printf("Black Queen\n");
+    printBitBoard(blackQueen);
+    printf("Black Rooks\n");
+    printBitBoard(blackRooks);
+    printf("Black Bishops\n");
+    printBitBoard(blackBishops);
+    printf("Black Knights\n");
+    printBitBoard(blackKnights);
+    printf("Black Pawns\n");
+    printBitBoard(blackPawns);
+    if(whiteTurn) printf("White's Turn\n");
+    else printf("Black's Turn\n");
+    printf("White Castle Rights KS: %d\n", whiteCastleRightsKS);
+    printf("White Castle Rights QS: %d\n", whiteCastleRightsQS);
+    printf("Black Castle Rights KS: %d\n", blackCastleRightsKS);
+    printf("Black Castle Rights QS: %d\n", blackCastleRightsQS);
+    printf("En Passant Target Square: %d\n", enPassantTargetSquare);
+    printf("Moves Since Last Capture or Pawn Advance: %d\n", halfMoveClock);
+    printf("Full Move Number: %d\n", fullMoveNumber);
 }
 
 void Board::genMoves(){
