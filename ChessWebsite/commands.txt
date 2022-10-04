@@ -1,0 +1,2 @@
+"npm run dev" - This runs the development server for you.
+"npm install" - After every single time you pull, you should run this to install any new dependencies.
