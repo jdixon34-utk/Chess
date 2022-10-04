@@ -15,7 +15,7 @@ void Game::INITIALIZE_KING_LOOKUP_TBL(){
             //Down to the Right
             if(i+1 > 7) KING_LOOKUP_TBL[i] |= 1ULL << (i-7);
         }
-        
+
         //Kings move to the left
         if((i-1) % 8 != 7){
             KING_LOOKUP_TBL[i] |= 1ULL << (i-1);
@@ -96,9 +96,13 @@ void Game::INITIALIZE_RAYS(){
 			pos += 8;
 			RAYS[i][0] |= (1ULL << pos);
 		}
-		pos = i;
 		//ne
-		//
+		pos = i;
+    RAYS[i][1] = 0;
+    while((pos+9)%8 != 0 && pos+9 < 63){
+      pos += 9;
+      RAYS[i][1] |= (1ULL << pos);
+    }
 		//e
 		pos = i;
 		RAYS[i][2] = 0;
@@ -107,6 +111,12 @@ void Game::INITIALIZE_RAYS(){
 			RAYS[i][2] |= (1ULL << pos);
 		}
 		//se
+    pos = i;
+    RAYS[i][3] = 0;
+    while(pos-7 >= 0 && (pos-7)%8 != 0){
+      pos -= 7;
+      RAYS[i][3] |= (1ULL << pos);
+    }
 		//s
 		pos = i;
 		RAYS[i][4] = 0;
@@ -115,12 +125,24 @@ void Game::INITIALIZE_RAYS(){
 			RAYS[i][4] |= (1ULL << pos);
 		}
 		//sw
+    pos = i;
+    while(pos-9 >= 0 && (pos)%8 != 0){
+      pos -= 9;
+      RAYS[i][5] |= (1ULL << pos);
+    }
 		//w
+    pos = i;
 		while(pos%8 != 0 && (pos-1)%8 != 0){
 			pos -= 1;
 			RAYS[i][6] |= (1ULL << pos);
 		}
 		//nw
+    pos = i;
+    RAYS[i][1] = 0;
+    while((pos)%8 != 0 && pos+9 < 63){
+      pos += 7;
+      RAYS[i][7] |= (1ULL << pos);
+    }
 	}
 }
 
