@@ -23,5 +23,22 @@
             <Icon icon="line-md:menu-to-close-alt-transition" />
         </div>
     {/if}
+
+   <!-- This is only viewed on desktop, right side of Navbar -->
+    <div class="hidden md:flex flex-row">
+        <a href="/" class="mr-6"><h1>Play</h1></a>
+        <a href="/learn" class="mr-6"><h1>How To Play</h1></a>
+        <a href="/about" class="mr-6"><h1>About Project</h1></a>
+        <a href="https://github.com/utk-cs340-fall22/Chess" target="_blank" class="mr-6"><h1>Github</h1></a>
+    </div>
 </div>
 
+<!-- If the mobile menu is clicked, we need to display the menu -->
+{#if noMenu === false}
+    <div class="flex flex-col w-full h-screen justify-center items-center bg-black text-white text-4xl md:hidden">
+        <a on:click={() => CloseMenu()} href="/" class="mt-6"><h1>Play</h1></a>
+        <a on:click={() => CloseMenu()} href="/learn" class="mt-6"><h1>How To Play</h1></a>
+        <a on:click={() => CloseMenu()} href="/about" class="mt-6"><h1>About Project</h1></a>
+        <a on:click={() => CloseMenu()} href="https://github.com/utk-cs340-fall22/Chess" target="_blank" class="mt-6"><h1>Github</h1></a>
+    </div>
+{/if}
