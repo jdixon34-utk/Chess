@@ -5,6 +5,7 @@
 #include "move.h"
 using namespace std;
 
+<<<<<<< HEAD
 void Game::INITIALIZE_KING_LOOKUP_TBL(){
     for(unsigned long long i=0; i<64; i++){
         //Kings move to the right
@@ -145,6 +146,8 @@ void Game::INITIALIZE_RAYS(){
     }
 	}
 }
+=======
+>>>>>>> 396436608076386d481482c3d9fcfc5f6c8199de
 
 string Game::playTurn(string FEN){
 
