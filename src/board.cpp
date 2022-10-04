@@ -2,6 +2,7 @@
 #include <string>
 #include "board.h"
 #include "move.h"
+
 using namespace std;
 
 void Board::genBoardFromFEN(string FEN){
