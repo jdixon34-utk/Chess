@@ -98,6 +98,7 @@ void Game::INITIALIZE_RAYS(){
 		}
 		pos = i;
 		//ne
+		//
 		//e
 		pos = i;
 		RAYS[i][2] = 0;
@@ -107,8 +108,18 @@ void Game::INITIALIZE_RAYS(){
 		}
 		//se
 		//s
+		pos = i;
+		RAYS[i][4] = 0;
+		while((pos-8) >= 0){
+			pos -= 8;
+			RAYS[i][4] |= (1ULL << pos);
+		}
 		//sw
 		//w
+		while(pos%8 != 0 && (pos-1)%8 != 0){
+			pos -= 1;
+			RAYS[i][6] |= (1ULL << pos);
+		}
 		//nw
 	}
 }

@@ -36,7 +36,7 @@ public:
     void INITIALIZE_KING_LOOKUP_TBL();
     void INITIALIZE_KNIGHT_LOOKUP_TBL();
     void INITIALIZE_RAYS();
-
+	void printBitBoard();
     std::string playTurn(std::string FEN);
 
 };
