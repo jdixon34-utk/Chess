@@ -15,11 +15,11 @@
 
     <!-- This is only viewed on mobile, right side of Navbar -->
     {#if noMenu === true}
-        <div class="text-4xl md:hidden mr-6" on:click={() => OpenMenu()}>
+        <div class="text-4xl md:hidden mr-6 cursor-pointer" on:click={() => OpenMenu()}>
             <Icon icon="line-md:close-to-menu-alt-transition" />
         </div>
     {:else if noMenu === false}
-        <div class="text-4xl md:hidden mr-6" on:click={() => CloseMenu()}>
+        <div class="text-4xl md:hidden mr-6 cursor-pointer" on:click={() => CloseMenu()}>
             <Icon icon="line-md:menu-to-close-alt-transition" />
         </div>
     {/if}
