@@ -3,6 +3,29 @@
 #include <vector>
 #include <string>
 
+//global constants and lookup tables to be used to calculate possible moves
+extern unsigned long long RANK_1;
+extern unsigned long long RANK_2;
+extern unsigned long long RANK_3;
+extern unsigned long long RANK_4;
+extern unsigned long long RANK_5;
+extern unsigned long long RANK_6;
+extern unsigned long long RANK_7;
+extern unsigned long long RANK_8;
+extern unsigned long long FILE_A;
+extern unsigned long long FILE_B;
+extern unsigned long long FILE_C;
+extern unsigned long long FILE_D;
+extern unsigned long long FILE_E;
+extern unsigned long long FILE_F;
+extern unsigned long long FILE_G;
+extern unsigned long long FILE_H;
+extern unsigned long long KING_LOOKUP_TBL[64];
+extern unsigned long long KNIGHT_LOOKUP_TBL[64];
+extern unsigned long long RAYS[64][8]; //all rays from one of 64 squares in one of 8 directions(N, NE, E, SE, etc.)
+								//used for sliding pieces only
+
+
 class Board{
 private:
 
@@ -58,6 +81,10 @@ public:
 	void genPawnRightEnPassantMoves();
 	void genCastleKS();
 	void genCastleQS();
+
+	void INITIALIZE_KING_LOOKUP_TBL();
+    void INITIALIZE_KNIGHT_LOOKUP_TBL();
+    void INITIALIZE_RAYS();
 };
 
 #endif
