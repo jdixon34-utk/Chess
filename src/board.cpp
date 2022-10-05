@@ -1,5 +1,6 @@
 #include <vector>
 #include <string>
+#include <cmath>
 #include "board.h"
 #include "move.h"
 
@@ -102,7 +103,7 @@ void Board::genBoardFromFEN(string FEN){
 	//reading in number of full moves
 	indexFEN++;
 	num = "";
-	while(indexFEN < FEN.length()){
+	while((long unsigned int)indexFEN < FEN.length()){
 		num += FEN[indexFEN];
 		indexFEN++;
 	}
@@ -162,27 +163,63 @@ void Board::printPosition(){
 	printf("Full Move Number: %d\n", fullMoveNumber);
 }
 
+//returns index of the least significant bit that is set to 1
+int Board::getLSBIndex(unsigned long long bitBoard){
+	bitBoard = bitBoard ^ (bitBoard - 1);
+
+	return __builtin_popcountll(bitBoard) - 1;
+}
+
 void Board::genMoves(){
+	/*
+	unsigned long long tmpBitBoard;
+	int square;
+
+	if(whiteTurn){
+
+		tmpBitBoard = whiteKing;
+		while(whiteKing){
+			square = getLSBIndex(whiteKing);
+			genKingMoves(square);
+			whiteKing ^= 1ULL << square;
+		}
+		whiteKing = tmpBitBoard;
+
+		tmpBitBoard = whiteKnight;
+		while(whiteKnight){
+			square = getLSBIndex(whiteKnight);
+			genKnightMoves(square);
+			whiteKnight ^= 1ULL << square;
+		}
+		whiteKnight = tmpBitBoard;
+
+		just do king and knight for now because they are easy
+	}
+	else{
+
+		same thing but for black
+	}
+
+	*/
+}
+
+void Board::genKingMoves(int square){
 
 }
 
-void Board::genKingMoves(){
+void Board::genQueenMoves(int square){
 
 }
 
-void Board::genQueenMoves(){
+void Board::genRookMoves(int square){
 
 }
 
-void Board::genRookMoves(){
+void Board::genBishopMoves(int square){
 
 }
 
-void Board::genBishopMoves(){
-
-}
-
-void Board::genKnightMoves(){
+void Board::genKnightMoves(int square){
 
 }
 
@@ -299,7 +336,7 @@ void Board::INITIALIZE_KNIGHT_LOOKUP_TBL(){
 	}
 }
 
-void Game::INITIALIZE_RAYS(){
+void Board::INITIALIZE_RAYS(){
 	int pos;
 	for (int i = 0; i < 64; i++) {
 		//north
