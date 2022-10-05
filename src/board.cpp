@@ -176,6 +176,10 @@ void Board::genMoves(){
 	int square;
 
 	if(whiteTurn){
+	
+		instead of looping through the whole bitboard to find bits set to one,
+		we can keep finding the lsb set to one, do what we need to do with it, 
+		set it to zero, and repeat until the bitboard == 0
 
 		tmpBitBoard = whiteKing;
 		while(whiteKing){
