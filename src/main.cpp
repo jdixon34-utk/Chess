@@ -1,4 +1,4 @@
-3#include "game.h"
+#include "game.h"
 #include "board.h"
 #include "move.h"
 using namespace std;
@@ -22,9 +22,18 @@ unsigned long long FILE_G = 0x4040404040404040;
 unsigned long long FILE_H = 0x8080808080808080;
 unsigned long long KING_LOOKUP_TBL[64] = {0};
 unsigned long long KNIGHT_LOOKUP_TBL[64] = {0};
-unsigned long long RAYS[64][8]; //all rays from one of 64 squares in one of 8 directions(N, NE, E, SE, etc.)
-                                //used for sliding pieces only
+//all rays from one of 64 squares in one of 8 directions(N, NE, E, SE, etc.)
+//used for sliding pieces only
+unsigned long long RAYS[64][8];
+
+
+
+
 int main(int argc, char** argv){
+    Board::INITIALIZE_KING_LOOKUP_TBL();
+    Board::INITIALIZE_KNIGHT_LOOKUP_TBL();
+    //Board::INITIALIZE_RAYS();
+
     Game game;
 
     game.playTurn(argv[1]);
