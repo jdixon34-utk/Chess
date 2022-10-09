@@ -176,9 +176,9 @@ void Board::genMoves(){
 	int square;
 
 	if(whiteTurn){
-	
+
 		instead of looping through the whole bitboard to find bits set to one,
-		we can keep finding the lsb set to one, do what we need to do with it, 
+		we can keep finding the lsb set to one, do what we need to do with it,
 		set it to zero, and repeat until the bitboard == 0
 
 		tmpBitBoard = whiteKing;
@@ -380,20 +380,20 @@ void Board::INITIALIZE_RAYS(){
 		}
 		//sw
 		pos = i;
-		while(pos-9 >= 0 && (pos)%8 != 0){
+		while(pos-9 >= 0 && (pos-9)%8 != 7){
 			pos -= 9;
 			RAYS[i][5] |= (1ULL << pos);
 		}
 		//w
 		pos = i;
-		while(pos%8 != 0 && (pos-1)%8 != 0){
+		while(pos%8 != 0 && (pos-1)%8 != 7){
 			pos -= 1;
 			RAYS[i][6] |= (1ULL << pos);
 		}
 		//nw
 		pos = i;
 		RAYS[i][1] = 0;
-		while((pos)%8 != 0 && pos+9 < 63){
+		while((pos+9)%8 != 0 && (pos+9) < 63){
 			pos += 7;
 			RAYS[i][7] |= (1ULL << pos);
 		}
