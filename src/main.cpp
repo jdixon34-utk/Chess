@@ -33,9 +33,6 @@ int main(int argc, char** argv){
     b.INITIALIZE_KING_LOOKUP_TBL();
     b.INITIALIZE_KNIGHT_LOOKUP_TBL();
     b.INITIALIZE_RAYS();
-	for(int i = 0; i < 8; i++){
-		b.printBitBoard(RAYS[28][i]);
-	}
 	Game game;
 
     game.playTurn(argv[1]);
