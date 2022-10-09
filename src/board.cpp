@@ -353,14 +353,14 @@ void Board::INITIALIZE_RAYS(){
 		//ne
 		pos = i;
 		RAYS[i][1] = 0;
-		while((pos+9)%8 != 0 && pos+9 < 63){
+		while((pos)%8 != 7 && pos+9 <= 63){
 			pos += 9;
 			RAYS[i][1] |= (1ULL << pos);
 		}
 		//e
 		pos = i;
 		RAYS[i][2] = 0;
-		while((pos+1)%8 != 0){
+		while((pos)%8 != 7){
 			pos += 1;
 			RAYS[i][2] |= (1ULL << pos);
 		}
@@ -386,14 +386,13 @@ void Board::INITIALIZE_RAYS(){
 		}
 		//w
 		pos = i;
-		while(pos%8 != 0 && (pos-1)%8 != 7){
+		while(pos%8 != 0){
 			pos -= 1;
 			RAYS[i][6] |= (1ULL << pos);
 		}
 		//nw
 		pos = i;
-		RAYS[i][1] = 0;
-		while((pos+9)%8 != 0 && (pos+9) < 63){
+		while((pos+7)%8 != 7 && (pos+7) < 63){
 			pos += 7;
 			RAYS[i][7] |= (1ULL << pos);
 		}

@@ -28,19 +28,15 @@ unsigned long long RAYS[64][8];
 
 
 
-
 int main(int argc, char** argv){
 	Board b;
     b.INITIALIZE_KING_LOOKUP_TBL();
     b.INITIALIZE_KNIGHT_LOOKUP_TBL();
     b.INITIALIZE_RAYS();
-	for(int i = 0; i < 64; i++){
-	for(int j = 0; j < 8; j++){
-		b.printBitBoard(RAYS[i][j]);
+	for(int i = 0; i < 8; i++){
+		b.printBitBoard(RAYS[28][i]);
 	}
-	}
-	printf("done\n");
 	Game game;
 
-    //game.playTurn(argv[1]);
+    game.playTurn(argv[1]);
 }
