@@ -214,14 +214,14 @@ void Board::genKingMoves(int square){
 	if(whiteTurn){
 		king_moves = KING_LOOKUP_TBL[square] ^ (whitePieces & KING_LOOKUP_TBL[square]);
 		while(king_moves != 0){
-		new_square = getLSBIndex();
+		new_square = getLSBIndex(king_moves);
 		king_moves ^= 1ULL << new_square;
 //		move = new Move;
 //		move.createMove(square, new_square, 0, 0);
  	}else{
 		king_moves = KING_LOOKUP_TBL[square] ^ (blackPieces& KING_LOOKUP_TBL[square]);
 		while(king_moves != 0){
-		new_square = getLSBIndex();
+		new_square = getLSBIndex(king_moves);
 		king_moves ^= 1ULL << new_square;
 //		move = new Move;
 // 		move.createMove(square, new_square, 0, 0);
