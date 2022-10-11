@@ -209,22 +209,24 @@ void Board::genMoves(){
 
 void Board::genKingMoves(int square){
 	unsigned long long king_moves;
-	int new_square
+	int new_square;
 	Move *move;
 	if(whiteTurn){
 		king_moves = KING_LOOKUP_TBL[square] ^ (whitePieces & KING_LOOKUP_TBL[square]);
 		while(king_moves != 0){
-		new_square = getLSBIndex(king_moves);
-		king_moves ^= 1ULL << new_square;
-//		move = new Move;
-//		move.createMove(square, new_square, 0, 0);
+            new_square = getLSBIndex(king_moves);
+            king_moves ^= 1ULL << new_square;
+    //		move = new Move;
+    //		move.createMove(square, new_square, 0, 0);
+        }
  	}else{
 		king_moves = KING_LOOKUP_TBL[square] ^ (blackPieces& KING_LOOKUP_TBL[square]);
 		while(king_moves != 0){
-		new_square = getLSBIndex(king_moves);
-		king_moves ^= 1ULL << new_square;
-//		move = new Move;
-// 		move.createMove(square, new_square, 0, 0);
+            new_square = getLSBIndex(king_moves);
+            king_moves ^= 1ULL << new_square;
+    //		move = new Move;
+    // 		move.createMove(square, new_square, 0, 0);
+        }
 	}
 	printBitBoard(king_moves);
 }
@@ -242,7 +244,24 @@ void Board::genBishopMoves(int square){
 }
 
 void Board::genKnightMoves(int square){
+        unsigned long long knightMoves = 0;
+    if(whiteTurn){
+        knightMoves = KNIGHT_LOOKUP_TBL[square] ^ (whitePieces & KNIGHT_LOOKUP_TBL[square]);
+    }else{ // Black's Turn
+        knightMoves = KNIGHT_LOOKUP_TBL[square] ^ (blackPieces & KNIGHT_LOOKUP_TBL[square]);
+    }
 
+    printf("%llu\n", knightMoves);
+    printBitBoard(knightMoves);
+
+    int index;
+    while(knightMoves){
+        index = getLSBIndex(knightMoves);
+        knightMoves ^= 1ULL << index;
+
+        //Create Move
+
+    }
 }
 
 void Board::genPawnLeftMoves(){
