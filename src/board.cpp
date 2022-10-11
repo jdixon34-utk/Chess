@@ -171,8 +171,7 @@ int Board::getLSBIndex(unsigned long long bitBoard){
 	return __builtin_popcountll(bitBoard) - 1;
 }
 int Board::getMSBIndex(unsigned long long bitBoard){
-	unsigned long long tmpBitBoard = __builtin_ctzll(bitBoard);
-	return tmpBitBoard;
+	return __builtin_ctzll(bitBoard);
 }
 
 void Board::genMoves(){
@@ -233,22 +232,111 @@ void Board::genKingMoves(int square){
     // 		move.createMove(square, new_square, 0, 0);
         }
 	}
-	printBitBoard(king_moves);
 }
 
 void Board::genQueenMoves(int square){
-	/*
-	unsigned long long queen_moves;
-	int new_square, i;
+	unsigned long long queen_moves = 0;
+	int new_square;
 	if(whiteTurn){
-		for(i = 0; i < 8; i++){
-
+		// North
+		queen_moves |= RAYS[square][0] ^ (whitePieces & RAYS[square][0]);
+		if(RAYS[square][0] & allPieces){
+			new_square = getLSBIndex(RAYS[square][0] & allPieces);
+			queen_moves &= ~RAYS[new_square][0];
 		}
-		queen_moves
+		// East
+		queen_moves |= RAYS[square][2] ^ (whitePieces & RAYS[square][2]);
+		if(RAYS[square][2] & allPieces){
+			new_square = getMSBIndex(RAYS[square][2] & allPieces);
+			queen_moves &= ~RAYS[new_square][2];
+		}
+		// South
+		queen_moves |= RAYS[square][4] ^ (whitePieces & RAYS[square][4]);
+		if(RAYS[square][4] & allPieces){
+			new_square = getMSBIndex(RAYS[square][4] & allPieces);
+			queen_moves &= ~RAYS[new_square][4];
+		}
+		// West
+		queen_moves |= RAYS[square][6] ^ (whitePieces & RAYS[square][6]);
+		if(RAYS[square][6] & allPieces){
+			new_square = getLSBIndex(RAYS[square][6] & allPieces);
+			queen_moves &= ~RAYS[new_square][6];
+		}
+		//ne
+		queen_moves |= RAYS[square][1] ^ (whitePieces & RAYS[square][1]);
+		if(RAYS[square][1] & allPieces){
+			new_square = getLSBIndex(RAYS[square][1]&allPieces);
+			queen_moves &= ~RAYS[new_square][1];
+		}
+		//se
+		queen_moves |= RAYS[square][3] ^ (whitePieces & RAYS[square][3]);
+		if(RAYS[square][3] & allPieces){
+			new_square = getMSBIndex(RAYS[square][3]&allPieces);
+			queen_moves &= ~RAYS[new_square][3];
+		}
+		//sw
+		queen_moves |= RAYS[square][5] ^ (whitePieces & RAYS[square][5]);
+		if(RAYS[square][5] & allPieces){
+			new_square = getMSBIndex(RAYS[square][5]&allPieces);
+			queen_moves &= ~RAYS[new_square][5];
+		}
+		//nw
+		queen_moves |= RAYS[square][7] ^ (whitePieces & RAYS[square][7]);
+		if(RAYS[square][7] & allPieces){
+			new_square = getLSBIndex(RAYS[square][7] & allPieces);
+			queen_moves &= ~RAYS[new_square][7];
+		}
 	}else{
-
+		// North
+		queen_moves |= RAYS[square][0] ^ (blackPieces & RAYS[square][0]);
+		if(RAYS[square][0] & allPieces){
+			new_square = getLSBIndex(RAYS[square][0] & allPieces);
+			queen_moves &= ~RAYS[square][0];
+		}
+		// East
+		queen_moves |= RAYS[square][2] ^ (blackPieces & RAYS[square][2]);
+		if(RAYS[square][2] & allPieces){
+			new_square = getMSBIndex(RAYS[square][2] & allPieces);
+			queen_moves &= ~RAYS[square][2];
+		}
+		// South
+		queen_moves |= RAYS[square][4] ^ (blackPieces & RAYS[square][4]);
+		if(RAYS[square][4] & allPieces){
+			new_square = getMSBIndex(RAYS[square][4] & allPieces);
+			queen_moves &= ~RAYS[square][4];
+		}
+		// West
+		queen_moves |= RAYS[square][6] ^ (blackPieces & RAYS[square][6]);
+		if(RAYS[square][6] & allPieces){
+			new_square = getLSBIndex(RAYS[square][6] & allPieces);
+			queen_moves &= ~RAYS[square][6];
+		}
+		//ne
+		queen_moves |= RAYS[square][1] ^ (blackPieces & RAYS[square][1]);
+		if(RAYS[square][1] & allPieces){
+			new_square = getLSBIndex(RAYS[square][1]&allPieces);
+			queen_moves &= ~RAYS[new_square][1];
+		}
+		//se
+		queen_moves |= RAYS[square][3] ^ (blackPieces & RAYS[square][3]);
+		if(RAYS[square][3] & allPieces){
+			new_square = getMSBIndex(RAYS[square][3]&allPieces);
+			queen_moves &= ~RAYS[new_square][3];
+		}
+		//sw
+		queen_moves |= RAYS[square][5] ^ (blackPieces & RAYS[square][5]);
+		if(RAYS[square][5] & allPieces){
+			new_square = getMSBIndex(RAYS[square][5]&allPieces);
+			queen_moves &= ~RAYS[new_square][5];
+		}
+		//nw
+		queen_moves |= RAYS[square][7] ^ (blackPieces & RAYS[square][7]);
+		if(RAYS[square][7] & allPieces){
+			new_square = getLSBIndex(RAYS[square][7] & allPieces);
+			queen_moves &= ~RAYS[new_square][7];
+		}
 	}
-	*/
+	printBitBoard(queen_moves);
 }
 
 void Board::genRookMoves(int square){
@@ -361,7 +449,6 @@ void Board::genBishopMoves(int square){
 			bishop_moves &= ~RAYS[new_square][7];
 		}
 	}
-	printBitBoard(bishop_moves);
 }
 
 void Board::genKnightMoves(int square){

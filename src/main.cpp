@@ -30,12 +30,17 @@ unsigned long long RAYS[64][8];
 
 int main(int argc, char** argv){
 	Board b;
+
+	if(argc < 2) {
+		fprintf(stderr,"Please supply a FEN string\n");
+		return 1;
+	}
     b.INITIALIZE_KING_LOOKUP_TBL();
     b.INITIALIZE_KNIGHT_LOOKUP_TBL();
     b.INITIALIZE_RAYS();
 	Game game;
 	b.genBoardFromFEN(argv[1]);
+	b.genQueenMoves(28);
 
-
-    game.playTurn(argv[1]);
+//    game.playTurn(argv[1]);
 }
