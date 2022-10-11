@@ -34,6 +34,8 @@ int main(int argc, char** argv){
     b.INITIALIZE_KNIGHT_LOOKUP_TBL();
     b.INITIALIZE_RAYS();
 	Game game;
+	b.genBoardFromFEN(argv[1]);
+
 
     game.playTurn(argv[1]);
 }

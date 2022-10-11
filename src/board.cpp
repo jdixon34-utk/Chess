@@ -107,6 +107,7 @@ void Board::genBoardFromFEN(string FEN){
 		num += FEN[indexFEN];
 		indexFEN++;
 	}
+
 	fullMoveNumber = stoi(num);
 }
 
@@ -171,7 +172,7 @@ int Board::getLSBIndex(unsigned long long bitBoard){
 }
 int Board::getMSBIndex(unsigned long long bitBoard){
 	unsigned long long tmpBitBoard = __builtin_ctzll(bitBoard);
-	return (63-tmpBitBoard);
+	return tmpBitBoard;
 }
 
 void Board::genMoves(){
@@ -213,7 +214,7 @@ void Board::genMoves(){
 
 void Board::genKingMoves(int square){
 	unsigned long long king_moves;
-	int new_square
+	int new_square;
 //	Move *move;
 	if(whiteTurn){
 		king_moves = KING_LOOKUP_TBL[square] ^ (whitePieces & KING_LOOKUP_TBL[square]);
@@ -308,57 +309,56 @@ void Board::genRookMoves(int square){
 
 void Board::genBishopMoves(int square){
 	unsigned long long bishop_moves = 0;
-	int new_square, i;
+	int new_square;
 	if(whiteTurn){
 		//ne
-		bishop_moves |= (RAYS[square][1] ^ (whitePieces & RAYS[square][1]));
+		bishop_moves |= RAYS[square][1] ^ (whitePieces & RAYS[square][1]);
 		if(RAYS[square][1] & allPieces){
 			new_square = getLSBIndex(RAYS[square][1]&allPieces);
-			bishop_moves &= RAYS[new_square][1];
+			bishop_moves &= ~RAYS[new_square][1];
 		}
 		//se
-		bishop_moves |= (RAYS[square][3] ^ (whitePieces & RAYS[square][3]));
+		bishop_moves |= RAYS[square][3] ^ (whitePieces & RAYS[square][3]);
 		if(RAYS[square][3] & allPieces){
 			new_square = getMSBIndex(RAYS[square][3]&allPieces);
-			bishop_moves &= RAYS[new_square][3];
+			bishop_moves &= ~RAYS[new_square][3];
 		}
 		//sw
-		bishop_moves |= (RAYS[square][5] ^ (whitePieces & RAYS[square][5]));
+		bishop_moves |= RAYS[square][5] ^ (whitePieces & RAYS[square][5]);
 		if(RAYS[square][5] & allPieces){
 			new_square = getMSBIndex(RAYS[square][5]&allPieces);
-			bishop_moves &= RAYS[new_square][5];
+			bishop_moves &= ~RAYS[new_square][5];
 		}
 		//nw
-		bishop_moves |= (RAYS[square][7] ^ (whitePieces & RAYS[square][7]));
+		bishop_moves |= RAYS[square][7] ^ (whitePieces & RAYS[square][7]);
 		if(RAYS[square][7] & allPieces){
-			new_square = getLSBIndex(RAYS[square][7]&allPieces);
-			bishop_moves &= RAYS[new_square][7];
+			new_square = getLSBIndex(RAYS[square][7] & allPieces);
+			bishop_moves &= ~RAYS[new_square][7];
 		}
-	}
-	else{
+	}else{
 		//ne
 		bishop_moves |= (RAYS[square][1] ^ (blackPieces & RAYS[square][1]));
 		if(RAYS[square][1] & allPieces){
 			new_square = getLSBIndex(RAYS[square][1]&allPieces);
-			bishop_moves &= RAYS[new_square][1];
+			bishop_moves &= ~RAYS[new_square][1];
 		}
 		//se
 		bishop_moves |= (RAYS[square][3] ^ (blackPieces & RAYS[square][3]));
 		if(RAYS[square][3] & allPieces){
 			new_square = getMSBIndex(RAYS[square][3]&allPieces);
-			bishop_moves &= RAYS[new_square][3];
+			bishop_moves &= ~RAYS[new_square][3];
 		}
 		//sw
-		bishop_moves |= (RAYS[square][5] ^ (blackPieces & RAYS[square][5]));
+//		bishop_moves |= (RAYS[square][5] ^ (blackPieces & RAYS[square][5]));
 		if(RAYS[square][5] & allPieces){
 			new_square = getMSBIndex(RAYS[square][5]&allPieces);
-			bishop_moves &= RAYS[new_square][5];
+//			bishop_moves &= ~RAYS[new_square][5];
 		}
 		//nw
 		bishop_moves |= (RAYS[square][7] ^ (blackPieces & RAYS[square][7]));
 		if(RAYS[square][7] & allPieces){
 			new_square = getLSBIndex(RAYS[square][7]&allPieces);
-			bishop_moves &= RAYS[new_square][7];
+			bishop_moves &= ~RAYS[new_square][7];
 		}
 	}
 	printBitBoard(bishop_moves);

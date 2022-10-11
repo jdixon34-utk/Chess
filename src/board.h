@@ -24,7 +24,7 @@ extern unsigned long long KING_LOOKUP_TBL[64];
 extern unsigned long long KNIGHT_LOOKUP_TBL[64];
 //all rays from one of 64 squares in one of 8 directions(N, NE, E, SE, etc.)
 //used for sliding pieces only
-extern unsigned long long RAYS[64][8]; 
+extern unsigned long long RAYS[64][8];
 
 
 class Board{
@@ -57,10 +57,10 @@ private:
 	unsigned long long blackBishops;
 	unsigned long long blackKnights;
 	unsigned long long blackPawns;
-	
+
 	//Move is a struct that will be defined somewhere else
 	//it just holds the information of a move: "from" square, "to" square, and other small info
-	std::vector<class Move> moves; 
+	std::vector<class Move> moves;
 
 public:
 
@@ -69,6 +69,7 @@ public:
 	void printPosition();
 
 	int getLSBIndex(unsigned long long bitBoard);
+	int getMSBIndex(unsigned long long);
 
 	void genMoves();
 	void genKingMoves(int square);
