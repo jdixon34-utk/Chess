@@ -171,7 +171,7 @@ int Board::getLSBIndex(unsigned long long bitBoard){
 	return __builtin_popcountll(bitBoard) - 1;
 }
 int Board::getMSBIndex(unsigned long long bitBoard){
-	return __builtin_ctzll(bitBoard);
+	return 63 - __builtin_clzll(bitBoard);
 }
 
 void Board::genMoves(){
@@ -247,7 +247,7 @@ void Board::genQueenMoves(int square){
 		// East
 		queen_moves |= RAYS[square][2] ^ (whitePieces & RAYS[square][2]);
 		if(RAYS[square][2] & allPieces){
-			new_square = getMSBIndex(RAYS[square][2] & allPieces);
+			new_square = getLSBIndex(RAYS[square][2] & allPieces);
 			queen_moves &= ~RAYS[new_square][2];
 		}
 		// South
@@ -259,7 +259,7 @@ void Board::genQueenMoves(int square){
 		// West
 		queen_moves |= RAYS[square][6] ^ (whitePieces & RAYS[square][6]);
 		if(RAYS[square][6] & allPieces){
-			new_square = getLSBIndex(RAYS[square][6] & allPieces);
+			new_square = getMSBIndex(RAYS[square][6] & allPieces);
 			queen_moves &= ~RAYS[new_square][6];
 		}
 		//ne
@@ -296,7 +296,7 @@ void Board::genQueenMoves(int square){
 		// East
 		queen_moves |= RAYS[square][2] ^ (blackPieces & RAYS[square][2]);
 		if(RAYS[square][2] & allPieces){
-			new_square = getMSBIndex(RAYS[square][2] & allPieces);
+			new_square = getLSBIndex(RAYS[square][2] & allPieces);
 			queen_moves &= ~RAYS[square][2];
 		}
 		// South
@@ -308,7 +308,8 @@ void Board::genQueenMoves(int square){
 		// West
 		queen_moves |= RAYS[square][6] ^ (blackPieces & RAYS[square][6]);
 		if(RAYS[square][6] & allPieces){
-			new_square = getLSBIndex(RAYS[square][6] & allPieces);
+			new_square = getMSBIndex(RAYS[square][6] & allPieces);
+			printf("%d\n", new_square);
 			queen_moves &= ~RAYS[square][6];
 		}
 		//ne
@@ -352,7 +353,7 @@ void Board::genRookMoves(int square){
 		// East
 		rm |= RAYS[square][2] ^ (whitePieces & RAYS[square][2]);
 		if(RAYS[square][2] & allPieces){
-			block = getMSBIndex(RAYS[square][2] & allPieces);
+			block = getLSBIndex(RAYS[square][2] & allPieces);
 			rm &= ~RAYS[block][2];
 		}
 		// South
@@ -364,7 +365,7 @@ void Board::genRookMoves(int square){
 		// West
 		rm |= RAYS[square][6] ^ (whitePieces & RAYS[square][6]);
 		if(RAYS[square][6] & allPieces){
-			block = getLSBIndex(RAYS[square][6] & allPieces);
+			block = getMSBIndex(RAYS[square][6] & allPieces);
 			rm &= ~RAYS[block][6];
 		}
 	}else{ // Black's Turn
@@ -393,6 +394,7 @@ void Board::genRookMoves(int square){
 			rm &= ~RAYS[block][6];
 		}
 	}
+	printBitBoard(RAYS[square][4]);
 	printBitBoard(rm);
 }
 
