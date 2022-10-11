@@ -1,3 +1,94 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    display: flex;
+    margin-left: 24.5%;
+    /*justify-content: center*/;
+  }
+ 
+#chessboard {
+    width: 50.45%;
+    height: 100.5%;
+    margin: 5px;
+    border: 2px solid #333;
+    position: absolute;
+}
+/*width/height should be about 1/8 the width/height of the chessboard for both white and black*/
+.black {
+    float: left;
+    width: 12.5%;
+    height: 12.5%;
+    background-color: black;
+ 
+}
+.white {
+    float: left;
+    width: 12.5%;
+    height: 12.5%;
+    background-color: white;
+}
+ 
+.black-piece{
+    background: black;
+    width: 50px;
+    height: 50px;
+    margin: 13% auto;
+    border: 2px solid white;
+    cursor:pointer;
+}
+ 
+.white-piece{
+    background: white;
+    width: 50px;
+    height: 50px;
+    margin: 13% auto;
+    border: 2px solid black;
+    cursor:pointer;
+}
+ 
+.pawn{
+    border-radius: 25px;
+}
+ 
+.castle{
+    background: orange;
+}
+ 
+.bishop{
+    border-bottom: 50px solid blue;
+    border-left: 22px solid transparent;
+    border-right: 22px solid transparent;
+    height: 0;
+    width: 50px;
+}
+ 
+.knight{
+    background: green;
+}
+ 
+.queen{
+    background: rgb(253, 123, 145);
+    width: 48px;
+    height: 48px;
+    -webkit-transform: skew(140deg);
+    -moz-transform: skew(140deg);
+    -o-transform: skew(140deg);
+    transform: skew(140deg);
+}
+ 
+.king{
+    width: 50px;
+    height: 50px;
+    background: purple;
+    -webkit-transform: skew(30deg);
+    -moz-transform: skew(30deg);
+    -o-transform: skew(30deg);
+    transform: skew(30deg);
+}
+ 
+.current{
+    border: 2px solid #FF8200;
+}
+
