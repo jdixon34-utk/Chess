@@ -41,6 +41,8 @@ Group: ChessWebsite
 - Chess/ChessWebsite/src/routes/learn/+page.svelte
 - Chess/ChessWebsite/src/app.css
 - Chess/ChessWebsite/tailwind.config.cjs
+- All auto-generated config files for Svelte in Chess/ChessWebsite
+- All auto-generated files in node_modules/ and .svelte-kit/
 
 ### What I accomplished
 I was able to successfully setup the SvelteKit and link in TailwindCSS properly. From here, I went ahead and structured the pages we plan to have for the website by creating the routes to these pages in the routes/ directory. Finally, I decided to create the Navbar component of our webpage and to coded it for mobile as well.
