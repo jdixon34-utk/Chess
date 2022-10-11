@@ -1,0 +1,85 @@
+a677b5fe (Jake 2022-09-29 08:32:39 -0400  1) <script>
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400  2)     import Icon from '@iconify/svelte';
+a677b5fe (Jake 2022-09-29 08:32:39 -0400  3) 
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400  4)     /* Variables */
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400  5)     let noMenu = true;
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400  6) 
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400  7)     /* Handlers and other functions */
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400  8)     const CloseMenu = () => noMenu = true;
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400  9)     const OpenMenu = () => noMenu = false;
+a677b5fe (Jake 2022-09-29 08:32:39 -0400 10) </script>
+a677b5fe (Jake 2022-09-29 08:32:39 -0400 11) 
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 12) <!-- This is the top of the Navigation Bar -->
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 13) <div class="w-full h-[9vh] bg-[#171717] text-white flex flex-row justify-between items-center text-[25px] fixed z-40">
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 14)     <a href="/" class="ml-6"><h1>ChadChess&trade</h1></a>
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 15) 
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 16)     <!-- This is only viewed on mobile, right side of Navbar -->
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 17)     {#if noMenu === true}
+df3ceae1 (Jake 2022-10-04 09:42:46 -0400 18)         <div class="text-4xl md:hidden mr-6 cursor-pointer" on:click={() => OpenMenu()}>
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 19)             <Icon icon="line-md:close-to-menu-alt-transition" />
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 20)         </div>
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 21)     {:else if noMenu === false}
+df3ceae1 (Jake 2022-10-04 09:42:46 -0400 22)         <div class="text-4xl md:hidden mr-6 cursor-pointer" on:click={() => CloseMenu()}>
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 23)             <Icon icon="line-md:menu-to-close-alt-transition" />
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 24)         </div>
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 25)     {/if}
+8c5bc0fe (Jake 2022-10-04 09:31:09 -0400 26) 
+8c5bc0fe (Jake 2022-10-04 09:31:09 -0400 27)    <!-- This is only viewed on desktop, right side of Navbar -->
+8c5bc0fe (Jake 2022-10-04 09:31:09 -0400 28)     <div class="hidden md:flex flex-row">
+8c5bc0fe (Jake 2022-10-04 09:31:09 -0400 29)         <a href="/" class="mr-6"><h1>Play</h1></a>
+8c5bc0fe (Jake 2022-10-04 09:31:09 -0400 30)         <a href="/learn" class="mr-6"><h1>How To Play</h1></a>
+8c5bc0fe (Jake 2022-10-04 09:31:09 -0400 31)         <a href="/about" class="mr-6"><h1>About Project</h1></a>
+8c5bc0fe (Jake 2022-10-04 09:31:09 -0400 32)         <a href="https://github.com/utk-cs340-fall22/Chess" target="_blank" class="mr-6"><h1>Github</h1></a>
+8c5bc0fe (Jake 2022-10-04 09:31:09 -0400 33)     </div>
+a677b5fe (Jake 2022-09-29 08:32:39 -0400 34) </div>
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 35) 
+8c5bc0fe (Jake 2022-10-04 09:31:09 -0400 36) <!-- If the mobile menu is clicked, we need to display the menu -->
+8c5bc0fe (Jake 2022-10-04 09:31:09 -0400 37) {#if noMenu === false}
+8c5bc0fe (Jake 2022-10-04 09:31:09 -0400 38)     <div class="flex flex-col w-full h-screen justify-center items-center bg-black text-white text-4xl md:hidden">
+8c5bc0fe (Jake 2022-10-04 09:31:09 -0400 39)         <a on:click={() => CloseMenu()} href="/" class="mt-6"><h1>Play</h1></a>
+8c5bc0fe (Jake 2022-10-04 09:31:09 -0400 40)         <a on:click={() => CloseMenu()} href="/learn" class="mt-6"><h1>How To Play</h1></a>
+8c5bc0fe (Jake 2022-10-04 09:31:09 -0400 41)         <a on:click={() => CloseMenu()} href="/about" class="mt-6"><h1>About Project</h1></a>
+8c5bc0fe (Jake 2022-10-04 09:31:09 -0400 42)         <a on:click={() => CloseMenu()} href="https://github.com/utk-cs340-fall22/Chess" target="_blank" class="mt-6"><h1>Github</h1></a>
+8c5bc0fe (Jake 2022-10-04 09:31:09 -0400 43)     </div>
+8c5bc0fe (Jake 2022-10-04 09:31:09 -0400 44) {/if}
+
+3795c4ef (Jake 2022-09-29 08:31:58 -0400 1) <script>
+3795c4ef (Jake 2022-09-29 08:31:58 -0400 2)     import Navbar from "../components/Navbar.svelte";
+3795c4ef (Jake 2022-09-29 08:31:58 -0400 3) </script>
+3795c4ef (Jake 2022-09-29 08:31:58 -0400 4) 
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 5) <Navbar />
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 6) <h1 class="pt-[9vh]">HOME PAGE</h1>
+
+06be0632 (Jake 2022-09-29 08:32:19 -0400 1) <script>
+06be0632 (Jake 2022-09-29 08:32:19 -0400 2)     import "../app.css";
+06be0632 (Jake 2022-09-29 08:32:19 -0400 3) </script>
+06be0632 (Jake 2022-09-29 08:32:19 -0400 4)   
+06be0632 (Jake 2022-09-29 08:32:19 -0400 5) <slot />
+
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 1) <script>
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 2)     import Navbar from "/Users/jakeshoffner/Desktop/Chess/ChessWebsite/src/components/Navbar.svelte";
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 3) </script>
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 4) 
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 5) <Navbar />
+
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 1) <script>
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 2)     import Navbar from "/Users/jakeshoffner/Desktop/Chess/ChessWebsite/src/components/Navbar.svelte";
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 3) </script>
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 4) 
+5d450ad5 (Jake 2022-10-04 09:12:16 -0400 5) <Navbar />
+
+3795c4ef (Jake                     2022-09-29 08:31:58 -0400  1) @tailwind base;
+3795c4ef (Jake                     2022-09-29 08:31:58 -0400  2) @tailwind components;
+3795c4ef (Jake                     2022-09-29 08:31:58 -0400  3) @tailwind utilities;
+025d0320 (Jake                     2022-10-11 10:59:01 -0400  7)     /*margin-left: 24.5%; */
+025d0320 (Jake                     2022-10-11 10:59:01 -0400 12)     width: 10.45%;
+025d0320 (Jake                     2022-10-11 10:59:01 -0400 14)     margin: 10%;
+
+06be0632 (Jake 2022-09-29 08:32:19 -0400 1) /** @type {import('tailwindcss').Config} */
+06be0632 (Jake 2022-09-29 08:32:19 -0400 2) module.exports = {
+06be0632 (Jake 2022-09-29 08:32:19 -0400 3)   content: ['./src/**/*.{html,js,svelte,ts}'],
+06be0632 (Jake 2022-09-29 08:32:19 -0400 4)   theme: {
+06be0632 (Jake 2022-09-29 08:32:19 -0400 5)     extend: {},
+06be0632 (Jake 2022-09-29 08:32:19 -0400 6)   },
+06be0632 (Jake 2022-09-29 08:32:19 -0400 7)   plugins: [],
+06be0632 (Jake 2022-09-29 08:32:19 -0400 8) }

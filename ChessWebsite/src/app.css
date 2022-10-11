@@ -4,14 +4,14 @@
 
 :root {
     display: flex;
-    margin-left: 24.5%;
+    /*margin-left: 24.5%; */
     /*justify-content: center*/;
   }
  
 #chessboard {
-    width: 50.45%;
+    width: 10.45%;
     height: 100.5%;
-    margin: 5px;
+    margin: 10%;
     border: 2px solid #333;
     position: absolute;
 }
