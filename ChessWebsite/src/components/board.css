@@ -1,17 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
     display: flex;
-    /*margin-left: 24.5%; */
+    margin-left: 24.5%;
     /*justify-content: center*/;
   }
  
 #chessboard {
-    width: 10.45%;
+    width: 50.45%;
     height: 100.5%;
-    margin: 10%;
+    margin: 5px;
     border: 2px solid #333;
     position: absolute;
 }
@@ -91,4 +87,6 @@
 .current{
     border: 2px solid #FF8200;
 }
-
+/*.chessarea {
+    margin-top: 30vh;
+}*/
