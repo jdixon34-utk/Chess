@@ -40,7 +40,7 @@ int main(int argc, char** argv){
     b.INITIALIZE_RAYS();
 	Game game;
 	b.genBoardFromFEN(argv[1]);
-	b.genQueenMoves(28);
+	b.genRookMoves(23);
 
 //    game.playTurn(argv[1]);
 }
