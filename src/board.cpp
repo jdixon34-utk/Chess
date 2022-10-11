@@ -378,7 +378,7 @@ void Board::genRookMoves(int square){
 		// East
 		rm |= RAYS[square][2] ^ (blackPieces & RAYS[square][2]);
 		if(RAYS[square][2] & allPieces){
-			block = getMSBIndex(RAYS[square][2] & allPieces);
+			block = getLSBIndex(RAYS[square][2] & allPieces);
 			rm &= ~RAYS[block][2];
 		}
 		// South
@@ -390,12 +390,10 @@ void Board::genRookMoves(int square){
 		// West
 		rm |= RAYS[square][6] ^ (blackPieces & RAYS[square][6]);
 		if(RAYS[square][6] & allPieces){
-			block = getLSBIndex(RAYS[square][6] & allPieces);
+			block = getMSBIndex(RAYS[square][6] & allPieces);
 			rm &= ~RAYS[block][6];
 		}
 	}
-	printBitBoard(RAYS[square][4]);
-	printBitBoard(rm);
 }
 
 void Board::genBishopMoves(int square){
