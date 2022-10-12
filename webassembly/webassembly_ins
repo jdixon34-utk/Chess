@@ -1,0 +1,10 @@
+em++ test.cpp -s WASM=1 -s EXPORT_ALL=1 -O3 -o test.js   - old compile don't need to use now
+emrun --port 8080 .                                      - will open the website in a web browser
+
+npm run dev                                              
+
+
+emcc -lembind -o quick_example.js quick_example.cpp l.cpp   - how we currently compile
+git clone https://github.com/emscripten-core/emsdk.git      - clone the git
+./emsdk install latest                                      - only need to run your first time
+./emsdk activate latest                                     - need to do everytime you open your shell, will not compile without this
