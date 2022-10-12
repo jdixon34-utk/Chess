@@ -26,6 +26,10 @@ extern unsigned long long KNIGHT_LOOKUP_TBL[64];
 //used for sliding pieces only
 extern unsigned long long RAYS[64][8];
 
+extern void INITIALIZE_KING_LOOKUP_TBL();
+extern void INITIALIZE_KNIGHT_LOOKUP_TBL();
+extern void INITIALIZE_RAYS();
+
 
 class Board{
 private:
@@ -85,10 +89,6 @@ public:
 	void genPawnRightEnPassantMoves();
 	void genCastleKS();
 	void genCastleQS();
-
-	static void INITIALIZE_KING_LOOKUP_TBL();
-    	static void INITIALIZE_KNIGHT_LOOKUP_TBL();
-    	static void INITIALIZE_RAYS();
 };
 
 #endif
