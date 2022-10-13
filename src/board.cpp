@@ -161,7 +161,14 @@ void Board::printPosition(){
 	printf("Black Castle Rights QS: %d\n", blackCastleRightsQS);
 	printf("En Passant Target Square: %d\n", enPassantTargetSquare);
 	printf("Moves Since Last Capture or Pawn Advance: %d\n", halfMoveClock);
-	printf("Full Move Number: %d\n", fullMoveNumber);
+	printf("Full Move Number: %d\n\n\n", fullMoveNumber);
+}
+
+void Board::printMoves(){
+	printf("%ld POSSIBLE MOVES\n", moves.size());
+	for(int i = 0; i < int(moves.size()); i++){
+		moves[i]->printMove();
+	}
 }
 
 //returns index of the least significant bit that is set to 1
@@ -228,37 +235,70 @@ void Board::genMoves(){
 
 	}
 	else{
+		tmpBitBoard = blackKing;
+		while(blackKing){
+			square = getLSBIndex(blackKing);
+			genKingMoves(square);
+			blackKing ^= 1ULL << square;
+		}
+		blackKing = tmpBitBoard;
 
+		tmpBitBoard = blackQueen;
+		while(blackQueen){
+			square = getLSBIndex(blackQueen);
+			genQueenMoves(square);
+			blackQueen ^= 1ULL << square;
+		}
+		blackQueen = tmpBitBoard;
+
+		tmpBitBoard = blackRooks;
+		while(blackRooks){
+			square = getLSBIndex(blackRooks);
+			genRookMoves(square);
+			blackRooks ^= 1ULL << square;
+		}
+		blackRooks = tmpBitBoard;
+
+		tmpBitBoard = blackBishops;
+		while(blackBishops){
+			square = getLSBIndex(blackBishops);
+			genBishopMoves(square);
+			blackBishops ^= 1ULL << square;
+		}
+		blackBishops = tmpBitBoard;
+
+		tmpBitBoard = blackKnights;
+		while(blackKnights){
+			square = getLSBIndex(blackKnights);
+			genKnightMoves(square);
+			blackKnights ^= 1ULL << square;
+		}
+		blackKnights = tmpBitBoard;
 	}
-
 }
 
 void Board::genKingMoves(int square){
 	unsigned long long king_moves;
 	int new_square;
-//	Move *move;
+	Move *move;
 	if(whiteTurn){
 		king_moves = KING_LOOKUP_TBL[square] ^ (whitePieces & KING_LOOKUP_TBL[square]);
-		while(king_moves != 0){
-            new_square = getLSBIndex(king_moves);
-            king_moves ^= 1ULL << new_square;
-    //		move = new Move;
-    //		move.createMove(square, new_square, 0, 0);
-        }
  	}else{
 		king_moves = KING_LOOKUP_TBL[square] ^ (blackPieces& KING_LOOKUP_TBL[square]);
-		while(king_moves != 0){
-            new_square = getLSBIndex(king_moves);
-            king_moves ^= 1ULL << new_square;
-    //		move = new Move;
-    // 		move.createMove(square, new_square, 0, 0);
-        }
 	}
+
+	while(king_moves != 0){
+        new_square = getLSBIndex(king_moves);
+        king_moves ^= 1ULL << new_square;
+    	move = new Move(square, new_square, 0, 0);
+		moves.push_back(move);
+    }
 }
 
 void Board::genQueenMoves(int square){
 	unsigned long long queen_moves = 0;
 	int new_square;
+	Move* move;
 	if(whiteTurn){
 		// North
 		queen_moves |= RAYS[square][0] ^ (whitePieces & RAYS[square][0]);
@@ -331,7 +371,6 @@ void Board::genQueenMoves(int square){
 		queen_moves |= RAYS[square][6] ^ (blackPieces & RAYS[square][6]);
 		if(RAYS[square][6] & allPieces){
 			new_square = getMSBIndex(RAYS[square][6] & allPieces);
-			printf("%d\n", new_square);
 			queen_moves &= ~RAYS[square][6];
 		}
 		//ne
@@ -359,11 +398,18 @@ void Board::genQueenMoves(int square){
 			queen_moves &= ~RAYS[new_square][7];
 		}
 	}
+	while(queen_moves != 0){
+        new_square = getLSBIndex(queen_moves);
+        queen_moves ^= 1ULL << new_square;
+    	move = new Move(square, new_square, 0, 0);
+		moves.push_back(move);
+    }
 }
 
 void Board::genRookMoves(int square){
     unsigned long long rm = 0;
-	int block;
+	int block, new_square;
+	Move *move;
 	if(whiteTurn){
 		// North
 		rm |= RAYS[square][0] ^ (whitePieces & RAYS[square][0]);
@@ -415,11 +461,18 @@ void Board::genRookMoves(int square){
 			rm &= ~RAYS[block][6];
 		}
 	}
+	while(rm != 0){
+        new_square = getLSBIndex(rm);
+        rm ^= 1ULL << new_square;
+    	move = new Move(square, new_square, 0, 0);
+		moves.push_back(move);
+    }
 }
 
 void Board::genBishopMoves(int square){
 	unsigned long long bishop_moves = 0;
 	int new_square;
+	Move* move;
 	if(whiteTurn){
 		//ne
 		bishop_moves |= RAYS[square][1] ^ (whitePieces & RAYS[square][1]);
@@ -471,23 +524,30 @@ void Board::genBishopMoves(int square){
 			bishop_moves &= ~RAYS[new_square][7];
 		}
 	}
+	while(bishop_moves != 0){
+        new_square = getLSBIndex(bishop_moves);
+        bishop_moves ^= 1ULL << new_square;
+    	move = new Move(square, new_square, 0, 0);
+		moves.push_back(move);
+    }
 }
 
 void Board::genKnightMoves(int square){
-    unsigned long long knightMoves = 0;
+    unsigned long long knight_moves = 0;
+	int new_square;
+	Move* move;
+
     if(whiteTurn){
-        knightMoves = KNIGHT_LOOKUP_TBL[square] ^ (whitePieces & KNIGHT_LOOKUP_TBL[square]);
+        knight_moves = KNIGHT_LOOKUP_TBL[square] ^ (whitePieces & KNIGHT_LOOKUP_TBL[square]);
     }else{ // Black's Turn
-        knightMoves = KNIGHT_LOOKUP_TBL[square] ^ (blackPieces & KNIGHT_LOOKUP_TBL[square]);
+        knight_moves = KNIGHT_LOOKUP_TBL[square] ^ (blackPieces & KNIGHT_LOOKUP_TBL[square]);
     }
 
-    int index;
-    while(knightMoves){
-        index = getLSBIndex(knightMoves);
-        knightMoves ^= 1ULL << index;
-
-        //Create Move
-
+    while(knight_moves != 0){
+        new_square = getLSBIndex(knight_moves);
+        knight_moves ^= 1ULL << new_square;
+    	move = new Move(square, new_square, 0, 0);
+		moves.push_back(move);
     }
 }
 
