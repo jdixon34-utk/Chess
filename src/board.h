@@ -86,8 +86,7 @@ public:
 	void genPawnSinglePushMoves();
 	void genPawnDoublePushMoves();
 	void genPawnRightMoves();
-	void genPawnLeftEnPassantMoves();
-	void genPawnRightEnPassantMoves();
+	void genEnPassantMoves();
 	void genCastleKS();
 	void genCastleQS();
 };
