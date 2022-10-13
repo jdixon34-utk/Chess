@@ -1,21 +1,35 @@
 # Sprint 1
 Jared Dixon, jdixon34-cs340, Chess
 
-### What you planned to do
+### What I planned to do
 (Give a short bulleted list of the items you planned to do for this sprint. Include the github issue number and link to the issue)
+* Wrote KNIGHT_LOOKUP_TBL function [Issue #10](https://github.com/utk-cs340-fall22/Chess/issues/10)
+* Wrote genBoardFromFEN function [Issue #12](https://github.com/utk-cs340-fall22/Chess/issues/12)
+* Wrote printBitBoard function [Issue #13](https://github.com/utk-cs340-fall22/Chess/issues/13)
+* Wrote printPosition function [Issue #14](https://github.com/utk-cs340-fall22/Chess/issues/14)
+* Wrote move constructor and printMove function [Issue #22](https://github.com/utk-cs340-fall22/Chess/issues/22)
+* Wrote pawnMoves functions including en passant [Issue #23](https://github.com/utk-cs340-fall22/Chess/issues/23)
+* Wrote castling functions [Issue #24](https://github.com/utk-cs340-fall22/Chess/issues/24)
 
 
-### What you did not do
-(Give a short bulleted list of the items that you planned to do, but did not accomplish)
+### What I did not do
+* Implement pawn promotion
+* Disallow castling while in check or through check
 
-### What problems you encountered
-(List the problems you encountered)
+### What problems I encountered
+* Everything went as expected
 
 ### Issues you worked on
-(List the specific github issues that you worked on with a link to the issue (ex: [#1](https://github.com/utk-cs340-fall22/ClassInfo/issues/1) Sample Issue)
+* [Issue #10](https://github.com/utk-cs340-fall22/Chess/issues/10)
+* [Issue #12](https://github.com/utk-cs340-fall22/Chess/issues/12)
+* [Issue #13](https://github.com/utk-cs340-fall22/Chess/issues/13)
+* [Issue #14](https://github.com/utk-cs340-fall22/Chess/issues/14)
+* [Issue #22](https://github.com/utk-cs340-fall22/Chess/issues/22)
+* [Issue #23](https://github.com/utk-cs340-fall22/Chess/issues/23)
+* [Issue #24](https://github.com/utk-cs340-fall22/Chess/issues/24)
 
 ### Files you worked on
-(Give a bulleted list of the files in your github repo that you worked on. Give the full pathname.)
+* All files in Chess/src
 
 ### What you accomplished
 (Give a description of the features you added or tasks you accomplished. Provide some detail here. This section will be a little longer than the bulleted lists above) 
