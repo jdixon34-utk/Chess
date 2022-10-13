@@ -1,1 +1,471 @@
-
+098add00 (jdixon34-cs340         2022-09-30 16:47:18 -0400   2) #include <string>
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400   3) #include <cmath>
+098add00 (jdixon34-cs340         2022-09-30 16:47:18 -0400   9) void Board::genBoardFromFEN(string FEN){
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 106) 	while((long unsigned int)indexFEN < FEN.length()){
+cb4804ab (jdixon34-cs340         2022-09-30 16:53:21 -0400 114) void Board::printBitBoard(unsigned long long bitBoard){
+255a5b2a (jdixon34-cs340         2022-10-03 11:45:57 -0400 123) }
+255a5b2a (jdixon34-cs340         2022-10-03 11:45:57 -0400 124) 
+255a5b2a (jdixon34-cs340         2022-10-03 11:45:57 -0400 125) void Board::printPosition(){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 164) 	printf("Full Move Number: %d\n\n\n", fullMoveNumber);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 165) }
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 166) 
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 167) void Board::printMoves(){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 168) 	printf("%ld POSSIBLE MOVES\n", moves.size());
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 169) 	for(int i = 0; i < int(moves.size()); i++){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 170) 		moves[i]->printMove();
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 171) 	}
+cb4804ab (jdixon34-cs340         2022-09-30 16:53:21 -0400 172) }
+cb4804ab (jdixon34-cs340         2022-09-30 16:53:21 -0400 173) 
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 174) //returns index of the least significant bit that is set to 1
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 175) int Board::getLSBIndex(unsigned long long bitBoard){
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 176) 	bitBoard = bitBoard ^ (bitBoard - 1);
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 177) 
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 178) 	return __builtin_popcountll(bitBoard) - 1;
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 179) }
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 180) 
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 184) 
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 186) 	unsigned long long tmpBitBoard;
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 187) 	int square;
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 188) 
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 189) 	if(whiteTurn){
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 190) 		/*
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 191) 		instead of looping through the whole bitboard to find bits set to 1,
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 192) 		we can keep finding the lsb set to 1, do what we need to do with it,
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 193) 		set it to 0, and repeat until the bitboard == 0
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 194) 		*/
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 195) 
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 196) 		tmpBitBoard = whiteKing;
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 197) 		while(whiteKing){
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 198) 			square = getLSBIndex(whiteKing);
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 199) 			genKingMoves(square);
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 200) 			whiteKing ^= 1ULL << square;
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 201) 		}
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 202) 		whiteKing = tmpBitBoard;
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 203) 
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 204) 		tmpBitBoard = whiteQueen;
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 205) 		while(whiteQueen){
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 206) 			square = getLSBIndex(whiteQueen);
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 207) 			genQueenMoves(square);
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 208) 			whiteQueen ^= 1ULL << square;
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 209) 		}
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 210) 		whiteQueen = tmpBitBoard;
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 211) 
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 212) 		tmpBitBoard = whiteRooks;
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 213) 		while(whiteRooks){
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 214) 			square = getLSBIndex(whiteRooks);
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 215) 			genRookMoves(square);
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 216) 			whiteRooks ^= 1ULL << square;
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 217) 		}
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 218) 		whiteRooks = tmpBitBoard;
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 219) 
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 220) 		tmpBitBoard = whiteBishops;
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 221) 		while(whiteBishops){
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 222) 			square = getLSBIndex(whiteBishops);
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 223) 			genBishopMoves(square);
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 224) 			whiteBishops ^= 1ULL << square;
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 225) 		}
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 226) 		whiteBishops = tmpBitBoard;
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 227) 
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 228) 		tmpBitBoard = whiteKnights;
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 229) 		while(whiteKnights){
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 230) 			square = getLSBIndex(whiteKnights);
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 231) 			genKnightMoves(square);
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 232) 			whiteKnights ^= 1ULL << square;
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 233) 		}
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 234) 		whiteKnights = tmpBitBoard;
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 235) 
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 236) 		genPawnLeftMoves();
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 237) 		genPawnSinglePushMoves();
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 238) 		genPawnDoublePushMoves();
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 239) 		genPawnRightMoves();
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 240) 		if(enPassantTargetSquare != 0) genEnPassantMoves();
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 241) 		if(whiteCastleRightsKS) genCastleKS();
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 242) 		if(whiteCastleRightsQS) genCastleQS();
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 243) 	}
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 244) 	else{
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 245) 		tmpBitBoard = blackKing;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 246) 		while(blackKing){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 247) 			square = getLSBIndex(blackKing);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 248) 			genKingMoves(square);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 249) 			blackKing ^= 1ULL << square;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 250) 		}
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 251) 		blackKing = tmpBitBoard;
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 252) 
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 253) 		tmpBitBoard = blackQueen;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 254) 		while(blackQueen){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 255) 			square = getLSBIndex(blackQueen);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 256) 			genQueenMoves(square);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 257) 			blackQueen ^= 1ULL << square;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 258) 		}
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 259) 		blackQueen = tmpBitBoard;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 261) 		tmpBitBoard = blackRooks;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 262) 		while(blackRooks){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 263) 			square = getLSBIndex(blackRooks);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 264) 			genRookMoves(square);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 265) 			blackRooks ^= 1ULL << square;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 266) 		}
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 267) 		blackRooks = tmpBitBoard;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 268) 
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 269) 		tmpBitBoard = blackBishops;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 270) 		while(blackBishops){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 271) 			square = getLSBIndex(blackBishops);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 272) 			genBishopMoves(square);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 273) 			blackBishops ^= 1ULL << square;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 274) 		}
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 275) 		blackBishops = tmpBitBoard;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 277) 		tmpBitBoard = blackKnights;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 278) 		while(blackKnights){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 279) 			square = getLSBIndex(blackKnights);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 280) 			genKnightMoves(square);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 281) 			blackKnights ^= 1ULL << square;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 282) 		}
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 283) 		blackKnights = tmpBitBoard;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 284) 
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 285) 		genPawnLeftMoves();
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 286) 		genPawnSinglePushMoves();
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 287) 		genPawnDoublePushMoves();
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 288) 		genPawnRightMoves();
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 289) 		if(enPassantTargetSquare != 0) genEnPassantMoves();
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 290) 		if(blackCastleRightsKS) genCastleKS();
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 291) 		if(blackCastleRightsQS) genCastleQS();
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 292) 	}
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 295) void Board::genKingMoves(int square){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 298) 	Move *move;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 304) 
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 305) 	while(king_moves != 0){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 306)         new_square = getLSBIndex(king_moves);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 307)         king_moves ^= 1ULL << new_square;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 308)     	move = new Move(square, new_square, 0, 0);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 309) 		moves.push_back(move);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 310)     }
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 313) void Board::genQueenMoves(int square){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 316) 	Move* move;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 416) 	while(queen_moves != 0){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 417)         new_square = getLSBIndex(queen_moves);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 418)         queen_moves ^= 1ULL << new_square;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 419)     	move = new Move(square, new_square, 0, 0);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 420) 		moves.push_back(move);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 421)     }
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 424) void Board::genRookMoves(int square){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 426) 	int block, new_square;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 427) 	Move *move;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 479) 	while(rm != 0){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 480)         new_square = getLSBIndex(rm);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 481)         rm ^= 1ULL << new_square;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 482)     	move = new Move(square, new_square, 0, 0);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 483) 		moves.push_back(move);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 484)     }
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 487) void Board::genBishopMoves(int square){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 490) 	Move* move;
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 530) 		bishop_moves |= (RAYS[square][5] ^ (blackPieces & RAYS[square][5]));
+46848192 (jdixon34-cs340         2022-10-12 14:51:07 -0400 533) 			bishop_moves &= ~RAYS[new_square][5];
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 542) 	while(bishop_moves != 0){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 543)         new_square = getLSBIndex(bishop_moves);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 544)         bishop_moves ^= 1ULL << new_square;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 545)     	move = new Move(square, new_square, 0, 0);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 546) 		moves.push_back(move);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 547)     }
+14bc2f1a (jdixon34-cs340         2022-10-04 20:38:49 -0400 550) void Board::genKnightMoves(int square){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 551)     unsigned long long knight_moves = 0;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 552) 	int new_square;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 553) 	Move* move;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 554) 
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 556)         knight_moves = KNIGHT_LOOKUP_TBL[square] ^ (whitePieces & KNIGHT_LOOKUP_TBL[square]);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 558)         knight_moves = KNIGHT_LOOKUP_TBL[square] ^ (blackPieces & KNIGHT_LOOKUP_TBL[square]);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 561)     while(knight_moves != 0){
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 562)         new_square = getLSBIndex(knight_moves);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 563)         knight_moves ^= 1ULL << new_square;
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 564)     	move = new Move(square, new_square, 0, 0);
+0a5b3cda (jdixon34-cs340         2022-10-12 20:03:48 -0400 565) 		moves.push_back(move);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 570) 	unsigned long long pawn_left_moves = 0;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 571) 	int new_square, square;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 572) 	Move* move;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 574)     if(whiteTurn){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 575)         pawn_left_moves = ((whitePawns << 7ULL) & ~FILE_H) & blackPieces;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 577) 		while(pawn_left_moves != 0){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 578) 			new_square = getLSBIndex(pawn_left_moves);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 579) 			square = new_square - 7;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 580) 			pawn_left_moves ^= 1ULL << new_square;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 581) 			move = new Move(square, new_square, 0, 0);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 582) 			moves.push_back(move);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 583) 		}
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 584)     }else{ // Black's Turn
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 585)         pawn_left_moves = ((blackPawns >> 7ULL) & ~FILE_A) & whitePieces;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 586) 
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 587) 		while(pawn_left_moves != 0){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 588) 			new_square = getLSBIndex(pawn_left_moves);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 589) 			square = new_square + 7;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 590) 			pawn_left_moves ^= 1ULL << new_square;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 591) 			move = new Move(square, new_square, 0, 0);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 592) 			moves.push_back(move);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 593) 		}
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 594)     }
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 598) 	unsigned long long pawn_sp_moves = 0;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 599) 	int new_square, square;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 600) 	Move* move;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 602)     if(whiteTurn){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 603)         pawn_sp_moves = (whitePawns << 8ULL) & ~allPieces;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 605) 		while(pawn_sp_moves != 0){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 606) 			new_square = getLSBIndex(pawn_sp_moves);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 607) 			square = new_square - 8;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 608) 			pawn_sp_moves ^= 1ULL << new_square;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 609) 			move = new Move(square, new_square, 0, 0);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 610) 			moves.push_back(move);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 611) 		}
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 612)     }else{ // Black's Turn
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 613)         pawn_sp_moves = (blackPawns >> 8ULL) & ~allPieces;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 615) 		while(pawn_sp_moves != 0){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 616) 			new_square = getLSBIndex(pawn_sp_moves);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 617) 			square = new_square + 8;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 618) 			pawn_sp_moves ^= 1ULL << new_square;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 619) 			move = new Move(square, new_square, 0, 0);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 620) 			moves.push_back(move);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 621) 		}
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 626) 	unsigned long long pawn_dp_moves = 0;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 627) 	int new_square, square;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 628) 	Move* move;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 630)     if(whiteTurn){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 631)         pawn_dp_moves = ((whitePawns << 16ULL) & (((~allPieces & RANK_3) << 8ULL) & (~allPieces & RANK_4)));
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 632) 		while(pawn_dp_moves != 0){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 633) 			new_square = getLSBIndex(pawn_dp_moves);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 634) 			square = new_square - 16;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 635) 			pawn_dp_moves ^= 1ULL << new_square;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 636) 			move = new Move(square, new_square, 0, 0);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 637) 			moves.push_back(move);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 638) 		}
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 639)     }else{ // Black's Turn
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 640)         pawn_dp_moves = ((blackPawns >> 16ULL) & (((~allPieces & RANK_6) >> 8ULL) & (~allPieces & RANK_5)));
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 641) 		while(pawn_dp_moves != 0){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 642) 			new_square = getLSBIndex(pawn_dp_moves);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 643) 			square = new_square + 16;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 644) 			pawn_dp_moves ^= 1ULL << new_square;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 645) 			move = new Move(square, new_square, 0, 0);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 646) 			moves.push_back(move);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 647) 		}
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 648)     }
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 652) 	unsigned long long pawn_right_moves = 0;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 653) 	int new_square, square;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 654) 	Move* move;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 656)     if(whiteTurn){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 657)         pawn_right_moves = ((whitePawns << 9ULL) & ~FILE_A) & blackPieces;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 659) 		while(pawn_right_moves != 0){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 660) 			new_square = getLSBIndex(pawn_right_moves);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 661) 			square = new_square - 9;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 662) 			pawn_right_moves ^= 1ULL << new_square;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 663) 			move = new Move(square, new_square, 0, 0);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 664) 			moves.push_back(move);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 665) 		}
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 666)     }else{ // Black's Turn
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 667)         pawn_right_moves = ((blackPawns >> 9ULL) & ~FILE_H) & whitePieces;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 669) 		while(pawn_right_moves != 0){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 670) 			new_square = getLSBIndex(pawn_right_moves);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 671) 			square = new_square + 9;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 672) 			pawn_right_moves ^= 1ULL << new_square;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 673) 			move = new Move(square, new_square, 0, 0);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 674) 			moves.push_back(move);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 675) 		}
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 676)     }
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 679) void Board::genEnPassantMoves(){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 680) 	unsigned long long enpass_moves = 0;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 681) 	int new_square, square;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 682) 	Move* move;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 684)     if(whiteTurn){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 685)         enpass_moves = ((whitePawns << 7ULL) & ~FILE_H) & (1ULL << enPassantTargetSquare);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 687) 		while(enpass_moves != 0){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 688) 			new_square = getLSBIndex(enpass_moves);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 689) 			square = new_square - 7;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 690) 			enpass_moves ^= 1ULL << new_square;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 691) 			move = new Move(square, new_square, 1, 0);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 692) 			moves.push_back(move);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 693) 		}
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 695) 		enpass_moves = ((whitePawns << 9ULL) & ~FILE_A) & (1ULL << enPassantTargetSquare);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 697) 		while(enpass_moves != 0){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 698) 			new_square = getLSBIndex(enpass_moves);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 699) 			square = new_square - 9;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 700) 			enpass_moves ^= 1ULL << new_square;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 701) 			move = new Move(square, new_square, 1, 0);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 702) 			moves.push_back(move);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 704)     }else{ // Black's Turn
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 705)         enpass_moves = ((blackPawns >> 7ULL) & ~FILE_A) & (1ULL << enPassantTargetSquare);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 707) 		while(enpass_moves != 0){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 708) 			new_square = getLSBIndex(enpass_moves);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 709) 			square = new_square + 7;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 710) 			enpass_moves ^= 1ULL << new_square;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 711) 			move = new Move(square, new_square, 1, 0);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 712) 			moves.push_back(move);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 715) 		enpass_moves = ((blackPawns >> 9ULL) & ~FILE_H) & (1ULL << enPassantTargetSquare);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 717) 		while(enpass_moves != 0){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 718) 			new_square = getLSBIndex(enpass_moves);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 719) 			square = new_square + 9;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 720) 			enpass_moves ^= 1ULL << new_square;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 721) 			move = new Move(square, new_square, 1, 0);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 722) 			moves.push_back(move);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 723) 		}
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 724)     }
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 728) 	Move* move;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 730) 	if(whiteTurn){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 731) 		//makes sure no pieces are blocking
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 732) 		if(((3ULL << 5) & allPieces) == 0){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 733) 			move = new Move(4, 6, 2, 0);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 734) 			moves.push_back(move);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 735) 		}
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 736) 	}
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 737) 	else{
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 738) 		//makes sure no pieces are blocking
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 739) 		if(((3ULL << 61) & allPieces) == 0){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 740) 			move = new Move(60, 62, 2, 0);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 741) 			moves.push_back(move);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 747) 	Move* move;
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 749) 	if(whiteTurn){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 750) 		//makes sure no pieces are blocking
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 751) 		if(((7ULL << 1) & allPieces) == 0){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 752) 			move = new Move(4, 2, 2, 0);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 753) 			moves.push_back(move);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 755) 	}
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 756) 	else{
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 757) 		//makes sure no pieces are blocking
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 758) 		if(((7ULL << 57) & allPieces) == 0){
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 759) 			move = new Move(60, 58, 2, 0);
+e2263a51 (jdixon34-cs340         2022-10-13 02:00:38 -0400 760) 			moves.push_back(move);
+ce7c5fe8 (jdixon34-cs340 2022-09-30 16:51:48 -0400  4) #include <string>
+33c4ae8b (jdixon34-cs340 2022-10-04 20:36:49 -0400 25) //all rays from one of 64 squares in one of 8 directions(N, NE, E, SE, etc.)
+33c4ae8b (jdixon34-cs340 2022-10-04 20:36:49 -0400 26) //used for sliding pieces only
+064cc7d2 (jdixon34-cs340 2022-10-12 14:52:02 -0400 29) extern void INITIALIZE_KING_LOOKUP_TBL();
+064cc7d2 (jdixon34-cs340 2022-10-12 14:52:02 -0400 30) extern void INITIALIZE_KNIGHT_LOOKUP_TBL();
+064cc7d2 (jdixon34-cs340 2022-10-12 14:52:02 -0400 31) extern void INITIALIZE_RAYS();
+064cc7d2 (jdixon34-cs340 2022-10-12 14:52:02 -0400 32) 
+ce7c5fe8 (jdixon34-cs340 2022-09-30 16:51:48 -0400 37)     	//important info given from FEN string
+33c4ae8b (jdixon34-cs340 2022-10-04 20:36:49 -0400 43) 	int enPassantTargetSquare;//square that a pawn that has moved forward 2 spaces goes over
+ce7c5fe8 (jdixon34-cs340 2022-09-30 16:51:48 -0400 44) 	int halfMoveClock;//The number of halfmoves since the last capture or pawn advance, used for the fifty-move rule
+7adf9b10 (jdixon34-cs340 2022-10-12 20:02:19 -0400 45)     int fullMoveNumber;//The number of the full moves. It starts at 1 and is incremented after Black's move
+33c4ae8b (jdixon34-cs340 2022-10-04 20:36:49 -0400 65) 	//Move is a struct that will be defined somewhere else
+33c4ae8b (jdixon34-cs340 2022-10-04 20:36:49 -0400 66) 	//it just holds the information of a move: "from" square, "to" square, and other small info
+7adf9b10 (jdixon34-cs340 2022-10-12 20:02:19 -0400 67) 	std::vector<class Move*> moves;
+5401dcea (jdixon34-cs340 2022-09-30 17:00:46 -0400 71) 	void genBoardFromFEN(std::string FEN);
+ce7c5fe8 (jdixon34-cs340 2022-09-30 16:51:48 -0400 72) 	void printBitBoard(unsigned long long bitBoard);
+ad6162a6 (jdixon34-cs340 2022-10-03 11:46:48 -0400 73) 	void printPosition();
+7adf9b10 (jdixon34-cs340 2022-10-12 20:02:19 -0400 74) 	void printMoves();
+33c4ae8b (jdixon34-cs340 2022-10-04 20:36:49 -0400 76) 	int getLSBIndex(unsigned long long bitBoard);
+33c4ae8b (jdixon34-cs340 2022-10-04 20:36:49 -0400 79) 	void genMoves();
+33c4ae8b (jdixon34-cs340 2022-10-04 20:36:49 -0400 80) 	void genKingMoves(int square);
+33c4ae8b (jdixon34-cs340 2022-10-04 20:36:49 -0400 81) 	void genQueenMoves(int square);
+33c4ae8b (jdixon34-cs340 2022-10-04 20:36:49 -0400 82) 	void genRookMoves(int square);
+33c4ae8b (jdixon34-cs340 2022-10-04 20:36:49 -0400 83) 	void genBishopMoves(int square);
+33c4ae8b (jdixon34-cs340 2022-10-04 20:36:49 -0400 84) 	void genKnightMoves(int square);
+a348560c (jdixon34-cs340 2022-10-13 02:01:22 -0400 89) 	void genEnPassantMoves();
+e73e8110 (jdixon34-cs340 2022-09-29 14:28:01 -0400 94) #endif
+50931311 (jdixon34-cs340 2022-09-29 14:21:31 -0400  2) #include <string>
+42d8a639 (jdixon34-cs340 2022-10-04 20:41:22 -0400  3) #include <vector>
+50931311 (jdixon34-cs340 2022-09-29 14:21:31 -0400  4) #include "game.h"
+50931311 (jdixon34-cs340 2022-09-29 14:21:31 -0400  5) #include "board.h"
+50931311 (jdixon34-cs340 2022-09-29 14:21:31 -0400  6) #include "move.h"
+fef2f93c (jdixon34-cs340 2022-09-30 17:03:11 -0400  7) using namespace std;
+50931311 (jdixon34-cs340 2022-09-29 14:21:31 -0400  8) 
+50931311 (jdixon34-cs340 2022-09-29 14:21:31 -0400  9) 
+fef2f93c (jdixon34-cs340 2022-09-30 17:03:11 -0400 10) string Game::playTurn(string FEN){
+42d8a639 (jdixon34-cs340 2022-10-04 20:41:22 -0400 11)     Board position;
+50931311 (jdixon34-cs340 2022-09-29 14:21:31 -0400 12) 
+42d8a639 (jdixon34-cs340 2022-10-04 20:41:22 -0400 13)     positions.push_back(position);
+42d8a639 (jdixon34-cs340 2022-10-04 20:41:22 -0400 14) 
+42d8a639 (jdixon34-cs340 2022-10-04 20:41:22 -0400 15)     position.genBoardFromFEN(FEN);
+42d8a639 (jdixon34-cs340 2022-10-04 20:41:22 -0400 16) 
+42d8a639 (jdixon34-cs340 2022-10-04 20:41:22 -0400 17)     position.printPosition();
+42d8a639 (jdixon34-cs340 2022-10-04 20:41:22 -0400 18) 
+42d8a639 (jdixon34-cs340 2022-10-04 20:41:22 -0400 19)     //we have the position all set up
+42d8a639 (jdixon34-cs340 2022-10-04 20:41:22 -0400 20)     //now we find all possible moves
+42d8a639 (jdixon34-cs340 2022-10-04 20:41:22 -0400 21)     position.genMoves();
+db547cc4 (jdixon34-cs340 2022-10-12 20:04:39 -0400 22) 
+db547cc4 (jdixon34-cs340 2022-10-12 20:04:39 -0400 23)     position.printMoves();
+42d8a639 (jdixon34-cs340 2022-10-04 20:41:22 -0400 24)   
+42d8a639 (jdixon34-cs340 2022-10-04 20:41:22 -0400 25)     //then do the search for the best move
+42d8a639 (jdixon34-cs340 2022-10-04 20:41:22 -0400 26) 
+42d8a639 (jdixon34-cs340 2022-10-04 20:41:22 -0400 27)     return "Eventual FEN String";
+50931311 (jdixon34-cs340 2022-09-29 14:21:31 -0400 28) }
+9f8a02d7 (jdixon34-cs340         2022-09-29 14:21:01 -0400  1) #include <vector>
+9f8a02d7 (jdixon34-cs340         2022-09-29 14:21:01 -0400  2) #include <string>
+9f8a02d7 (jdixon34-cs340         2022-09-29 14:21:01 -0400  3) 
+9f8a02d7 (jdixon34-cs340         2022-09-29 14:21:01 -0400  4) #ifndef GAME_H
+9f8a02d7 (jdixon34-cs340         2022-09-29 14:21:01 -0400  5) #define GAME_H
+9f8a02d7 (jdixon34-cs340         2022-09-29 14:21:01 -0400  6) 
+9f8a02d7 (jdixon34-cs340         2022-09-29 14:21:01 -0400  7) class Game{
+9f8a02d7 (jdixon34-cs340         2022-09-29 14:21:01 -0400  8) private:
+9f8a02d7 (jdixon34-cs340         2022-09-29 14:21:01 -0400  9) 
+564a7626 (jdixon34-cs340         2022-10-04 20:39:48 -0400 10)     	std::vector<class Board> positions;
+9f8a02d7 (jdixon34-cs340         2022-09-29 14:21:01 -0400 11) 
+9f8a02d7 (jdixon34-cs340         2022-09-29 14:21:01 -0400 12) public:
+9f8a02d7 (jdixon34-cs340         2022-09-29 14:21:01 -0400 13) 
+564a7626 (jdixon34-cs340         2022-10-04 20:39:48 -0400 15)     	std::string playTurn(std::string FEN);
+9f8a02d7 (jdixon34-cs340         2022-09-29 14:21:01 -0400 16) 
+9f8a02d7 (jdixon34-cs340         2022-09-29 14:21:01 -0400 17) };
+9f8a02d7 (jdixon34-cs340         2022-09-29 14:21:01 -0400 18) 
+9f8a02d7 (jdixon34-cs340         2022-09-29 14:21:01 -0400 19) #endif
+e7ba76f2 (jdixon34-cs340 2022-10-04 20:42:22 -0400   1) #include "game.h"
+e7ba76f2 (jdixon34-cs340 2022-10-04 20:42:22 -0400  25) //all rays from one of 64 squares in one of 8 directions(N, NE, E, SE, etc.)
+e7ba76f2 (jdixon34-cs340 2022-10-04 20:42:22 -0400  26) //used for sliding pieces only
+e7ba76f2 (jdixon34-cs340 2022-10-04 20:42:22 -0400  27) unsigned long long RAYS[64][8];
+e7ba76f2 (jdixon34-cs340 2022-10-04 20:42:22 -0400  28) 
+2675dbf0 (jdixon34-cs340 2022-10-12 14:53:05 -0400  29) void INITIALIZE_KING_LOOKUP_TBL();
+2675dbf0 (jdixon34-cs340 2022-10-12 14:53:05 -0400  30) void INITIALIZE_KNIGHT_LOOKUP_TBL();
+2675dbf0 (jdixon34-cs340 2022-10-12 14:53:05 -0400  31) void INITIALIZE_RAYS();
+e7ba76f2 (jdixon34-cs340 2022-10-04 20:42:22 -0400  32) 
+7094f82f (jdixon34-cs340 2022-10-12 20:05:38 -0400  34) 	if(argc != 2) {
+2675dbf0 (jdixon34-cs340 2022-10-12 14:53:05 -0400  35) 		fprintf(stderr,"Please supply a FEN string inside quotation marks\n");
+2675dbf0 (jdixon34-cs340 2022-10-12 14:53:05 -0400  38) 
+2675dbf0 (jdixon34-cs340 2022-10-12 14:53:05 -0400  39)     INITIALIZE_KING_LOOKUP_TBL();
+2675dbf0 (jdixon34-cs340 2022-10-12 14:53:05 -0400  40)     INITIALIZE_KNIGHT_LOOKUP_TBL();
+2675dbf0 (jdixon34-cs340 2022-10-12 14:53:05 -0400  41)     INITIALIZE_RAYS();
+2675dbf0 (jdixon34-cs340 2022-10-12 14:53:05 -0400  44)     game.playTurn(argv[1]);
+2675dbf0 (jdixon34-cs340 2022-10-12 14:53:05 -0400  45) }
+2675dbf0 (jdixon34-cs340 2022-10-12 14:53:05 -0400  46) 
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400  1) #include <iostream>
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400  2) #include <string>
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400  7) void Move::printMove(){
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400  8)     char from[3], to[3];
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400  9)     string sm, pp;
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 10) 
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 11)     from[0] = (fromSquare % 8) + 65;
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 12)     from[1] = (fromSquare / 8) + 49;
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 13)     from[2] = 0;
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 14) 
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 15)     to[0] = (toSquare % 8) + 65;
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 16)     to[1] = (toSquare / 8) + 49;
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 17)     to[2] = 0;
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 18) 
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 19)     switch(specialMove){
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 20) 			case 0: sm = "None"; break;
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 21) 			case 1: sm = "En Passant"; break;
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 22) 			case 2: sm = "Castling"; break;
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 23) 			case 3: sm = "Pawn Promotion"; break;
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 24)     }
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 25) 
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 26)     switch(promotedPiece){
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 27) 			case 0: pp = "None"; break;
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 28) 			case 1: pp = "Queen"; break;
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 29) 			case 2: pp = "Rook"; break;
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 30) 			case 3: pp = "Bishop"; break;
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 31)             case 4: pp = "Knight"; break;
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 32)     }
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 33) 
+c05cf1a7 (jdixon34-cs340 2022-10-13 02:02:45 -0400 34)     if(sm == "Castling"){
+c05cf1a7 (jdixon34-cs340 2022-10-13 02:02:45 -0400 35)         if(to[0] == 'G'){
+c05cf1a7 (jdixon34-cs340 2022-10-13 02:02:45 -0400 36)             printf("POSSIBLE MOVE O-O.   Special Move: %s   Promoted Piece: %s\n", sm.c_str(), pp.c_str());
+c05cf1a7 (jdixon34-cs340 2022-10-13 02:02:45 -0400 37)         }
+c05cf1a7 (jdixon34-cs340 2022-10-13 02:02:45 -0400 38)         else{
+c05cf1a7 (jdixon34-cs340 2022-10-13 02:02:45 -0400 39)             printf("POSSIBLE MOVE O-O-O.   Special Move: %s   Promoted Piece: %s\n", sm.c_str(), pp.c_str());
+c05cf1a7 (jdixon34-cs340 2022-10-13 02:02:45 -0400 40)         }
+c05cf1a7 (jdixon34-cs340 2022-10-13 02:02:45 -0400 41)     }
+c05cf1a7 (jdixon34-cs340 2022-10-13 02:02:45 -0400 42)     else{
+c05cf1a7 (jdixon34-cs340 2022-10-13 02:02:45 -0400 43)         printf("POSSIBLE MOVE from %s to %s.   Special Move: %s   Promoted Piece: %s\n", from, to, sm.c_str(), pp.c_str());
+c05cf1a7 (jdixon34-cs340 2022-10-13 02:02:45 -0400 44)     }
+526dee5c (jdixon34-cs340 2022-10-12 20:01:31 -0400 45) }
+9c1ab1bb (jdixon34-cs340 2022-10-12 20:00:46 -0400  9)     char specialMove; //0 = none, 1 = en passant, 2 = castling, 3 = pawn promotion
+9c1ab1bb (jdixon34-cs340 2022-10-12 20:00:46 -0400 10)     char promotedPiece; //0 = none, 1 = queen, 2 = rook, 3 = bishop, 4 = knight
+9c1ab1bb (jdixon34-cs340 2022-10-12 20:00:46 -0400 13)     Move(char fromSquareArg, char toSquareArg, char specialMoveArg, char promotedPieceArg){
+9c1ab1bb (jdixon34-cs340 2022-10-12 20:00:46 -0400 14)         fromSquare = fromSquareArg;
+9c1ab1bb (jdixon34-cs340 2022-10-12 20:00:46 -0400 15)         toSquare = toSquareArg;
+9c1ab1bb (jdixon34-cs340 2022-10-12 20:00:46 -0400 16)         specialMove = specialMoveArg;
+9c1ab1bb (jdixon34-cs340 2022-10-12 20:00:46 -0400 17)         promotedPiece = promotedPieceArg;
+9c1ab1bb (jdixon34-cs340 2022-10-12 20:00:46 -0400 18)     }
+9c1ab1bb (jdixon34-cs340 2022-10-12 20:00:46 -0400 19) 
+9c1ab1bb (jdixon34-cs340 2022-10-12 20:00:46 -0400 20)     void printMove();
+9c1ab1bb (jdixon34-cs340 2022-10-12 20:00:46 -0400 23) #endif
