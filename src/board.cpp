@@ -368,25 +368,25 @@ void Board::genQueenMoves(int square){
 		queen_moves |= RAYS[square][0] ^ (blackPieces & RAYS[square][0]);
 		if(RAYS[square][0] & allPieces){
 			new_square = getLSBIndex(RAYS[square][0] & allPieces);
-			queen_moves &= ~RAYS[square][0];
+			queen_moves &= ~RAYS[new_square][0];
 		}
 		// East
 		queen_moves |= RAYS[square][2] ^ (blackPieces & RAYS[square][2]);
 		if(RAYS[square][2] & allPieces){
 			new_square = getLSBIndex(RAYS[square][2] & allPieces);
-			queen_moves &= ~RAYS[square][2];
+			queen_moves &= ~RAYS[new_square][2];
 		}
 		// South
 		queen_moves |= RAYS[square][4] ^ (blackPieces & RAYS[square][4]);
 		if(RAYS[square][4] & allPieces){
 			new_square = getMSBIndex(RAYS[square][4] & allPieces);
-			queen_moves &= ~RAYS[square][4];
+			queen_moves &= ~RAYS[new_square][4];
 		}
 		// West
 		queen_moves |= RAYS[square][6] ^ (blackPieces & RAYS[square][6]);
 		if(RAYS[square][6] & allPieces){
 			new_square = getMSBIndex(RAYS[square][6] & allPieces);
-			queen_moves &= ~RAYS[square][6];
+			queen_moves &= ~RAYS[new_square][6];
 		}
 		//ne
 		queen_moves |= RAYS[square][1] ^ (blackPieces & RAYS[square][1]);
@@ -619,7 +619,7 @@ void Board::genPawnSinglePushMoves(){
 			move = new Move(square, new_square, 0, 0);
 			moves.push_back(move);
 		}
-    } 
+    }
 }
 
 void Board::genPawnDoublePushMoves(){
