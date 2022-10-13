@@ -1,0 +1,105 @@
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 243)             new_square = getLSBIndex(king_moves);
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 244)             king_moves ^= 1ULL << new_square;
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 245)     //		move = new Move;
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 246)     //		move.createMove(square, new_square, 0, 0);
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 247)         }
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 251)             new_square = getLSBIndex(king_moves);
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 252)             king_moves ^= 1ULL << new_square;
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 253)     //		move = new Move;
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 254)     // 		move.createMove(square, new_square, 0, 0);
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 255)         }
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 365)     unsigned long long rm = 0;
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 366) 	int block;
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 367) 	if(whiteTurn){
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 368) 		// North
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 369) 		rm |= RAYS[square][0] ^ (whitePieces & RAYS[square][0]);
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 370) 		if(RAYS[square][0] & allPieces){
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 371) 			block = getLSBIndex(RAYS[square][0] & allPieces);
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 372) 			rm &= ~RAYS[block][0];
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 373) 		}
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 374) 		// East
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 375) 		rm |= RAYS[square][2] ^ (whitePieces & RAYS[square][2]);
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 376) 		if(RAYS[square][2] & allPieces){
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 378) 			rm &= ~RAYS[block][2];
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 379) 		}
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 380) 		// South
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 381) 		rm |= RAYS[square][4] ^ (whitePieces & RAYS[square][4]);
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 382) 		if(RAYS[square][4] & allPieces){
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 384) 			rm &= ~RAYS[block][4];
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 385) 		}
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 386) 		// West
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 387) 		rm |= RAYS[square][6] ^ (whitePieces & RAYS[square][6]);
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 388) 		if(RAYS[square][6] & allPieces){
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 390) 			rm &= ~RAYS[block][6];
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 391) 		}
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 392) 	}else{ // Black's Turn
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 393) 		// North
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 394) 		rm |= RAYS[square][0] ^ (blackPieces & RAYS[square][0]);
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 395) 		if(RAYS[square][0] & allPieces){
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 396) 			block = getLSBIndex(RAYS[square][0] & allPieces);
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 397) 			rm &= ~RAYS[block][0];
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 398) 		}
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 399) 		// East
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 400) 		rm |= RAYS[square][2] ^ (blackPieces & RAYS[square][2]);
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 401) 		if(RAYS[square][2] & allPieces){
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 403) 			rm &= ~RAYS[block][2];
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 404) 		}
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 405) 		// South
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 406) 		rm |= RAYS[square][4] ^ (blackPieces & RAYS[square][4]);
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 407) 		if(RAYS[square][4] & allPieces){
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 409) 			rm &= ~RAYS[block][4];
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 410) 		}
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 411) 		// West
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 412) 		rm |= RAYS[square][6] ^ (blackPieces & RAYS[square][6]);
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 413) 		if(RAYS[square][6] & allPieces){
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 415) 			rm &= ~RAYS[block][6];
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 416) 		}
+5ad3f0ce (Dev5ter                2022-10-11 11:06:46 -0400 417) 	}
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 478)     if(whiteTurn){
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 479)         knightMoves = KNIGHT_LOOKUP_TBL[square] ^ (whitePieces & KNIGHT_LOOKUP_TBL[square]);
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 480)     }else{ // Black's Turn
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 481)         knightMoves = KNIGHT_LOOKUP_TBL[square] ^ (blackPieces & KNIGHT_LOOKUP_TBL[square]);
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 482)     }
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 484)     int index;
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 485)     while(knightMoves){
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 486)         index = getLSBIndex(knightMoves);
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 487)         knightMoves ^= 1ULL << index;
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 488) 
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 489)         //Create Move
+ba01347b (Dev5ter                2022-10-11 09:07:05 -0400 491)     }
+
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400  6) //global constants and lookup tables to be used to calculate possible moves
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400  7) extern unsigned long long RANK_1;
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400  8) extern unsigned long long RANK_2;
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400  9) extern unsigned long long RANK_3;
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400 10) extern unsigned long long RANK_4;
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400 11) extern unsigned long long RANK_5;
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400 12) extern unsigned long long RANK_6;
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400 13) extern unsigned long long RANK_7;
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400 14) extern unsigned long long RANK_8;
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400 15) extern unsigned long long FILE_A;
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400 16) extern unsigned long long FILE_B;
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400 17) extern unsigned long long FILE_C;
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400 18) extern unsigned long long FILE_D;
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400 19) extern unsigned long long FILE_E;
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400 20) extern unsigned long long FILE_F;
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400 21) extern unsigned long long FILE_G;
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400 22) extern unsigned long long FILE_H;
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400 23) extern unsigned long long KING_LOOKUP_TBL[64];
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400 24) extern unsigned long long KNIGHT_LOOKUP_TBL[64];
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400 28) 
+39643660 (Dev5ter        2022-10-04 08:39:17 -0400 33) 
+
+f93e02e5 (Dev5ter        2022-09-29 14:39:37 -0400  1) #include <iostream>
+
+7fa623f6 (Dev5ter 2022-10-04 08:10:59 -0400  1) CXX = g++
+7fa623f6 (Dev5ter 2022-10-04 08:10:59 -0400  2) CXXFLAGS = -std=c++11 -Wall
+7fa623f6 (Dev5ter 2022-10-04 08:10:59 -0400  3) OBJFILES = src/board.o src/game.o src/main.o src/move.o
+7fa623f6 (Dev5ter 2022-10-04 08:10:59 -0400  4) 
+7fa623f6 (Dev5ter 2022-10-04 08:10:59 -0400  5) all: Chess
+7fa623f6 (Dev5ter 2022-10-04 08:10:59 -0400  6) 
+7fa623f6 (Dev5ter 2022-10-04 08:10:59 -0400  7) Chess: $(OBJFILES)
+7fa623f6 (Dev5ter 2022-10-04 08:10:59 -0400  8) 	$(CXX) $(CXXFLAGS) -o Chess $(OBJFILES)
+7fa623f6 (Dev5ter 2022-10-04 08:10:59 -0400  9) 
+7fa623f6 (Dev5ter 2022-10-04 08:10:59 -0400 10) clean:
+7fa623f6 (Dev5ter 2022-10-04 08:10:59 -0400 11) 	$(RM) -f Chess $(OBJFILES)

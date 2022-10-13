@@ -6,11 +6,18 @@ private:
     
     char fromSquare;
     char toSquare;
-    char specialMove; //1 = en passant, 2 = castling, 3 = pawn promotion
-    char promotedPiece; //1 = queen, 2 = rook, 3 = bishop, 4 = knight
+    char specialMove; //0 = none, 1 = en passant, 2 = castling, 3 = pawn promotion
+    char promotedPiece; //0 = none, 1 = queen, 2 = rook, 3 = bishop, 4 = knight
 
 public:
-    void createMove(char fromSquare, char toSquare, char specialMove, char promotedPiece);
+    Move(char fromSquareArg, char toSquareArg, char specialMoveArg, char promotedPieceArg){
+        fromSquare = fromSquareArg;
+        toSquare = toSquareArg;
+        specialMove = specialMoveArg;
+        promotedPiece = promotedPieceArg;
+    }
+
+    void printMove();
 };
 
 #endif

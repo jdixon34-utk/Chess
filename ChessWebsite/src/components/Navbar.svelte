@@ -35,7 +35,7 @@
 
 <!-- If the mobile menu is clicked, we need to display the menu -->
 {#if noMenu === false}
-    <div class="flex flex-col w-full h-screen justify-center items-center bg-black text-white text-4xl md:hidden">
+    <div class="flex flex-col h-screen w-screen justify-center items-center bg-black text-white text-4xl md:hidden">
         <a on:click={() => CloseMenu()} href="/" class="mt-6"><h1>Play</h1></a>
         <a on:click={() => CloseMenu()} href="/learn" class="mt-6"><h1>How To Play</h1></a>
         <a on:click={() => CloseMenu()} href="/about" class="mt-6"><h1>About Project</h1></a>

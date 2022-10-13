@@ -1,0 +1,252 @@
+4dfad588 (brandonmarth14@gmail.com 2022-10-11 08:35:54 -0400   1) document.addEventListener("DOMContentLoaded", function () {
+4dfad588 (brandonmarth14@gmail.com 2022-10-11 08:35:54 -0400   2)    
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400   3)     table = document.createElement("BOARD");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400   4)     chessArea = document.getElementById("chessarea");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400   5)     table.id = "chessboard";
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400   6)     chessArea.appendChild(table);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400   7)   
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400   8)     for (var i = 1; i < 9; i++) {
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400   9)         var col, child, piece;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  10)   
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  11)         for (var j = 1; j < 9; j++) {
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  12)   
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  13)             //Create each square/column of the board
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  14)             col = document.createElement("COL");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  15)             col.id = "col" + i + j;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  16)             color = (i%2 === j%2) ? "white" : "black";
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  17)             col.classList.add(color);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  18)   
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  19)             //Create the piece
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  20)             piece = document.createElement("DIV");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  21)             piece.id = "piece" + i + j;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  22)   
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  23)             //Lets the user click on columns to do moves
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  24)             col.onclick = function(e) {  
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  25)                 moveStart(e, this);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  26)             };
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  27)   
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  28)             document.getElementById("chessboard").appendChild(col);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  29)   
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  30)   
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  31)             //Define the colors and piece type of the pieces
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  32)             if (i < 3) {
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  33)                 document.getElementById("col" + i + j).appendChild(piece);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  34)                 piece.classList.add("white-piece");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  35)                 //Defines all the pieces for the white side
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  36)                 if(i === 1){
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  37)                     if(j === 1 || j === 8){
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  38)                         piece.classList.add("castle");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  39)                     }else if(j === 2 || j === 7){
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  40)                         piece.classList.add("knight");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  41)                     }else if(j === 3 || j === 6){
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  42)                         piece.classList.add("bishop");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  43)                     }else if(j === 4){
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  44)                         piece.classList.add("queen");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  45)                     }else{
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  46)                         piece.classList.add("king");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  47)                     }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  48)                 }else{
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  49)                     piece.classList.add("pawn");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  50)                 }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  51)             } else if (i > 6) {
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  52)                 document.getElementById("col" + i + j).appendChild(piece);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  53)                 piece.classList.add("black-piece");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  54)                 //Define all the pieces for the black side
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  55)                 if(i === 8){
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  56)                     if(j === 1 || j === 8){
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  57)                         piece.classList.add("castle");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  58)                     }else if(j === 2 || j === 7){
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  59)                         piece.classList.add("knight");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  60)                     }else if(j === 3 || j === 6){
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  61)                         piece.classList.add("bishop");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  62)                     }else if(j === 4){
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  63)                         piece.classList.add("queen");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  64)                     }else{
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  65)                         piece.classList.add("king");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  66)                     }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  67)                 }else{
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  68)                     piece.classList.add("pawn");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  69)                 }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  70)             }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  71)         }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  72)   
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  73)     }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  74)   
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  75)   
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  76)     //Checks if a move is valid, if so does the move
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  77)     //e is click event, not used.
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  78)     //Col is the column the user clicked on
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  79)     function moveStart(e, col){
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  80)   
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  81)         //Current piece selected, will be undefined at start
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  82)         var cur = document.getElementsByClassName("current")[0];
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  83)        
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  84)         //Nothing is currently selected and column selected has a piece
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  85)         if(cur === undefined && col.children[0] !== undefined){
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  86)             col.children[0].classList.add("current");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  87)         }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  88)         //Valid move. So move the piece
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  89)         else if(cur !== undefined && col.children[0] === undefined){
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  90)             move(col, cur.parentNode, cur);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  91)         }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  92)         //Unselect the current piece
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  93)         else if(col.children[0] === cur){
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  94)                 cur.classList.remove("current");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  95)         }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  96)         //Take a piece
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  97)         else if(col.children[0] !== undefined && ((cur.classList.contains("white-piece") && col.children[0].classList.contains("black-piece")) || 
+(cur.classList.contains("black-piece") && col.children[0].classList.contains("white-piece")))){
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  98)             col.removeChild(col.children[0]);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  99)             move(col, cur.parentNode, cur);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 100)         }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 101)         //Good attempt but there is already a piece there ;D
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 102)         else if(col.children[0] !== undefined){
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 103)             alert("Column already has a piece of the same color");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 104)         }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 105)         //Else nothing is currently selected and the selected square has no piece so do nothing
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 106)     }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 107)   
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 108)     //Move piece from cur_col to new_col
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 109)     function move(new_col, cur_col, piece) {
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 110)         //console.log(new_col);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 111)         //console.log(cur_col);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 112)         //console.log(piece);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 113)   
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 114)         cur_col.removeChild(piece);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 115)         new_col.appendChild(piece);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 116)   
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 117)         piece.classList.remove("current");
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 118)     }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 119)   
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 120)   });
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 121)
+
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  1) :root {
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  2)     display: flex;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  3)     margin-left: 24.5%;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  4)     /*justify-content: center*/;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  5)   }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  6)  
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  7) #chessboard {
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  8)     width: 50.45%;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  9)     height: 100.5%;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 10)     margin: 5px;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 11)     border: 2px solid #333;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 12)     position: absolute;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 13) }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 14) /*width/height should be about 1/8 the width/height of the chessboard for both white and black*/
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 15) .black {
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 16)     float: left;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 17)     width: 12.5%;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 18)     height: 12.5%;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 19)     background-color: black;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 20)  
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 21) }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 22) .white {
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 23)     float: left;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 24)     width: 12.5%;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 25)     height: 12.5%;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 26)     background-color: white;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 27) }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 28)  
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 29) .black-piece{
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 30)     background: black;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 31)     width: 50px;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 32)     height: 50px;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 33)     margin: 13% auto;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 34)     border: 2px solid white;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 35)     cursor:pointer;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 36) }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 37)  
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 38) .white-piece{
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 39)     background: white;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 40)     width: 50px;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 41)     height: 50px;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 42)     margin: 13% auto;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 43)     border: 2px solid black;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 44)     cursor:pointer;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 45) }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 46)  
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 47) .pawn{
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 48)     border-radius: 25px;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 49) }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 50)  
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 51) .castle{
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 52)     background: orange;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 53) }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 54)  
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 55) .bishop{
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 56)     border-bottom: 50px solid blue;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 57)     border-left: 22px solid transparent;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 58)     border-right: 22px solid transparent;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 59)     height: 0;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 60)     width: 50px;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 61) }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 62)  
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 63) .knight{
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 64)     background: green;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 65) }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 66)  
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 67) .queen{
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 68)     background: rgb(253, 123, 145);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 69)     width: 48px;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 70)     height: 48px;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 71)     -webkit-transform: skew(140deg);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 72)     -moz-transform: skew(140deg);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 73)     -o-transform: skew(140deg);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 74)     transform: skew(140deg);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 75) }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 76)  
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 77) .king{
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 78)     width: 50px;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 79)     height: 50px;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 80)     background: purple;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 81)     -webkit-transform: skew(30deg);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 82)     -moz-transform: skew(30deg);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 83)     -o-transform: skew(30deg);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 84)     transform: skew(30deg);
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 85) }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 86)  
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 87) .current{
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 88)     border: 2px solid #FF8200;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 89) }
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 90) /*.chessarea {
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 91)     margin-top: 30vh;
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 92) }*/
+
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  1) <html lang="en">
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  2) <head>
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  3)     <link rel="stylesheet" href="board.css">
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  4)     <title>CHESSBOARD</title>
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  5)  
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  6) </head>
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  7) <div class="chessarea" id="chessarea"> </div>
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  8) <script src="board.js"></script>
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400  9) </html>
+1d64e43f (brandonmarth14@gmail.com 2022-10-11 11:45:44 -0400 10) 
+
+34c0629f (brandonmarth14@gmail.com 2022-10-04 09:19:57 -0400  1) #Must have emsdk installed and activated to work
+34c0629f (brandonmarth14@gmail.com 2022-10-04 09:19:57 -0400  2) #Must activate emsdk every time you start your shell unless you activated it permanently
+34c0629f (brandonmarth14@gmail.com 2022-10-04 09:19:57 -0400  3) 
+f71f0ebc (brandonmarth14@gmail.com 2022-10-11 12:53:19 -0400  4) EXECUTABLES = .././Chesswebsite/src/components/chess.js .././Chesswebsite/src/components/chess.wasm
+34c0629f (brandonmarth14@gmail.com 2022-10-04 09:19:57 -0400  5) 
+f71f0ebc (brandonmarth14@gmail.com 2022-10-11 12:53:19 -0400  6) ALL: $(EXECUTABLES)
+34c0629f (brandonmarth14@gmail.com 2022-10-04 09:19:57 -0400  7) 
+34c0629f (brandonmarth14@gmail.com 2022-10-04 09:19:57 -0400  8) 
+34c0629f (brandonmarth14@gmail.com 2022-10-04 09:19:57 -0400  9) #include all of the used .cpp files
+34c0629f (brandonmarth14@gmail.com 2022-10-04 09:19:57 -0400 10) #Will need to modify the .cpp files to make sure we can use some of the functions in the .js
+f71f0ebc (brandonmarth14@gmail.com 2022-10-11 12:53:19 -0400 11) .././Chesswebsite/src/components/chess.js: .././src/board.cpp .././src/game.cpp .././src/main.cpp .././src/move.cpp
+f71f0ebc (brandonmarth14@gmail.com 2022-10-11 12:53:19 -0400 12) 	emcc -lembind -o .././Chesswebsite/src/components/chess.js .././src/board.cpp .././src/game.cpp .././src/main.cpp .././src/move.cpp
+34c0629f (brandonmarth14@gmail.com 2022-10-04 09:19:57 -0400 13) #example below of files that I know complies
+34c0629f (brandonmarth14@gmail.com 2022-10-04 09:19:57 -0400 14) #	emcc -lembind -o .././Chesswebsite/src/chess.js .././src/quick_example.cpp .././src/l.cpp
+
+5d189a9a (Me-Brand 2022-10-12 13:20:35 -0400  1) em++ test.cpp -s WASM=1 -s EXPORT_ALL=1 -O3 -o test.js   - old compile don't need to use now
+5d189a9a (Me-Brand 2022-10-12 13:20:35 -0400  2) emrun --port 8080 .                                      - will open the website in a web browser
+5d189a9a (Me-Brand 2022-10-12 13:20:35 -0400  3) 
+5d189a9a (Me-Brand 2022-10-12 13:20:35 -0400  4) npm run dev                                              
+5d189a9a (Me-Brand 2022-10-12 13:20:35 -0400  5) 
+5d189a9a (Me-Brand 2022-10-12 13:20:35 -0400  6) 
+5d189a9a (Me-Brand 2022-10-12 13:20:35 -0400  7) emcc -lembind -o quick_example.js quick_example.cpp l.cpp   - how we currently compile
+5d189a9a (Me-Brand 2022-10-12 13:20:35 -0400  8) git clone https://github.com/emscripten-core/emsdk.git      - clone the git
+5d189a9a (Me-Brand 2022-10-12 13:20:35 -0400  9) ./emsdk install latest                                      - only need to run your first time
+5d189a9a (Me-Brand 2022-10-12 13:20:35 -0400 10) ./emsdk activate latest                                     - need to do everytime you open your shell, will not compile without this

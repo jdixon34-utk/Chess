@@ -26,6 +26,10 @@ extern unsigned long long KNIGHT_LOOKUP_TBL[64];
 //used for sliding pieces only
 extern unsigned long long RAYS[64][8];
 
+extern void INITIALIZE_KING_LOOKUP_TBL();
+extern void INITIALIZE_KNIGHT_LOOKUP_TBL();
+extern void INITIALIZE_RAYS();
+
 
 class Board{
 private:
@@ -38,7 +42,7 @@ private:
 	bool blackCastleRightsQS;
 	int enPassantTargetSquare;//square that a pawn that has moved forward 2 spaces goes over
 	int halfMoveClock;//The number of halfmoves since the last capture or pawn advance, used for the fifty-move rule
-    	int fullMoveNumber;//The number of the full moves. It starts at 1 and is incremented after Black's move
+    int fullMoveNumber;//The number of the full moves. It starts at 1 and is incremented after Black's move
 
 	unsigned long long allPieces;
 
@@ -60,13 +64,14 @@ private:
 
 	//Move is a struct that will be defined somewhere else
 	//it just holds the information of a move: "from" square, "to" square, and other small info
-	std::vector<class Move> moves;
+	std::vector<class Move*> moves;
 
 public:
 
 	void genBoardFromFEN(std::string FEN);
 	void printBitBoard(unsigned long long bitBoard);
 	void printPosition();
+	void printMoves();
 
 	int getLSBIndex(unsigned long long bitBoard);
 	int getMSBIndex(unsigned long long);
@@ -81,14 +86,9 @@ public:
 	void genPawnSinglePushMoves();
 	void genPawnDoublePushMoves();
 	void genPawnRightMoves();
-	void genPawnLeftEnPassantMoves();
-	void genPawnRightEnPassantMoves();
+	void genEnPassantMoves();
 	void genCastleKS();
 	void genCastleQS();
-
-	static void INITIALIZE_KING_LOOKUP_TBL();
-    	static void INITIALIZE_KNIGHT_LOOKUP_TBL();
-    	static void INITIALIZE_RAYS();
 };
 
 #endif
