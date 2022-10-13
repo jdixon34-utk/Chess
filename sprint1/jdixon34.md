@@ -31,4 +31,4 @@ Jared Dixon, jdixon34-cs340, Chess
 * All files in Chess/src
 
 ### What you accomplished
-I did a lot of research into the best ways to represent the board and generate the possible moves. I then created the skeleton of the program with all of functions we would need to write. From then, Justin, Devin and I worked together on writing all of the functions to read in a FEN string of a position and to create a list of all the possible moves. We spent a lot of time planning for efficiency in this stage because it will be one of the main determinants of how good the engine is.
+I did a lot of research into the best ways to represent the board and generate the possible moves. I then created the skeleton of the program with all of functions we would need to write. From then, Justin, Devin, and I worked together on writing all of the functions to read in a FEN string of a position and to create a list of all the possible moves. We spent a lot of time planning for efficiency in this stage because it will be one of the main determinants of how good the engine is.
