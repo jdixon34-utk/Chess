@@ -2,7 +2,6 @@
 Jared Dixon, jdixon34-cs340, Chess
 
 ### What I planned to do
-(Give a short bulleted list of the items you planned to do for this sprint. Include the github issue number and link to the issue)
 * Wrote KNIGHT_LOOKUP_TBL function [Issue #10](https://github.com/utk-cs340-fall22/Chess/issues/10)
 * Wrote genBoardFromFEN function [Issue #12](https://github.com/utk-cs340-fall22/Chess/issues/12)
 * Wrote printBitBoard function [Issue #13](https://github.com/utk-cs340-fall22/Chess/issues/13)
@@ -32,4 +31,4 @@ Jared Dixon, jdixon34-cs340, Chess
 * All files in Chess/src
 
 ### What you accomplished
-(Give a description of the features you added or tasks you accomplished. Provide some detail here. This section will be a little longer than the bulleted lists above) 
+I did a lot of research into the best ways to represent the board and generate the possible moves. I then created the skeleton of the program with all of functions we would need to write. From then, Justin, Devin and I worked together on writing all of the functions to read in a FEN string of a position and to create a list of all the possible moves. We spent a lot of time planning for efficiency in this stage because it will be one of the main determinants of how good the engine is.
