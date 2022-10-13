@@ -3,3 +3,4 @@
 </script>
 
 <Navbar />
+<h1 class="pt-[9vh]">ABOUT PAGE</h1>
