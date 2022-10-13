@@ -1,0 +1,329 @@
+fc6a6585 (JMcknight              2022-10-11 15:59:14 -0400 110)
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 181) int Board::getMSBIndex(unsigned long long bitBoard){
+7d78feaf (JMcknight              2022-10-11 17:34:20 -0400 182) 	return 63 - __builtin_clzll(bitBoard);
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 183) }
+1cb8a83d (JMcknight              2022-10-11 09:01:08 -0400 296) 	unsigned long long king_moves;
+fc6a6585 (JMcknight              2022-10-11 15:59:14 -0400 297) 	int new_square;
+1cb8a83d (JMcknight              2022-10-11 09:01:08 -0400 299) 	if(whiteTurn){
+1cb8a83d (JMcknight              2022-10-11 09:01:08 -0400 300) 		king_moves = KING_LOOKUP_TBL[square] ^ (whitePieces & KING_LOOKUP_TBL[square]);
+1cb8a83d (JMcknight              2022-10-11 09:01:08 -0400 301)  	}else{
+1cb8a83d (JMcknight              2022-10-11 09:01:08 -0400 302) 		king_moves = KING_LOOKUP_TBL[square] ^ (blackPieces& KING_LOOKUP_TBL[square]);
+1cb8a83d (JMcknight              2022-10-11 09:01:08 -0400 303) 	}
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 314) 	unsigned long long queen_moves = 0;
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 315) 	int new_square;
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 317) 	if(whiteTurn){
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 318) 		// North
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 319) 		queen_moves |= RAYS[square][0] ^ (whitePieces & RAYS[square][0]);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 320) 		if(RAYS[square][0] & allPieces){
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 321) 			new_square = getLSBIndex(RAYS[square][0] & allPieces);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 322) 			queen_moves &= ~RAYS[new_square][0];
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 323) 		}
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 324) 		// East
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 325) 		queen_moves |= RAYS[square][2] ^ (whitePieces & RAYS[square][2]);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 326) 		if(RAYS[square][2] & allPieces){
+7d78feaf (JMcknight              2022-10-11 17:34:20 -0400 327) 			new_square = getLSBIndex(RAYS[square][2] & allPieces);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 328) 			queen_moves &= ~RAYS[new_square][2];
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 329) 		}
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 330) 		// South
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 331) 		queen_moves |= RAYS[square][4] ^ (whitePieces & RAYS[square][4]);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 332) 		if(RAYS[square][4] & allPieces){
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 333) 			new_square = getMSBIndex(RAYS[square][4] & allPieces);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 334) 			queen_moves &= ~RAYS[new_square][4];
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 335) 		}
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 336) 		// West
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 337) 		queen_moves |= RAYS[square][6] ^ (whitePieces & RAYS[square][6]);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 338) 		if(RAYS[square][6] & allPieces){
+7d78feaf (JMcknight              2022-10-11 17:34:20 -0400 339) 			new_square = getMSBIndex(RAYS[square][6] & allPieces);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 340) 			queen_moves &= ~RAYS[new_square][6];
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 341) 		}
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 342) 		//ne
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 343) 		queen_moves |= RAYS[square][1] ^ (whitePieces & RAYS[square][1]);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 344) 		if(RAYS[square][1] & allPieces){
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 345) 			new_square = getLSBIndex(RAYS[square][1]&allPieces);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 346) 			queen_moves &= ~RAYS[new_square][1];
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 347) 		}
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 348) 		//se
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 349) 		queen_moves |= RAYS[square][3] ^ (whitePieces & RAYS[square][3]);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 350) 		if(RAYS[square][3] & allPieces){
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 351) 			new_square = getMSBIndex(RAYS[square][3]&allPieces);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 352) 			queen_moves &= ~RAYS[new_square][3];
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 353) 		}
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 354) 		//sw
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 355) 		queen_moves |= RAYS[square][5] ^ (whitePieces & RAYS[square][5]);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 356) 		if(RAYS[square][5] & allPieces){
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 357) 			new_square = getMSBIndex(RAYS[square][5]&allPieces);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 358) 			queen_moves &= ~RAYS[new_square][5];
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 359) 		}
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 360) 		//nw
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 361) 		queen_moves |= RAYS[square][7] ^ (whitePieces & RAYS[square][7]);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 362) 		if(RAYS[square][7] & allPieces){
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 363) 			new_square = getLSBIndex(RAYS[square][7] & allPieces);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 364) 			queen_moves &= ~RAYS[new_square][7];
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 365) 		}
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 366) 	}else{
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 367) 		// North
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 368) 		queen_moves |= RAYS[square][0] ^ (blackPieces & RAYS[square][0]);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 369) 		if(RAYS[square][0] & allPieces){
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 370) 			new_square = getLSBIndex(RAYS[square][0] & allPieces);
+c78909f3 (JMcknight              2022-10-13 08:11:13 -0400 371) 			queen_moves &= ~RAYS[new_square][0];
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 372) 		}
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 373) 		// East
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 374) 		queen_moves |= RAYS[square][2] ^ (blackPieces & RAYS[square][2]);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 375) 		if(RAYS[square][2] & allPieces){
+7d78feaf (JMcknight              2022-10-11 17:34:20 -0400 376) 			new_square = getLSBIndex(RAYS[square][2] & allPieces);
+c78909f3 (JMcknight              2022-10-13 08:11:13 -0400 377) 			queen_moves &= ~RAYS[new_square][2];
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 378) 		}
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 379) 		// South
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 380) 		queen_moves |= RAYS[square][4] ^ (blackPieces & RAYS[square][4]);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 381) 		if(RAYS[square][4] & allPieces){
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 382) 			new_square = getMSBIndex(RAYS[square][4] & allPieces);
+c78909f3 (JMcknight              2022-10-13 08:11:13 -0400 383) 			queen_moves &= ~RAYS[new_square][4];
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 384) 		}
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 385) 		// West
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 386) 		queen_moves |= RAYS[square][6] ^ (blackPieces & RAYS[square][6]);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 387) 		if(RAYS[square][6] & allPieces){
+7d78feaf (JMcknight              2022-10-11 17:34:20 -0400 388) 			new_square = getMSBIndex(RAYS[square][6] & allPieces);
+c78909f3 (JMcknight              2022-10-13 08:11:13 -0400 389) 			queen_moves &= ~RAYS[new_square][6];
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 390) 		}
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 391) 		//ne
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 392) 		queen_moves |= RAYS[square][1] ^ (blackPieces & RAYS[square][1]);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 393) 		if(RAYS[square][1] & allPieces){
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 394) 			new_square = getLSBIndex(RAYS[square][1]&allPieces);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 395) 			queen_moves &= ~RAYS[new_square][1];
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 396) 		}
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 397) 		//se
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 398) 		queen_moves |= RAYS[square][3] ^ (blackPieces & RAYS[square][3]);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 399) 		if(RAYS[square][3] & allPieces){
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 400) 			new_square = getMSBIndex(RAYS[square][3]&allPieces);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 401) 			queen_moves &= ~RAYS[new_square][3];
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 402) 		}
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 403) 		//sw
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 404) 		queen_moves |= RAYS[square][5] ^ (blackPieces & RAYS[square][5]);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 405) 		if(RAYS[square][5] & allPieces){
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 406) 			new_square = getMSBIndex(RAYS[square][5]&allPieces);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 407) 			queen_moves &= ~RAYS[new_square][5];
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 408) 		}
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 409) 		//nw
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 410) 		queen_moves |= RAYS[square][7] ^ (blackPieces & RAYS[square][7]);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 411) 		if(RAYS[square][7] & allPieces){
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 412) 			new_square = getLSBIndex(RAYS[square][7] & allPieces);
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 413) 			queen_moves &= ~RAYS[new_square][7];
+383f6255 (JMcknight              2022-10-11 16:32:07 -0400 414) 		}
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 415) 	}
+7d78feaf (JMcknight              2022-10-11 17:34:20 -0400 438) 			block = getLSBIndex(RAYS[square][2] & allPieces);
+c7b4875c (JMcknight              2022-10-11 16:53:41 -0400 444) 			block = getMSBIndex(RAYS[square][4] & allPieces);
+7d78feaf (JMcknight              2022-10-11 17:34:20 -0400 450) 			block = getMSBIndex(RAYS[square][6] & allPieces);
+2fb50729 (JMcknight              2022-10-11 17:37:04 -0400 463) 			block = getLSBIndex(RAYS[square][2] & allPieces);
+c7b4875c (JMcknight              2022-10-11 16:53:41 -0400 469) 			block = getMSBIndex(RAYS[square][4] & allPieces);
+2fb50729 (JMcknight              2022-10-11 17:37:04 -0400 475) 			block = getMSBIndex(RAYS[square][6] & allPieces);
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 488) 	unsigned long long bishop_moves = 0;
+fc6a6585 (JMcknight              2022-10-11 15:59:14 -0400 489) 	int new_square;
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 491) 	if(whiteTurn){
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 492) 		//ne
+fc6a6585 (JMcknight              2022-10-11 15:59:14 -0400 493) 		bishop_moves |= RAYS[square][1] ^ (whitePieces & RAYS[square][1]);
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 494) 		if(RAYS[square][1] & allPieces){
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 495) 			new_square = getLSBIndex(RAYS[square][1]&allPieces);
+fc6a6585 (JMcknight              2022-10-11 15:59:14 -0400 496) 			bishop_moves &= ~RAYS[new_square][1];
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 497) 		}
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 498) 		//se
+fc6a6585 (JMcknight              2022-10-11 15:59:14 -0400 499) 		bishop_moves |= RAYS[square][3] ^ (whitePieces & RAYS[square][3]);
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 500) 		if(RAYS[square][3] & allPieces){
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 501) 			new_square = getMSBIndex(RAYS[square][3]&allPieces);
+fc6a6585 (JMcknight              2022-10-11 15:59:14 -0400 502) 			bishop_moves &= ~RAYS[new_square][3];
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 503) 		}
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 504) 		//sw
+fc6a6585 (JMcknight              2022-10-11 15:59:14 -0400 505) 		bishop_moves |= RAYS[square][5] ^ (whitePieces & RAYS[square][5]);
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 506) 		if(RAYS[square][5] & allPieces){
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 507) 			new_square = getMSBIndex(RAYS[square][5]&allPieces);
+fc6a6585 (JMcknight              2022-10-11 15:59:14 -0400 508) 			bishop_moves &= ~RAYS[new_square][5];
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 509) 		}
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 510) 		//nw
+fc6a6585 (JMcknight              2022-10-11 15:59:14 -0400 511) 		bishop_moves |= RAYS[square][7] ^ (whitePieces & RAYS[square][7]);
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 512) 		if(RAYS[square][7] & allPieces){
+fc6a6585 (JMcknight              2022-10-11 15:59:14 -0400 513) 			new_square = getLSBIndex(RAYS[square][7] & allPieces);
+fc6a6585 (JMcknight              2022-10-11 15:59:14 -0400 514) 			bishop_moves &= ~RAYS[new_square][7];
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 515) 		}
+fc6a6585 (JMcknight              2022-10-11 15:59:14 -0400 516) 	}else{
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 517) 		//ne
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 518) 		bishop_moves |= (RAYS[square][1] ^ (blackPieces & RAYS[square][1]));
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 519) 		if(RAYS[square][1] & allPieces){
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 520) 			new_square = getLSBIndex(RAYS[square][1]&allPieces);
+fc6a6585 (JMcknight              2022-10-11 15:59:14 -0400 521) 			bishop_moves &= ~RAYS[new_square][1];
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 522) 		}
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 523) 		//se
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 524) 		bishop_moves |= (RAYS[square][3] ^ (blackPieces & RAYS[square][3]));
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 525) 		if(RAYS[square][3] & allPieces){
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 526) 			new_square = getMSBIndex(RAYS[square][3]&allPieces);
+fc6a6585 (JMcknight              2022-10-11 15:59:14 -0400 527) 			bishop_moves &= ~RAYS[new_square][3];
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 528) 		}
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 529) 		//sw
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 531) 		if(RAYS[square][5] & allPieces){
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 532) 			new_square = getMSBIndex(RAYS[square][5]&allPieces);
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 534) 		}
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 535) 		//nw
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 536) 		bishop_moves |= (RAYS[square][7] ^ (blackPieces & RAYS[square][7]));
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 537) 		if(RAYS[square][7] & allPieces){
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 538) 			new_square = getLSBIndex(RAYS[square][7]&allPieces);
+fc6a6585 (JMcknight              2022-10-11 15:59:14 -0400 539) 			bishop_moves &= ~RAYS[new_square][7];
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 540) 		}
+a36a7cd8 (JMcknight              2022-10-11 13:58:29 -0400 541) 	}
+8bd0d43b (JMcknight              2022-10-13 08:13:23 -0400 622)     }
+20a3862d (JMcknight75            2022-10-04 08:55:26 -0400 763) }
+fc6a6585 (JMcknight      2022-10-11 15:59:14 -0400 27) extern unsigned long long RAYS[64][8];
+fc6a6585 (JMcknight      2022-10-11 15:59:14 -0400 64)
+fc6a6585 (JMcknight      2022-10-11 15:59:14 -0400 77)  int getMSBIndex(unsigned long long);
+4f486fdf (Justin McKnight        2022-10-04 13:19:28 -0400   6)
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  10) 	int indexFEN = 0, indexBoard = 56;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  11)
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  12) 	allPieces = 0;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  13)
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  14) 	whitePieces = 0;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  15) 	whiteKing = 0;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  16) 	whiteQueen = 0;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  17) 	whiteRooks = 0;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  18) 	whiteBishops = 0;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  19) 	whiteKnights = 0;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  20) 	whitePawns = 0;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  21)
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  22) 	blackPieces = 0;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  23) 	blackKing = 0;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  24) 	blackQueen = 0;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  25) 	blackRooks = 0;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  26) 	blackBishops = 0;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  27) 	blackKnights = 0;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  28) 	blackPawns = 0;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  29)
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  30) 	//reading in board and setting bitboards
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  31) 	while(FEN[indexFEN] != ' '){
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  32) 		switch(FEN[indexFEN]){
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  33) 			case 'k': blackKing |= 1ULL << indexBoard; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  34) 			case 'q': blackQueen |= 1ULL << indexBoard; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  35) 			case 'r': blackRooks |= 1ULL << indexBoard; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  36) 			case 'b': blackBishops |= 1ULL << indexBoard; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  37) 			case 'n': blackKnights |= 1ULL << indexBoard; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  38) 			case 'p': blackPawns |= 1ULL << indexBoard; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  39)
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  40) 			case 'K': whiteKing |= 1ULL << indexBoard; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  41) 			case 'Q': whiteQueen |= 1ULL << indexBoard; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  42) 			case 'R': whiteRooks |= 1ULL << indexBoard; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  43) 			case 'B': whiteBishops |= 1ULL << indexBoard; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  44) 			case 'N': whiteKnights |= 1ULL << indexBoard; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  45) 			case 'P': whitePawns |= 1ULL << indexBoard; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  46)
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  47) 			case '/' : indexBoard -= 17; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  48) 			case '1' : break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  49) 			case '2' : indexBoard++; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  50) 			case '3' : indexBoard += 2; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  51) 			case '4' : indexBoard += 3; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  52) 			case '5' : indexBoard += 4; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  53) 			case '6' : indexBoard += 5; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  54) 			case '7' : indexBoard += 6; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  55) 			case '8' : indexBoard += 7; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  56) 		}
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  57) 		indexFEN++;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  58) 		indexBoard++;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  59) 	}
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  60) 	whitePieces = whiteKing | whiteQueen | whiteRooks | whiteBishops | whiteKnights | whitePawns;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  61) 	blackPieces = blackKing | blackQueen | blackRooks | blackBishops | blackKnights | blackPawns;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  62) 	allPieces = whitePieces | blackPieces;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  63)
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  64) 	//reading in who's turn it is
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  65) 	indexFEN++;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  66) 	if(FEN[indexFEN] == 'w') whiteTurn = true;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  67) 	else whiteTurn = false;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  68)
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  69) 	//reading in castling rights
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  70) 	indexFEN += 2;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  71) 	whiteCastleRightsKS = false;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  72) 	whiteCastleRightsQS = false;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  73) 	blackCastleRightsKS = false;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  74) 	blackCastleRightsQS = false;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  75) 	while(FEN[indexFEN] != ' '){
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  76) 		switch(FEN[indexFEN]){
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  77) 			case 'K': whiteCastleRightsKS = true; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  78) 			case 'Q': whiteCastleRightsQS = true; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  79) 			case 'k': blackCastleRightsKS = true; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  80) 			case 'q': blackCastleRightsQS = true; break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  81) 			case '-': break;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  82) 		}
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  83) 		indexFEN++;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  84) 	}
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  85) 	indexFEN++;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  86)
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  87) 	//reading in en passant target square
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  88) 	enPassantTargetSquare = 0;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  89) 	if(FEN[indexFEN] != '-'){
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  90) 		enPassantTargetSquare = ((FEN[indexFEN + 1] - 49) * 8) + (FEN[indexFEN] - 97);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  91) 		indexFEN++;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  92) 	}
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  93)
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  94) 	//reading in half move clock
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  95) 	indexFEN += 2;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  96) 	string num = "";
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  97) 	while(FEN[indexFEN] != ' '){
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  98) 		num += FEN[indexFEN];
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400  99) 		indexFEN++;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 100) 	}
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 101) 	halfMoveClock = stoi(num);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 102)
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 103) 	//reading in number of full moves
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 104) 	indexFEN++;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 105) 	num = "";
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 107) 		num += FEN[indexFEN];
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 108) 		indexFEN++;
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 109) 	}
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 111) 	fullMoveNumber = stoi(num);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 115) 	for(int r = 7; r >= 0; r--){
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 116) 		for(int c = 0; c < 8; c++){
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 117) 			if(bitBoard & (1ULL << ((r * 8) + c))) printf("1 ");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 118) 			else printf(". ");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 119) 		}
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 120) 		printf("\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 121) 	}
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 122) 	printf("\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 126) 	printf("All Pieces\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 127) 	printBitBoard(allPieces);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 128) 	printf("White Pieces\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 129) 	printBitBoard(whitePieces);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 130) 	printf("White King\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 131) 	printBitBoard(whiteKing);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 132) 	printf("White Queen\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 133) 	printBitBoard(whiteQueen);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 134) 	printf("White Rooks\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 135) 	printBitBoard(whiteRooks);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 136) 	printf("White Bishops\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 137) 	printBitBoard(whiteBishops);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 138) 	printf("White Knights\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 139) 	printBitBoard(whiteKnights);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 140) 	printf("White Pawns\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 141) 	printBitBoard(whitePawns);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 142) 	printf("Black Pieces\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 143) 	printBitBoard(blackPieces);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 144) 	printf("Black King\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 145) 	printBitBoard(blackKing);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 146) 	printf("Black Queen\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 147) 	printBitBoard(blackQueen);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 148) 	printf("Black Rooks\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 149) 	printBitBoard(blackRooks);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 150) 	printf("Black Bishops\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 151) 	printBitBoard(blackBishops);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 152) 	printf("Black Knights\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 153) 	printBitBoard(blackKnights);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 154) 	printf("Black Pawns\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 155) 	printBitBoard(blackPawns);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 156) 	if(whiteTurn) printf("White's Turn\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 157) 	else printf("Black's Turn\n");
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 158) 	printf("White Castle Rights KS: %d\n", whiteCastleRightsKS);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 159) 	printf("White Castle Rights QS: %d\n", whiteCastleRightsQS);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 160) 	printf("Black Castle Rights KS: %d\n", blackCastleRightsKS);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 161) 	printf("Black Castle Rights QS: %d\n", blackCastleRightsQS);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 162) 	printf("En Passant Target Square: %d\n", enPassantTargetSquare);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 163) 	printf("Moves Since Last Capture or Pawn Advance: %d\n", halfMoveClock);
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 703) 		}
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 706)
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 713) 		}
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 714)
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 716)
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 742) 		}
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 743) 	}
+43a6454f (Justin Thomas Mcknight 2022-10-04 11:08:18 -0400 761) 		}
