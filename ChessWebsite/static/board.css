@@ -44,15 +44,31 @@
     cursor:pointer;
 }
  
-.pawn{
+.p{
+    border-radius: 25px;
+}
+
+.P{
     border-radius: 25px;
 }
  
-.castle{
+.r{
+    background: orange;
+}
+
+.R{
     background: orange;
 }
  
-.bishop{
+.b{
+    border-bottom: 50px solid blue;
+    border-left: 22px solid transparent;
+    border-right: 22px solid transparent;
+    height: 0;
+    width: 50px;
+}
+
+.B{
     border-bottom: 50px solid blue;
     border-left: 22px solid transparent;
     border-right: 22px solid transparent;
@@ -60,11 +76,25 @@
     width: 50px;
 }
  
-.knight{
+.n{
+    background: green;
+}
+
+.N{
     background: green;
 }
  
-.queen{
+.q{
+    background: rgb(253, 123, 145);
+    width: 48px;
+    height: 48px;
+    -webkit-transform: skew(140deg);
+    -moz-transform: skew(140deg);
+    -o-transform: skew(140deg);
+    transform: skew(140deg);
+}
+
+.Q{
     background: rgb(253, 123, 145);
     width: 48px;
     height: 48px;
@@ -74,7 +104,17 @@
     transform: skew(140deg);
 }
  
-.king{
+.k{
+    width: 50px;
+    height: 50px;
+    background: purple;
+    -webkit-transform: skew(30deg);
+    -moz-transform: skew(30deg);
+    -o-transform: skew(30deg);
+    transform: skew(30deg);
+}
+
+.K{
     width: 50px;
     height: 50px;
     background: purple;

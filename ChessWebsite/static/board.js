@@ -35,18 +35,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 //Defines all the pieces for the white side
                 if(i === 1){
                     if(j === 1 || j === 8){
-                        piece.classList.add("castle");
+                        piece.classList.add("R");
                     }else if(j === 2 || j === 7){
-                        piece.classList.add("knight");
+                        piece.classList.add("N");
                     }else if(j === 3 || j === 6){
-                        piece.classList.add("bishop");
+                        piece.classList.add("B");
                     }else if(j === 4){
-                        piece.classList.add("queen");
+                        piece.classList.add("Q");
                     }else{
-                        piece.classList.add("king");
+                        piece.classList.add("K");
                     }
                 }else{
-                    piece.classList.add("pawn");
+                    piece.classList.add("P");
                 }
             } else if (i > 6) {
                 document.getElementById("col" + i + j).appendChild(piece);
@@ -54,18 +54,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 //Define all the pieces for the black side
                 if(i === 8){
                     if(j === 1 || j === 8){
-                        piece.classList.add("castle");
+                        piece.classList.add("r");
                     }else if(j === 2 || j === 7){
-                        piece.classList.add("knight");
+                        piece.classList.add("n");
                     }else if(j === 3 || j === 6){
-                        piece.classList.add("bishop");
+                        piece.classList.add("b");
                     }else if(j === 4){
-                        piece.classList.add("queen");
+                        piece.classList.add("q");
                     }else{
-                        piece.classList.add("king");
+                        piece.classList.add("k");
                     }
                 }else{
-                    piece.classList.add("pawn");
+                    piece.classList.add("p");
                 }
             }
         }
@@ -78,6 +78,9 @@ document.addEventListener("DOMContentLoaded", function () {
     //Col is the column the user clicked on
     function moveStart(e, col){
   
+        //Temp del
+        console.log(fen());
+
         //Current piece selected, will be undefined at start
         var cur = document.getElementsByClassName("current")[0];
        
@@ -115,6 +118,43 @@ document.addEventListener("DOMContentLoaded", function () {
         new_col.appendChild(piece);
   
         piece.classList.remove("current");
+    }
+
+    function fen(){
+
+        let fen = "";
+
+        let tab = document.getElementById("chessboard");
+
+        let count = tab.childElementCount;
+
+        console.log("hi " + tab + " " + count + tab.children[0]);
+
+        // iterate over all child nodes
+        let space = 0;
+        for(let i = 0; i < count; i++){
+
+            if(tab.children[i].children[0] === undefined){
+                space++;
+            }else{
+                if(space !== 0){
+                    fen += space;
+                }
+                space = 0;
+                fen += tab.children[i].children[0].classList.item(1);
+            }
+
+            if((((i + 1) % 8) === 0) && (i !== 63)){
+                if(space !== 0){
+                    fen += space;
+                }
+                fen += '/';
+                space = 0;
+                console.log(i);
+            }
+        }
+
+        return fen;
     }
   
   });
