@@ -9,7 +9,7 @@
     height: 100.5%;
     margin: 5px;
     border: 2px solid #333;
-    position: absolute;
+    /*position: absolute; */
 }
 /*width/height should be about 1/8 the width/height of the chessboard for both white and black*/
 .black {
