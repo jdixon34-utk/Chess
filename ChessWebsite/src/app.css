@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    /* background-color: black; 8?
+}
 :root {
     display: flex;
     /*margin-left: 24.5%; */
