@@ -31,7 +31,7 @@ void INITIALIZE_KNIGHT_LOOKUP_TBL();
 void INITIALIZE_RAYS();
 
 int main(int argc, char** argv){
-	if(argc < 2) {
+	if(argc != 2) {
 		fprintf(stderr,"Please supply a FEN string inside quotation marks\n");
 		return 1;
 	}
