@@ -10,13 +10,7 @@ private:
     char promotedPiece; //0 = none, 1 = queen, 2 = rook, 3 = bishop, 4 = knight
 
 public:
-    Move(char fromSquareArg, char toSquareArg, char specialMoveArg, char promotedPieceArg){
-        fromSquare = fromSquareArg;
-        toSquare = toSquareArg;
-        specialMove = specialMoveArg;
-        promotedPiece = promotedPieceArg;
-    }
-
+    void createMove(char fromSquareArg, char toSquareArg, char specialMoveArg, char promotedPieceArg);
     void printMove();
 };
 
