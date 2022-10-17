@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include "game.h"
 #include "board.h"
 #include "move.h"
@@ -14,12 +13,12 @@ string Game::playTurn(string FEN){
 
     position.genBoardFromFEN(FEN);
 
-    position.printPosition();
+    //position.printPosition();
 
     //we have the position all set up
     //now we find all possible moves
+    
     position.genMoves();
-
     position.printMoves();
   
     //then do the search for the best move
