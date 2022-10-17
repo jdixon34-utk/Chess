@@ -3,6 +3,12 @@
 #include "move.h"
 using namespace std;
 
+void Move::createMove(char fromSquareArg, char toSquareArg, char specialMoveArg, char promotedPieceArg){
+    fromSquare = fromSquareArg;
+    toSquare = toSquareArg;
+    specialMove = specialMoveArg;
+    promotedPiece = promotedPieceArg;
+}
 
 void Move::printMove(){
     char from[3], to[3];
