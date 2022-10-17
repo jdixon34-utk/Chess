@@ -2,6 +2,7 @@
 #define BOARD_H
 #include <vector>
 #include <string>
+#include "move.h"
 
 //global constants and lookup tables to be used to calculate possible moves
 extern unsigned long long RANK_1;
@@ -64,13 +65,14 @@ private:
 
 	//Move is a struct that will be defined somewhere else
 	//it just holds the information of a move: "from" square, "to" square, and other small info
-	std::vector<class Move*> moves;
-
+	class Move moves[128];
+	int moveIndex;
 public:
 
 	void genBoardFromFEN(std::string FEN);
 	void printBitBoard(unsigned long long bitBoard);
 	void printPosition();
+
 	void printMoves();
 
 	int getLSBIndex(unsigned long long bitBoard);
