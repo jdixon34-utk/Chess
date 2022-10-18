@@ -231,7 +231,7 @@ void Board::genMoves(){
 		}
 		whiteKnights = tmpBitBoard;
 
-		
+
 		genPawnLeftMoves();
 		genPawnSinglePushMoves();
 		genPawnDoublePushMoves();
@@ -280,7 +280,7 @@ void Board::genMoves(){
 			blackKnights &= blackKnights - 1;
 		}
 		blackKnights = tmpBitBoard;
-		
+
 		genPawnLeftMoves();
 		genPawnSinglePushMoves();
 		genPawnDoublePushMoves();
@@ -473,7 +473,7 @@ void Board::genPawnLeftMoves(){
 		if(pawn_left_moves & RANK_8){
 			pawn_left_moves = genPromoMoves(pawn_left_moves, RANK_8, -7);
 		}
-	
+
 		while(pawn_left_moves != 0){
 			new_square = getLSBIndex(pawn_left_moves);
 			square = new_square - 7;
@@ -512,7 +512,7 @@ void Board::genPawnSinglePushMoves(){
 		if(pawn_sp_moves & RANK_8){
 			pawn_sp_moves = genPromoMoves(pawn_sp_moves, RANK_8, -8);
 		}
-		
+
 		while(pawn_sp_moves != 0){
 			new_square = getLSBIndex(pawn_sp_moves);
 			square = new_square - 8;
@@ -708,4 +708,17 @@ void Board::genCastleQS(){
 			moves[moveIndex++] = move;
 		}
 	}
+}
+
+int Board::inCheck(){
+	//Knight
+
+	//Bishop/Queen
+
+	//Rook/Queen
+
+	//King
+
+	//Pawn
+
 }

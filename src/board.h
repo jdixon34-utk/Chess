@@ -91,6 +91,8 @@ public:
 	void genEnPassantMoves();
 	void genCastleKS();
 	void genCastleQS();
+
+	int inCheck();
 };
 
 #endif
