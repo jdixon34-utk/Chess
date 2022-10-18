@@ -1,6 +1,5 @@
 #ifndef BOARD_H
 #define BOARD_H
-#include <vector>
 #include <string>
 #include "move.h"
 
@@ -88,6 +87,7 @@ public:
 	void genPawnSinglePushMoves();
 	void genPawnDoublePushMoves();
 	void genPawnRightMoves();
+	unsigned long long genPromoMoves(unsigned long long input_bb, unsigned long long rank_mask, int offset);
 	void genEnPassantMoves();
 	void genCastleKS();
 	void genCastleQS();
