@@ -711,14 +711,43 @@ void Board::genCastleQS(){
 }
 
 int Board::inCheck(){
+	int square;
+	unsigned long long tmpBitBoard;
+	if(whiteTurn){
 	//Knight
-
+		square = getLSBIndex(whiteKing);
+		if(KNIGHT_LOOKUP_TBL[square] & blackKnights != 0) return 1;
 	//Bishop/Queen
-
+	//ne
+	tmpBitBoard |= RAYS[square][1] ^ (whitePieces & RAYS[square][1]);
+	if(RAYS[square][1] & allPieces){
+		new_square = getLSBIndex(RAYS[square][1]&allPieces);
+		tmpBitBoard &= ~RAYS[new_square][1];
+	}
+	//se
+	tmpBitBoard |= RAYS[square][3] ^ (whitePieces & RAYS[square][3]);
+	if(RAYS[square][3] & allPieces){
+		new_square = getMSBIndex(RAYS[square][3]&allPieces);
+		tmpBitBoard &= ~RAYS[new_square][3];
+	}
+	//sw
+	tmpBitBoard |= RAYS[square][5] ^ (whitePieces & RAYS[square][5]);
+	if(RAYS[square][5] & allPieces){
+		new_square = getMSBIndex(RAYS[square][5]&allPieces);
+		tmpBitBoard &= ~RAYS[new_square][5];
+	}
+	//nw
+	tmpBitBoard |= RAYS[square][7] ^ (whitePieces & RAYS[square][7]);
+	if(RAYS[square][7] & allPieces){
+		new_square = getLSBIndex(RAYS[square][7] & allPieces);
+		tmpBitBoard &= ~RAYS[new_square][7];
+	}
+	if(tmpBitBoard & blackBishops != 0 || tmpBitBoard & blackQueen != 0) return 1;
 	//Rook/Queen
 
 	//King
 
-	//Pawn
-
+	//Pawn (will change slightly for black)
+		if(blackPawns & (1 << (square+9)) != 0 || blackPawns & (1 << (square+7))) return 1;
+	}
 }
