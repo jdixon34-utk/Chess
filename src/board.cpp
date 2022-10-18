@@ -1,4 +1,3 @@
-#include <vector>
 #include <string>
 #include <cmath>
 #include "board.h"
@@ -469,6 +468,11 @@ void Board::genPawnLeftMoves(){
 
     if(whiteTurn){
         pawn_left_moves = ((whitePawns << 7ULL) & ~FILE_H) & blackPieces;
+
+		//pawn promotion
+		if(pawn_left_moves & RANK_8){
+			pawn_left_moves = genPromoMoves(pawn_left_moves, RANK_8, -7);
+		}
 	
 		while(pawn_left_moves != 0){
 			new_square = getLSBIndex(pawn_left_moves);
@@ -479,6 +483,11 @@ void Board::genPawnLeftMoves(){
 		}
     }else{ // Black's Turn
         pawn_left_moves = ((blackPawns >> 7ULL) & ~FILE_A) & whitePieces;
+
+		//pawn promotion
+		if(pawn_left_moves & RANK_1){
+			pawn_left_moves = genPromoMoves(pawn_left_moves, RANK_1, 7);
+		}
 
 		while(pawn_left_moves != 0){
 			new_square = getLSBIndex(pawn_left_moves);
@@ -498,6 +507,11 @@ void Board::genPawnSinglePushMoves(){
 
     if(whiteTurn){
         pawn_sp_moves = (whitePawns << 8ULL) & ~allPieces;
+
+		//pawn promotion
+		if(pawn_sp_moves & RANK_8){
+			pawn_sp_moves = genPromoMoves(pawn_sp_moves, RANK_8, -8);
+		}
 		
 		while(pawn_sp_moves != 0){
 			new_square = getLSBIndex(pawn_sp_moves);
@@ -508,6 +522,11 @@ void Board::genPawnSinglePushMoves(){
 		}
     }else{ // Black's Turn
         pawn_sp_moves = (blackPawns >> 8ULL) & ~allPieces;
+
+		//pawn promotion
+		if(pawn_sp_moves & RANK_1){
+			pawn_sp_moves = genPromoMoves(pawn_sp_moves, RANK_1, 8);
+		}
 
 		while(pawn_sp_moves != 0){
 			new_square = getLSBIndex(pawn_sp_moves);
@@ -553,6 +572,11 @@ void Board::genPawnRightMoves(){
     if(whiteTurn){
         pawn_right_moves = ((whitePawns << 9ULL) & ~FILE_A) & blackPieces;
 
+		//pawn promotion
+		if(pawn_right_moves & RANK_8){
+			pawn_right_moves = genPromoMoves(pawn_right_moves, RANK_8, -9);
+		}
+
 		while(pawn_right_moves != 0){
 			new_square = getLSBIndex(pawn_right_moves);
 			square = new_square - 9;
@@ -563,6 +587,11 @@ void Board::genPawnRightMoves(){
     }else{ // Black's Turn
         pawn_right_moves = ((blackPawns >> 9ULL) & ~FILE_H) & whitePieces;
 
+		//pawn promotion
+		if(pawn_right_moves & RANK_1){
+			pawn_right_moves = genPromoMoves(pawn_right_moves, RANK_1, 9);
+		}
+
 		while(pawn_right_moves != 0){
 			new_square = getLSBIndex(pawn_right_moves);
 			square = new_square + 9;
@@ -571,6 +600,28 @@ void Board::genPawnRightMoves(){
 			moves[moveIndex++] = move;
 		}
     }
+}
+
+unsigned long long Board::genPromoMoves(unsigned long long input_bb, unsigned long long rank_mask, int offset){
+	int square, new_square;
+	unsigned long long promo_moves = input_bb & rank_mask;
+	Move move;
+
+	while(promo_moves != 0){
+		new_square = getLSBIndex(promo_moves);
+		square = new_square + offset;
+		promo_moves &= promo_moves - 1;
+		move.createMove(square, new_square, 3, 1);
+		moves[moveIndex++] = move;
+		move.createMove(square, new_square, 3, 2);
+		moves[moveIndex++] = move;
+		move.createMove(square, new_square, 3, 3);
+		moves[moveIndex++] = move;
+		move.createMove(square, new_square, 3, 4);
+		moves[moveIndex++] = move;
+	}
+	input_bb &= ~rank_mask;
+	return input_bb;
 }
 
 void Board::genEnPassantMoves(){
