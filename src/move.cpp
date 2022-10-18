@@ -39,13 +39,13 @@ void Move::printMove(){
 
     if(sm == "Castling"){
         if(to[0] == 'G'){
-            printf("POSSIBLE MOVE O-O.   Special Move: %s   Promoted Piece: %s\n", sm.c_str(), pp.c_str());
+            printf("POSSIBLE MOVE O-O.   Special Move: %-14s   Promoted Piece: %s\n", sm.c_str(), pp.c_str());
         }
         else{
-            printf("POSSIBLE MOVE O-O-O.   Special Move: %s   Promoted Piece: %s\n", sm.c_str(), pp.c_str());
+            printf("POSSIBLE MOVE O-O-O.   Special Move: %-14s   Promoted Piece: %s\n", sm.c_str(), pp.c_str());
         }
     }
     else{
-        printf("POSSIBLE MOVE from %s to %s.   Special Move: %s   Promoted Piece: %s\n", from, to, sm.c_str(), pp.c_str());
+        printf("POSSIBLE MOVE from %s to %s.   Special Move: %-14s   Promoted Piece: %s\n", from, to, sm.c_str(), pp.c_str());
     }
 }
