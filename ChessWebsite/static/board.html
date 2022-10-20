@@ -2,9 +2,31 @@
 <head>
     <link rel="stylesheet" href="board.css">
     <title>CHESSBOARD</title>
- 
 </head>
-<div class="chessarea" id="chessarea"> </div>
-<script src="board.js"></script>
-</html>
 
+<div class="chessarea" id="chessarea"></div>
+
+<script src="board.js"></script>
+    <script>
+         setInterval(
+            function() {
+                chessarea = document.getElementById("chessarea");
+                whitePiece = document.querySelectorAll(".white-piece");
+                blackPiece = document.querySelectorAll(".black-piece");
+                rect = chessarea.getBoundingClientRect();
+                chessarea.style.height = rect.width;
+
+                whitePiece.forEach((piece) => {
+                    piece.style.width = rect.width / 8 / 2;
+                    piece.style.height = rect.width / 8 / 2;
+                })
+
+                blackPiece.forEach((piece) => {
+                    piece.style.width = rect.width / 8 / 2;
+                    piece.style.height = rect.width / 8 / 2;
+                })
+            },
+            100
+        );
+    </script>
+</html>

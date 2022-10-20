@@ -156,6 +156,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return fen;
     }
-  
   });
   
+
