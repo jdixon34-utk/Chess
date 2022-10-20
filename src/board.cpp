@@ -743,7 +743,9 @@ int Board::inCheck(){
 			tmpBitBoard &= ~RAYS[new_square][7];
 		}
 		if(tmpBitBoard & blackBishops != 0 || tmpBitBoard & blackQueen != 0) return 1;
+		
 		//Rook/Queen
+		tmpBitBoard = 0;
 		//n
 		tmpBitBoard |= RAYS[square][0] ^ (whitePieces & RAYS[square][0]);
 		if(RAYS[square][0] & allPieces){
