@@ -1,42 +1,47 @@
 function fen(){
  
+    turn = localStorage.turn;
+    pas = localStorage.pas;
+    cas = localStorage.cas;
+    half = localStorage.half;
+    full = localStorage.full;
+
     let fen = "";
 
     let tab = document.getElementById("chessboard");
-    var hold = tab.children[64];
-    turn = hold.classList.item(0);
-    cas = hold.classList.item(2);
-    half = hold.classList.item(3);
-    full = hold.classList.item(4) - 51;
-    //console.log("T " + tur.classList.item(1));
 
     let count = tab.childElementCount;
 
-    console.log("hi " + tab + " " + count + tab.children[0]);
+    //console.log("hi " + tab + " " + count + tab.children[0]);
 
     // iterate over all child nodes
     let space = 0;
-    for(let i = 0; i < 64; i++){
+    for(let i = 7; i >= 0; i--){
+    for(let j = 0; j < 8; j++){
 
-        if(tab.children[i].children[0] === undefined){
+        //Add a space if there is no piece
+        //console.log((i * 8) + j);
+        if(tab.children[(i * 8) + j].children[0] === undefined){
             space++;
         }else{
+            //Add the spaces
             if(space !== 0){
                 fen += space;
+                space = 0;
             }
-            space = 0;
-            fen += tab.children[i].children[0].classList.item(1);
+            fen += tab.children[(i * 8) + j].children[0].classList.item(1);
         }
 
-        if((((i + 1) % 8) === 0) && (i !== 63)){
+        if(j === 7 && i !== 0){
             if(space !== 0){
                 fen += space;
             }
             fen += '/';
             space = 0;
-            console.log(i);
+            //console.log((i * 8) + j);
         }
     }
+}
 
     fen += ' ';
 
@@ -59,8 +64,17 @@ function fen(){
     //This is different then how squares are named so will
     //Need to convert that either here or where they are made.
 
-    //fen += pas + ' ';
-
+    var check = false;
+    for(var i = 0; i < pas.length; i += 4){
+        console.log(pas[2]);
+        if(pas[i] !== ','){
+            fen += pas[i] + pas[i+2] + ' ';
+            check = true;
+        }
+    }
+    if(check === false){
+        fen += "- "
+    }
     //Next is how many moves both players have made since the last pawn advance or piece capture
     //Global variable I assume, given as 99 or some other number
     //Game ends if draw if this is 100

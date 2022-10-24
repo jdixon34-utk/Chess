@@ -16,7 +16,9 @@
         //    console.log("nu");
         //}
         console.log('lerp result: ' + instance["playTurn"]("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"));
-        //console.log('fen result: ' + fen());
+        console.log(localStorage.turn + " " + localStorage.pas + " " + localStorage.cas + " " + localStorage.half + " " + localStorage.full);
+        console.log('fen result: ' + fen());
+        console.log(instance["playTurn"](fen()))
     };
 </script>
 <script src="board.js"></script>

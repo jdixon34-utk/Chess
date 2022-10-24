@@ -6,12 +6,17 @@ document.addEventListener("DOMContentLoaded", function () {
     chessArea.appendChild(table);
     
     turn = "white-piece";
-    pas = "";
+    const pas = [];
     cas = "KQks";
     half = 0;
     full = 0;
+    var en_pas_ignore = false;
 
-
+    localStorage.turn = turn;
+    localStorage.pas = pas;
+    localStorage.cas = cas;
+    localStorage.half = half;
+    localStorage.full = full;
    
     for (var i = 1; i < 9; i++) {
         var col, child, piece;
@@ -20,13 +25,13 @@ document.addEventListener("DOMContentLoaded", function () {
  
             //Create each square/column of the board
             col = document.createElement("COL");
-            col.id = "col" + i + j;
+            col.id = ((i-1) * 8) + (j-1);
             color = (i%2 === j%2) ? "white" : "black";
             col.classList.add(color);
  
             //Create the piece
             piece = document.createElement("DIV");
-            piece.id = "piece" + i + j;
+            piece.id = "fd" + i + j;
  
             //Lets the user click on columns to do moves
             col.onclick = function(e) {  
@@ -38,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
  
             //Define the colors and piece type of the pieces
             if (i < 3) {
-                document.getElementById("col" + i + j).appendChild(piece);
+                document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
                 piece.classList.add("white-piece");
                 //Defines all the pieces for the white side
                 if(i === 1){
@@ -55,9 +60,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 }else{
                     piece.classList.add("P");
+                    piece.classList.add("W_p");
+                    piece.classList.add("First");
                 }
             } else if (i > 6) {
-                document.getElementById("col" + i + j).appendChild(piece);
+                document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
                 piece.classList.add("black-piece");
                 //Define all the pieces for the black side
                 if(i === 8){
@@ -80,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }else{
                     piece.classList.add("p");
                     piece.classList.add("B_p");
+                    piece.classList.add("First");
                 }
             }
         }
@@ -120,13 +128,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         //Valid move. So move the piece
         else if(cur !== undefined && col.children[0] === undefined){
-            move(col, cur.parentNode, cur);
-            if((cur.classList.contains("p") === true) || (cur.classList.contains("P") === true)){
+            if((cur.classList.contains("B_p") === true) || (cur.classList.contains("P") === true)){
                 half = 0;
+                
+                if(cur.classList.contains("First")){
+                    en_Pas(col, cur.parentNode);
+                }
+
             }else{
                 half++;
             }
+            move(col, cur.parentNode, cur);
+            en_pas_ignore = false;
+
             full++;
+
+            localStorage.half = half;
+            localStorage.full = full;
         }
         //Unselect the current piece
         else if(col.children[0] === cur){
@@ -138,6 +156,9 @@ document.addEventListener("DOMContentLoaded", function () {
             col.removeChild(col.children[0]);
             move(col, cur.parentNode, cur);
             full++;
+
+            localStorage.half = half;
+            localStorage.full = full;
         }
         //Good attempt but there is already a piece there ;D
         else if(col.children[0] !== undefined){
@@ -146,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
         //Else nothing is currently selected and the selected square has no piece so do nothing
 
         //Temp del
-        console.log(fen());
+        //console.log(fen());
     }
  
     //Move piece from cur_col to new_col
@@ -154,6 +175,21 @@ document.addEventListener("DOMContentLoaded", function () {
         //console.log(new_col);
         //console.log(cur_col);
         //console.log(piece);
+
+        if(piece.classList.contains("First")){
+            piece.classList.remove("First");
+        }else if(piece.classList.contains("en_Pas") && en_pas_ignore !== true){
+            
+            //remove from pas array
+            console.log(piece.classList.item(3) + " " + piece.classList.item(4))
+            
+            pas[piece.classList.item(4)] = ',';
+            localStorage.pas = pas;
+
+            piece.classList.remove(piece.classList.item(3));
+            piece.classList.remove(piece.classList.item(4));
+
+        }
  
         cur_col.removeChild(piece);
         new_col.appendChild(piece);
@@ -163,8 +199,41 @@ document.addEventListener("DOMContentLoaded", function () {
 
         //You would have to remove all classes store them then readd  them with the changed turn to keep order
         turn = (turn === "white-piece") ? "black-piece" : "white-piece";
+        localStorage.turn = turn;
     }
  
+    
+    function en_Pas(new_col, old_col){
+
+        //Rows of the board
+        const rows = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+        
+        //Gets the indexs of columns in the board
+        var new_index = [].indexOf.call(new_col.parentNode.children, new_col);
+        var old_index = [].indexOf.call(old_col.parentNode.children, old_col);
+        
+        //console.log(old_index + " " + new_index); 
+        
+        //might not be an En Passant so we check
+        if((old_index + 16) === new_index || (old_index - 16) === new_index){
+            
+            console.log(rows[new_index % 8] + " " + Math.floor(new_index / 8));
+            old_col.children[0].classList.add("en_Pas");
+            var length = pas.length;
+
+            old_col.children[0].classList.add(pas.length);
+
+            pas.push(rows[new_index % 8]);
+            pas.push(Math.floor(new_index / 8) + 1);
+
+            //pas.push(final);
+            localStorage.pas = pas;
+
+            en_pas_ignore = true;
+        }
+
+    }
+
     function fen(){
  
         let fen = "";
@@ -177,27 +246,32 @@ document.addEventListener("DOMContentLoaded", function () {
  
         // iterate over all child nodes
         let space = 0;
-        for(let i = 0; i < count; i++){
- 
-            if(tab.children[i].children[0] === undefined){
+        for(let i = 7; i >= 0; i--){
+        for(let j = 0; j < 8; j++){
+
+            //Add a space if there is no piece
+            //console.log((i * 8) + j);
+            if(tab.children[(i * 8) + j].children[0] === undefined){
                 space++;
             }else{
+                //Add the spaces
                 if(space !== 0){
                     fen += space;
+                    space = 0;
                 }
-                space = 0;
-                fen += tab.children[i].children[0].classList.item(1);
+                fen += tab.children[(i * 8) + j].children[0].classList.item(1);
             }
- 
-            if((((i + 1) % 8) === 0) && (i !== 63)){
+    
+            if(j === 7 && i !== 0){
                 if(space !== 0){
                     fen += space;
                 }
                 fen += '/';
                 space = 0;
-                console.log(i);
+                //console.log((i * 8) + j);
             }
         }
+    }
  
         fen += ' ';
  
