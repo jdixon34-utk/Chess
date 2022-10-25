@@ -313,6 +313,3 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
   });
-  
- 
-  });

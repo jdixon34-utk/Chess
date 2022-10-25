@@ -15,11 +15,22 @@
                 blackPiece = document.querySelectorAll(".black-piece");
                 rect = chessarea.getBoundingClientRect();
                 chessarea.style.height = rect.width;
-              
-<div class="hi" id="hi"></div>
-<div class="chessarea" id="chessarea"> </div>
-<script>
 
+                whitePiece.forEach((piece) => {
+                    piece.style.width = rect.width * 2.5 ;
+                    piece.style.height = rect.width * 2.5 ;
+                })
+
+                blackPiece.forEach((piece) => {
+                    piece.style.width = rect.width * 2.5;
+                    piece.style.height = rect.width * 2.5;
+                })
+            },
+            100
+        );
+    </script>
+
+<script>
     function run_ws() {
         let instance = new Module["chessGame"];
         //if(instance === undefined){
@@ -33,7 +44,6 @@
         console.log(instance["playTurn"](fen()))
     };
 </script>
-<script src="board.js"></script>
 <script src="chess.js"></script>
 <script type="text/javascript" src="fen.js"></script>
 <body>
@@ -41,19 +51,4 @@
         <button id="run_button" onclick="run_ws()">=</button>
     </div>
 </body>
-</html>
-
-                whitePiece.forEach((piece) => {
-                    piece.style.width = rect.width / 8 / 2;
-                    piece.style.height = rect.width / 8 / 2;
-                })
-
-                blackPiece.forEach((piece) => {
-                    piece.style.width = rect.width / 8 / 2;
-                    piece.style.height = rect.width / 8 / 2;
-                })
-            },
-            100
-        );
-    </script>
 </html>
