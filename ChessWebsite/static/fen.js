@@ -54,8 +54,12 @@ function fen(){
     //q = castle queenside possible
     //k = castle kingside
     //Can be either KQkq or Qk- or -- or etc
-    fen += cas + ' ';
-
+    if(cas !== ''){
+        fen += cas + ' ';
+    }else{
+        fen += '-' + ' ';
+    }
+    
     //Next you do en passant targets
     var check = false;
     for(var i = 0; i < pas.length; i += 4){

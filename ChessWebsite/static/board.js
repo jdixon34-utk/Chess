@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //Fen string variables
     turn = "white-piece";
     const pas = [];
-    cas = "KQks";
+    cas = "KQkq";
     half = 0;
     full = 0;
     var en_pas_ignore = false;
@@ -50,9 +50,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 piece.classList.add("white-piece");
                 //Defines all the pieces for the white side
                 if(i === 1){
-                    if(j === 1 || j === 8){
+                    if(j === 1){
                         piece.classList.add("R");
-                    }else if(j === 2 || j === 7){
+                        piece.classList.add("W_r");
+                        piece.classList.add("First");
+                        piece.classList.add(0);
+                    }else if(j === 8){
+                        piece.classList.add("R");
+                        piece.classList.add("W_r");
+                        piece.classList.add("First");
+                        piece.classList.add(1); 
+                    }    
+                    else if(j === 2 || j === 7){
                         piece.classList.add("N");
                     }else if(j === 3 || j === 6){
                         piece.classList.add("B");
@@ -60,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         piece.classList.add("Q");
                     }else{
                         piece.classList.add("K");
+                        piece.classList.add("First");
                     }
                 }else{
                     piece.classList.add("P");
@@ -71,9 +81,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 piece.classList.add("black-piece");
                 //Define all the pieces for the black side
                 if(i === 8){
-                    if(j === 1 || j === 8){
+                    if(j === 1){
                         piece.classList.add("r");
                         piece.classList.add("B_r");
+                        piece.classList.add("First");
+                        piece.classList.add(2);
+                    }else if(j === 8){
+                        piece.classList.add("r");
+                        piece.classList.add("B_r");
+                        piece.classList.add("First");
+                        piece.classList.add(3);   
                     }else if(j === 2 || j === 7){
                         piece.classList.add("n");
                         piece.classList.add("B_n");
@@ -86,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     }else{
                         piece.classList.add("k");
                         piece.classList.add("B_k");
+                        piece.classList.add("First");
                     }
                 }else{
                     piece.classList.add("p");
@@ -127,6 +145,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             }else{
                 half++;
+            }
+
+            if(((cur.classList.contains("k") || cur.classList.contains("K")) || ((cur.classList.contains("r") || cur.classList.contains("R")))) 
+                && cur.classList.contains("First")){
+                    castling(cur);
             }
 
             move(col, cur.parentNode, cur);
@@ -216,6 +239,32 @@ document.addEventListener("DOMContentLoaded", function () {
             en_pas_ignore = true;
         }
 
+    }
+
+    function castling(piece){
+
+        const options = ['K', 'Q', 'k', 'q'];
+
+        var a, b;
+
+        if(piece.classList.contains("r") || piece.classList.contains("R")){
+            b = cas.replace(options[piece.classList.item(4)], '');
+        }else if(piece.classList.contains("K")){
+            a = cas.replace("K", '');
+            document.getElementsByClassName(0)[0].classList.remove("First");
+            b = a.replace("Q", '');
+            document.getElementsByClassName(1)[0].classList.remove("First");
+        }else{
+            a = cas.replace("k", '');
+            document.getElementsByClassName(2)[0].classList.remove("First");
+            b = a.replace("q", '');
+            document.getElementsByClassName(3)[0].classList.remove("First");
+        }
+
+        piece.classList.remove("First");
+
+        cas = b;
+        localStorage.cas = cas;
     }
 
   });
