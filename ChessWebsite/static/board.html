@@ -14,17 +14,17 @@
                 whitePiece = document.querySelectorAll(".white-piece");
                 blackPiece = document.querySelectorAll(".black-piece");
                 rect = chessarea.getBoundingClientRect();
-                chessarea.style.height = rect.width;
 
-                whitePiece.forEach((piece) => {
-                    piece.style.width = rect.width * 1.95;
-                    piece.style.height = rect.width * 1.95;
-                })
+                    chessarea.style.height = rect.width;
+                    whitePiece.forEach((piece) => {
+                        piece.style.width = rect.width * 1.85;
+                        piece.style.height = rect.width * 1.85;
+                    })
 
-                blackPiece.forEach((piece) => {
-                    piece.style.width = rect.width * 1.95;
-                    piece.style.height = rect.width * 1.95;
-                })
+                    blackPiece.forEach((piece) => {
+                        piece.style.width = rect.width * 1.85;
+                        piece.style.height = rect.width * 1.85;
+                    })
             },
             100
         );
