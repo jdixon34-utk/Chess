@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     table.id = "chessboard";
     chessArea.appendChild(table);
     
+    //Fen string variables
     turn = "white-piece";
     const pas = [];
     cas = "KQks";
@@ -12,12 +13,14 @@ document.addEventListener("DOMContentLoaded", function () {
     full = 0;
     var en_pas_ignore = false;
 
+    //Lets these variables be used in the .html file and any files .js files in the .html
     localStorage.turn = turn;
     localStorage.pas = pas;
     localStorage.cas = cas;
     localStorage.half = half;
     localStorage.full = full;
    
+    //Create the squares and pieces
     for (var i = 1; i < 9; i++) {
         var col, child, piece;
  
@@ -92,22 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
  
-    }
-
-    //var hold = document.createElement("FEN");
-    //hold.id = "hidden";
-    //hold.classList.add("white-piece");
-    //hold.classList.add("temp");
-    //hold.classList.add("KQks");
-    //hold.classList.add(0);
-    //hold.classList.add(51);
-    //turn = "white-piece";
-    //pas = "";
-    //cas = "KQks";
-    //half = 0;
-    //full = 0;
-    //document.getElementById("chessboard").appendChild(hold);
- 
+    } 
  
     //Checks if a move is valid, if so does the move
     //e is click event, not used.
@@ -128,6 +116,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         //Valid move. So move the piece
         else if(cur !== undefined && col.children[0] === undefined){
+            
+            //IF a pawn checks if an en passant is now valid
             if((cur.classList.contains("B_p") === true) || (cur.classList.contains("P") === true)){
                 half = 0;
                 
@@ -138,6 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }else{
                 half++;
             }
+
             move(col, cur.parentNode, cur);
             en_pas_ignore = false;
 
@@ -166,23 +157,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         //Else nothing is currently selected and the selected square has no piece so do nothing
 
-        //Temp del
-        //console.log(fen());
     }
  
     //Move piece from cur_col to new_col
     function move(new_col, cur_col, piece) {
-        //console.log(new_col);
-        //console.log(cur_col);
-        //console.log(piece);
 
+        //En passant stuff
+        //No longer first move so first is removed
         if(piece.classList.contains("First")){
             piece.classList.remove("First");
         }else if(piece.classList.contains("en_Pas") && en_pas_ignore !== true){
             
-            //remove from pas array
-            console.log(piece.classList.item(3) + " " + piece.classList.item(4))
-            
+            //Item 4 tells us the index the piece is at in the pas array
             pas[piece.classList.item(4)] = ',';
             localStorage.pas = pas;
 
@@ -191,18 +177,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
  
+        //Moves the piece
         cur_col.removeChild(piece);
-        new_col.appendChild(piece);
- 
+        new_col.appendChild(piece); 
         piece.classList.remove("current");
 
-
-        //You would have to remove all classes store them then readd  them with the changed turn to keep order
         turn = (turn === "white-piece") ? "black-piece" : "white-piece";
         localStorage.turn = turn;
     }
  
-    
+
+    //Checks if an en passant is valid and sets the pieces class
     function en_Pas(new_col, old_col){
 
         //Rows of the board
@@ -210,106 +195,27 @@ document.addEventListener("DOMContentLoaded", function () {
         
         //Gets the indexs of columns in the board
         var new_index = [].indexOf.call(new_col.parentNode.children, new_col);
-        var old_index = [].indexOf.call(old_col.parentNode.children, old_col);
+        var old_index = [].indexOf.call(old_col.parentNode.children, old_col); 
         
-        //console.log(old_index + " " + new_index); 
-        
-        //might not be an En Passant so we check
+        //Might not be an En Passant so we check
         if((old_index + 16) === new_index || (old_index - 16) === new_index){
             
+            //Temporary debugging print
             console.log(rows[new_index % 8] + " " + Math.floor(new_index / 8));
+
+            //Add a class setting the piece as currently possible en Passant and the index of the array it is located in
             old_col.children[0].classList.add("en_Pas");
             var length = pas.length;
-
             old_col.children[0].classList.add(pas.length);
 
+            //Push the row and column of the piece
             pas.push(rows[new_index % 8]);
             pas.push(Math.floor(new_index / 8) + 1);
 
-            //pas.push(final);
             localStorage.pas = pas;
-
             en_pas_ignore = true;
         }
 
-    }
-
-    function fen(){
- 
-        let fen = "";
- 
-        let tab = document.getElementById("chessboard");
- 
-        let count = tab.childElementCount;
- 
-        console.log("hi " + tab + " " + count + tab.children[0]);
- 
-        // iterate over all child nodes
-        let space = 0;
-        for(let i = 7; i >= 0; i--){
-        for(let j = 0; j < 8; j++){
-
-            //Add a space if there is no piece
-            //console.log((i * 8) + j);
-            if(tab.children[(i * 8) + j].children[0] === undefined){
-                space++;
-            }else{
-                //Add the spaces
-                if(space !== 0){
-                    fen += space;
-                    space = 0;
-                }
-                fen += tab.children[(i * 8) + j].children[0].classList.item(1);
-            }
-    
-            if(j === 7 && i !== 0){
-                if(space !== 0){
-                    fen += space;
-                }
-                fen += '/';
-                space = 0;
-                //console.log((i * 8) + j);
-            }
-        }
-    }
- 
-        fen += ' ';
- 
-        //Whose turn is it
-        //b = black | white = w
-        //Don't have this in front end yet
-       
-        let t = (turn === "white-piece") ? "w" : "b";
-        
-        fen += t + ' ';
- 
-        //Next you say what castling is available
-        //q = castle queenside possible
-        //k = castle kingside
-        //Can be either KQkq or Qk- or -- or etc
-        fen += cas + ' ';
- 
-        //Next you do en passant targets
-        //you give it in terms of squares like e3.
-        //This is different then how squares are named so will
-        //Need to convert that either here or where they are made.
- 
-        //fen += pas + ' ';
- 
-        //Next is how many moves both players have made since the last pawn advance or piece capture
-        //Global variable I assume, given as 99 or some other number
-        //Game ends if draw if this is 100
- 
-        fen += half + ' ';
-        //fen += " "
- 
-        //Last field is the number of completed turns in the game.
-        //This number is incremented by one every time Black moves.
-        //Global variable, is just a number
- 
-        fen += full + ' ';
- 
-        return fen;
     }
 
   });

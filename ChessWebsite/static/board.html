@@ -4,6 +4,12 @@
     <title>CHESSBOARD</title>
 </head>
 
+<header>
+    <div style="display: left;" id="button">
+        <button id="run_button" onclick="run_ws()">=</button>
+    </div>
+</header>
+
 
 <div class="chessarea" id="chessarea"></div>
 
@@ -34,22 +40,13 @@
 <script>
     function run_ws() {
         let instance = new Module["chessGame"];
-        //if(instance === undefined){
-        //    console.log("un");
-        //}else if(instance === null){
-        //    console.log("nu");
-        //}
-        console.log('lerp result: ' + instance["playTurn"]("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"));
-        console.log(localStorage.turn + " " + localStorage.pas + " " + localStorage.cas + " " + localStorage.half + " " + localStorage.full);
+        console.log('Fen default result: ' + instance["playTurn"]("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"));
+        //console.log(localStorage.turn + " " + localStorage.pas + " " + localStorage.cas + " " + localStorage.half + " " + localStorage.full);
         console.log('fen result: ' + fen());
-        console.log(instance["playTurn"](fen()))
+        console.log('Our fen result: ' + instance["playTurn"](fen()));
     };
 </script>
 <script src="chess.js"></script>
 <script type="text/javascript" src="fen.js"></script>
-<body>
-    <div style="display: inline-block;">
-        <button id="run_button" onclick="run_ws()">=</button>
-    </div>
-</body>
+
 </html>

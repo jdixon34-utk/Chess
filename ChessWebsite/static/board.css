@@ -3,6 +3,11 @@
     margin-left: 25%;
   }
 
+#button{
+    display: flex;
+    margin: right 5000px;
+}
+
 #chessboard {
     width: 50vw;
     height: 98vh;
