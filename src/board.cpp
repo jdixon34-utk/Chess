@@ -598,40 +598,38 @@ void Board::genCastleQS(){
 	}
 }
 
-int Board::inCheck(){
-	/*
-	int square, new_square;
+int Board::squareUnderAttack(int square){
+
+	int new_square;
 	unsigned long long tmpBitBoard;
-	if(!color){
 	//Knight
-		square = getLSBIndex(whiteKing);
-		if(KNIGHT_LOOKUP_TBL[square] & blackKnights != 0) return 1;
+		if(KNIGHT_LOOKUP_TBL[square] & pieceTypes[!color][4] != 0) return 1;
 		//Bishop/Queen
 		//ne
-		tmpBitBoard |= RAYS[square][1] ^ (whitePieces & RAYS[square][1]);
+		tmpBitBoard |= RAYS[square][1] ^ (pieces[color] & RAYS[square][1]);
 		if(RAYS[square][1] & allPieces){
 			new_square = getLSBIndex(RAYS[square][1]&allPieces);
 			tmpBitBoard &= ~RAYS[new_square][1];
 		}
 		//se
-		tmpBitBoard |= RAYS[square][3] ^ (whitePieces & RAYS[square][3]);
+		tmpBitBoard |= RAYS[square][3] ^ (pieces[color] & RAYS[square][3]);
 		if(RAYS[square][3] & allPieces){
 			new_square = getMSBIndex(RAYS[square][3]&allPieces);
 			tmpBitBoard &= ~RAYS[new_square][3];
 		}
 		//sw
-		tmpBitBoard |= RAYS[square][5] ^ (whitePieces & RAYS[square][5]);
+		tmpBitBoard |= RAYS[square][5] ^ (pieces[color] & RAYS[square][5]);
 		if(RAYS[square][5] & allPieces){
 			new_square = getMSBIndex(RAYS[square][5]&allPieces);
 			tmpBitBoard &= ~RAYS[new_square][5];
 		}
 		//nw
-		tmpBitBoard |= RAYS[square][7] ^ (whitePieces & RAYS[square][7]);
+		tmpBitBoard |= RAYS[square][7] ^ (pieces[color] & RAYS[square][7]);
 		if(RAYS[square][7] & allPieces){
 			new_square = getLSBIndex(RAYS[square][7] & allPieces);
 			tmpBitBoard &= ~RAYS[new_square][7];
 		}
-		if(tmpBitBoard & blackBishops != 0 || tmpBitBoard & blackQueen != 0) return 1;
+		if(tmpBitBoard & pieces[!color][3] != 0 || tmpBitBoard & pieces[color][1] != 0) return 1;
 
 		//Rook/Queen
 		tmpBitBoard = 0;
@@ -666,11 +664,14 @@ int Board::inCheck(){
 		}
 
 		//Pawn (will change slightly for black)
-		if(blackPawns & (1 << (square+9)) != 0 || blackPawns & (1 << (square+7))) return 1;
-	}else{ // Black's turn
+		if(color){
+			if(pieces[!color][5] & (1 << (square-9)) != 0 || pieces[!color][1] & (1 << (square-7))) return 1;
+		}else{
+			if(pieces[!color][5] & (1 << (square+9)) != 0 || pieces[!color][1] & (1 << (square+7))) return 1;
 
+		}
 	}
-	*/
+
 	return 0;
 }
 
