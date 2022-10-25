@@ -34,8 +34,8 @@ extern void INITIALIZE_RAYS();
 class Board{
 private:
 
-    	//important info given from FEN string
-	bool whiteTurn;
+    //important info given from FEN string
+	int color;//0 = white's turn, 1 = black's turn
 	bool whiteCastleRightsKS;
 	bool whiteCastleRightsQS;
 	bool blackCastleRightsKS;
@@ -45,28 +45,16 @@ private:
     int fullMoveNumber;//The number of the full moves. It starts at 1 and is incremented after Black's move
 
 	unsigned long long allPieces;
+	unsigned long long emptySquares;
+	unsigned long long pieces[2];//all white and all black pieces: 0 = white pieces, 1 = black pieces
+	unsigned long long pieceTypes[2][6];//[color][pieceType] pieceType: 0 = king, 1 = queen, 2 = rook, 3 = bishop, 4 = knight, 5 = pawn
 
-	unsigned long long whitePieces;
-	unsigned long long whiteKing;
-	unsigned long long whiteQueen;
-	unsigned long long whiteRooks;
-	unsigned long long whiteBishops;
-	unsigned long long whiteKnights;
-	unsigned long long whitePawns;
-
-	unsigned long long blackPieces;
-	unsigned long long blackKing;
-	unsigned long long blackQueen;
-	unsigned long long blackRooks;
-	unsigned long long blackBishops;
-	unsigned long long blackKnights;
-	unsigned long long blackPawns;
+public:
 
 	//Move is a struct that will be defined somewhere else
 	//it just holds the information of a move: "from" square, "to" square, and other small info
 	class Move moves[128];
 	int moveIndex;
-public:
 
 	void genBoardFromFEN(std::string FEN);
 	void printBitBoard(unsigned long long bitBoard);
@@ -93,6 +81,17 @@ public:
 	void genCastleQS();
 
 	int inCheck();
+
+	void makeMove(class Move move);
+	int makeNormalMove(class Move move);
+	void makeEnPassMove(class Move move);
+	void makeCastleMove(class Move move);
+	void makePromotionMove(class Move move);
+	void undoMove(class Move move);
+	void undoNormalMove(class Move move);
+	void undoEnPassMove(class Move move);
+	void undoCastleMove(class Move move);
+	void undoPromotionMove(class Move move);
 };
 
 #endif
