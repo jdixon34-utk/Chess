@@ -4,31 +4,32 @@
     <title>CHESSBOARD</title>
 </head>
 
+
 <div class="chessarea" id="chessarea"></div>
 
 <script src="board.js"></script>
-    <script>
-         setInterval(
-            function() {
-                chessarea = document.getElementById("chessarea");
-                whitePiece = document.querySelectorAll(".white-piece");
-                blackPiece = document.querySelectorAll(".black-piece");
-                rect = chessarea.getBoundingClientRect();
+<script>
+    setInterval(
+        function() {
+            chessarea = document.getElementById("chessarea");
+            whitePiece = document.querySelectorAll(".white-piece");
+            blackPiece = document.querySelectorAll(".black-piece");
+            rect = chessarea.getBoundingClientRect();
 
-                    chessarea.style.height = rect.width;
-                    whitePiece.forEach((piece) => {
-                        piece.style.width = rect.width * 1.85;
-                        piece.style.height = rect.width * 1.85;
-                    })
+            chessarea.style.height = rect.width;
+            whitePiece.forEach((piece) => {
+                piece.style.width = rect.width * 1.85;
+                piece.style.height = rect.width * 1.85;
+            })
 
-                    blackPiece.forEach((piece) => {
-                        piece.style.width = rect.width * 1.85;
-                        piece.style.height = rect.width * 1.85;
-                    })
-            },
-            100
-        );
-    </script>
+            blackPiece.forEach((piece) => {
+                piece.style.width = rect.width * 1.85;
+                piece.style.height = rect.width * 1.85;
+            })
+        },
+        100
+    );
+</script>
 
 <script>
     function run_ws() {
@@ -48,7 +49,7 @@
 <script type="text/javascript" src="fen.js"></script>
 <body>
     <div style="display: inline-block;">
-        <button class="cringe" id="run_button" onclick="run_ws()">=</button>
+        <button id="run_button" onclick="run_ws()">=</button>
     </div>
 </body>
 </html>

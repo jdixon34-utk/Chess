@@ -1,5 +1,5 @@
 <script>
-    import Navbar from "../components/Navbar.svelte";
+    import Footer from "../components/Footer.svelte";
     import Icon from '@iconify/svelte';
 
     /* Variables */
@@ -46,5 +46,8 @@
 
 <!-- If the mobile menu is closed, we show the chess board -->
 {#if noMenu === true}
-    <embed class="md:w-screen md:h-[92vh] md:pt-[20vh] w-screen h-[89vh] pt-[20vh]" type="text/html" src="board.html" id="chessEmbed">
+    <div class="flex justify-center items-center">
+        <embed class="md:w-screen md:h-[89vh] md:pt-[12vh] w-screen h-[85vh] pt-[12vh] bg-white pb-[4vh]" type="text/html" src="board.html" id="chessEmbed">
+    </div>
+    <Footer />
 {/if}
