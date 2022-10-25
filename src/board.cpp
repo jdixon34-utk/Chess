@@ -633,32 +633,32 @@ int Board::squareUnderAttack(int square){
 		//Rook/Queen
 		tmpBitBoard = 0;
 		//n
-		tmpBitBoard |= RAYS[square][0] ^ (whitePieces & RAYS[square][0]);
+		tmpBitBoard |= RAYS[square][0] ^ (pieces[color] & RAYS[square][0]);
 		if(RAYS[square][0] & allPieces){
 			new_square = getLSBIndex(RAYS[square][0]&allPieces);
 			tmpBitBoard &= ~RAYS[new_square][0];
 		}
 		//e
-		tmpBitBoard |= RAYS[square][2] ^ (whitePieces & RAYS[square][2]);
+		tmpBitBoard |= RAYS[square][2] ^ (pieces[color] & RAYS[square][2]);
 		if(RAYS[square][2] & allPieces){
 			new_square = getLSBIndex(RAYS[square][2]&allPieces);
 			tmpBitBoard &= ~RAYS[new_square][2];
 		}
 		//s
-		tmpBitBoard |= RAYS[square][4] ^ (whitePieces & RAYS[square][4]);
+		tmpBitBoard |= RAYS[square][4] ^ (pieces[color] & RAYS[square][4]);
 		if(RAYS[square][4] & allPieces){
 			new_square = getLSBIndex(RAYS[square][4]&allPieces);
 			tmpBitBoard &= ~RAYS[new_square][4];
 		}
 		//w
-		tmpBitBoard |= RAYS[square][6] ^ (whitePieces & RAYS[square][6]);
+		tmpBitBoard |= RAYS[square][6] ^ (pieces[color] & RAYS[square][6]);
 		if(RAYS[square][6] & allPieces){
 			new_square = getLSBIndex(RAYS[square][6]&allPieces);
 			tmpBitBoard &= ~RAYS[new_square][6];
 		}
-		if(tmpBitBoard & blackRooks != 0 || tmpBitBoard & blackQueen != 0) return 1;
+		if(tmpBitBoard & pieceTypes[!color][2] != 0 || tmpBitBoard & pieceTypes[!color][1] != 0) return 1;
 		//King
-		if(KING_LOOKUP_TBL[getLSBIndex(blackKing)] & square){
+		if(KING_LOOKUP_TBL[getLSBIndex(pieceTypes[!color][0])] & square){
 			return 1;
 		}
 
