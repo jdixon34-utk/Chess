@@ -9,39 +9,31 @@ void Board::genBoardFromFEN(string FEN){
 	int indexFEN = 0, indexBoard = 56;
 
 	allPieces = 0;
-
-	whitePieces = 0;
-	whiteKing = 0;
-	whiteQueen = 0;
-	whiteRooks = 0;
-	whiteBishops = 0;
-	whiteKnights = 0;
-	whitePawns = 0;
-
-	blackPieces = 0;
-	blackKing = 0;
-	blackQueen = 0;
-	blackRooks = 0;
-	blackBishops = 0;
-	blackKnights = 0;
-	blackPawns = 0;
+	emptySquares = 0;
+	pieces[0] = 0;
+	pieces[1] = 0;
+	for(int i = 0; i < 2; i++){
+		for(int j = 0; j < 6; j++){
+			pieceTypes[i][j] = 0;
+		}
+	}
 
 	//reading in board and setting bitboards
 	while(FEN[indexFEN] != ' '){
 		switch(FEN[indexFEN]){
-			case 'k': blackKing |= 1ULL << indexBoard; break;
-			case 'q': blackQueen |= 1ULL << indexBoard; break;
-			case 'r': blackRooks |= 1ULL << indexBoard; break;
-			case 'b': blackBishops |= 1ULL << indexBoard; break;
-			case 'n': blackKnights |= 1ULL << indexBoard; break;
-			case 'p': blackPawns |= 1ULL << indexBoard; break;
+			case 'k': pieceTypes[1][0] |= 1ULL << indexBoard; break;
+			case 'q': pieceTypes[1][1] |= 1ULL << indexBoard; break;
+			case 'r': pieceTypes[1][2] |= 1ULL << indexBoard; break;
+			case 'b': pieceTypes[1][3] |= 1ULL << indexBoard; break;
+			case 'n': pieceTypes[1][4] |= 1ULL << indexBoard; break;
+			case 'p': pieceTypes[1][5] |= 1ULL << indexBoard; break;
 
-			case 'K': whiteKing |= 1ULL << indexBoard; break;
-			case 'Q': whiteQueen |= 1ULL << indexBoard; break;
-			case 'R': whiteRooks |= 1ULL << indexBoard; break;
-			case 'B': whiteBishops |= 1ULL << indexBoard; break;
-			case 'N': whiteKnights |= 1ULL << indexBoard; break;
-			case 'P': whitePawns |= 1ULL << indexBoard; break;
+			case 'K': pieceTypes[0][0] |= 1ULL << indexBoard; break;
+			case 'Q': pieceTypes[0][1] |= 1ULL << indexBoard; break;
+			case 'R': pieceTypes[0][2] |= 1ULL << indexBoard; break;
+			case 'B': pieceTypes[0][3] |= 1ULL << indexBoard; break;
+			case 'N': pieceTypes[0][4] |= 1ULL << indexBoard; break;
+			case 'P': pieceTypes[0][5] |= 1ULL << indexBoard; break;
 
 			case '/' : indexBoard -= 17; break;
 			case '1' : break;
@@ -56,14 +48,15 @@ void Board::genBoardFromFEN(string FEN){
 		indexFEN++;
 		indexBoard++;
 	}
-	whitePieces = whiteKing | whiteQueen | whiteRooks | whiteBishops | whiteKnights | whitePawns;
-	blackPieces = blackKing | blackQueen | blackRooks | blackBishops | blackKnights | blackPawns;
-	allPieces = whitePieces | blackPieces;
+	pieces[0] = pieceTypes[0][0] | pieceTypes[0][1] | pieceTypes[0][2] | pieceTypes[0][3] | pieceTypes[0][4] | pieceTypes[0][5];
+	pieces[1] = pieceTypes[1][0] | pieceTypes[1][1] | pieceTypes[1][2] | pieceTypes[1][3] | pieceTypes[1][4] | pieceTypes[1][5];
+	allPieces = pieces[0] | pieces[1];
+	emptySquares = ~allPieces;
 
 	//reading in who's turn it is
 	indexFEN++;
-	if(FEN[indexFEN] == 'w') whiteTurn = true;
-	else whiteTurn = false;
+	if(FEN[indexFEN] == 'w') color = 0;
+	else color = 1;
 
 	//reading in castling rights
 	indexFEN += 2;
@@ -124,35 +117,37 @@ void Board::printBitBoard(unsigned long long bitBoard){
 void Board::printPosition(){
 	printf("All Pieces\n");
 	printBitBoard(allPieces);
+	printf("Empty Sqaures\n");
+	printBitBoard(emptySquares);
 	printf("White Pieces\n");
-	printBitBoard(whitePieces);
+	printBitBoard(pieces[0]);
 	printf("White King\n");
-	printBitBoard(whiteKing);
+	printBitBoard(pieceTypes[0][0]);
 	printf("White Queen\n");
-	printBitBoard(whiteQueen);
+	printBitBoard(pieceTypes[0][1]);
 	printf("White Rooks\n");
-	printBitBoard(whiteRooks);
+	printBitBoard(pieceTypes[0][2]);
 	printf("White Bishops\n");
-	printBitBoard(whiteBishops);
+	printBitBoard(pieceTypes[0][3]);
 	printf("White Knights\n");
-	printBitBoard(whiteKnights);
+	printBitBoard(pieceTypes[0][4]);
 	printf("White Pawns\n");
-	printBitBoard(whitePawns);
+	printBitBoard(pieceTypes[0][5]);
 	printf("Black Pieces\n");
-	printBitBoard(blackPieces);
+	printBitBoard(pieces[1]);
 	printf("Black King\n");
-	printBitBoard(blackKing);
+	printBitBoard(pieceTypes[1][0]);
 	printf("Black Queen\n");
-	printBitBoard(blackQueen);
+	printBitBoard(pieceTypes[1][1]);
 	printf("Black Rooks\n");
-	printBitBoard(blackRooks);
+	printBitBoard(pieceTypes[1][2]);
 	printf("Black Bishops\n");
-	printBitBoard(blackBishops);
+	printBitBoard(pieceTypes[1][3]);
 	printf("Black Knights\n");
-	printBitBoard(blackKnights);
+	printBitBoard(pieceTypes[1][4]);
 	printf("Black Pawns\n");
-	printBitBoard(blackPawns);
-	if(whiteTurn) printf("White's Turn\n");
+	printBitBoard(pieceTypes[1][5]);
+	if(color) printf("White's Turn\n");
 	else printf("Black's Turn\n");
 	printf("White Castle Rights KS: %d\n", whiteCastleRightsKS);
 	printf("White Castle Rights QS: %d\n", whiteCastleRightsQS);
@@ -183,112 +178,63 @@ void Board::genMoves(){
 	unsigned long long tmpBitBoard;
 	int square;
 
-	if(whiteTurn){
-		/*
-		instead of looping through the whole bitboard to find bits set to 1,
-		we can keep finding the lsb set to 1, do what we need to do with it,
-		set it to 0, and repeat until the bitboard == 0
-		*/
-		moveIndex = 0; //set/reset the index of the moves array
+	/*
+	instead of looping through the whole bitboard to find bits set to 1,
+	we can keep finding the lsb set to 1, do what we need to do with it,
+	set it to 0, and repeat until the bitboard == 0
+	*/
+	moveIndex = 0; //set/reset the index of the moves array
 
-		tmpBitBoard = whiteKing;
-		while(whiteKing){
-			square = getLSBIndex(whiteKing);
-			genKingMoves(square);
-			whiteKing &= whiteKing - 1;
-		}
-		whiteKing = tmpBitBoard;
-
-		tmpBitBoard = whiteQueen;
-		while(whiteQueen){
-			square = getLSBIndex(whiteQueen);
-			genQueenMoves(square);
-			whiteQueen &= whiteQueen - 1;
-		}
-		whiteQueen = tmpBitBoard;
-
-		tmpBitBoard = whiteRooks;
-		while(whiteRooks){
-			square = getLSBIndex(whiteRooks);
-			genRookMoves(square);
-			whiteRooks &= whiteRooks - 1;
-		}
-		whiteRooks = tmpBitBoard;
-
-		tmpBitBoard = whiteBishops;
-		while(whiteBishops){
-			square = getLSBIndex(whiteBishops);
-			genBishopMoves(square);
-			whiteBishops &= whiteBishops - 1;
-		}
-		whiteBishops = tmpBitBoard;
-
-		tmpBitBoard = whiteKnights;
-		while(whiteKnights){
-			square = getLSBIndex(whiteKnights);
-			genKnightMoves(square);
-			whiteKnights &= whiteKnights - 1;
-		}
-		whiteKnights = tmpBitBoard;
-
-
-		genPawnLeftMoves();
-		genPawnSinglePushMoves();
-		genPawnDoublePushMoves();
-		genPawnRightMoves();
-		if(enPassantTargetSquare != 0) genEnPassantMoves();
-		if(whiteCastleRightsKS) genCastleKS();
-		if(whiteCastleRightsQS) genCastleQS();
+	tmpBitBoard = pieceTypes[color][0];
+	while(pieceTypes[color][0]){
+		square = getLSBIndex(pieceTypes[color][0]);
+		genKingMoves(square);
+		pieceTypes[color][0] &= pieceTypes[color][0] - 1;
 	}
-	else{
-		tmpBitBoard = blackKing;
-		while(blackKing){
-			square = getLSBIndex(blackKing);
-			genKingMoves(square);
-			blackKing &= blackKing - 1;
-		}
-		blackKing = tmpBitBoard;
+	pieceTypes[color][0] = tmpBitBoard;
 
-		tmpBitBoard = blackQueen;
-		while(blackQueen){
-			square = getLSBIndex(blackQueen);
-			genQueenMoves(square);
-			blackQueen &= blackQueen - 1;
-		}
-		blackQueen = tmpBitBoard;
-
-		tmpBitBoard = blackRooks;
-		while(blackRooks){
-			square = getLSBIndex(blackRooks);
-			genRookMoves(square);
-			blackRooks &= blackRooks - 1;
-		}
-		blackRooks = tmpBitBoard;
-
-		tmpBitBoard = blackBishops;
-		while(blackBishops){
-			square = getLSBIndex(blackBishops);
-			genBishopMoves(square);
-			blackBishops &= blackBishops - 1;
-		}
-		blackBishops = tmpBitBoard;
-
-		tmpBitBoard = blackKnights;
-		while(blackKnights){
-			square = getLSBIndex(blackKnights);
-			genKnightMoves(square);
-			blackKnights &= blackKnights - 1;
-		}
-		blackKnights = tmpBitBoard;
-
-		genPawnLeftMoves();
-		genPawnSinglePushMoves();
-		genPawnDoublePushMoves();
-		genPawnRightMoves();
-		if(enPassantTargetSquare != 0) genEnPassantMoves();
-		if(blackCastleRightsKS) genCastleKS();
-		if(blackCastleRightsQS) genCastleQS();
+	tmpBitBoard = pieceTypes[color][1];
+	while(pieceTypes[color][1]){
+		square = getLSBIndex(pieceTypes[color][1]);
+		genQueenMoves(square);
+		pieceTypes[color][1] &= pieceTypes[color][1] - 1;
 	}
+	pieceTypes[color][1] = tmpBitBoard;
+
+	tmpBitBoard = pieceTypes[color][2];
+	while(pieceTypes[color][2]){
+		square = getLSBIndex(pieceTypes[color][2]);
+		genRookMoves(square);
+		pieceTypes[color][2] &= pieceTypes[color][2] - 1;
+	}
+	pieceTypes[color][2] = tmpBitBoard;
+
+	tmpBitBoard = pieceTypes[color][3];
+	while(pieceTypes[color][3]){
+		square = getLSBIndex(pieceTypes[color][3]);
+		genBishopMoves(square);
+		pieceTypes[color][3] &= pieceTypes[color][3] - 1;
+	}
+	pieceTypes[color][3] = tmpBitBoard;
+
+	tmpBitBoard = pieceTypes[color][4];
+	while(pieceTypes[color][4]){
+		square = getLSBIndex(pieceTypes[color][4]);
+		genKnightMoves(square);
+		pieceTypes[color][4] &= pieceTypes[color][4] - 1;
+	}
+	pieceTypes[color][4] = tmpBitBoard;
+
+
+	genPawnLeftMoves();
+	genPawnSinglePushMoves();
+	genPawnDoublePushMoves();
+	genPawnRightMoves();
+	if(enPassantTargetSquare != 0) genEnPassantMoves();
+	if(color && whiteCastleRightsKS) genCastleKS();
+	else if(blackCastleRightsKS) genCastleKS();
+	if(color && whiteCastleRightsQS) genCastleQS();
+	else if(blackCastleRightsQS) genCastleQS();
 }
 
 void Board::genKingMoves(int square){
@@ -296,11 +242,7 @@ void Board::genKingMoves(int square){
 	int new_square;
 	Move move;
 
-	if(whiteTurn){
-		king_moves = KING_LOOKUP_TBL[square] ^ (whitePieces & KING_LOOKUP_TBL[square]);
- 	}else{
-		king_moves = KING_LOOKUP_TBL[square] ^ (blackPieces& KING_LOOKUP_TBL[square]);
-	}
+	king_moves = KING_LOOKUP_TBL[square] ^ (pieces[color] & KING_LOOKUP_TBL[square]);
 
 	while(king_moves != 0){
         new_square = getLSBIndex(king_moves);
@@ -319,57 +261,32 @@ void Board::genRookMoves(int square){
     unsigned long long rm = 0;
 	int block, new_square;
 	Move move;
-	if(whiteTurn){
-		// North
-		rm |= RAYS[square][0] ^ (whitePieces & RAYS[square][0]);
-		if(RAYS[square][0] & allPieces){
-			block = getLSBIndex(RAYS[square][0] & allPieces);
-			rm &= ~RAYS[block][0];
-		}
-		// East
-		rm |= RAYS[square][2] ^ (whitePieces & RAYS[square][2]);
-		if(RAYS[square][2] & allPieces){
-			block = getLSBIndex(RAYS[square][2] & allPieces);
-			rm &= ~RAYS[block][2];
-		}
-		// South
-		rm |= RAYS[square][4] ^ (whitePieces & RAYS[square][4]);
-		if(RAYS[square][4] & allPieces){
-			block = getMSBIndex(RAYS[square][4] & allPieces);
-			rm &= ~RAYS[block][4];
-		}
-		// West
-		rm |= RAYS[square][6] ^ (whitePieces & RAYS[square][6]);
-		if(RAYS[square][6] & allPieces){
-			block = getMSBIndex(RAYS[square][6] & allPieces);
-			rm &= ~RAYS[block][6];
-		}
-	}else{ // Black's Turn
-		// North
-		rm |= RAYS[square][0] ^ (blackPieces & RAYS[square][0]);
-		if(RAYS[square][0] & allPieces){
-			block = getLSBIndex(RAYS[square][0] & allPieces);
-			rm &= ~RAYS[block][0];
-		}
-		// East
-		rm |= RAYS[square][2] ^ (blackPieces & RAYS[square][2]);
-		if(RAYS[square][2] & allPieces){
-			block = getLSBIndex(RAYS[square][2] & allPieces);
-			rm &= ~RAYS[block][2];
-		}
-		// South
-		rm |= RAYS[square][4] ^ (blackPieces & RAYS[square][4]);
-		if(RAYS[square][4] & allPieces){
-			block = getMSBIndex(RAYS[square][4] & allPieces);
-			rm &= ~RAYS[block][4];
-		}
-		// West
-		rm |= RAYS[square][6] ^ (blackPieces & RAYS[square][6]);
-		if(RAYS[square][6] & allPieces){
-			block = getMSBIndex(RAYS[square][6] & allPieces);
-			rm &= ~RAYS[block][6];
-		}
+
+	// North
+	rm |= RAYS[square][0] ^ (pieces[color] & RAYS[square][0]);
+	if(RAYS[square][0] & allPieces){
+		block = getLSBIndex(RAYS[square][0] & allPieces);
+		rm &= ~RAYS[block][0];
 	}
+	// East
+	rm |= RAYS[square][2] ^ (pieces[color] & RAYS[square][2]);
+	if(RAYS[square][2] & allPieces){
+		block = getLSBIndex(RAYS[square][2] & allPieces);
+		rm &= ~RAYS[block][2];
+	}
+	// South
+	rm |= RAYS[square][4] ^ (pieces[color] & RAYS[square][4]);
+	if(RAYS[square][4] & allPieces){
+		block = getMSBIndex(RAYS[square][4] & allPieces);
+		rm &= ~RAYS[block][4];
+	}
+	// West
+	rm |= RAYS[square][6] ^ (pieces[color] & RAYS[square][6]);
+	if(RAYS[square][6] & allPieces){
+		block = getMSBIndex(RAYS[square][6] & allPieces);
+		rm &= ~RAYS[block][6];
+	}
+
 	while(rm != 0){
         new_square = getLSBIndex(rm);
         rm &= rm - 1;
@@ -382,58 +299,33 @@ void Board::genBishopMoves(int square){
 	unsigned long long bishop_moves = 0;
 	int new_square;
 	Move move;
-	if(whiteTurn){
-		//ne
-		bishop_moves |= RAYS[square][1] ^ (whitePieces & RAYS[square][1]);
-		if(RAYS[square][1] & allPieces){
-			new_square = getLSBIndex(RAYS[square][1]&allPieces);
-			bishop_moves &= ~RAYS[new_square][1];
-		}
-		//se
-		bishop_moves |= RAYS[square][3] ^ (whitePieces & RAYS[square][3]);
-		if(RAYS[square][3] & allPieces){
-			new_square = getMSBIndex(RAYS[square][3]&allPieces);
-			bishop_moves &= ~RAYS[new_square][3];
-		}
-		//sw
-		bishop_moves |= RAYS[square][5] ^ (whitePieces & RAYS[square][5]);
-		if(RAYS[square][5] & allPieces){
-			new_square = getMSBIndex(RAYS[square][5]&allPieces);
-			bishop_moves &= ~RAYS[new_square][5];
-		}
-		//nw
-		bishop_moves |= RAYS[square][7] ^ (whitePieces & RAYS[square][7]);
-		if(RAYS[square][7] & allPieces){
-			new_square = getLSBIndex(RAYS[square][7] & allPieces);
-			bishop_moves &= ~RAYS[new_square][7];
-		}
-	}else{
-		//ne
-		bishop_moves |= (RAYS[square][1] ^ (blackPieces & RAYS[square][1]));
-		if(RAYS[square][1] & allPieces){
-			new_square = getLSBIndex(RAYS[square][1]&allPieces);
-			bishop_moves &= ~RAYS[new_square][1];
-		}
-		//se
-		bishop_moves |= (RAYS[square][3] ^ (blackPieces & RAYS[square][3]));
-		if(RAYS[square][3] & allPieces){
-			new_square = getMSBIndex(RAYS[square][3]&allPieces);
-			bishop_moves &= ~RAYS[new_square][3];
-		}
-		//sw
-		bishop_moves |= (RAYS[square][5] ^ (blackPieces & RAYS[square][5]));
-		if(RAYS[square][5] & allPieces){
-			new_square = getMSBIndex(RAYS[square][5]&allPieces);
-			bishop_moves &= ~RAYS[new_square][5];
-		}
-		//nw
-		bishop_moves |= (RAYS[square][7] ^ (blackPieces & RAYS[square][7]));
-		if(RAYS[square][7] & allPieces){
-			new_square = getLSBIndex(RAYS[square][7]&allPieces);
-			bishop_moves &= ~RAYS[new_square][7];
-		}
+
+	//ne
+	bishop_moves |= RAYS[square][1] ^ (pieces[color] & RAYS[square][1]);
+	if(RAYS[square][1] & allPieces){
+		new_square = getLSBIndex(RAYS[square][1]&allPieces);
+		bishop_moves &= ~RAYS[new_square][1];
 	}
-	while(bishop_moves != 0){
+	//se
+	bishop_moves |= RAYS[square][3] ^ (pieces[color] & RAYS[square][3]);
+	if(RAYS[square][3] & allPieces){
+		new_square = getMSBIndex(RAYS[square][3]&allPieces);
+		bishop_moves &= ~RAYS[new_square][3];
+	}
+	//sw
+	bishop_moves |= RAYS[square][5] ^ (pieces[color] & RAYS[square][5]);
+	if(RAYS[square][5] & allPieces){
+		new_square = getMSBIndex(RAYS[square][5]&allPieces);
+		bishop_moves &= ~RAYS[new_square][5];
+	}
+	//nw
+	bishop_moves |= RAYS[square][7] ^ (pieces[color] & RAYS[square][7]);
+	if(RAYS[square][7] & allPieces){
+		new_square = getLSBIndex(RAYS[square][7] & allPieces);
+		bishop_moves &= ~RAYS[new_square][7];
+	}
+
+    while(bishop_moves != 0){
         new_square = getLSBIndex(bishop_moves);
         bishop_moves &= bishop_moves - 1;
     	move.createMove(square, new_square, 0, 0);
@@ -442,17 +334,13 @@ void Board::genBishopMoves(int square){
 }
 
 void Board::genKnightMoves(int square){
-    unsigned long long knight_moves = 0;
+	unsigned long long knight_moves;
 	int new_square;
 	Move move;
 
-    if(whiteTurn){
-        knight_moves = KNIGHT_LOOKUP_TBL[square] ^ (whitePieces & KNIGHT_LOOKUP_TBL[square]);
-    }else{ // Black's Turn
-        knight_moves = KNIGHT_LOOKUP_TBL[square] ^ (blackPieces & KNIGHT_LOOKUP_TBL[square]);
-    }
+	knight_moves = KNIGHT_LOOKUP_TBL[square] ^ (pieces[color] & KNIGHT_LOOKUP_TBL[square]);
 
-    while(knight_moves != 0){
+	while(knight_moves != 0){
         new_square = getLSBIndex(knight_moves);
         knight_moves &= knight_moves - 1;
     	move.createMove(square, new_square, 0, 0);
@@ -466,8 +354,8 @@ void Board::genPawnLeftMoves(){
 	int square;
 	Move move;
 
-    if(whiteTurn){
-        pawn_left_moves = ((whitePawns << 7ULL) & ~FILE_H) & blackPieces;
+    if(color == 0){
+        pawn_left_moves = ((pieceTypes[0][5] << 7ULL) & ~FILE_H) & pieces[1];
 
 		//pawn promotion
 		if(pawn_left_moves & RANK_8){
@@ -482,7 +370,7 @@ void Board::genPawnLeftMoves(){
 			moves[moveIndex++] = move;
 		}
     }else{ // Black's Turn
-        pawn_left_moves = ((blackPawns >> 7ULL) & ~FILE_A) & whitePieces;
+        pawn_left_moves = ((pieceTypes[0][5] >> 7ULL) & ~FILE_A) & pieces[0];
 
 		//pawn promotion
 		if(pawn_left_moves & RANK_1){
@@ -505,8 +393,8 @@ void Board::genPawnSinglePushMoves(){
 	int square;
 	Move move;
 
-    if(whiteTurn){
-        pawn_sp_moves = (whitePawns << 8ULL) & ~allPieces;
+    if(color == 0){
+        pawn_sp_moves = (pieceTypes[0][5] << 8ULL) & emptySquares;
 
 		//pawn promotion
 		if(pawn_sp_moves & RANK_8){
@@ -521,7 +409,7 @@ void Board::genPawnSinglePushMoves(){
 			moves[moveIndex++] = move;
 		}
     }else{ // Black's Turn
-        pawn_sp_moves = (blackPawns >> 8ULL) & ~allPieces;
+        pawn_sp_moves = (pieceTypes[1][5] >> 8ULL) & emptySquares;
 
 		//pawn promotion
 		if(pawn_sp_moves & RANK_1){
@@ -543,8 +431,8 @@ void Board::genPawnDoublePushMoves(){
 	int new_square, square;
 	Move move;
 
-    if(whiteTurn){
-        pawn_dp_moves = ((whitePawns << 16ULL) & (((~allPieces & RANK_3) << 8ULL) & (~allPieces & RANK_4)));
+    if(color == 0){
+        pawn_dp_moves = ((pieceTypes[0][5] << 16ULL) & (((emptySquares & RANK_3) << 8ULL) & (emptySquares & RANK_4)));
 		while(pawn_dp_moves != 0){
 			new_square = getLSBIndex(pawn_dp_moves);
 			square = new_square - 16;
@@ -553,7 +441,7 @@ void Board::genPawnDoublePushMoves(){
 			moves[moveIndex++] = move;
 		}
     }else{ // Black's Turn
-        pawn_dp_moves = ((blackPawns >> 16ULL) & (((~allPieces & RANK_6) >> 8ULL) & (~allPieces & RANK_5)));
+        pawn_dp_moves = ((pieceTypes[1][5] >> 16ULL) & (((emptySquares & RANK_6) >> 8ULL) & (emptySquares & RANK_5)));
 		while(pawn_dp_moves != 0){
 			new_square = getLSBIndex(pawn_dp_moves);
 			square = new_square + 16;
@@ -569,8 +457,8 @@ void Board::genPawnRightMoves(){
 	int new_square, square;
 	Move move;
 
-    if(whiteTurn){
-        pawn_right_moves = ((whitePawns << 9ULL) & ~FILE_A) & blackPieces;
+    if(color == 0){
+        pawn_right_moves = ((pieceTypes[0][5] << 9ULL) & ~FILE_A) & pieces[1];
 
 		//pawn promotion
 		if(pawn_right_moves & RANK_8){
@@ -585,7 +473,7 @@ void Board::genPawnRightMoves(){
 			moves[moveIndex++] = move;
 		}
     }else{ // Black's Turn
-        pawn_right_moves = ((blackPawns >> 9ULL) & ~FILE_H) & whitePieces;
+        pawn_right_moves = ((pieceTypes[1][5] >> 9ULL) & ~FILE_H) & pieces[0];
 
 		//pawn promotion
 		if(pawn_right_moves & RANK_1){
@@ -629,8 +517,8 @@ void Board::genEnPassantMoves(){
 	int new_square, square;
 	Move move;
 
-    if(whiteTurn){
-        enpass_moves = ((whitePawns << 7ULL) & ~FILE_H) & (1ULL << enPassantTargetSquare);
+    if(color == 0){
+        enpass_moves = ((pieceTypes[0][5] << 7ULL) & ~FILE_H) & (1ULL << enPassantTargetSquare);
 
 		while(enpass_moves != 0){
 			new_square = getLSBIndex(enpass_moves);
@@ -640,7 +528,7 @@ void Board::genEnPassantMoves(){
 			moves[moveIndex++] = move;
 		}
 
-		enpass_moves = ((whitePawns << 9ULL) & ~FILE_A) & (1ULL << enPassantTargetSquare);
+		enpass_moves = ((pieceTypes[0][5] << 9ULL) & ~FILE_A) & (1ULL << enPassantTargetSquare);
 
 		while(enpass_moves != 0){
 			new_square = getLSBIndex(enpass_moves);
@@ -650,7 +538,7 @@ void Board::genEnPassantMoves(){
 			moves[moveIndex++] = move;
 		}
     }else{ // Black's Turn
-        enpass_moves = ((blackPawns >> 7ULL) & ~FILE_A) & (1ULL << enPassantTargetSquare);
+        enpass_moves = ((pieceTypes[1][5] >> 7ULL) & ~FILE_A) & (1ULL << enPassantTargetSquare);
 
 		while(enpass_moves != 0){
 			new_square = getLSBIndex(enpass_moves);
@@ -660,7 +548,7 @@ void Board::genEnPassantMoves(){
 			moves[moveIndex++] = move;
 		}
 
-		enpass_moves = ((blackPawns >> 9ULL) & ~FILE_H) & (1ULL << enPassantTargetSquare);
+		enpass_moves = ((pieceTypes[1][5] >> 9ULL) & ~FILE_H) & (1ULL << enPassantTargetSquare);
 
 		while(enpass_moves != 0){
 			new_square = getLSBIndex(enpass_moves);
@@ -675,7 +563,7 @@ void Board::genEnPassantMoves(){
 void Board::genCastleKS(){
 	Move move;
 
-	if(whiteTurn){
+	if(color == 0){
 		//makes sure no pieces are blocking
 		if(((3ULL << 5) & allPieces) == 0){
 			move.createMove(4, 6, 2, 0);
@@ -694,7 +582,7 @@ void Board::genCastleKS(){
 void Board::genCastleQS(){
 	Move move;
 
-	if(whiteTurn){
+	if(color == 0){
 		//makes sure no pieces are blocking
 		if(((7ULL << 1) & allPieces) == 0){
 			move.createMove(4, 2, 2, 0);
@@ -711,43 +599,156 @@ void Board::genCastleQS(){
 }
 
 int Board::inCheck(){
-	int square;
+	/*
+	int square, new_square;
 	unsigned long long tmpBitBoard;
 	if(!color){
 	//Knight
 		square = getLSBIndex(whiteKing);
 		if(KNIGHT_LOOKUP_TBL[square] & blackKnights != 0) return 1;
-	//Bishop/Queen
-	//ne
-	tmpBitBoard |= RAYS[square][1] ^ (whitePieces & RAYS[square][1]);
-	if(RAYS[square][1] & allPieces){
-		new_square = getLSBIndex(RAYS[square][1]&allPieces);
-		tmpBitBoard &= ~RAYS[new_square][1];
-	}
-	//se
-	tmpBitBoard |= RAYS[square][3] ^ (whitePieces & RAYS[square][3]);
-	if(RAYS[square][3] & allPieces){
-		new_square = getMSBIndex(RAYS[square][3]&allPieces);
-		tmpBitBoard &= ~RAYS[new_square][3];
-	}
-	//sw
-	tmpBitBoard |= RAYS[square][5] ^ (whitePieces & RAYS[square][5]);
-	if(RAYS[square][5] & allPieces){
-		new_square = getMSBIndex(RAYS[square][5]&allPieces);
-		tmpBitBoard &= ~RAYS[new_square][5];
-	}
-	//nw
-	tmpBitBoard |= RAYS[square][7] ^ (whitePieces & RAYS[square][7]);
-	if(RAYS[square][7] & allPieces){
-		new_square = getLSBIndex(RAYS[square][7] & allPieces);
-		tmpBitBoard &= ~RAYS[new_square][7];
-	}
-	if(tmpBitBoard & blackBishops != 0 || tmpBitBoard & blackQueen != 0) return 1;
-	//Rook/Queen
+		//Bishop/Queen
+		//ne
+		tmpBitBoard |= RAYS[square][1] ^ (whitePieces & RAYS[square][1]);
+		if(RAYS[square][1] & allPieces){
+			new_square = getLSBIndex(RAYS[square][1]&allPieces);
+			tmpBitBoard &= ~RAYS[new_square][1];
+		}
+		//se
+		tmpBitBoard |= RAYS[square][3] ^ (whitePieces & RAYS[square][3]);
+		if(RAYS[square][3] & allPieces){
+			new_square = getMSBIndex(RAYS[square][3]&allPieces);
+			tmpBitBoard &= ~RAYS[new_square][3];
+		}
+		//sw
+		tmpBitBoard |= RAYS[square][5] ^ (whitePieces & RAYS[square][5]);
+		if(RAYS[square][5] & allPieces){
+			new_square = getMSBIndex(RAYS[square][5]&allPieces);
+			tmpBitBoard &= ~RAYS[new_square][5];
+		}
+		//nw
+		tmpBitBoard |= RAYS[square][7] ^ (whitePieces & RAYS[square][7]);
+		if(RAYS[square][7] & allPieces){
+			new_square = getLSBIndex(RAYS[square][7] & allPieces);
+			tmpBitBoard &= ~RAYS[new_square][7];
+		}
+		if(tmpBitBoard & blackBishops != 0 || tmpBitBoard & blackQueen != 0) return 1;
 
-	//King
+		//Rook/Queen
+		tmpBitBoard = 0;
+		//n
+		tmpBitBoard |= RAYS[square][0] ^ (whitePieces & RAYS[square][0]);
+		if(RAYS[square][0] & allPieces){
+			new_square = getLSBIndex(RAYS[square][0]&allPieces);
+			tmpBitBoard &= ~RAYS[new_square][0];
+		}
+		//e
+		tmpBitBoard |= RAYS[square][2] ^ (whitePieces & RAYS[square][2]);
+		if(RAYS[square][2] & allPieces){
+			new_square = getLSBIndex(RAYS[square][2]&allPieces);
+			tmpBitBoard &= ~RAYS[new_square][2];
+		}
+		//s
+		tmpBitBoard |= RAYS[square][4] ^ (whitePieces & RAYS[square][4]);
+		if(RAYS[square][4] & allPieces){
+			new_square = getLSBIndex(RAYS[square][4]&allPieces);
+			tmpBitBoard &= ~RAYS[new_square][4];
+		}
+		//w
+		tmpBitBoard |= RAYS[square][6] ^ (whitePieces & RAYS[square][6]);
+		if(RAYS[square][6] & allPieces){
+			new_square = getLSBIndex(RAYS[square][6]&allPieces);
+			tmpBitBoard &= ~RAYS[new_square][6];
+		}
+		if(tmpBitBoard & blackRooks != 0 || tmpBitBoard & blackQueen != 0) return 1;
+		//King
+		if(KING_LOOKUP_TBL[getLSBIndex(blackKing)] & square){
+			return 1;
+		}
 
-	//Pawn (will change slightly for black)
+		//Pawn (will change slightly for black)
 		if(blackPawns & (1 << (square+9)) != 0 || blackPawns & (1 << (square+7))) return 1;
+	}else{ // Black's turn
+
 	}
+	*/
+	return 0;
+}
+
+void Board::makeMove(Move move){
+	//call appropriate make move function
+	switch(move.specialMove){
+		case 0: makeNormalMove(move); break;
+		case 1: makeEnPassMove(move); break;
+		case 2: makeCastleMove(move); break;
+		case 3: makePromotionMove(move); break;
+	}
+}
+
+//returns 1 if move is a capture, otherwise returns 0
+int Board::makeNormalMove(Move move){
+	//setting/unsetting squares for side that is moving
+	for(int i = 5; i >= 0; i--){
+		if(pieceTypes[color][i] & (1ULL << move.fromSquare)){
+			pieceTypes[color][i] ^= (1ULL << move.fromSquare);
+			pieces[color] ^= (1ULL << move.fromSquare);
+			pieceTypes[color][i] |= (1ULL << move.toSquare);
+			pieces[color] |= (1ULL << move.toSquare);
+			break;
+		}
+	}
+
+	//update allPieces and emptySquares
+	allPieces = pieces[0] | pieces[1];
+	emptySquares = ~allPieces;
+
+	//if move captures opponent's piece, unset those squares in opponent's bitboards
+	if(pieces[!color] & (1ULL << move.toSquare)){
+		for(int i = 5; i > 0; i--){
+			if(pieceTypes[!color][i] & (1ULL << move.toSquare)){
+				pieceTypes[!color][i] ^= (1ULL << move.toSquare);
+				pieces[!color] ^= (1ULL << move.toSquare);
+				return 1;
+			}
+		}
+	}
+
+	return 0;
+}
+
+void Board::makeEnPassMove(Move move){
+
+}
+
+void Board::makeCastleMove(Move move){
+
+}
+
+void Board::makePromotionMove(Move move){
+
+}
+
+void Board::undoMove(Move move){
+	//call appropriate undo move function
+	switch(move.specialMove){
+		case 0: undoNormalMove(move); break;
+		case 1: undoEnPassMove(move); break;
+		case 2: undoCastleMove(move); break;
+		case 3: undoPromotionMove(move); break;
+	}
+}
+
+void Board::undoNormalMove(Move move){
+
+}
+
+void Board::undoEnPassMove(Move move){
+
+}
+
+void Board::undoCastleMove(Move move){
+
+}
+
+void Board::undoPromotionMove(Move move){
+
 }

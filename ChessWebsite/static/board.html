@@ -2,9 +2,58 @@
 <head>
     <link rel="stylesheet" href="board.css">
     <title>CHESSBOARD</title>
- 
 </head>
-<div class="chessarea" id="chessarea"> </div>
+
+<div class="chessarea" id="chessarea"></div>
+
 <script src="board.js"></script>
+    <script>
+         setInterval(
+            function() {
+                chessarea = document.getElementById("chessarea");
+                whitePiece = document.querySelectorAll(".white-piece");
+                blackPiece = document.querySelectorAll(".black-piece");
+                rect = chessarea.getBoundingClientRect();
+                chessarea.style.height = rect.width;
+              
+<div class="hi" id="hi"></div>
+<div class="chessarea" id="chessarea"> </div>
+<script>
+
+    function run_ws() {
+        let instance = new Module["chessGame"];
+        //if(instance === undefined){
+        //    console.log("un");
+        //}else if(instance === null){
+        //    console.log("nu");
+        //}
+        console.log('lerp result: ' + instance["playTurn"]("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"));
+        console.log(localStorage.turn + " " + localStorage.pas + " " + localStorage.cas + " " + localStorage.half + " " + localStorage.full);
+        console.log('fen result: ' + fen());
+        console.log(instance["playTurn"](fen()))
+    };
+</script>
+<script src="board.js"></script>
+<script src="chess.js"></script>
+<script type="text/javascript" src="fen.js"></script>
+<body>
+    <div style="display: inline-block;">
+        <button id="run_button" onclick="run_ws()">=</button>
+    </div>
+</body>
 </html>
 
+                whitePiece.forEach((piece) => {
+                    piece.style.width = rect.width / 8 / 2;
+                    piece.style.height = rect.width / 8 / 2;
+                })
+
+                blackPiece.forEach((piece) => {
+                    piece.style.width = rect.width / 8 / 2;
+                    piece.style.height = rect.width / 8 / 2;
+                })
+            },
+            100
+        );
+    </script>
+</html>

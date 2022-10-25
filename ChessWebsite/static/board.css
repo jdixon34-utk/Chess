@@ -9,15 +9,14 @@
     height: 100.5%;
     margin: 5px;
     border: 2px solid #333;
-    /*position: absolute; */
+    position: absolute;
 }
 /*width/height should be about 1/8 the width/height of the chessboard for both white and black*/
 .black {
     float: left;
     width: 12.5%;
     height: 12.5%;
-    background-color: black;
- 
+    background-color: gray;
 }
 .white {
     float: left;
@@ -27,108 +26,125 @@
 }
  
 .black-piece{
-    background: black;
+    /*background: black;*/
     width: 50px;
     height: 50px;
     margin: 13% auto;
-    border: 2px solid white;
+    /*border: 2px solid white;*/
     cursor:pointer;
 }
  
 .white-piece{
-    background: white;
+  /*  background: white;*/
     width: 50px;
     height: 50px;
-    margin: 13% auto;
-    border: 2px solid black;
+        margin: 13% auto;
+  /*  border: 2px solid black;*/
     cursor:pointer;
 }
  
 /*lowercase is for black pieces and uppercase is for white pieces*/
 /*Pawns*/
-.p{
-    border-radius: 25px;
-}
-
 .P{
-    border-radius: 25px;
+    background-image: url(pawn.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 72%;
+    padding-top: 53%;
+}
+ 
+.B_p{
+    /*border-radius: 25px;*/
+    background-image: url(B_pawn.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 72%;
+    padding-top: 53%;
 }
  
 /*Rooks/Castles*/
-.r{
-    background: orange;
-}
-
 .R{
-    background: orange;
+    background-image: url(rook.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70%;
+    padding-top: 40%;
+}
+ 
+.B_r{
+    background-image: url(B_rook.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70%;
+    padding-top: 40%;
 }
  
 /*Bishops*/
-.b{
-    border-bottom: 50px solid blue;
-    border-left: 22px solid transparent;
-    border-right: 22px solid transparent;
-    height: 0;
-    width: 50px;
-}
-
 .B{
-    border-bottom: 50px solid blue;
-    border-left: 22px solid transparent;
-    border-right: 22px solid transparent;
-    height: 0;
-    width: 50px;
+    background-image: url(bis.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 61%;
+    padding-top: 36%;
+}
+ 
+.B_b{
+    background-image: url(B_bis.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 61%;
+    padding-top: 36%;
 }
  
 /*Knights*/
-.n{
-    background: green;
-}
-
 .N{
-    background: green;
+    background-image: url(n.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 75%;
+    padding-top: 44%;
+}
+ 
+.B_n{
+    background-image: url(B_n.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 75%;
+    padding-top: 44%;
 }
  
 /*Queens*/
-.q{
-    background: rgb(253, 123, 145);
-    width: 48px;
-    height: 48px;
-    -webkit-transform: skew(140deg);
-    -moz-transform: skew(140deg);
-    -o-transform: skew(140deg);
-    transform: skew(140deg);
-}
-
 .Q{
-    background: rgb(253, 123, 145);
-    width: 48px;
-    height: 48px;
-    -webkit-transform: skew(140deg);
-    -moz-transform: skew(140deg);
-    -o-transform: skew(140deg);
-    transform: skew(140deg);
+    background-image: url(queen.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 59%;
+    padding-top: 35%;
+}
+ 
+.B_q{
+    background-image: url(B_queen.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 59%;
+    padding-top: 35%;
 }
  
 /*Kings*/
-.k{
-    width: 50px;
-    height: 50px;
-    background: purple;
-    -webkit-transform: skew(30deg);
-    -moz-transform: skew(30deg);
-    -o-transform: skew(30deg);
-    transform: skew(30deg);
-}
-
 .K{
-    width: 50px;
-    height: 50px;
-    background: purple;
-    -webkit-transform: skew(30deg);
-    -moz-transform: skew(30deg);
-    -o-transform: skew(30deg);
-    transform: skew(30deg);
+    background-image: url(king.png);
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: 52%;
+    padding-top: 33%;
+}
+ 
+.B_k{
+    background-image: url(B_king.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 52%;
+    padding-top: 33%;
 }
  
 /*Currently selected piece to move*/
