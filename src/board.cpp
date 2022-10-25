@@ -713,7 +713,7 @@ void Board::genCastleQS(){
 int Board::inCheck(){
 	int square;
 	unsigned long long tmpBitBoard;
-	if(whiteTurn){
+	if(!color){
 	//Knight
 		square = getLSBIndex(whiteKing);
 		if(KNIGHT_LOOKUP_TBL[square] & blackKnights != 0) return 1;
