@@ -668,7 +668,6 @@ int Board::squareUnderAttack(int square){
 			if(pieces[!color][5] & (1 << (square-9)) != 0 || pieces[!color][1] & (1 << (square-7))) return 1;
 		}else{
 			if(pieces[!color][5] & (1 << (square+9)) != 0 || pieces[!color][1] & (1 << (square+7))) return 1;
-
 		}
 	}
 
@@ -725,7 +724,24 @@ void Board::makeCastleMove(Move move){
 }
 
 void Board::makePromotionMove(Move move){
-
+	if(allPieces&(1<<move.toSquare) != 0){
+		//Capture into Promotion
+		for(int i = 1; i < 4; i++){
+			if(pieceType[!color][i] & (1 << move.toSquare) != 0){
+				pieceType[!color][i] &= ~(1 << move.toSquare);
+				pieces[!color] &= ~(1 << move.toSquare);
+				break;
+			}
+		}
+	}
+	allPieces &= ~(1 << move.fromSquare);
+	allPieces |= (1 << move.toSquare);
+	emptySquares &= ~(1 << move.toSquare);
+	emptySquares |= (1 << move.fromSquare);
+	pieces[color] &= ~(1 << move.fromSquare);
+	pieces[color] |= (1 << move.toSquare);
+	pieceTypes[color][5] &= !(1 << move.fromSquare);
+	pieceTypes[color][move.promotedPiece] |= (1 << toSquare);
 }
 
 void Board::undoMove(Move move){
