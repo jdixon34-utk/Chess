@@ -17,13 +17,13 @@
                 chessarea.style.height = rect.width;
 
                 whitePiece.forEach((piece) => {
-                    piece.style.width = rect.width * 2.5 ;
-                    piece.style.height = rect.width * 2.5 ;
+                    piece.style.width = rect.width * 1.95;
+                    piece.style.height = rect.width * 1.95;
                 })
 
                 blackPiece.forEach((piece) => {
-                    piece.style.width = rect.width * 2.5;
-                    piece.style.height = rect.width * 2.5;
+                    piece.style.width = rect.width * 1.95;
+                    piece.style.height = rect.width * 1.95;
                 })
             },
             100
@@ -48,7 +48,7 @@
 <script type="text/javascript" src="fen.js"></script>
 <body>
     <div style="display: inline-block;">
-        <button id="run_button" onclick="run_ws()">=</button>
+        <button class="cringe" id="run_button" onclick="run_ws()">=</button>
     </div>
 </body>
 </html>
