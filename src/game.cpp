@@ -3,10 +3,13 @@
 #include "game.h"
 #include "board.h"
 #include "move.h"
+//#include <emscripten/bind.h>
+//using namespace emscripten;
+//When using webassembly comment namespace out
 using namespace std;
 
 
-string Game::playTurn(string FEN){
+std::string Game::playTurn(std::string FEN){
     Board position;
 
     positions.push_back(position);
@@ -20,8 +23,15 @@ string Game::playTurn(string FEN){
     
     position.genMoves();
     position.printMoves();
-  
+ 
     //then do the search for the best move
 
     return "Eventual FEN String";
 }
+
+//EMSCRIPTEN_BINDINGS(my_class_example) {
+// class_<Game>("chessGame")
+//    .constructor<>()
+//    .function("playTurn", &Game::playTurn)
+//    ;
+//}
