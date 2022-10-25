@@ -49,11 +49,12 @@ private:
 	unsigned long long pieces[2];//all white and all black pieces: 0 = white pieces, 1 = black pieces
 	unsigned long long pieceTypes[2][6];//[color][pieceType] pieceType: 0 = king, 1 = queen, 2 = rook, 3 = bishop, 4 = knight, 5 = pawn
 
+public:
+
 	//Move is a struct that will be defined somewhere else
 	//it just holds the information of a move: "from" square, "to" square, and other small info
 	class Move moves[128];
 	int moveIndex;
-public:
 
 	void genBoardFromFEN(std::string FEN);
 	void printBitBoard(unsigned long long bitBoard);
@@ -82,7 +83,7 @@ public:
 	int inCheck();
 
 	void makeMove(class Move move);
-	void makeNormalMove(class Move move);
+	int makeNormalMove(class Move move);
 	void makeEnPassMove(class Move move);
 	void makeCastleMove(class Move move);
 	void makePromotionMove(class Move move);
