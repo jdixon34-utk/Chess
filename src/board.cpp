@@ -599,11 +599,10 @@ void Board::genCastleQS(){
 }
 
 int Board::squareUnderAttack(int square){
-
 	int new_square;
 	unsigned long long tmpBitBoard;
 	//Knight
-		if(KNIGHT_LOOKUP_TBL[square] & pieceTypes[!color][4] != 0) return 1;
+		if((KNIGHT_LOOKUP_TBL[square] & pieceTypes[!color][4]) != 0) return 1;
 		//Bishop/Queen
 		//ne
 		tmpBitBoard |= RAYS[square][1] ^ (pieces[color] & RAYS[square][1]);
@@ -629,7 +628,7 @@ int Board::squareUnderAttack(int square){
 			new_square = getLSBIndex(RAYS[square][7] & allPieces);
 			tmpBitBoard &= ~RAYS[new_square][7];
 		}
-		if(tmpBitBoard & pieces[!color][3] != 0 || tmpBitBoard & pieces[color][1] != 0) return 1;
+		if((tmpBitBoard & pieceTypes[!color][3]) != 0 || (tmpBitBoard & pieceTypes[!color][1]) != 0) return 1;
 
 		//Rook/Queen
 		tmpBitBoard = 0;
@@ -665,11 +664,10 @@ int Board::squareUnderAttack(int square){
 
 		//Pawn (will change slightly for black)
 		if(color){
-			if(pieces[!color][5] & (1 << (square-9)) != 0 || pieces[!color][1] & (1 << (square-7))) return 1;
+			if((pieceTypes[!color][5] & (1 << (square-9))) != 0 || (pieceTypes[!color][1] & (1 << (square-7)))) return 1;
 		}else{
-			if(pieces[!color][5] & (1 << (square+9)) != 0 || pieces[!color][1] & (1 << (square+7))) return 1;
+			if((pieceTypes[!color][5] & (1 << (square+9))) != 0 || (pieceTypes[!color][1] & (1 << (square+7)))) return 1;
 		}
-	}
 
 	return 0;
 }
@@ -724,11 +722,11 @@ void Board::makeCastleMove(Move move){
 }
 
 void Board::makePromotionMove(Move move){
-	if(allPieces&(1<<move.toSquare) != 0){
+	if((allPieces&(1<<move.toSquare)) != 0){
 		//Capture into Promotion
 		for(int i = 1; i < 4; i++){
-			if(pieceType[!color][i] & (1 << move.toSquare) != 0){
-				pieceType[!color][i] &= ~(1 << move.toSquare);
+			if((pieceTypes[!color][i] & (1 << move.toSquare)) != 0){
+				pieceTypes[!color][i] &= ~(1 << move.toSquare);
 				pieces[!color] &= ~(1 << move.toSquare);
 				break;
 			}
@@ -740,8 +738,8 @@ void Board::makePromotionMove(Move move){
 	emptySquares |= (1 << move.fromSquare);
 	pieces[color] &= ~(1 << move.fromSquare);
 	pieces[color] |= (1 << move.toSquare);
-	pieceTypes[color][5] &= !(1 << move.fromSquare);
-	pieceTypes[color][move.promotedPiece] |= (1 << toSquare);
+	pieceTypes[color][5] &= ~(1 << move.fromSquare);
+	pieceTypes[color][move.promotedPiece] |= (1 << move.toSquare);
 }
 
 void Board::undoMove(Move move){

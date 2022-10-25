@@ -80,7 +80,7 @@ public:
 	void genCastleKS();
 	void genCastleQS();
 
-	int inCheck();
+	int squareUnderAttack(int square);
 
 	void makeMove(class Move move);
 	int makeNormalMove(class Move move);
