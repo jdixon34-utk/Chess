@@ -675,11 +675,44 @@ int Board::inCheck(){
 }
 
 void Board::makeMove(Move move){
-
+	//call appropriate make move function
+	switch(move.specialMove){
+		case 0: makeNormalMove(move); break;
+		case 1: makeEnPassMove(move); break;
+		case 2: makeCastleMove(move); break;
+		case 3: makePromotionMove(move); break;
+	}
 }
 
-void Board::makeNormalMove(Move move){
+//returns 1 if move is a capture, otherwise returns 0
+int Board::makeNormalMove(Move move){
+	//setting/unsetting squares for side that is moving
+	for(int i = 5; i >= 0; i--){
+		if(pieceTypes[color][i] & (1ULL << move.fromSquare)){
+			pieceTypes[color][i] ^= (1ULL << move.fromSquare);
+			pieces[color] ^= (1ULL << move.fromSquare);
+			pieceTypes[color][i] |= (1ULL << move.toSquare);
+			pieces[color] |= (1ULL << move.toSquare);
+			break;
+		}
+	}
 	
+	//update allPieces and emptySquares
+	allPieces = pieces[0] | pieces[1];
+	emptySquares = ~allPieces;
+
+	//if move captures opponent's piece, unset those squares in opponent's bitboards
+	if(pieces[!color] & (1ULL << move.toSquare)){
+		for(int i = 5; i > 0; i--){
+			if(pieceTypes[!color][i] & (1ULL << move.toSquare)){
+				pieceTypes[!color][i] ^= (1ULL << move.toSquare);
+				pieces[!color] ^= (1ULL << move.toSquare);
+				return 1;
+			}
+		}
+	}
+
+	return 0;
 }
 
 void Board::makeEnPassMove(Move move){
@@ -695,7 +728,13 @@ void Board::makePromotionMove(Move move){
 }
 
 void Board::undoMove(Move move){
-
+	//call appropriate undo move function
+	switch(move.specialMove){
+		case 0: undoNormalMove(move); break;
+		case 1: undoEnPassMove(move); break;
+		case 2: undoCastleMove(move); break;
+		case 3: undoPromotionMove(move); break;
+	}
 }
 
 void Board::undoNormalMove(Move move){
