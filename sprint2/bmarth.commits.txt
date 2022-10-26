@@ -1,0 +1,410 @@
+3718c522 ChessWebsite/static/board.html         (Me-Brand  2022-10-25 17:53:17 -0400  7) <header>
+3718c522 ChessWebsite/static/board.html         (Me-Brand  2022-10-25 17:53:17 -0400  8)     <div style="display: left;" id="button">
+3718c522 ChessWebsite/static/board.html         (Me-Brand  2022-10-25 17:53:17 -0400  9)         <button id="run_button" onclick="run_ws()">=</button>
+3718c522 ChessWebsite/static/board.html         (Me-Brand  2022-10-25 17:53:17 -0400 10)     </div>
+3718c522 ChessWebsite/static/board.html         (Me-Brand  2022-10-25 17:53:17 -0400 11) </header>
+3718c522 ChessWebsite/static/board.html         (Me-Brand  2022-10-25 17:53:17 -0400 12) 
+866d7c3b ChessWebsite/static/board.html         (Me-Brand  2022-10-23 17:00:03 -0400 24) 
+866d7c3b ChessWebsite/static/board.html         (Me-Brand  2022-10-23 17:00:03 -0400 41)     function run_ws() {
+866d7c3b ChessWebsite/static/board.html         (Me-Brand  2022-10-23 17:00:03 -0400 42)         let instance = new Module["chessGame"];
+3718c522 ChessWebsite/static/board.html         (Me-Brand  2022-10-25 17:53:17 -0400 43)         console.log('Fen default result: ' + instance["playTurn"]("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"));
+3718c522 ChessWebsite/static/board.html         (Me-Brand  2022-10-25 17:53:17 -0400 44)         //console.log(localStorage.turn + " " + localStorage.pas + " " + localStorage.cas + " " + localStorage.half + " " + localStorage.full);
+4671ef31 ChessWebsite/static/board.html         (Me-Brand  2022-10-23 21:05:05 -0400 45)         console.log('fen result: ' + fen());
+3718c522 ChessWebsite/static/board.html         (Me-Brand  2022-10-25 17:53:17 -0400 46)         console.log('Our fen result: ' + instance["playTurn"](fen()));
+866d7c3b ChessWebsite/static/board.html         (Me-Brand  2022-10-23 17:00:03 -0400 47)     };
+866d7c3b ChessWebsite/static/board.html         (Me-Brand  2022-10-23 17:00:03 -0400 48) </script>
+866d7c3b ChessWebsite/static/board.html         (Me-Brand  2022-10-23 17:00:03 -0400 49) <script src="chess.js"></script>
+866d7c3b ChessWebsite/static/board.html         (Me-Brand  2022-10-23 17:00:03 -0400 50) <script type="text/javascript" src="fen.js"></script>
+3718c522 ChessWebsite/static/board.html         (Me-Brand  2022-10-25 17:53:17 -0400 51) 
+
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400   8)     //Fen string variables
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400   9)     turn = "white-piece";
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400  10)     const pas = [];
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  11)     cas = "KQkq";
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400  12)     half = 0;
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400  13)     full = 0;
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400  14)     var en_pas_ignore = false;
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400  15) 
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400  16)     //Lets these variables be used in the .html file and any files .js files in the .html
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400  17)     localStorage.turn = turn;
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400  18)     localStorage.pas = pas;
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400  19)     localStorage.cas = cas;
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400  20)     localStorage.half = half;
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400  21)     localStorage.full = full;
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400  22)    
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400  23)     //Create the squares and pieces
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400  26)  
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400  28)  
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400  31)             col.id = ((i-1) * 8) + (j-1);
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400  34)  
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400  37)             piece.id = "fd" + i + j;
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400  38)  
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400  43)  
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400  45)  
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400  46)  
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400  49)                 document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  53)                     if(j === 1){
+7081a449 ChessWebsite/static/board.js         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400  54)                         piece.classList.add("R");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  55)                         piece.classList.add("W_r");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  56)                         piece.classList.add("First");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  57)                         piece.classList.add(0);
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  58)                     }else if(j === 8){
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  59)                         piece.classList.add("R");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  60)                         piece.classList.add("W_r");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  61)                         piece.classList.add("First");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  62)                         piece.classList.add(1); 
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  63)                     }    
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  64)                     else if(j === 2 || j === 7){
+7081a449 ChessWebsite/static/board.js         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400  65)                         piece.classList.add("N");
+7081a449 ChessWebsite/static/board.js         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400  67)                         piece.classList.add("B");
+7081a449 ChessWebsite/static/board.js         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400  69)                         piece.classList.add("Q");
+7081a449 ChessWebsite/static/board.js         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400  71)                         piece.classList.add("K");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  72)                         piece.classList.add("First");
+7081a449 ChessWebsite/static/board.js         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400  75)                     piece.classList.add("P");
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400  76)                     piece.classList.add("W_p");
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400  77)                     piece.classList.add("First");
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400  80)                 document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  84)                     if(j === 1){
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  85)                         piece.classList.add("r");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  86)                         piece.classList.add("B_r");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  87)                         piece.classList.add("First");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  88)                         piece.classList.add(2);
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  89)                     }else if(j === 8){
+7081a449 ChessWebsite/static/board.js         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400  90)                         piece.classList.add("r");
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400  91)                         piece.classList.add("B_r");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  92)                         piece.classList.add("First");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400  93)                         piece.classList.add(3);   
+7081a449 ChessWebsite/static/board.js         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400  95)                         piece.classList.add("n");
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400  96)                         piece.classList.add("B_n");
+7081a449 ChessWebsite/static/board.js         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400  98)                         piece.classList.add("b");
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400  99)                         piece.classList.add("B_b");
+7081a449 ChessWebsite/static/board.js         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400 101)                         piece.classList.add("q");
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 102)                         piece.classList.add("B_q");
+7081a449 ChessWebsite/static/board.js         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400 104)                         piece.classList.add("k");
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 105)                         piece.classList.add("B_k");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 106)                         piece.classList.add("First");
+7081a449 ChessWebsite/static/board.js         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400 109)                     piece.classList.add("p");
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 110)                     piece.classList.add("B_p");
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 111)                     piece.classList.add("First");
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 115)  
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400 116)     } 
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 117)  
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 122)  
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 128)             if(col.children[0].classList.item(0) === turn){
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 129)                 col.children[0].classList.add("current");
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 130)             }else{
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 131)                 alert("It is currently " + turn + "'s turn.");
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 132)                 console.log(col.children[0].classList.item(0) + " " + half);
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 133)             }
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400 137)             
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400 138)             //IF a pawn checks if an en passant is now valid
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 139)             if((cur.classList.contains("B_p") === true) || (cur.classList.contains("P") === true)){
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 140)                 half = 0;
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 141)                 
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 142)                 if(cur.classList.contains("First")){
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 143)                     en_Pas(col, cur.parentNode);
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 144)                 }
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 145) 
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 146)             }else{
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 147)                 half++;
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 148)             }
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400 149) 
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 150)             if(((cur.classList.contains("k") || cur.classList.contains("K")) || ((cur.classList.contains("r") || cur.classList.contains("R")))) 
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 151)                 && cur.classList.contains("First")){
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 152)                     castling(cur);
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 153)             }
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 154) 
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 156)             en_pas_ignore = false;
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 157) 
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 158)             full++;
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 159) 
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 160)             localStorage.half = half;
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 161)             localStorage.full = full;
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 169)             half = 0;
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 172)             full++;
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 173) 
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 174)             localStorage.half = half;
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 175)             localStorage.full = full;
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 182) 
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 184)  
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 187) 
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400 188)         //En passant stuff
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400 189)         //No longer first move so first is removed
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 190)         if(piece.classList.contains("First")){
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 191)             piece.classList.remove("First");
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 192)         }else if(piece.classList.contains("en_Pas") && en_pas_ignore !== true){
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 193)             
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400 194)             //Item 4 tells us the index the piece is at in the pas array
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 195)             pas[piece.classList.item(4)] = ',';
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 196)             localStorage.pas = pas;
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 197) 
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 198)             piece.classList.remove(piece.classList.item(3));
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 199)             piece.classList.remove(piece.classList.item(4));
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 200) 
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 201)         }
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 202)  
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400 203)         //Moves the piece
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400 205)         new_col.appendChild(piece); 
+7081a449 ChessWebsite/static/board.js         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400 207) 
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 208)         turn = (turn === "white-piece") ? "black-piece" : "white-piece";
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 209)         localStorage.turn = turn;
+866d7c3b ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 17:00:03 -0400 211)  
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400 212) 
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400 213)     //Checks if an en passant is valid and sets the pieces class
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 214)     function en_Pas(new_col, old_col){
+7081a449 ChessWebsite/static/board.js         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400 215) 
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 216)         //Rows of the board
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 217)         const rows = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 218)         
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 219)         //Gets the indexs of columns in the board
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 220)         var new_index = [].indexOf.call(new_col.parentNode.children, new_col);
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400 221)         var old_index = [].indexOf.call(old_col.parentNode.children, old_col); 
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 222)         
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400 223)         //Might not be an En Passant so we check
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 224)         if((old_index + 16) === new_index || (old_index - 16) === new_index){
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 225)             
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400 226)             //Temporary debugging print
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 227)             console.log(rows[new_index % 8] + " " + Math.floor(new_index / 8));
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400 228) 
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400 229)             //Add a class setting the piece as currently possible en Passant and the index of the array it is located in
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 230)             old_col.children[0].classList.add("en_Pas");
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 231)             var length = pas.length;
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 232)             old_col.children[0].classList.add(pas.length);
+7081a449 ChessWebsite/static/board.js         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400 233) 
+3718c522 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 17:53:17 -0400 234)             //Push the row and column of the piece
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 235)             pas.push(rows[new_index % 8]);
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 236)             pas.push(Math.floor(new_index / 8) + 1);
+7081a449 ChessWebsite/static/board.js         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400 237) 
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 238)             localStorage.pas = pas;
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 239)             en_pas_ignore = true;
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 240)         }
+7081a449 ChessWebsite/static/board.js         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400 241) 
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 242)     }
+4671ef31 ChessWebsite/static/board.js         (Me-Brand                 2022-10-23 21:05:05 -0400 243) 
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 244)     function castling(piece){
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 245) 
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 246)         const options = ['K', 'Q', 'k', 'q'];
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 247) 
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 248)         var a, b;
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 249) 
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 250)         if(piece.classList.contains("r") || piece.classList.contains("R")){
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 251)             b = cas.replace(options[piece.classList.item(4)], '');
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 252)         }else if(piece.classList.contains("K")){
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 253)             a = cas.replace("K", '');
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 254)             document.getElementsByClassName(0)[0].classList.remove("First");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 255)             b = a.replace("Q", '');
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 256)             document.getElementsByClassName(1)[0].classList.remove("First");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 257)         }else{
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 258)             a = cas.replace("k", '');
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 259)             document.getElementsByClassName(2)[0].classList.remove("First");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 260)             b = a.replace("q", '');
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 261)             document.getElementsByClassName(3)[0].classList.remove("First");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 262)         }
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 263) 
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 264)         piece.classList.remove("First");
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 265) 
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 266)         cas = b;
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 267)         localStorage.cas = cas;
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 268)     }
+47f8b798 ChessWebsite/static/board.js         (Me-Brand                 2022-10-25 18:33:28 -0400 269) 
+
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400  1) function fen(){
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400  2)  
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400  3)     //Get the variables from board.js
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400  4)     turn = localStorage.turn;
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400  5)     pas = localStorage.pas;
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400  6)     cas = localStorage.cas;
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400  7)     half = localStorage.half;
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400  8)     full = localStorage.full;
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400  9) 
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 10)     let fen = "";
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 11)     let tab = document.getElementById("chessboard");
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 12)     let count = tab.childElementCount;
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 13)     
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 14)     let space = 0;
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 15)     //Iterate over all child nodes
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400 16)     for(let i = 7; i >= 0; i--){
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 17)         for(let j = 0; j < 8; j++){
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 18) 
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 19)             //Add a space if there is no piece
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 20)             if(tab.children[(i * 8) + j].children[0] === undefined){
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 21)                 space++;
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 22)             }else{
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 23)                 //Add the spaces now that there is a piece
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 24)                 if(space !== 0){
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 25)                     fen += space;
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 26)                     space = 0;
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 27)                 }
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 28) 
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 29)                 fen += tab.children[(i * 8) + j].children[0].classList.item(1);
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 30)             }
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 31) 
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 32)             //End of the row and not the last row
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 33)             if(j === 7 && i !== 0){
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 34)                 
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 35)                 if(space !== 0){
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 36)                     fen += space;
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 37)                 }
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 38) 
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 39)                 fen += '/';
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 40)                 space = 0;
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 41)             }
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 42)         }
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 43)     }
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 44) 
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 45)     fen += ' ';
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 46) 
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 47)     //Whose turn is it, b = black | white = w
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 48)    
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 49)     let t = (turn === "white-piece") ? "w" : "b";
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 50)     
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 51)     fen += t + ' ';
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 52) 
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 53)     //Next you say what castling is available
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 54)     //q = castle queenside possible
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 55)     //k = castle kingside
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 56)     //Can be either KQkq or Qk- or -- or etc
+47f8b798 (Me-Brand 2022-10-25 18:33:28 -0400 57)     if(cas !== ''){
+47f8b798 (Me-Brand 2022-10-25 18:33:28 -0400 58)         fen += cas + ' ';
+47f8b798 (Me-Brand 2022-10-25 18:33:28 -0400 59)     }else{
+47f8b798 (Me-Brand 2022-10-25 18:33:28 -0400 60)         fen += '-' + ' ';
+47f8b798 (Me-Brand 2022-10-25 18:33:28 -0400 61)     }
+47f8b798 (Me-Brand 2022-10-25 18:33:28 -0400 62)     
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 63)     //Next you do en passant targets
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400 64)     var check = false;
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400 65)     for(var i = 0; i < pas.length; i += 4){
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 66)         //Ignore ,'s as that is what we set indexes that are no longer en passant targets to.
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400 67)         if(pas[i] !== ','){
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400 68)             fen += pas[i] + pas[i+2] + ' ';
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400 69)             check = true;
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400 70)         }
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400 71)     }
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400 72)     if(check === false){
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400 73)         fen += "- "
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400 74)     }
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 75)     //Next is how many moves both players have made since the last pawn advance or piece capture
+3718c522 (Me-Brand 2022-10-25 17:53:17 -0400 76)     //Game ends in a draw if this is 100
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 77) 
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 78)     fen += half + ' ';
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 79) 
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 80)     //Last field is the number of completed turns in the game.
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 81)     //This number is incremented by one every time Black moves.
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 82) 
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 83)     fen += full + ' ';
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 84) 
+866d7c3b (Me-Brand 2022-10-23 17:00:03 -0400 85)     return fen;
+4671ef31 (Me-Brand 2022-10-23 21:05:05 -0400 86) }
+
+3718c522 ChessWebsite/static/board.css         (Me-Brand                 2022-10-25 17:53:17 -0400   6) #button{
+3718c522 ChessWebsite/static/board.css         (Me-Brand                 2022-10-25 17:53:17 -0400   7)     display: flex;
+3718c522 ChessWebsite/static/board.css         (Me-Brand                 2022-10-25 17:53:17 -0400   8)     margin: right 5000px;
+3718c522 ChessWebsite/static/board.css         (Me-Brand                 2022-10-25 17:53:17 -0400   9) }
+3718c522 ChessWebsite/static/board.css         (Me-Brand                 2022-10-25 17:53:17 -0400  10) 
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  15)     position: absolute;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  23)     background-color: gray;
+ba949459 ChessWebsite/static/board.css         (brandonmarth14@gmail.com 2022-10-13 12:00:16 -0400  54) /*lowercase is for black pieces and uppercase is for white pieces*/
+ba949459 ChessWebsite/static/board.css         (brandonmarth14@gmail.com 2022-10-13 12:00:16 -0400  55) /*Pawns*/
+7081a449 ChessWebsite/static/board.css         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400  56) .P{
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  57)     background-image: url(pawn.png);
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  58)     background-repeat: no-repeat;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  59)     background-position: center;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  60)     background-size: 72%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  61)     padding-top: 53%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  64) .B_p{
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  65)     /*border-radius: 25px;*/
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  66)     background-image: url(B_pawn.png);
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  67)     background-repeat: no-repeat;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  68)     background-position: center;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  69)     background-size: 72%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  70)     padding-top: 53%;
+7081a449 ChessWebsite/static/board.css         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400  71) }
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  72)  
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  73) /*Rooks/Castles*/
+7081a449 ChessWebsite/static/board.css         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400  74) .R{
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  75)     background-image: url(rook.png);
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  76)     background-repeat: no-repeat;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  77)     background-position: center;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  78)     background-size: 70%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  79)     padding-top: 40%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  82) .B_r{
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  83)     background-image: url(B_rook.png);
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  84)     background-repeat: no-repeat;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  85)     background-position: center;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  86)     background-size: 70%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  87)     padding-top: 40%;
+7081a449 ChessWebsite/static/board.css         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400  88) }
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  89)  
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  90) /*Bishops*/
+7081a449 ChessWebsite/static/board.css         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400  91) .B{
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  92)     background-image: url(bis.png);
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  93)     background-repeat: no-repeat;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  94)     background-position: center;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  95)     background-size: 61%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  96)     padding-top: 36%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400  99) .B_b{
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 100)     background-image: url(B_bis.png);
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 101)     background-repeat: no-repeat;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 102)     background-position: center;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 103)     background-size: 61%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 104)     padding-top: 36%;
+7081a449 ChessWebsite/static/board.css         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400 105) }
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 106)  
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 107) /*Knights*/
+7081a449 ChessWebsite/static/board.css         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400 108) .N{
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 109)     background-image: url(n.png);
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 110)     background-repeat: no-repeat;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 111)     background-position: center;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 112)     background-size: 75%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 113)     padding-top: 44%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 114) }
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 115)  
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 116) .B_n{
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 117)     background-image: url(B_n.png);
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 118)     background-repeat: no-repeat;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 119)     background-position: center;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 120)     background-size: 75%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 121)     padding-top: 44%;
+ba949459 ChessWebsite/static/board.css         (brandonmarth14@gmail.com 2022-10-13 12:00:16 -0400 124) /*Queens*/
+7081a449 ChessWebsite/static/board.css         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400 125) .Q{
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 126)     background-image: url(queen.png);
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 127)     background-repeat: no-repeat;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 128)     background-position: center;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 129)     background-size: 59%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 130)     padding-top: 35%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 133) .B_q{
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 134)     background-image: url(B_queen.png);
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 135)     background-repeat: no-repeat;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 136)     background-position: center;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 137)     background-size: 59%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 138)     padding-top: 35%;
+7081a449 ChessWebsite/static/board.css         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400 139) }
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 140)  
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 141) /*Kings*/
+7081a449 ChessWebsite/static/board.css         (brandonmarth14@gmail.com 2022-10-13 11:55:09 -0400 142) .K{
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 143)     background-image: url(king.png);
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 144)     background-repeat: no-repeat;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 145)     background-position: top;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 146)     background-size: 52%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 147)     padding-top: 33%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 148) }
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 149)  
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 150) .B_k{
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 151)     background-image: url(B_king.png);
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 152)     background-repeat: no-repeat;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 153)     background-position: center;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 154)     background-size: 52%;
+866d7c3b ChessWebsite/static/board.css         (Me-Brand                 2022-10-23 17:00:03 -0400 155)     padding-top: 33%;
+ba949459 ChessWebsite/static/board.css         (brandonmarth14@gmail.com 2022-10-13 12:00:16 -0400 158) /*Currently selected piece to move*/
+
+772d558d (Me-Brand       2022-10-25 15:51:14 -0400  6) //#include <emscripten/bind.h>
+772d558d (Me-Brand       2022-10-25 15:51:14 -0400  7) //using namespace emscripten;
+772d558d (Me-Brand       2022-10-25 15:51:14 -0400  8) //When using webassembly comment namespace out
+772d558d (Me-Brand       2022-10-25 15:51:14 -0400 12) std::string Game::playTurn(std::string FEN){
+772d558d (Me-Brand       2022-10-25 15:51:14 -0400 26)  
+772d558d (Me-Brand       2022-10-25 15:51:14 -0400 31) 
+772d558d (Me-Brand       2022-10-25 15:51:14 -0400 32) //EMSCRIPTEN_BINDINGS(my_class_example) {
+772d558d (Me-Brand       2022-10-25 15:51:14 -0400 33) // class_<Game>("chessGame")
+772d558d (Me-Brand       2022-10-25 15:51:14 -0400 34) //    .constructor<>()
+772d558d (Me-Brand       2022-10-25 15:51:14 -0400 35) //    .function("playTurn", &Game::playTurn)
+772d558d (Me-Brand       2022-10-25 15:51:14 -0400 36) //    ;
+772d558d (Me-Brand       2022-10-25 15:51:14 -0400 37) //}
