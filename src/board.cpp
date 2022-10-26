@@ -717,7 +717,19 @@ int Board::makeNormalMove(Move move){
 }
 
 void Board::makeEnPassMove(Move move){
+	//Remove players pawn origin
+	pieceTypes[color][5] &= ~(1ULL << move.fromSquare);
+	allPieces &= ~(1ULL << move.fromSquare);
 
+	//Remove caputured pawn
+	pieceTypes[!color][5] &= ~(1ULL << move.toSquare - 8);
+	allPieces &= ~(1ULL << move.toSquare - 8);
+
+	//Place players pawn in new spot
+	pieceTypes[color][5] |= (1ULL << move.toSquare);
+	allPieces |= (1ULL << move.toSquare);
+
+	emptySquares = ~allPieces;
 }
 
 void Board::makeCastleMove(Move move){
