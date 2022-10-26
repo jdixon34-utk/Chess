@@ -802,7 +802,7 @@ void Board::undoEnPassMove(Move move){
 	pieceTypes[!color][5] |= ~(1ULL << move.toSquare - 8);
 	allPieces &= ~(1ULL << move.toSquare - 8);
 
-	//Place players pawn in orange spot
+	//Place players pawn in original spot
 	pieceTypes[color][5] |= (1ULL << move.fromSquare);
 	allPieces |= (1ULL << move.fromSquare);
 
