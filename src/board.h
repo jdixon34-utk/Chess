@@ -82,13 +82,13 @@ public:
 
 	int squareUnderAttack(int square);
 
-	void makeMove(class Move move);
+	int makeMove(class Move move);
 	int makeNormalMove(class Move move);
 	void makeEnPassMove(class Move move);
 	void makeCastleMove(class Move move);
 	void makePromotionMove(class Move move);
-	void undoMove(class Move move);
-	void undoNormalMove(class Move move);
+	void undoMove(class Move move, int capturedPieceType);
+	void undoNormalMove(class Move move, int capturePieceType);
 	void undoEnPassMove(class Move move);
 	void undoCastleMove(class Move move);
 	void undoPromotionMove(class Move move);
