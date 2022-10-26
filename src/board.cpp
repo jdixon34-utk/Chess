@@ -794,7 +794,19 @@ void Board::undoNormalMove(Move move, int capturedPieceType){
 }
 
 void Board::undoEnPassMove(Move move){
+	//Remove players pawn from landing square
+	pieceTypes[color][5] &= ~(1ULL << move.toSquare);
+	allPieces &= ~(1ULL << move.toSquare);
 
+	//add caputured pawn
+	pieceTypes[!color][5] |= ~(1ULL << move.toSquare - 8);
+	allPieces &= ~(1ULL << move.toSquare - 8);
+
+	//Place players pawn in orange spot
+	pieceTypes[color][5] |= (1ULL << move.fromSquare);
+	allPieces |= (1ULL << move.fromSquare);
+
+	emptySquares = ~allPieces;
 }
 
 void Board::undoCastleMove(Move move){
