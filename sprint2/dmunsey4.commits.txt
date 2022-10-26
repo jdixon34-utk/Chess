@@ -1,0 +1,77 @@
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 606) 		//Bishop/Queen
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 607) 		//ne
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 609) 		if(RAYS[square][1] & allPieces){
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 610) 			new_square = getLSBIndex(RAYS[square][1]&allPieces);
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 611) 			tmpBitBoard &= ~RAYS[new_square][1];
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 612) 		}
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 613) 		//se
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 615) 		if(RAYS[square][3] & allPieces){
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 616) 			new_square = getMSBIndex(RAYS[square][3]&allPieces);
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 617) 			tmpBitBoard &= ~RAYS[new_square][3];
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 618) 		}
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 619) 		//sw
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 621) 		if(RAYS[square][5] & allPieces){
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 622) 			new_square = getMSBIndex(RAYS[square][5]&allPieces);
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 623) 			tmpBitBoard &= ~RAYS[new_square][5];
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 624) 		}
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 625) 		//nw
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 627) 		if(RAYS[square][7] & allPieces){
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 628) 			new_square = getLSBIndex(RAYS[square][7] & allPieces);
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 629) 			tmpBitBoard &= ~RAYS[new_square][7];
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 630) 		}
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 633) 		//Rook/Queen
+efb37f47 (Dev5ter                2022-10-20 08:35:56 -0400 634) 		tmpBitBoard = 0;
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 635) 		//n
+76ee214d (Dev5ter                2022-10-25 15:57:25 -0400 636) 		tmpBitBoard |= RAYS[square][0] ^ (pieces[color] & RAYS[square][0]);
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 637) 		if(RAYS[square][0] & allPieces){
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 638) 			new_square = getLSBIndex(RAYS[square][0]&allPieces);
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 639) 			tmpBitBoard &= ~RAYS[new_square][0];
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 640) 		}
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 641) 		//e
+76ee214d (Dev5ter                2022-10-25 15:57:25 -0400 642) 		tmpBitBoard |= RAYS[square][2] ^ (pieces[color] & RAYS[square][2]);
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 643) 		if(RAYS[square][2] & allPieces){
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 644) 			new_square = getLSBIndex(RAYS[square][2]&allPieces);
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 645) 			tmpBitBoard &= ~RAYS[new_square][2];
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 646) 		}
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 647) 		//s
+76ee214d (Dev5ter                2022-10-25 15:57:25 -0400 648) 		tmpBitBoard |= RAYS[square][4] ^ (pieces[color] & RAYS[square][4]);
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 649) 		if(RAYS[square][4] & allPieces){
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 650) 			new_square = getLSBIndex(RAYS[square][4]&allPieces);
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 651) 			tmpBitBoard &= ~RAYS[new_square][4];
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 652) 		}
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 653) 		//w
+76ee214d (Dev5ter                2022-10-25 15:57:25 -0400 654) 		tmpBitBoard |= RAYS[square][6] ^ (pieces[color] & RAYS[square][6]);
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 655) 		if(RAYS[square][6] & allPieces){
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 656) 			new_square = getLSBIndex(RAYS[square][6]&allPieces);
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 657) 			tmpBitBoard &= ~RAYS[new_square][6];
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 658) 		}
+76ee214d (Dev5ter                2022-10-25 15:57:25 -0400 659) 		if(tmpBitBoard & pieceTypes[!color][2] != 0 || tmpBitBoard & pieceTypes[!color][1] != 0) return 1;
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 660) 		//King
+76ee214d (Dev5ter                2022-10-25 15:57:25 -0400 661) 		if(KING_LOOKUP_TBL[getLSBIndex(pieceTypes[!color][0])] & square){
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 662) 			return 1;
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 663) 		}
+be3e78ec (Dev5ter                2022-10-20 08:09:52 -0400 664) 		//Pawn (will change slightly for black)
+4cc9ae42 (Dev5ter                2022-10-26 16:09:29 -0400 720) 	//Remove players pawn origin
+4cc9ae42 (Dev5ter                2022-10-26 16:09:29 -0400 721) 	pieceTypes[color][5] &= ~(1ULL << move.fromSquare);
+4cc9ae42 (Dev5ter                2022-10-26 16:09:29 -0400 722) 	allPieces &= ~(1ULL << move.fromSquare);
+4cc9ae42 (Dev5ter                2022-10-26 16:09:29 -0400 724) 	//Remove caputured pawn
+4cc9ae42 (Dev5ter                2022-10-26 16:09:29 -0400 725) 	pieceTypes[!color][5] &= ~(1ULL << move.toSquare - 8);
+4cc9ae42 (Dev5ter                2022-10-26 16:09:29 -0400 726) 	allPieces &= ~(1ULL << move.toSquare - 8);
+4cc9ae42 (Dev5ter                2022-10-26 16:09:29 -0400 727) 
+4cc9ae42 (Dev5ter                2022-10-26 16:09:29 -0400 728) 	//Place players pawn in new spot
+4cc9ae42 (Dev5ter                2022-10-26 16:09:29 -0400 729) 	pieceTypes[color][5] |= (1ULL << move.toSquare);
+4cc9ae42 (Dev5ter                2022-10-26 16:09:29 -0400 730) 	allPieces |= (1ULL << move.toSquare);
+4cc9ae42 (Dev5ter                2022-10-26 16:09:29 -0400 731) 
+4cc9ae42 (Dev5ter                2022-10-26 16:09:29 -0400 732) 	emptySquares = ~allPieces;
+a4276666 (Dev5ter                2022-10-26 16:12:22 -0400 797) 	//Remove players pawn from landing square
+a4276666 (Dev5ter                2022-10-26 16:12:22 -0400 798) 	pieceTypes[color][5] &= ~(1ULL << move.toSquare);
+a4276666 (Dev5ter                2022-10-26 16:12:22 -0400 799) 	allPieces &= ~(1ULL << move.toSquare);
+a4276666 (Dev5ter                2022-10-26 16:12:22 -0400 801) 	//add caputured pawn
+a4276666 (Dev5ter                2022-10-26 16:12:22 -0400 802) 	pieceTypes[!color][5] |= ~(1ULL << move.toSquare - 8);
+a4276666 (Dev5ter                2022-10-26 16:12:22 -0400 803) 	allPieces &= ~(1ULL << move.toSquare - 8);
+a4276666 (Dev5ter                2022-10-26 16:12:22 -0400 804) 
+89ce1c84 (Dev5ter                2022-10-26 16:54:45 -0400 805) 	//Place players pawn in original spot
+a4276666 (Dev5ter                2022-10-26 16:12:22 -0400 806) 	pieceTypes[color][5] |= (1ULL << move.fromSquare);
+a4276666 (Dev5ter                2022-10-26 16:12:22 -0400 807) 	allPieces |= (1ULL << move.fromSquare);
+a4276666 (Dev5ter                2022-10-26 16:12:22 -0400 808) 
+a4276666 (Dev5ter                2022-10-26 16:12:22 -0400 809) 	emptySquares = ~allPieces;
