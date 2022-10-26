@@ -661,7 +661,6 @@ int Board::squareUnderAttack(int square){
 		if(KING_LOOKUP_TBL[getLSBIndex(pieceTypes[!color][0])] & square){
 			return 1;
 		}
-
 		//Pawn (will change slightly for black)
 		if(color){
 			if((pieceTypes[!color][5] & (1 << (square-9))) != 0 || (pieceTypes[!color][1] & (1 << (square-7)))) return 1;
@@ -720,7 +719,7 @@ void Board::makeEnPassMove(Move move){
 void Board::makeCastleMove(Move move){
 
 }
-
+//Updates bit boards for a pawn promotion
 void Board::makePromotionMove(Move move){
 	if((allPieces&(1<<move.toSquare)) != 0){
 		//Capture into Promotion
