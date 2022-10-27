@@ -147,7 +147,7 @@ void Board::printPosition(){
 	printBitBoard(pieceTypes[1][4]);
 	printf("Black Pawns\n");
 	printBitBoard(pieceTypes[1][5]);
-	if(color) printf("White's Turn\n");
+	if(!color) printf("White's Turn\n");
 	else printf("Black's Turn\n");
 	printf("White Castle Rights KS: %d\n", whiteCastleRightsKS);
 	printf("White Castle Rights QS: %d\n", whiteCastleRightsQS);
@@ -600,7 +600,7 @@ void Board::genCastleQS(){
 
 int Board::squareUnderAttack(int square){
 	int new_square;
-	unsigned long long tmpBitBoard;
+	unsigned long long tmpBitBoard = 0;
 	//Knight
 		if((KNIGHT_LOOKUP_TBL[square] & pieceTypes[!color][4]) != 0) return 1;
 		//Bishop/Queen
@@ -656,7 +656,7 @@ int Board::squareUnderAttack(int square){
 			new_square = getLSBIndex(RAYS[square][6]&allPieces);
 			tmpBitBoard &= ~RAYS[new_square][6];
 		}
-		if(tmpBitBoard & pieceTypes[!color][2] != 0 || tmpBitBoard & pieceTypes[!color][1] != 0) return 1;
+		if((tmpBitBoard & pieceTypes[!color][2]) != 0 || (tmpBitBoard & pieceTypes[!color][1]) != 0) return 1;
 		//King
 		if(KING_LOOKUP_TBL[getLSBIndex(pieceTypes[!color][0])] & square){
 			return 1;
@@ -695,23 +695,28 @@ int Board::makeNormalMove(Move move){
 		}
 	}
 
-	//update allPieces and emptySquares
-	allPieces = pieces[0] | pieces[1];
-	emptySquares = ~allPieces;
-
 	//if move captures opponent's piece, update the opponent's bitboards
 	if(pieces[!color] & (1ULL << move.toSquare)){
 		for(int i = 5; i > 0; i--){
 			if(pieceTypes[!color][i] & (1ULL << move.toSquare)){
 				pieceTypes[!color][i] ^= (1ULL << move.toSquare);
 				pieces[!color] ^= (1ULL << move.toSquare);
-				//retval is use for capture parameter in undoNormalMove that tells us the piece that was captured
+
+				//update allPieces and emptySquares
+				allPieces = pieces[0] | pieces[1];
+				emptySquares = ~allPieces;
+
+				//retval is used for capture parameter in undoNormalMove that tells us the piece that was captured
 				//0 = no capture, 1 = queen capture, 2 = rook capture, etc.
 				//king cannot be captured, so that is why 0 can represent a non capture
 				return i;
 			}
 		}
 	}
+
+	//update allPieces and emptySquares
+	allPieces = pieces[0] | pieces[1];
+	emptySquares = ~allPieces;
 
 	return 0;
 }
@@ -722,8 +727,8 @@ void Board::makeEnPassMove(Move move){
 	allPieces &= ~(1ULL << move.fromSquare);
 
 	//Remove caputured pawn
-	pieceTypes[!color][5] &= ~(1ULL << move.toSquare - 8);
-	allPieces &= ~(1ULL << move.toSquare - 8);
+	pieceTypes[!color][5] &= ~(1ULL << (move.toSquare - 8));
+	allPieces &= ~(1ULL << (move.toSquare - 8));
 
 	//Place players pawn in new spot
 	pieceTypes[color][5] |= (1ULL << move.toSquare);
@@ -733,8 +738,35 @@ void Board::makeEnPassMove(Move move){
 }
 
 void Board::makeCastleMove(Move move){
+	//unsetting/setting king bitboards
+	pieceTypes[color][0] ^= (1ULL << move.fromSquare);
+	pieces[color] ^= (1ULL << move.fromSquare);
+	pieceTypes[color][0] |= (1ULL << move.toSquare);
+	pieces[color] |= (1ULL << move.toSquare);
 
+	//unsetting/setting rook bitboards
+	//if kingside castle
+	if(move.fromSquare < move.toSquare){
+		int rookSquare = getMSBIndex(pieceTypes[color][2]);
+		pieceTypes[color][2] ^= (1ULL << rookSquare);
+		pieces[color] ^= (1ULL << rookSquare);
+		pieceTypes[color][2] |= (1ULL << (move.toSquare - 1));
+		pieces[color] |= (1ULL << (move.toSquare - 1));
+	}
+	//else queenside castle
+	else{
+		int rookSquare = getLSBIndex(pieceTypes[color][2]);
+		pieceTypes[color][2] ^= (1ULL << rookSquare);
+		pieces[color] ^= (1ULL << rookSquare);
+		pieceTypes[color][2] |= (1ULL << (move.toSquare + 1));
+		pieces[color] |= (1ULL << (move.toSquare + 1));
+	}
+
+	//update allPieces and emptySquares
+	allPieces = pieces[0] | pieces[1];
+	emptySquares = ~allPieces;
 }
+
 //Updates bit boards for a pawn promotion
 void Board::makePromotionMove(Move move){
 	if((allPieces&(1<<move.toSquare)) != 0){
@@ -754,7 +786,7 @@ void Board::makePromotionMove(Move move){
 	pieces[color] &= ~(1 << move.fromSquare);
 	pieces[color] |= (1 << move.toSquare);
 	pieceTypes[color][5] &= ~(1 << move.fromSquare);
-	pieceTypes[color][move.promotedPiece] |= (1 << move.toSquare);
+	pieceTypes[color][int(move.promotedPiece)] |= (1 << move.toSquare);
 }
 
 void Board::undoMove(Move move, int capturedPieceType){
@@ -782,15 +814,15 @@ void Board::undoNormalMove(Move move, int capturedPieceType){
 		}
 	}
 
-	//update allPieces and emptySquares
-	allPieces = pieces[0] | pieces[1];
-	emptySquares = ~allPieces;
-
 	//if move captured opponent's piece, update the opponent's bitboards
 	if(capturedPieceType){
 		pieceTypes[!color][capturedPieceType] |= (1ULL << move.toSquare);
 		pieces[!color] |= (1ULL << move.toSquare);
 	}
+
+	//update allPieces and emptySquares
+	allPieces = pieces[0] | pieces[1];
+	emptySquares = ~allPieces;
 }
 
 void Board::undoEnPassMove(Move move){
@@ -799,8 +831,8 @@ void Board::undoEnPassMove(Move move){
 	allPieces &= ~(1ULL << move.toSquare);
 
 	//add caputured pawn
-	pieceTypes[!color][5] |= ~(1ULL << move.toSquare - 8);
-	allPieces &= ~(1ULL << move.toSquare - 8);
+	pieceTypes[!color][5] |= ~(1ULL << (move.toSquare - 8));
+	allPieces &= ~(1ULL << (move.toSquare - 8));
 
 	//Place players pawn in original spot
 	pieceTypes[color][5] |= (1ULL << move.fromSquare);
@@ -810,7 +842,33 @@ void Board::undoEnPassMove(Move move){
 }
 
 void Board::undoCastleMove(Move move){
+	//unsetting/setting king bitboards
+	pieceTypes[color][0] ^= (1ULL << move.toSquare);
+	pieces[color] ^= (1ULL << move.toSquare);
+	pieceTypes[color][0] |= (1ULL << move.fromSquare);
+	pieces[color] |= (1ULL << move.fromSquare);
 
+	//unsetting/setting rook bitboards
+	//if kingside castle
+	if(move.fromSquare < move.toSquare){
+		int rookSquare = getMSBIndex(pieceTypes[color][2]);
+		pieceTypes[color][2] ^= (1ULL << rookSquare);
+		pieces[color] ^= (1ULL << rookSquare);
+		pieceTypes[color][2] |= (1ULL << (rookSquare + 2));
+		pieces[color] |= (1ULL << (rookSquare + 2));
+	}
+	//else queenside castle
+	else{
+		int rookSquare = getLSBIndex(pieceTypes[color][2]);
+		pieceTypes[color][2] ^= (1ULL << rookSquare);
+		pieces[color] ^= (1ULL << rookSquare);
+		pieceTypes[color][2] |= (1ULL << (rookSquare - 3));
+		pieces[color] |= (1ULL << (rookSquare - 3));
+	}
+
+	//update allPieces and emptySquares
+	allPieces = pieces[0] | pieces[1];
+	emptySquares = ~allPieces;
 }
 
 void Board::undoPromotionMove(Move move){
