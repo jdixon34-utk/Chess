@@ -57,6 +57,7 @@ public:
 	int moveIndex;
 
 	void genBoardFromFEN(std::string FEN);
+	std::string genFENFromBoard();
 	void printBitBoard(unsigned long long bitBoard);
 	void printPosition();
 
