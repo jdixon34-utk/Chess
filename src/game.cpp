@@ -26,7 +26,8 @@ std::string Game::playTurn(std::string FEN){
  
     //then do the search for the best move
 
-    return "Eventual FEN String";
+    //return the updated FEN string
+    return position.genFENFromBoard();
 }
 
 //EMSCRIPTEN_BINDINGS(my_class_example) {
