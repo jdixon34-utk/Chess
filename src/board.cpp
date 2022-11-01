@@ -848,13 +848,15 @@ void Board::makeCastleMove(Move move){
 }
 
 //Updates bit boards for a pawn promotion
-void Board::makePromotionMove(Move move){
+int Board::makePromotionMove(Move move){
+	int capturedPieceType = 0;
 	if((allPieces&(1<<move.toSquare)) != 0){
 		//Capture into Promotion
 		for(int i = 1; i < 4; i++){
 			if((pieceTypes[!color][i] & (1 << move.toSquare)) != 0){
 				pieceTypes[!color][i] &= ~(1 << move.toSquare);
 				pieces[!color] &= ~(1 << move.toSquare);
+				capturedPieceType = i;
 				break;
 			}
 		}
@@ -867,6 +869,8 @@ void Board::makePromotionMove(Move move){
 	pieces[color] |= (1 << move.toSquare);
 	pieceTypes[color][5] &= ~(1 << move.fromSquare);
 	pieceTypes[color][int(move.promotedPiece)] |= (1 << move.toSquare);
+
+	return capturedPieceType;
 }
 
 void Board::undoMove(Move move, int capturedPieceType){
@@ -878,7 +882,7 @@ void Board::undoMove(Move move, int capturedPieceType){
 		case 0: undoNormalMove(move, capturedPieceType); break;
 		case 1: undoEnPassMove(move); break;
 		case 2: undoCastleMove(move); break;
-		case 3: undoPromotionMove(move); break;
+		case 3: undoPromotionMove(move, capturedPieceType); break;
 	}
 }
 
@@ -950,7 +954,16 @@ void Board::undoCastleMove(Move move){
 	allPieces = pieces[0] | pieces[1];
 	emptySquares = ~allPieces;
 }
+//TODO for Justin, first thing sprint3
+void Board::undoPromotionMove(Move move, int capturedPieceType){
 
-void Board::undoPromotionMove(Move move){
 
+	if(capturedPieceType == 0) allPieces &= ~(1 << move.toSquare);
+	allPieces |= (1 << move.fromSquare);
+	emptySquares &= ~(1 << move.fromSquare);
+	if(capturedPieceType == 0) emptySquares |= (1 << move.toSquare);
+	pieces[color] &= ~(1 << move.toSquare);
+	pieces[color] |= (1 << move.fromSquare);
+	pieceTypes[color][int(move.promotedPiece)] &= ~(1 << move.toSquare);
+	pieceTypes[color][5] |= (1 << move.fromSquare);
 }
