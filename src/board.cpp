@@ -1,5 +1,6 @@
 #include <string>
 #include <cmath>
+#include <sstream>
 #include "board.h"
 #include "move.h"
 
@@ -101,6 +102,85 @@ void Board::genBoardFromFEN(string FEN){
 	}
 
 	fullMoveNumber = stoi(num);
+}
+
+string Board::genFENFromBoard(){
+	stringstream ss;
+	char FENarr[64];
+	int FENarrIndex = 0;
+	int emptySqCount = 0;
+
+	ss.clear();
+
+	for(int i = 0; i < 64; i++){
+		FENarr[i] = '.';
+	}
+
+	for(int i = 56; i > -1; i++){
+		for(int j = 0; j < 2; j++){
+			for(int k = 0; k < 6; k++){
+				if(pieceTypes[j][k] & (1ULL << i)){
+					if(j == 0){
+						switch(k){
+							case 0: FENarr[FENarrIndex] = 'K'; break;
+							case 1: FENarr[FENarrIndex] = 'Q'; break;
+							case 2: FENarr[FENarrIndex] = 'R'; break;
+							case 3: FENarr[FENarrIndex] = 'B'; break;
+							case 4: FENarr[FENarrIndex] = 'N'; break;
+							case 5: FENarr[FENarrIndex] = 'P'; break;
+						}
+					}
+					else{
+						switch(k){
+							case 0: FENarr[FENarrIndex] = 'k'; break;
+							case 1: FENarr[FENarrIndex] = 'q'; break;
+							case 2: FENarr[FENarrIndex] = 'r'; break;
+							case 3: FENarr[FENarrIndex] = 'b'; break;
+							case 4: FENarr[FENarrIndex] = 'n'; break;
+							case 5: FENarr[FENarrIndex] = 'p'; break;
+						}
+					}
+				}
+			}
+		}
+		if(i % 8 == 7) i -= 16;
+		FENarrIndex++;
+	}
+
+	for(int i = 0; i < 64; i++){
+		if(FENarr[i] == '.') emptySqCount++;
+		else{
+			if(emptySqCount != 0){ss << emptySqCount; emptySqCount = 0;}
+			ss << FENarr[i];
+		}
+		if(i % 8 == 7){
+			if(emptySqCount != 0){ss << emptySqCount; emptySqCount = 0;}
+			if(i != 63) ss << "/";
+		}
+	}
+
+	ss << " ";
+	if(color == 0) ss << "w";
+	else ss << "b";
+	ss << " ";
+	if(!whiteCastleRightsKS && !whiteCastleRightsQS && !blackCastleRightsKS && !blackCastleRightsQS){
+		ss << "-";
+	}
+	else{
+		if(whiteCastleRightsKS) ss << "K";
+		if(whiteCastleRightsQS) ss << "Q";
+		if(blackCastleRightsKS) ss << "k";
+		if(blackCastleRightsQS) ss << "q";
+	}
+	ss << " ";
+	if(enPassantTargetSquare == 0) ss << "-";
+	else {ss << char((enPassantTargetSquare % 8) + 97); ss << char((enPassantTargetSquare / 8) + 49);}
+	ss << " ";
+	ss << halfMoveClock;
+	ss << " ";
+	ss << fullMoveNumber;
+
+	return ss.str();
 }
 
 void Board::printBitBoard(unsigned long long bitBoard){
@@ -231,10 +311,10 @@ void Board::genMoves(){
 	genPawnDoublePushMoves();
 	genPawnRightMoves();
 	if(enPassantTargetSquare != 0) genEnPassantMoves();
-	if(color && whiteCastleRightsKS) genCastleKS();
-	else if(blackCastleRightsKS) genCastleKS();
-	if(color && whiteCastleRightsQS) genCastleQS();
-	else if(blackCastleRightsQS) genCastleQS();
+	if(color == 0 && whiteCastleRightsKS) genCastleKS();
+	else if(color == 1 && blackCastleRightsKS) genCastleKS();
+	if(color == 0 && whiteCastleRightsQS) genCastleQS();
+	else if(color == 1 && blackCastleRightsQS) genCastleQS();
 }
 
 void Board::genKingMoves(int square){
