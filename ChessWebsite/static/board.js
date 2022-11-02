@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     half = 0;
     full = 0;
     var en_pas_ignore = false;
+    var flip = "no";
 
     //Lets these variables be used in the .html file and any files .js files in the .html
     localStorage.turn = turn;
@@ -19,7 +20,9 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.cas = cas;
     localStorage.half = half;
     localStorage.full = full;
+    localStorage.flip = flip;
    
+    const rows = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
     //Create the squares and pieces
     for (var i = 1; i < 9; i++) {
         var col, child, piece;
@@ -47,40 +50,9 @@ document.addEventListener("DOMContentLoaded", function () {
             //Define the colors and piece type of the pieces
             if (i < 3) {
                 document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
-                piece.classList.add("white-piece");
-                //Defines all the pieces for the white side
-                if(i === 1){
-                    if(j === 1){
-                        piece.classList.add("R");
-                        piece.classList.add("W_r");
-                        piece.classList.add("First");
-                        piece.classList.add(0);
-                    }else if(j === 8){
-                        piece.classList.add("R");
-                        piece.classList.add("W_r");
-                        piece.classList.add("First");
-                        piece.classList.add(1); 
-                    }    
-                    else if(j === 2 || j === 7){
-                        piece.classList.add("N");
-                    }else if(j === 3 || j === 6){
-                        piece.classList.add("B");
-                    }else if(j === 4){
-                        piece.classList.add("Q");
-                    }else{
-                        piece.classList.add("K");
-                        piece.classList.add("First");
-                    }
-                }else{
-                    piece.classList.add("P");
-                    piece.classList.add("W_p");
-                    piece.classList.add("First");
-                }
-            } else if (i > 6) {
-                document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
                 piece.classList.add("black-piece");
                 //Define all the pieces for the black side
-                if(i === 8){
+                if(i === 1){
                     if(j === 1){
                         piece.classList.add("r");
                         piece.classList.add("B_r");
@@ -108,6 +80,38 @@ document.addEventListener("DOMContentLoaded", function () {
                 }else{
                     piece.classList.add("p");
                     piece.classList.add("B_p");
+                    piece.classList.add("First");
+                }
+            }
+            else if (i > 6) {
+                document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
+                piece.classList.add("white-piece");
+                //Defines all the pieces for the white side
+                if(i === 8){
+                    if(j === 1){
+                        piece.classList.add("R");
+                        piece.classList.add("W_r");
+                        piece.classList.add("First");
+                        piece.classList.add(0);
+                    }else if(j === 8){
+                        piece.classList.add("R");
+                        piece.classList.add("W_r");
+                        piece.classList.add("First");
+                        piece.classList.add(1); 
+                    }    
+                    else if(j === 2 || j === 7){
+                        piece.classList.add("N");
+                    }else if(j === 3 || j === 6){
+                        piece.classList.add("B");
+                    }else if(j === 4){
+                        piece.classList.add("Q");
+                    }else{
+                        piece.classList.add("K");
+                        piece.classList.add("First");
+                    }
+                }else{
+                    piece.classList.add("P");
+                    piece.classList.add("W_p");
                     piece.classList.add("First");
                 }
             }
@@ -218,22 +222,33 @@ document.addEventListener("DOMContentLoaded", function () {
         
         //Gets the indexs of columns in the board
         var new_index = [].indexOf.call(new_col.parentNode.children, new_col);
-        var old_index = [].indexOf.call(old_col.parentNode.children, old_col); 
+        var old_index = [].indexOf.call(old_col.parentNode.children, old_col);
+        var check = localStorage.flip;
         
         //Might not be an En Passant so we check
         if((old_index + 16) === new_index || (old_index - 16) === new_index){
             
             //Temporary debugging print
-            console.log(rows[new_index % 8] + " " + Math.floor(new_index / 8));
-
+ 
             //Add a class setting the piece as currently possible en Passant and the index of the array it is located in
             old_col.children[0].classList.add("en_Pas");
             var length = pas.length;
             old_col.children[0].classList.add(pas.length);
 
             //Push the row and column of the piece
-            pas.push(rows[new_index % 8]);
-            pas.push(Math.floor(new_index / 8) + 1);
+            //pas.push(rows[new_index % 8]);
+            
+            //If the board has been fliped it changes the push
+            console.log("hi " + localStorage.flip);
+            if(check === "no"){
+                pas.push(rows[new_index % 8]);
+                pas.push(8 - Math.floor(new_index / 8));
+                console.log(rows[new_index % 8] + " " + (8 - Math.floor(new_index / 8)) + " enpas1 " + check + " " + localStorage.flip);
+            }else{
+                pas.push(rows[7 - (new_index % 8)]);
+                pas.push(1 + Math.floor(new_index / 8));
+                console.log(rows[7 - (new_index % 8)] + " " + (1 + Math.floor(new_index / 8)) + " enpas2 " + check);
+            }
 
             localStorage.pas = pas;
             en_pas_ignore = true;

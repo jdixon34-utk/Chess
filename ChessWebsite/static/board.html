@@ -8,6 +8,9 @@
     <div style="display: left;" id="button">
         <button id="run_button" onclick="run_ws()">=</button>
     </div>
+    <div style="display: left;" id="button2">
+        <button id="run_button2" onclick="flip_board()">=</button>
+    </div>
 </header>
 
 
@@ -45,6 +48,68 @@
         console.log('fen result: ' + fen());
         console.log('Our fen result: ' + instance["playTurn"](fen()));
     };
+
+    function flip_board() {
+        test = document.getElementById("chessboard");
+        table;
+        //for(var i = 60; i >= 0; i--){
+            //clone.appendChild(clone2);
+            //table.replaceChild(clone, table.children[62]); 
+            let color, color2;
+            //if(table.children[0].classList.item(0) === "white"){
+            for(var i = 0; i < 32; i++){
+                //if(table.children[0].children[0] !== undefined){
+                    piece = document.createElement("DIV");
+                    piece.id = "fd" + i + 7 + 7;
+                    piece2 = document.createElement("DIV");
+                    piece2.id = "fd" + (i+3)*2 + 7 + 8;
+
+                    let t = (table.children[i].children[0] !== undefined) ? true : false;
+                    //if(table.children[0].children[0] !== undefined){
+                    //    let t = false;
+                    //}
+                    let f = (table.children[63-i].children[0] !== undefined) ? true : false;
+                    //if(table.children[63].children[0] !== undefined){
+                    //    let f = false;
+                    //}
+
+
+                    for(var j = 0; j < 8; j++){
+                        //console.log(table.children[0].children[0].classList.item(j));
+                        if(t){
+                            piece.classList.add(table.children[i].children[0].classList.item(j));
+                            //console.log(table.children[0].children[0].classList.item(j) + " top");
+                        }
+                        if(f){
+                            piece2.classList.add(table.children[63-i].children[0].classList.item(j));
+                            //console.log(table.children[63].children[0].classList.item(j) + " bottom");
+                        }
+                        //console.log(piece.classList.item(j));
+                    }
+                    //if(table.children[0].children[0] !== undefined){
+                        //table.children[63].removeChild(table.children[63].firstChild);
+                    //}
+                    if(t){
+                        table.children[63-i].appendChild(piece);
+                        table.children[i].removeChild(table.children[i].firstChild);
+                        //console.log(table.children[63].children[0].classList.item(1));
+                    }
+                    if(f){
+                        table.children[63-i].removeChild(table.children[63-i].firstChild);
+                        table.children[i].appendChild(piece2);
+                        //console.log(table.children[63].children[0].classList.item(1));
+                    }
+
+                    //localStorage.flip = "yes";
+                    //localStorage.flip = (localStorage.flip === "no") ? "yes" : "no";
+            }
+            //flip = localStorage.flip;
+            if(localStorage.flip === "no"){
+                localStorage.flip = "yes";
+            }else{
+                localStorage.flip = "no";
+            }
+    }
 </script>
 <script src="chess.js"></script>
 <script type="text/javascript" src="fen.js"></script>
