@@ -124,6 +124,12 @@ document.addEventListener("DOMContentLoaded", function () {
     //e is click event, not used.
     //Col is the column the user clicked on
     function moveStart(e, col){
+
+        turn = localStorage.turn;
+        pas = localStorage.pas;
+        cas = localStorage.cas;
+        half = localStorage.half;
+        full = localStorage.full;
  
         //Current piece selected, will be undefined at start
         var cur = document.getElementsByClassName("current")[0];
