@@ -93,17 +93,8 @@ function fen(){
     }
     
     //Next you do en passant targets
-    var check = false;
-    for(var i = 0; i < pas.length; i += 4){
-        //Ignore ,'s as that is what we set indexes that are no longer en passant targets to.
-        if(pas[i] !== ','){
-            fen += pas[i] + pas[i+2] + ' ';
-            check = true;
-        }
-    }
-    if(check === false){
-        fen += "- "
-    }
+    fen += pas + ' ';
+    
     //Next is how many moves both players have made since the last pawn advance or piece capture
     //Game ends in a draw if this is 100
 

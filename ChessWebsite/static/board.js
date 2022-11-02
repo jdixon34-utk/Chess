@@ -7,12 +7,13 @@ document.addEventListener("DOMContentLoaded", function () {
     
     //Fen string variables
     turn = "white-piece";
-    const pas = [];
+    pas = "-";
     cas = "KQkq";
     half = 0;
     full = 0;
     var en_pas_ignore = false;
     var flip = "no";
+    curr_en_pas = null;
 
     //Lets these variables be used in the .html file and any files .js files in the .html
     localStorage.turn = turn;
@@ -157,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             move(col, cur.parentNode, cur);
-            en_pas_ignore = false;
+            //en_pas_ignore = false;
 
             full++;
 
@@ -184,24 +185,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         //Else nothing is currently selected and the selected square has no piece so do nothing
 
+        if(en_pas_ignore === false){
+            pas = "-";
+            curr_en_pas =  null;
+            localStorage.pas = pas;
+        }else{
+            en_pas_ignore = false;
+        }
+
     }
  
     //Move piece from cur_col to new_col
     function move(new_col, cur_col, piece) {
 
-        //En passant stuff
         //No longer first move so first is removed
         if(piece.classList.contains("First")){
             piece.classList.remove("First");
-        }else if(piece.classList.contains("en_Pas") && en_pas_ignore !== true){
-            
-            //Item 4 tells us the index the piece is at in the pas array
-            pas[piece.classList.item(4)] = ',';
-            localStorage.pas = pas;
-
-            piece.classList.remove(piece.classList.item(3));
-            piece.classList.remove(piece.classList.item(4));
-
         }
  
         //Moves the piece
@@ -228,28 +227,18 @@ document.addEventListener("DOMContentLoaded", function () {
         //Might not be an En Passant so we check
         if((old_index + 16) === new_index || (old_index - 16) === new_index){
             
-            //Temporary debugging print
- 
-            //Add a class setting the piece as currently possible en Passant and the index of the array it is located in
-            old_col.children[0].classList.add("en_Pas");
-            var length = pas.length;
-            old_col.children[0].classList.add(pas.length);
-
-            //Push the row and column of the piece
-            //pas.push(rows[new_index % 8]);
-            
             //If the board has been fliped it changes the push
-            console.log("hi " + localStorage.flip);
             if(check === "no"){
-                pas.push(rows[new_index % 8]);
-                pas.push(8 - Math.floor(new_index / 8));
-                console.log(rows[new_index % 8] + " " + (8 - Math.floor(new_index / 8)) + " enpas1 " + check + " " + localStorage.flip);
+                pas = rows[new_index % 8];
+                pas += 8 - Math.floor(new_index / 8);
+                //console.log(rows[new_index % 8] + " " + (8 - Math.floor(new_index / 8)) + " enpas1 " + check + " " + localStorage.flip);
             }else{
-                pas.push(rows[7 - (new_index % 8)]);
-                pas.push(1 + Math.floor(new_index / 8));
-                console.log(rows[7 - (new_index % 8)] + " " + (1 + Math.floor(new_index / 8)) + " enpas2 " + check);
+                pas = rows[7 - (new_index % 8)]
+                pas += 1 + Math.floor(new_index / 8);
+                //console.log(rows[7 - (new_index % 8)] + " " + (1 + Math.floor(new_index / 8)) + " enpas2 " + check);
             }
 
+            curr_en_pas = old_col.children[0];
             localStorage.pas = pas;
             en_pas_ignore = true;
         }
