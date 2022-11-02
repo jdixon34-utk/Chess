@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     half = 0;
     full = 0;
     var en_pas_ignore = false;
-    var flip = "no";
+    var flip = 0;
     curr_en_pas = null;
 
     //Lets these variables be used in the .html file and any files .js files in the .html
@@ -233,8 +233,8 @@ document.addEventListener("DOMContentLoaded", function () {
         //Might not be an En Passant so we check
         if((old_index + 16) === new_index || (old_index - 16) === new_index){
             
-            //If the board has been fliped it changes the push
-            if(check === "no"){
+            //If the board has been fliped it string add
+            if(check === 0){
                 pas = rows[new_index % 8];
                 pas += 8 - Math.floor(new_index / 8);
                 //console.log(rows[new_index % 8] + " " + (8 - Math.floor(new_index / 8)) + " enpas1 " + check + " " + localStorage.flip);

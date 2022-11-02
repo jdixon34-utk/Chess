@@ -363,9 +363,56 @@ function fenin(fen){
 
     }
 
-
-
     //console.log(color + " " + castle + " " + pas + " " + full + " " + half + " " + fen[check]);
 
+}
+
+function flip_b(){
+    test = document.getElementById("chessboard");
+        table;
+            let color, color2;
+            for(var i = 0; i < 32; i++){
+                    piece = document.createElement("DIV");
+                    piece.id = "fd" + i + 7 + 7;
+                    piece2 = document.createElement("DIV");
+                    piece2.id = "fd" + (i+3)*2 + 7 + 8;
+
+                    let t = (table.children[i].children[0] !== undefined) ? true : false;
+
+                    let f = (table.children[63-i].children[0] !== undefined) ? true : false;
+
+
+                    for(var j = 0; j < 8; j++){
+                        //console.log(table.children[0].children[0].classList.item(j));
+                        if(t){
+                            piece.classList.add(table.children[i].children[0].classList.item(j));
+                            //console.log(table.children[0].children[0].classList.item(j) + " top");
+                        }
+                        if(f){
+                            piece2.classList.add(table.children[63-i].children[0].classList.item(j));
+                            //console.log(table.children[63].children[0].classList.item(j) + " bottom");
+                        }
+                        //console.log(piece.classList.item(j));
+                    }
+
+
+                    if(t){
+                        table.children[63-i].appendChild(piece);
+                        table.children[i].removeChild(table.children[i].firstChild);
+                        //console.log(table.children[63].children[0].classList.item(1));
+                    }
+                    if(f){
+                        table.children[63-i].removeChild(table.children[63-i].firstChild);
+                        table.children[i].appendChild(piece2);
+                        //console.log(table.children[63].children[0].classList.item(1));
+                    }
+
+            }
+
+            if(localStorage.flip === 0){
+                localStorage.flip = 1;
+            }else{
+                localStorage.flip = 0;
+            }
 }
 
