@@ -145,31 +145,32 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         //Valid move. So move the piece
         else if(cur !== undefined && col.children[0] === undefined){
-            
-            //IF a pawn checks if an en passant is now valid
-            if((cur.classList.contains("B_p") === true) || (cur.classList.contains("P") === true)){
-                half = 0;
+            if(validMove(col, cur.parentNode, cur, 0)){
+                //IF a pawn checks if an en passant is now valid
+                if((cur.classList.contains("B_p") === true) || (cur.classList.contains("P") === true)){
+                    half = 0;
                 
-                if(cur.classList.contains("First")){
-                    en_Pas(col, cur.parentNode);
+                    if(cur.classList.contains("First")){
+                        en_Pas(col, cur.parentNode);
+                    }
+
+                }else{
+                    half++;
                 }
 
-            }else{
-                half++;
+                if(((cur.classList.contains("k") || cur.classList.contains("K")) || ((cur.classList.contains("r") || cur.classList.contains("R")))) 
+                    && cur.classList.contains("First")){
+                        castling(cur);
+                }
+
+                move(col, cur.parentNode, cur);
+                //en_pas_ignore = false;
+
+                full++;
+
+                localStorage.half = half;
+                localStorage.full = full;
             }
-
-            if(((cur.classList.contains("k") || cur.classList.contains("K")) || ((cur.classList.contains("r") || cur.classList.contains("R")))) 
-                && cur.classList.contains("First")){
-                    castling(cur);
-            }
-
-            move(col, cur.parentNode, cur);
-            //en_pas_ignore = false;
-
-            full++;
-
-            localStorage.half = half;
-            localStorage.full = full;
         }
         //Unselect the current piece
         else if(col.children[0] === cur){
@@ -177,13 +178,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         //Take a piece
         else if(col.children[0] !== undefined && ((cur.classList.contains("white-piece") && col.children[0].classList.contains("black-piece")) || (cur.classList.contains("black-piece") && col.children[0].classList.contains("white-piece")))){
-            half = 0;
-            col.removeChild(col.children[0]);
-            move(col, cur.parentNode, cur);
-            full++;
+            if(validMove(col, cur.parentNode, cur, 1)){
+                half = 0;
+                col.removeChild(col.children[0]);
+                move(col, cur.parentNode, cur);
+                full++;
 
-            localStorage.half = half;
-            localStorage.full = full;
+                localStorage.half = half;
+                localStorage.full = full;
+            }
         }
         //Good attempt but there is already a piece there ;D
         else if(col.children[0] !== undefined){
@@ -218,6 +221,163 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.turn = turn;
     }
  
+    function validMove(new_col, cur_col, piece, take){
+
+        var new_index = [].indexOf.call(new_col.parentNode.children, new_col);
+        var old_index = [].indexOf.call(cur_col.parentNode.children, cur_col);
+        var diff;
+
+        if(localStorage.flip === '1'){
+            diff = 8;
+        }else{
+            diff = -8;
+            console.log(localStorage.flip);
+        }
+
+        if((piece.classList.item(1) === "P") || (piece.classList.item(1) === "p")){
+            
+            console.log("value diff " + diff + " new " + new_index + " old " + old_index + " flipe " + localStorage.flip);
+            //Move up one
+            if(!take && (((new_index + diff) === old_index && piece.classList.item(0) === "black-piece") 
+                || ((new_index - diff) === old_index && piece.classList.item(0) === "white-piece"))){
+                //console.log("test hi");
+                return true;
+            }
+
+            //For taking pieces diagonally
+            if(take && (((((new_index + diff) - old_index) === 1 || ((new_index + diff) - old_index) === -1) 
+                && piece.classList.item(0) === "black-piece") 
+                || ((((new_index - diff) - old_index) === 1 || ((new_index - diff) - old_index) === -1) 
+                && piece.classList.item(0) === "white-piece"))){
+                //console.log("hit");
+                return true;
+            }
+
+            //Move up two. Only valid on first move
+            if(piece.classList.contains("First")){
+                if(((new_index + (diff * 2)) === old_index && piece.classList.item(0) === "black-piece") 
+                    || ((new_index - (diff * 2)) === old_index) && piece.classList.item(0) === "white-piece"){
+                    
+                    //Must have no piece one above
+                    if(check_path(new_index, old_index)){
+                        return true;
+                    }
+                }
+            }
+
+            //En pas check goes here
+
+            alert("Invalid pawn move");
+        }
+
+        if((piece.classList.item(1) === "Q") || (piece.classList.item(1) === "q")){
+            
+            //Checks up/down
+            if((new_index % 8) === (old_index % 8)){
+                if(check_path(new_index, old_index)){
+                    return true;
+                }
+            }
+
+            //Checks left and right
+            if(Math.floor(new_index / 8) === Math.floor(old_index / 8)){
+                if(check_path(new_index, old_index)){
+                    return true;
+                }
+            }
+
+            //Checks diagonaly
+            if(((Math.floor(new_index / 8) * 8) + (new_index % 8)) === new_index){
+                if(check_path_dia(new_index, old_index)){
+                    return true;
+                }
+                //console.log("YIPPPE " + old_index + " " + (((new_index % 8) * 8) + (new_index % 8)));
+            }
+
+            alert("Invalid queen move");
+        }
+
+        return false;
+    }
+
+    function check_path(new_index, old_index){
+
+        board = document.getElementById("chessboard");
+        var start;
+        var end;
+
+        //Up and Down
+        if(new_index - old_index >= 8 || old_index - new_index >= 8){
+            if(new_index > old_index){
+                start = old_index;
+                end = new_index;
+            }else{
+                start = new_index;
+                end = old_index;
+            }
+            
+            for(var i = start + 8; i < end; i += 8){
+                if(board.children[i].children[0] !== undefined){
+                    console.log("Zap at " + i);
+                    return false;
+                }
+            }
+        }
+        //Left or right
+        else{
+            if(new_index < old_index){
+                start = new_index;
+                end = old_index
+            }else{
+                start = old_index;
+                end = new_index;
+            }
+
+            for(var i = start + 1; i < end; i++){
+                if(board.children[i].children[0] !== undefined){
+                    console.log("Zap at " + i);
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    function check_path_dia(new_index, old_index){
+        board = document.getElementById("chessboard");
+        var start;
+        var end;
+        var side;
+        if(new_index > old_index){
+            end = old_index;
+            start = new_index;
+        }else{
+            start = old_index;
+            end = new_index;
+        }
+
+        //GOING UP
+            console.log("UP");
+            //Going right
+            if((end % 8) > (start % 8)){
+                console.log("Right");
+                side = -1;
+            }else{
+                side = 1;
+            }
+
+            //console.log("Zap at " + i + " start " + start + " end " + end + " " + (start - (side + 8)));
+            for(var i = (start - (side + 8)); i > end; i -= (side + 8)){
+                //console.log("Zap at " + i + " start " + start + " end " + end + " " + (start - (side + 8)));
+                if(board.children[i].children[0] !== undefined){
+                    console.log("Zap at " + i + " start " + start + " end " + end + " " + (start - (side + 8)));
+                    return false;
+                }
+            }
+
+        return true;
+    }
 
     //Checks if an en passant is valid and sets the pieces class
     function en_Pas(new_col, old_col){

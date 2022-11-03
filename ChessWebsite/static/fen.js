@@ -409,10 +409,13 @@ function flip_b(){
 
             }
 
-            if(localStorage.flip === 0){
+            if(localStorage.flip === '0'){
                 localStorage.flip = 1;
+                console.log("hit YESSSSSSSSSS");
             }else{
                 localStorage.flip = 0;
+                console.log("hit NOOOO " + localStorage.flip);
             }
+            console.log("hit");
 }
 
