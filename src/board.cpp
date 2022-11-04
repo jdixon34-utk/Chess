@@ -803,14 +803,17 @@ int Board::makeNormalMove(Move move){
 
 void Board::makeEnPassMove(Move move){
 	//Remove players pawn origin
+	pieces[color] &= ~(1ULL << move.fromSquare);
 	pieceTypes[color][5] &= ~(1ULL << move.fromSquare);
 	allPieces &= ~(1ULL << move.fromSquare);
 
 	//Remove caputured pawn
+	pieces[!color] &= ~(1ULL << (move.toSquare - 8));
 	pieceTypes[!color][5] &= ~(1ULL << (move.toSquare - 8));
 	allPieces &= ~(1ULL << (move.toSquare - 8));
 
 	//Place players pawn in new spot
+	pieces[color] |= (1ULL << move.toSquare);
 	pieceTypes[color][5] |= (1ULL << move.toSquare);
 	allPieces |= (1ULL << move.toSquare);
 
@@ -911,14 +914,17 @@ void Board::undoNormalMove(Move move, int capturedPieceType){
 
 void Board::undoEnPassMove(Move move){
 	//Remove players pawn from landing square
+	pieces[color] &= ~(1ULL << move.toSquare);
 	pieceTypes[color][5] &= ~(1ULL << move.toSquare);
 	allPieces &= ~(1ULL << move.toSquare);
 
 	//add caputured pawn
+	pieces[!color] |= ~(1ULL << (move.toSquare - 8));
 	pieceTypes[!color][5] |= ~(1ULL << (move.toSquare - 8));
 	allPieces &= ~(1ULL << (move.toSquare - 8));
 
 	//Place players pawn in original spot
+	pieces[color] |= (1ULL << move.fromSquare);
 	pieceTypes[color][5] |= (1ULL << move.fromSquare);
 	allPieces |= (1ULL << move.fromSquare);
 
