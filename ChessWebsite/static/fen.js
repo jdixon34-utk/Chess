@@ -146,7 +146,7 @@ function fenin(fen){
     localStorage.turn = (color === "w") ? "white-piece" : "black-piece";
     let board = document.getElementById("chessboard");
 
-    if(flip === "no"){
+    if(flip === '0'){
         index = 63;
         //var test = "r4R"
         while(check !== -1){
@@ -255,6 +255,7 @@ function fenin(fen){
         }
     }else{
         index = 0;
+        console.log(flip);
         //var test = "r4R"
         while(check !== -1){
             if(board.children[index].children[0] !== undefined){
