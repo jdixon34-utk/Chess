@@ -645,14 +645,14 @@ void Board::genCastleKS(){
 
 	if(color == 0){
 		//makes sure no pieces are blocking and not castling into/through check
-		if(((3ULL << 5) & allPieces) == 0 && !squareUnderAttack(5) && !squareUnderAttack(6)){
+		if(((3ULL << 5) & allPieces) == 0 && !squareUnderAttack(4) && !squareUnderAttack(5) && !squareUnderAttack(6)){
 			move.createMove(4, 6, 2, 0);
 			moves[moveIndex++] = move;
 		}
 	}
 	else{
 		//makes sure no pieces are blocking and not castling into/through check
-		if(((3ULL << 61) & allPieces) == 0 && !squareUnderAttack(62) && !squareUnderAttack(63)){
+		if(((3ULL << 61) & allPieces) == 0 && !squareUnderAttack(60) && !squareUnderAttack(61) && !squareUnderAttack(62)){
 			move.createMove(60, 62, 2, 0);
 			moves[moveIndex++] = move;
 		}
@@ -664,14 +664,14 @@ void Board::genCastleQS(){
 
 	if(color == 0){
 		//makes sure no pieces are blocking and not castling into/through check
-		if(((7ULL << 1) & allPieces) == 0 && !squareUnderAttack(2) && !squareUnderAttack(3)){
+		if(((7ULL << 1) & allPieces) == 0 && !squareUnderAttack(2) && !squareUnderAttack(3) && !squareUnderAttack(4)){
 			move.createMove(4, 2, 2, 0);
 			moves[moveIndex++] = move;
 		}
 	}
 	else{
 		//makes sure no pieces are blocking and not castling into/through check
-		if(((7ULL << 57) & allPieces) == 0 && !squareUnderAttack(58) && !squareUnderAttack(59)){
+		if(((7ULL << 57) & allPieces) == 0 && !squareUnderAttack(58) && !squareUnderAttack(59) && !squareUnderAttack(60)){
 			move.createMove(60, 58, 2, 0);
 			moves[moveIndex++] = move;
 		}
