@@ -6,6 +6,12 @@
 
 using namespace std;
 
+void Board::initialize_tables(){
+	INITIALIZE_KING_LOOKUP_TBL();
+	INITIALIZE_KNIGHT_LOOKUP_TBL();
+	INITIALIZE_RAYS();
+}
+
 void Board::genBoardFromFEN(string FEN){
 	int indexFEN = 0, indexBoard = 56;
 

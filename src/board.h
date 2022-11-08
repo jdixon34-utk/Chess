@@ -56,6 +56,8 @@ public:
 	class Move moves[128];
 	int moveIndex;
 
+	void initialize_tables();
+
 	void genBoardFromFEN(std::string FEN);
 	std::string genFENFromBoard();
 	void printBitBoard(unsigned long long bitBoard);
