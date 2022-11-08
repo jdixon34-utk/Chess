@@ -960,17 +960,19 @@ void Board::undoCastleMove(Move move){
 	allPieces = pieces[0] | pieces[1];
 	emptySquares = ~allPieces;
 }
-//TODO for Justin, first thing sprint3
+//reverts to state before promotion move
 void Board::undoPromotionMove(Move move, int capturedPieceType){
 
-	if(capturedPieceType == 0) allPieces &= ~(1 << move.toSquare);
+	if(capturedPieceType == 0){
+		 allPieces &= ~(1 << move.toSquare);
+		 emptySquares |= (1 << move.toSquare);
+	 }
 	else{
 		pieceTypes[!color][capturedPieceType] |= (1 << move.toSquare);
 		pieces[!color] |= (1 << move.toSquare);
 	}
 	allPieces |= (1 << move.fromSquare);
 	emptySquares &= ~(1 << move.fromSquare);
-	if(capturedPieceType == 0) emptySquares |= (1 << move.toSquare);
 	pieces[color] &= ~(1 << move.toSquare);
 	pieces[color] |= (1 << move.fromSquare);
 	pieceTypes[color][int(move.promotedPiece)] &= ~(1 << move.toSquare);
