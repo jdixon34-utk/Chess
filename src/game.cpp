@@ -12,6 +12,8 @@ using namespace std;
 std::string Game::playTurn(std::string FEN){
     Board position;
 
+    position.initialize_tables();
+
     positions.push_back(position);
 
     position.genBoardFromFEN(FEN);
