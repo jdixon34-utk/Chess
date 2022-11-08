@@ -6,7 +6,10 @@
 
 <header>
     <div style="display: left;" id="button">
-        <button id="run_button" onclick="run_ws()">=</button>
+        <button id="run_button" onclick="flip_board()">=</button>
+    </div>
+    <div style="display: left;" id="button2">
+        <button id="run_button2" onclick="instring()">=</button>
     </div>
 </header>
 
@@ -45,6 +48,15 @@
         console.log('fen result: ' + fen());
         console.log('Our fen result: ' + instance["playTurn"](fen()));
     };
+
+    function instring() {
+        //Temp delete later
+        fenin("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1");
+    }
+
+    function flip_board() {
+        flip_b();
+    }
 </script>
 <script src="chess.js"></script>
 <script type="text/javascript" src="fen.js"></script>

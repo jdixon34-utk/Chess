@@ -644,15 +644,15 @@ void Board::genCastleKS(){
 	Move move;
 
 	if(color == 0){
-		//makes sure no pieces are blocking
-		if(((3ULL << 5) & allPieces) == 0){
+		//makes sure no pieces are blocking and not castling into/through check
+		if(((3ULL << 5) & allPieces) == 0 && !squareUnderAttack(4) && !squareUnderAttack(5) && !squareUnderAttack(6)){
 			move.createMove(4, 6, 2, 0);
 			moves[moveIndex++] = move;
 		}
 	}
 	else{
-		//makes sure no pieces are blocking
-		if(((3ULL << 61) & allPieces) == 0){
+		//makes sure no pieces are blocking and not castling into/through check
+		if(((3ULL << 61) & allPieces) == 0 && !squareUnderAttack(60) && !squareUnderAttack(61) && !squareUnderAttack(62)){
 			move.createMove(60, 62, 2, 0);
 			moves[moveIndex++] = move;
 		}
@@ -663,15 +663,15 @@ void Board::genCastleQS(){
 	Move move;
 
 	if(color == 0){
-		//makes sure no pieces are blocking
-		if(((7ULL << 1) & allPieces) == 0){
+		//makes sure no pieces are blocking and not castling into/through check
+		if(((7ULL << 1) & allPieces) == 0 && !squareUnderAttack(2) && !squareUnderAttack(3) && !squareUnderAttack(4)){
 			move.createMove(4, 2, 2, 0);
 			moves[moveIndex++] = move;
 		}
 	}
 	else{
-		//makes sure no pieces are blocking
-		if(((7ULL << 57) & allPieces) == 0){
+		//makes sure no pieces are blocking and not castling into/through check
+		if(((7ULL << 57) & allPieces) == 0 && !squareUnderAttack(58) && !squareUnderAttack(59) && !squareUnderAttack(60)){
 			move.createMove(60, 58, 2, 0);
 			moves[moveIndex++] = move;
 		}
@@ -803,14 +803,17 @@ int Board::makeNormalMove(Move move){
 
 void Board::makeEnPassMove(Move move){
 	//Remove players pawn origin
+	pieces[color] &= ~(1ULL << move.fromSquare);
 	pieceTypes[color][5] &= ~(1ULL << move.fromSquare);
 	allPieces &= ~(1ULL << move.fromSquare);
 
 	//Remove caputured pawn
+	pieces[!color] &= ~(1ULL << (move.toSquare - 8));
 	pieceTypes[!color][5] &= ~(1ULL << (move.toSquare - 8));
 	allPieces &= ~(1ULL << (move.toSquare - 8));
 
 	//Place players pawn in new spot
+	pieces[color] |= (1ULL << move.toSquare);
 	pieceTypes[color][5] |= (1ULL << move.toSquare);
 	allPieces |= (1ULL << move.toSquare);
 
@@ -911,14 +914,17 @@ void Board::undoNormalMove(Move move, int capturedPieceType){
 
 void Board::undoEnPassMove(Move move){
 	//Remove players pawn from landing square
+	pieces[color] &= ~(1ULL << move.toSquare);
 	pieceTypes[color][5] &= ~(1ULL << move.toSquare);
 	allPieces &= ~(1ULL << move.toSquare);
 
 	//add caputured pawn
+	pieces[!color] |= ~(1ULL << (move.toSquare - 8));
 	pieceTypes[!color][5] |= ~(1ULL << (move.toSquare - 8));
 	allPieces &= ~(1ULL << (move.toSquare - 8));
 
 	//Place players pawn in original spot
+	pieces[color] |= (1ULL << move.fromSquare);
 	pieceTypes[color][5] |= (1ULL << move.fromSquare);
 	allPieces |= (1ULL << move.fromSquare);
 
