@@ -14,7 +14,7 @@ function fen(){
     
     let space = 0;
     //Iterate over all child nodes
-    if(flip === "no"){
+    if(flip === "0"){
         for(let i = 0; i <= 7; i++){
             for(let j = 0; j < 8; j++){
 

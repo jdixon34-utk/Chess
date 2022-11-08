@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Invalid pawn move");
         }
 
-        if((piece.classList.item(1) === "Q") || (piece.classList.item(1) === "q")){
+        else if((piece.classList.item(1) === "Q") || (piece.classList.item(1) === "q")){
             
             //Checks up/down
             if((new_index % 8) === (old_index % 8)){
