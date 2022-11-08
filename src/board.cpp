@@ -957,8 +957,11 @@ void Board::undoCastleMove(Move move){
 //TODO for Justin, first thing sprint3
 void Board::undoPromotionMove(Move move, int capturedPieceType){
 
-
 	if(capturedPieceType == 0) allPieces &= ~(1 << move.toSquare);
+	else{
+		pieceTypes[!color][capturedPieceType] |= (1 << move.toSquare);
+		pieces[!color] |= (1 << move.toSquare);
+	}
 	allPieces |= (1 << move.fromSquare);
 	emptySquares &= ~(1 << move.fromSquare);
 	if(capturedPieceType == 0) emptySquares |= (1 << move.toSquare);
