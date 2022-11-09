@@ -35,7 +35,7 @@ class Board{
 private:
 
     //important info given from FEN string
-	int color;//0 = white's turn, 1 = black's turn
+	//color - made public
 	bool whiteCastleRightsKS;
 	bool whiteCastleRightsQS;
 	bool blackCastleRightsKS;
@@ -50,6 +50,10 @@ private:
 	unsigned long long pieceTypes[2][6];//[color][pieceType] pieceType: 0 = king, 1 = queen, 2 = rook, 3 = bishop, 4 = knight, 5 = pawn
 
 public:
+
+	class Move bestMove;
+
+	int color;//0 = white's turn, 1 = black's turn
 
 	//Move is a struct that will be defined somewhere else
 	//it just holds the information of a move: "from" square, "to" square, and other small info
@@ -84,6 +88,7 @@ public:
 	void genCastleQS();
 
 	int squareUnderAttack(int square);
+	int getKingPosition();
 
 	int makeMove(class Move move);
 	int makeNormalMove(class Move move);
@@ -95,6 +100,7 @@ public:
 	void undoEnPassMove(class Move move);
 	void undoCastleMove(class Move move);
 	void undoPromotionMove(class Move move, int capturedPieceType);
+	int evaluatePosition();
 };
 
 #endif
