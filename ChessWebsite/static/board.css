@@ -143,15 +143,15 @@
     background-image: url(king.png);
     background-repeat: no-repeat;
     background-position: top;
-    background-size: 50%;
-    padding-top: 33%;
+    background-size: 48%;
+    padding-top: 25%;
 }
  
 .B_k{
     background-image: url(B_king.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 50%;
+    background-size: 52%;
     padding-top: 33%;
 }
  
