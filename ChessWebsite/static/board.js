@@ -297,6 +297,56 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Invalid queen move");
         }
 
+        /* Checks if the piece is a Rook or not and determines the valid moves */
+        else if((piece.classList.item(1) === "R") || (piece.classList.item(1) === "r")){
+            
+            /* Veritcal movement */
+            if((new_index % 8) === (old_index % 8)){
+                if(check_path(new_index, old_index)){
+                    return true;
+                }
+            }
+
+            /* Horizontal movement */
+            if(Math.floor(new_index / 8) === Math.floor(old_index / 8)){
+                if(check_path(new_index, old_index)){
+                    return true;
+                }
+                console.log("YIPPPE " + old_index + " " + (((new_index % 8) * 8) + (new_index % 8)));
+            }
+
+            alert("Invalid rook move");
+        }
+
+        /* Checks if the piece is a Bishop or not and determines the valid moves */
+        else if((piece.classList.item(1) === "B") || (piece.classList.item(1) === "b")){
+
+            /* If there is an attempted vertical move, we alert and return false */
+            if((new_index % 8) === (old_index % 8)){
+               if(check_path(new_index, old_index)){
+                    alert("Invalid bishop move");
+                    return false;
+                }
+            }
+
+            /* IF there is an attempted horizontal move, we alert and return false */
+            if(Math.floor(new_index / 8) === Math.floor(old_index / 8)){
+                if(check_path(new_index, old_index)){
+                    alert("Invalid bishop move");
+                    return false;
+                }
+            }
+
+            /* If there is attempted diagonal move, we return true and allow move */
+            if(((Math.floor(new_index / 8) * 8) + (new_index % 8)) === new_index){
+                if(check_path_dia(new_index, old_index)){
+                    return true;
+                }
+            }
+            
+            alert("Invalid bishop move");
+        }
+
         return false;
     }
 
