@@ -757,6 +757,10 @@ int Board::squareUnderAttack(int square){
 	return 0;
 }
 
+int Board::getKingPosition(){
+	return getLSBIndex(pieceTypes[color][0]);
+}
+
 int Board::makeMove(Move move){
 	//call appropriate make move function
 	switch(move.specialMove){
@@ -983,4 +987,8 @@ void Board::undoPromotionMove(Move move, int capturedPieceType){
 	pieces[color] |= (1 << move.fromSquare);
 	pieceTypes[color][int(move.promotedPiece)] &= ~(1 << move.toSquare);
 	pieceTypes[color][5] |= (1 << move.fromSquare);
+}
+
+int Board::evaluatePosition(){
+	return 0;
 }
