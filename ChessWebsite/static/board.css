@@ -53,84 +53,84 @@
  
 /* New pieces */
 .P{
-    background-image: url(./piecees_data/Chess_plt60.png);
+    background-image: url(./pieces_data/Chess_plt60.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
 }
  
 .B_p{
-    background-image: url(./piecees_data/Chess_pdt60.png);
+    background-image: url(./pieces_data/Chess_pdt60.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
 }
  
 .R{
-    background-image: url(./piecees_data/Chess_rlt60.png);
+    background-image: url(./pieces_data/Chess_rlt60.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
 }
  
 .B_r{
-    background-image: url(./piecees_data/Chess_rdt60.png);
+    background-image: url(./pieces_data/Chess_rdt60.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
 }
  
 .B{
-    background-image: url(./piecees_data/Chess_blt60.png);
+    background-image: url(./pieces_data/Chess_blt60.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
 }
  
 .B_b{
-    background-image: url(./piecees_data/Chess_bdt60.png);
+    background-image: url(./pieces_data/Chess_bdt60.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
 }
  
 .N{
-    background-image: url(./piecees_data/Chess_nlt60.png);
+    background-image: url(./pieces_data/Chess_nlt60.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
 }
  
 .B_n{
-    background-image: url(./piecees_data/Chess_ndt60.png);
+    background-image: url(./pieces_data/Chess_ndt60.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
 }
  
 .Q{
-    background-image: url(./piecees_data/Chess_qlt60.png);
+    background-image: url(./pieces_data/Chess_qlt60.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
 }
  
 .B_q{
-    background-image: url(./piecees_data/Chess_qdt60.png);
+    background-image: url(./pieces_data/Chess_qdt60.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
 }
  
 .K{
-    background-image: url(./piecees_data/Chess_klt60.png);
+    background-image: url(./pieces_data/Chess_klt60.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
 }
  
 .B_k{
-    background-image: url(./piecees_data/Chess_kdt60.png);
+    background-image: url(./pieces_data/Chess_kdt60.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
