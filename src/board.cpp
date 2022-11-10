@@ -988,7 +988,7 @@ void Board::undoPromotionMove(Move move, int capturedPieceType){
 	pieceTypes[color][5] |= (1 << move.fromSquare);
 }
 int Board::getMaterialCount(int color){
-	int rv, square;
+	int rv, square, count = 0;
 	long long tmpBitBoard;
 
 	rv = 0;
@@ -1009,7 +1009,10 @@ int Board::getMaterialCount(int color){
 		square = getLSBIndex(tmpBitBoard);
 		tmpBitBoard &= ~(1 << square);
 		rv += 300;
+		count++;
 	}
+	//Bishop pair bonus
+	if(count == 2)rv += 50;
 	tmpBitBoard = pieceTypes[color][4];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
@@ -1031,6 +1034,8 @@ int Board::evaluatePosition(){
 	whiteMaterial = getMaterialCount(0);
 	blackMaterial = getMaterialCount(1);
 	rv = whiteMaterial-blackMaterial;
+	
+
 
 
 	return rv;
