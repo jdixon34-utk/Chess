@@ -15,7 +15,7 @@ Justin McKnight, JMcknight75, Chess Website
 ### Issues you worked on
 [#72](https://github.com/utk-cs340-fall22/Chess/issues/72) undoPromotionMove
 [#73](https://github.com/utk-cs340-fall22/Chess/issues/73) getMaterialCount
-[#38](https://github.com/utk-cs340-fall22/Chess/issues/74) evaluatePosition
+[#74](https://github.com/utk-cs340-fall22/Chess/issues/74) evaluatePosition
 
 ### Files you worked on
 board.cpp
