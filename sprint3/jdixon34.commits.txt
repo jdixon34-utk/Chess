@@ -1,1 +1,127 @@
-
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400    3) #include <sstream>
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  113) string Board::genFENFromBoard(){
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  114)        stringstream ss;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  115)        char FENarr[64];
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  116)        int FENarrIndex = 0;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  117)        int emptySqCount = 0;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  118) 
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  119)        ss.clear();
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  120) 
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  121)        for(int i = 0; i < 64; i++){
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  122)                FENarr[i] = '.';
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  123)        }
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  124) 
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  125)        for(int i = 56; i > -1; i++){
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  126)                for(int j = 0; j < 2; j++){
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  127)                        for(int k = 0; k < 6; k++){
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  128)                                if(pieceTypes[j][k] & (1ULL << i)){
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  129)                                        if(j == 0){
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  130)                                                switch(k){
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  131)                                                        case 0: FENarr[FENarrIndex] = 'K'; break;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  132)                                                        case 1: FENarr[FENarrIndex] = 'Q'; break;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  133)                                                        case 2: FENarr[FENarrIndex] = 'R'; break;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  134)                                                        case 3: FENarr[FENarrIndex] = 'B'; break;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  135)                                                        case 4: FENarr[FENarrIndex] = 'N'; break;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  136)                                                        case 5: FENarr[FENarrIndex] = 'P'; break;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  137)                                                }
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  138)                                        }
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  139)                                        else{
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  140)                                                switch(k){
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  141)                                                        case 0: FENarr[FENarrIndex] = 'k'; break;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  142)                                                        case 1: FENarr[FENarrIndex] = 'q'; break;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  143)                                                        case 2: FENarr[FENarrIndex] = 'r'; break;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  144)                                                        case 3: FENarr[FENarrIndex] = 'b'; break;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  145)                                                        case 4: FENarr[FENarrIndex] = 'n'; break;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  146)                                                        case 5: FENarr[FENarrIndex] = 'p'; break;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  147)                                                }
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  148)                                        }
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  149)                                }
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  150)                        }
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  151)                }
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  152)                if(i % 8 == 7) i -= 16;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  153)                FENarrIndex++;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  154)        }
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  155) 
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  156)        for(int i = 0; i < 64; i++){
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  157)                if(FENarr[i] == '.') emptySqCount++;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  158)                else{
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  159)                        if(emptySqCount != 0){ss << emptySqCount; emptySqCount = 0;}
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  160)                        ss << FENarr[i];
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  161)                }
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  162)                if(i % 8 == 7){
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  163)                        if(emptySqCount != 0){ss << emptySqCount; emptySqCount = 0;}
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  164)                        if(i != 63) ss << "/";
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  165)                }
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  166)        }
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  167) 
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  168)        ss << " ";
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  169)        if(color == 0) ss << "w";
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  170)        else ss << "b";
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  171)        ss << " ";
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  172)        if(!whiteCastleRightsKS && !whiteCastleRightsQS && !blackCastleRightsKS && !blackCastleRightsQS){
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  173)                ss << "-";
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  174)        }
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  175)        else{
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  176)                if(whiteCastleRightsKS) ss << "K";
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  177)                if(whiteCastleRightsQS) ss << "Q";
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  178)                if(blackCastleRightsKS) ss << "k";
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  179)                if(blackCastleRightsQS) ss << "q";
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  180)        }
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  181)        ss << " ";
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  182)        if(enPassantTargetSquare == 0) ss << "-";
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  183)        else {ss << char((enPassantTargetSquare % 8) + 97); ss << char((enPassantTargetSquare / 8) + 49);}
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  184)        ss << " ";
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  185)        ss << halfMoveClock;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  186)        ss << " ";
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  187)        ss << fullMoveNumber;
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  188) 
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  189)        return ss.str();
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  190) }
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  191) 
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  320)        if(color == 0 && whiteCastleRightsKS) genCastleKS();
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  321)        else if(color == 1 && blackCastleRightsKS) genCastleKS();
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  322)        if(color == 0 && whiteCastleRightsQS) genCastleQS();
+22cd4e2e (jdixon34-cs340         2022-11-01 00:18:01 -0400  323)        else if(color == 1 && blackCastleRightsQS) genCastleQS();
+ed0c43ac (jdixon34-cs340         2022-11-10 00:02:07 -0500  459)         pawn_left_moves = ((pieceTypes[1][5] >> 7ULL) & ~FILE_A) & pieces[0];
+ed0c43ac (jdixon34-cs340         2022-11-10 00:02:07 -0500  747)                if(KING_LOOKUP_TBL[square] & (1ULL << getLSBIndex(pieceTypes[!color][0]))){
+ed0c43ac (jdixon34-cs340         2022-11-10 00:02:07 -0500  752)                        if((pieceTypes[!color][5] & (1ULL << (square-9))) != 0 || (pieceTypes[!color][1] & (1ULL << (square-7)))) return 1;
+ed0c43ac (jdixon34-cs340         2022-11-10 00:02:07 -0500  754)                        if((pieceTypes[!color][5] & (1ULL << (square+9))) != 0 || (pieceTypes[!color][1] & (1ULL << (square+7)))) return 1;
+c24c3a22 (jdixon34-cs340         2022-11-09 14:35:42 -0500  760) int Board::getKingPosition(){
+c24c3a22 (jdixon34-cs340         2022-11-09 14:35:42 -0500  761)        return getLSBIndex(pieceTypes[color][0]);
+c24c3a22 (jdixon34-cs340         2022-11-09 14:35:42 -0500  762) }
+c24c3a22 (jdixon34-cs340         2022-11-09 14:35:42 -0500  763) 
+ed0c43ac (jdixon34-cs340         2022-11-10 00:02:07 -0500  975) 
+ed0c43ac (jdixon34-cs340         2022-11-10 00:02:07 -0500  991) 
+ed0c43ac (jdixon34-cs340         2022-11-10 00:02:07 -0500 1029) 
+ed0c43ac (jdixon34-cs340         2022-11-10 00:02:07 -0500 1038)        color = 0;
+ed0c43ac (jdixon34-cs340         2022-11-10 00:02:07 -0500 1039)        genMoves();
+ed0c43ac (jdixon34-cs340         2022-11-10 00:02:07 -0500 1040)        rv += moveIndex * 10;
+ed0c43ac (jdixon34-cs340         2022-11-10 00:02:07 -0500 1041)        color = 1;
+ed0c43ac (jdixon34-cs340         2022-11-10 00:02:07 -0500 1042)        genMoves();
+ed0c43ac (jdixon34-cs340         2022-11-10 00:02:07 -0500 1043)        rv -= moveIndex * 10;
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500  1) #include <cstring>
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500  2) #include "board.h"
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500  3) #include "move.h"
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500  4) #include "search.h"
+eef09c61 (jdixon34-cs340 2022-11-09 13:57:33 -0500  5) 
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500  6) int search(Board* position, int depth){
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500  7)     if(depth == 4) return position->evaluatePosition();
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500  8) 
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500  9)     if(position->color == 0){
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 10)         int wcurrent;
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 11)         int max = -10000;
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 12)         int capturedPieceType;
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 13)         int numMovesWhite;
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 14)         Move whiteMoves[128];
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 15) 
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 16)         position->genMoves();
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 17)         memcpy(whiteMoves, position->moves, sizeof(Move) * 128);
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 18)         numMovesWhite = position->moveIndex;
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 19)         for(int i = 0; i < numMovesWhite; i++){
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 20)             //printf("Depth %d Trying White Move %d: ", depth, i);
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 21)             //whiteMoves[i].printMove();
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 22)             capturedPieceType = position->makeMove(whiteMoves[i]);
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 23)             if(!position->squareUnderAttack(position->getKingPositi>
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 24)                 position->color = 1;
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 25)                 wcurrent = search(position, depth + 1);
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 26)                 if(wcurrent > max){
