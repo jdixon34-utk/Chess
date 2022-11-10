@@ -1,0 +1,283 @@
+* ChessWebsite/static/board.js *
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 302)         /* Checks if the piece is a Rook or not and determines the valid moves */
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 303)         else if((piece.classList.item(1) === "R") || (piece.classList.item(1) === "r")){
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 304)             
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 306)             /* Veritcal movement */
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 307)             if((new_index % 8) === (old_index % 8)){
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 308)                 if(check_path(new_index, old_index)){
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 309)                     return true;
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 310)                 }
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 311)             }
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 312) 
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 313)             /* Horizontal movement */
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 314)             if(Math.floor(new_index / 8) === Math.floor(old_index / 8)){
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 315)                 if(check_path(new_index, old_index)){
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 316)                     return true;
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 317)                 }
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 318)                 console.log("YIPPPE " + old_index + " " + (((new_index % 8) * 8) + (new_index % 8)));
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 319)             }
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 320) 
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 321)             alert("Invalid rook move");
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 322)         }
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 323) 
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 324)         /* Checks if the piece is a Bishop or not and determines the valid moves */
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 325)         else if((piece.classList.item(1) === "B") || (piece.classList.item(1) === "b")){
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 326) 
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 328) 
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 329)             /* If there is attempted diagonal move, we return true and allow move */
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 332)                 if(check_path_dia(new_index, old_index)){
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 333)                     return true;
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 334)                 }
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 335)             }
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 336)             
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 337)             alert("Invalid bishop move");
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 338)         }
+5d0077bf ChessWebsite/static/board.js         (Jake                     2022-11-09 14:24:18 -0500 339) 
+0a5af0f8 ChessWebsite/static/board.js         (Jake                     2022-10-25 08:46:48 -0400 480)   });
+
+* ChessWebsite/src/routes/+page.svelte *
+8942d73e (Jake 2022-11-09 15:53:02 -0500 15)     <a href="/" class="ml-6 font-bold text-[#f6be86] hover:text-[#c5986b] transition ease-in-out duration-150 cursor-pointer"><h1>ChadChess&trade</h1></a>
+8942d73e (Jake 2022-11-09 15:53:02 -0500 30)         <a href="/" class="mr-6 hover:text-[#f6be86] transition ease-in-out duration-200 cursor-pointer"><h1>Play</h1></a>
+8942d73e (Jake 2022-11-09 15:53:02 -0500 31)         <a href="/learn" class="mr-6 hover:text-[#f6be86] transition ease-in-out duration-150 cursor-pointer"><h1>How To Play</h1></a>
+8942d73e (Jake 2022-11-09 15:53:02 -0500 32)         <a href="/about" class="mr-6 hover:text-[#f6be86] transition ease-in-out duration-150 cursor-pointer"><h1>About Project</h1></a>
+8942d73e (Jake 2022-11-09 15:53:02 -0500 33)         <a href="https://github.com/utk-cs340-fall22/Chess" target="_blank" class="mr-6 hover:text-[#f6be86] transition ease-in-out duration-150 cursor-pointer"><h1>Github</h1></a>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 49)     <div class="flex justify-center items-center">
+8942d73e (Jake 2022-11-09 15:53:02 -0500 50)         <embed class="md:w-screen md:h-[89vh] md:pt-[12vh] w-screen h-[85vh] pt-[12vh] pb-[4vh]" type="text/html" src="board.html" id="chessEmbed">
+
+* ChessWebsite/src/routes/about/+page.svelte *
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 10) <div class="pt-[3vh] w-full h-full flex flex-col justify-center items-center px-[10vw] pb-[2vh]">
+
+* ChessWebsite/src/routes/learn/+page.svelte *
+9f313b20 (Jake 2022-11-09 22:41:48 -0500  8) <div class="w-full min-h-[89vh] h-full md:px-[5vh] lg:px-[10vh]">
+9f313b20 (Jake 2022-11-09 22:41:48 -0500  9)     <h1 class="pt-[12vh] flex justify-center items-center font-bold text-3xl bg-white">How to Play</h1>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 11)     <div class="pt-[3vh] w-full h-full flex flex-col justify-center items-center px-[10vw] pb-[2vh]">
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 13)         <!-- Overall general concept -->
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 14)         <div class="flex flex-col">
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 15)             <h1 class="text-2xl font-semibold pb-[1vh]">The general idea</h1>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 16)             <p class="pb-[4vh]">
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 17)                 Chess is played between two people. Each player has 16 pieces: 8 pawns,
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 18)                 2 knights, 2 bishops, 2 rooks, 1 queen, and finally 1 king. The main point 
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 19)                 of the game is to <span class="font-medium underline">checkmate the opposing player</span>. Checkmate is when the king 
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 20)                 piece is able to be captured and can't escape. But more on that later, for now
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 21)                 let's learn some of the basic rules.
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 22)             </p>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 23)         </div>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 25)         <!-- Basic rules -->
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 26)         <div class="flex flex-col">
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 27)             <h1 class="text-2xl font-semibold pb-[1vh]">Some basic rules</h1>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 28)             <p class="pb-[2vh]">
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 29)                 A person gets to move one piece per turn. Players continue trading turns until either 
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 30)                 someone gets checkmated, someone resigns, or there is a <span class="font-medium underline">stalemate 
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 31)                 (a player is not in check but can't move except into check)</span>. 
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 32)             </p>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 33) 
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 34)             <p class="pb-[4vh]">
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 35)                 Each piece has its own 
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 36)                 specific valid moves it can make during that turn. Let's dive into the types of pieces and 
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 37)                 how they can move across the board.
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 38)             </p>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 39)         </div>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 40)     
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 41)         <!-- How to move pieces -->
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 42)         <div class="flex flex-col">
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 43)             <h1 class="text-2xl font-semibold pb-[1vh]">Pieces and how they move</h1>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 44)             <p class="pb-[2vh]">
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 45)                 Here are all the unique chess pieces that you will have to learn as you play. While our website
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 46)                 will prevent you from making illegal moves, 
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 47)                 <span class="font-medium underline">it is important to become familiar with these pieces and how they move</span> 
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 48)                 to improve your game.
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 49)             </p>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 50) 
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 51)             <ul class="pb-[1vh]">
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 52)                 <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-king" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">King</a> - can <span class="font-medium">move one square in any direction</span> (left, right, up, down, diagonal).</li>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 53)                 <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-queen" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Queen</a> - can <span class="font-medium">move in any direction</span> like the king, but is <span class="font-medium">not limited to one square</span>.</li>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 54)                 <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-rook" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Rook</a> - can <span class="font-medium">move in any valid square</span> that is either <span class="font-medium">horizontal or vertical to it</span>.</li>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 55)                 <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-bishop" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Bishop</a> - can <span class="font-medium">move in any valid square</span> that is <span class="font-medium">diagonal to it</span>.</li>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 56)                 <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-knight" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Knight</a> - can 
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 57)                     <span class="font-medium">move up or down one square vertically and over two squares horizontally</span> 
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 58)                     OR <span class="font-medium">up or down two squares vertically and over one square horizontally</span>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 59)                     ("L" shape movement).
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 60)                 </li>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 61)                 <li><a href="https://www.chess.com/terms/chess-pawn" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Pawn</a> - can move one square in any direction (left, right, up, down, diagonal)</li>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 62)             </ul>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 63)             <p class="pb-[4vh] text-[13px] text-[#c5986b]">
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 64)                 * Click on the <span class="underline">piece name</span> to get more information
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 65)             </p>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 66)         </div>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 67) 
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 68)         <!-- Resources -->
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 69)         <div class="flex flex-col">
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 70)             <h1 class="text-2xl font-semibold pb-[1vh]">Helpful resources</h1>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 71)             <p class="pb-[2vh]">
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 72)                 While we have provided a considerable amount of information regarding the basics
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 73)                 and "need to know's" of chess. It is HIGHLY recommended that you use these
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 74)                 sources here. They will provide more in depth explanations and exceptions to the rules
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 75)                 that we did not cover. As well as some basic tips, strategies, and tactics to learn 
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 76)                 as you go.
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 77)             </p>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 78) 
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 79)             <ul class="pb-[4vh]">
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 80)                 <li class="pb-[1vh]">
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 81)                     <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://www.chesshouse.com/pages/chess-rules" target="_blank">The Rules of Chess</a>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 82)                     - A great website that goes into more detail on the basics above.
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 83)                 </li>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 84)                 <li class="pb-[1vh]">
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 85)                     <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://www.chess.com/learn-how-to-play-chess" target="_blank">7 Steps To Get You Started</a>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 86)                     - Essential information with videos to help with concepts.
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 87)                 </li>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 88)                 <li class="pb-[1vh]">
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 89)                     <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://nextlevelchess.blog/beginner-chess-strategy/" target="_blank">Beginner Chess Strategy</a>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 90)                     - After learning the basics, we recommend learning strategy.
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 91)                 </li>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 92)             </ul>
+9f313b20 (Jake 2022-11-09 22:41:48 -0500 94)         </div>
+9584c9e3 (Jake 2022-11-08 09:51:11 -0500 95)     </div>
+
+* ChessWebsite/static/board.css *
+50093eb5 ChessWebsite/static/board.css         (Jake                     2022-11-10 10:23:38 -0500   3)     /* margin-left: 25%; */
+9584c9e3 ChessWebsite/static/board.css         (Jake                     2022-11-08 09:51:11 -0500  23)     background-color: #f9eda7;
+9584c9e3 ChessWebsite/static/board.css         (Jake                     2022-11-08 09:51:11 -0500  34)     background-color: #b0673a;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500  55) /*Pawns If we switch back: multiplier on in board.html is 2.85 for these pieces*/
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500  56) /* .P{
+a43d6763 ChessWebsite/static/board.css         (Jake                     2022-11-09 16:31:23 -0500  60)     background-size: 80%;
+a43d6763 ChessWebsite/static/board.css         (Jake                     2022-11-09 16:31:23 -0500  68)     background-size: 80%;
+a43d6763 ChessWebsite/static/board.css         (Jake                     2022-11-09 16:31:23 -0500  76)     background-size: 78%;
+a43d6763 ChessWebsite/static/board.css         (Jake                     2022-11-09 16:31:23 -0500  84)     background-size: 78%;
+a43d6763 ChessWebsite/static/board.css         (Jake                     2022-11-09 16:31:23 -0500  92)     background-size: 69%;
+a43d6763 ChessWebsite/static/board.css         (Jake                     2022-11-09 16:31:23 -0500 100)     background-size: 69%;
+a43d6763 ChessWebsite/static/board.css         (Jake                     2022-11-09 16:31:23 -0500 108)     background-size: 83%;
+a43d6763 ChessWebsite/static/board.css         (Jake                     2022-11-09 16:31:23 -0500 116)     background-size: 83%;
+a43d6763 ChessWebsite/static/board.css         (Jake                     2022-11-09 16:31:23 -0500 124)     background-size: 55%;
+a43d6763 ChessWebsite/static/board.css         (Jake                     2022-11-09 16:31:23 -0500 132)     background-size: 57%;
+e6fd8e64 ChessWebsite/static/board.css         (Jake                     2022-11-09 16:37:59 -0500 140)     background-size: 48%;
+e6fd8e64 ChessWebsite/static/board.css         (Jake                     2022-11-09 16:37:59 -0500 141)     padding-top: 25%;
+e6fd8e64 ChessWebsite/static/board.css         (Jake                     2022-11-09 16:37:59 -0500 148)     background-size: 52%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 150) } */
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 151)  
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 152) /* New pieces */
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 153) .P{
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 154)     background-image: url(./piecees_data/Chess_plt60.png);
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 155)     background-repeat: no-repeat;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 156)     background-position: center;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 157)     background-size: 120%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 158)     padding-top: 53%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 161) .B_p{
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 162)     background-image: url(./piecees_data/Chess_pdt60.png);
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 163)     background-repeat: no-repeat;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 164)     background-position: center;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 165)     background-size: 120%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 166)     padding-top: 53%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 167) }
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 168)  
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 169) .R{
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 170)     background-image: url(./piecees_data/Chess_rlt60.png);
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 171)     background-repeat: no-repeat;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 172)     background-position: center;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 173)     background-size: 120%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 174)     padding-top: 40%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 175) }
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 176)  
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 177) .B_r{
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 178)     background-image: url(./piecees_data/Chess_rdt60.png);
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 179)     background-repeat: no-repeat;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 180)     background-position: center;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 181)     background-size: 120%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 182)     padding-top: 40%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 183) }
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 184)  
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 185) .B{
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 186)     background-image: url(./piecees_data/Chess_blt60.png);
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 187)     background-repeat: no-repeat;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 188)     background-position: center;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 189)     background-size: 120%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 190)     padding-top: 36%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 191) }
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 192)  
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 193) .B_b{
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 194)     background-image: url(./piecees_data/Chess_bdt60.png);
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 195)     background-repeat: no-repeat;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 196)     background-position: center;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 197)     background-size: 120%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 198)     padding-top: 36%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 199) }
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 200)  
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 201) .N{
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 202)     background-image: url(./piecees_data/Chess_nlt60.png);
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 203)     background-repeat: no-repeat;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 204)     background-position: center;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 205)     background-size: 120%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 206)     padding-top: 44%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 207) }
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 208)  
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 209) .B_n{
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 210)     background-image: url(./piecees_data/Chess_ndt60.png);
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 211)     background-repeat: no-repeat;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 212)     background-position: center;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 213)     background-size: 120%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 214)     padding-top: 44%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 215) }
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 216)  
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 217) .Q{
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 218)     background-image: url(./piecees_data/Chess_qlt60.png);
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 219)     background-repeat: no-repeat;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 220)     background-position: center;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 221)     background-size: 120%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 222)     padding-top: 35%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 223) }
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 224)  
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 225) .B_q{
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 226)     background-image: url(./piecees_data/Chess_qdt60.png);
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 227)     background-repeat: no-repeat;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 228)     background-position: center;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 229)     background-size: 120%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 230)     padding-top: 35%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 231) }
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 232)  
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 233) .K{
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 234)     background-image: url(./piecees_data/Chess_klt60.png);
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 235)     background-repeat: no-repeat;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 236)     background-position: center;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 237)     background-size: 120%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 238)     padding-top: 33%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 239) }
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 240)  
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 241) .B_k{
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 242)     background-image: url(./piecees_data/Chess_kdt60.png);
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 243)     background-repeat: no-repeat;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 244)     background-position: center;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 245)     background-size: 120%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 246)     padding-top: 33%;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 247) }
+8942d73e ChessWebsite/static/board.css         (Jake                     2022-11-09 15:53:02 -0500 252)     filter: drop-shadow(0 0 0.75rem rgb(70, 171, 234));
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 253) }
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 254) .container {
+50093eb5 ChessWebsite/static/board.css         (Jake                     2022-11-10 10:23:38 -0500 255)     width: 45vw;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 256)     display: flex;
+4590a3da ChessWebsite/static/board.css         (Jake                     2022-11-10 09:25:25 -0500 257)     flex-direction: row;
+50093eb5 ChessWebsite/static/board.css         (Jake                     2022-11-10 10:23:38 -0500 258)     justify-content: center;
+
+* ChessWebsite/src/components/Navbar.svelte *
+8942d73e (Jake 2022-11-09 15:53:02 -0500 14)     <a href="/" class="ml-6 font-bold text-[#f6be86] hover:text-[#c5986b] transition ease-in-out duration-150 cursor-pointer"><h1>ChadChess&trade</h1></a>
+8942d73e (Jake 2022-11-09 15:53:02 -0500 29)         <a href="/" class="mr-6 hover:text-[#f6be86] transition ease-in-out duration-150 cursor-pointer"><h1>Play</h1></a>
+8942d73e (Jake 2022-11-09 15:53:02 -0500 30)         <a href="/learn" class="mr-6 hover:text-[#f6be86] transition ease-in-out duration-150 cursor-pointer"><h1>How To Play</h1></a>
+8942d73e (Jake 2022-11-09 15:53:02 -0500 31)         <a href="/about" class="mr-6 hover:text-[#f6be86] transition ease-in-out duration-150 cursor-pointer"><h1>About Project</h1></a>
+8942d73e (Jake 2022-11-09 15:53:02 -0500 32)         <a href="https://github.com/utk-cs340-fall22/Chess" target="_blank" class="mr-6 hover:text-[#f6be86] transition ease-in-out duration-150 cursor-pointer"><h1>Github</h1></a>
+
+* ChessWebsite/static/board.html *
+4590a3da ChessWebsite/static/board.html         (Jake                     2022-11-10 09:25:25 -0500  8) 
+4590a3da ChessWebsite/static/board.html         (Jake                     2022-11-10 09:25:25 -0500 11) <div class="container">
+4590a3da ChessWebsite/static/board.html         (Jake                     2022-11-10 09:25:25 -0500 12)     <div>
+4590a3da ChessWebsite/static/board.html         (Jake                     2022-11-10 09:25:25 -0500 13)         <div style="display: left;" id="button">
+4590a3da ChessWebsite/static/board.html         (Jake                     2022-11-10 09:25:25 -0500 14)             <button id="run_button" onclick="run_ws()">=</button>
+4590a3da ChessWebsite/static/board.html         (Jake                     2022-11-10 09:25:25 -0500 15)         </div>
+4590a3da ChessWebsite/static/board.html         (Jake                     2022-11-10 09:25:25 -0500 16)         <div style="display: left;" id="button2">
+4590a3da ChessWebsite/static/board.html         (Jake                     2022-11-10 09:25:25 -0500 17)             <button id="run_button2" onclick="instring()">=</button>
+4590a3da ChessWebsite/static/board.html         (Jake                     2022-11-10 09:25:25 -0500 18)         </div>
+4590a3da ChessWebsite/static/board.html         (Jake                     2022-11-10 09:25:25 -0500 19)     </div>
+4590a3da ChessWebsite/static/board.html         (Jake                     2022-11-10 09:25:25 -0500 20)     <div class="chessarea" id="chessarea"></div>
+4590a3da ChessWebsite/static/board.html         (Jake                     2022-11-10 09:25:25 -0500 21) </div>
+4590a3da ChessWebsite/static/board.html         (Jake                     2022-11-10 09:25:25 -0500 28)             chessarea = document.getElementById("container");
+50093eb5 ChessWebsite/static/board.html         (Jake                     2022-11-10 10:23:38 -0500 35)                 piece.style.width = rect.width * 2.75;
+50093eb5 ChessWebsite/static/board.html         (Jake                     2022-11-10 10:23:38 -0500 36)                 piece.style.height = rect.width * 2.75;
+50093eb5 ChessWebsite/static/board.html         (Jake                     2022-11-10 10:23:38 -0500 40)                 piece.style.width = rect.width * 2.75;
+50093eb5 ChessWebsite/static/board.html         (Jake                     2022-11-10 10:23:38 -0500 41)                 piece.style.height = rect.width * 2.75;
