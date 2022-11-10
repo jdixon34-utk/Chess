@@ -355,7 +355,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         else{
 
-            
+            if(Math.abs(new_index - old_index) === 15 || Math.abs(new_index - old_index) === 17 || Math.abs(new_index - old_index) === 10 || Math.abs(new_index - old_index) === 6){
+                
+                console.log("YIPPPE " + Math.abs((new_index % 8) - (old_index % 8)) + " " + Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8)));
+                
+                //if(check_path_dia(new_index, old_index)){
+                return true;
+                //}
+            }
+
+            alert("Invalid knight move");
         }
 
         return false;
