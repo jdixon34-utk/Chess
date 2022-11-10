@@ -1,0 +1,676 @@
+ca9f9b5a (Me-Brand       2022-11-10 13:16:34 -0500 14)             <button id="run_button" onclick="flip_board()">=</button>
+2f65a151 (Me-Brand       2022-11-01 20:23:41 -0400 56) 
+02ce28f1 (Me-Brand       2022-11-02 17:07:08 -0400 57)     function instring() {
+ca9f9b5a (Me-Brand       2022-11-10 13:16:34 -0500 60)         let instance = new Module["chessGame"];
+ca9f9b5a (Me-Brand       2022-11-10 13:16:34 -0500 61)         fenin(instance["playTurn"](fen()));
+02ce28f1 (Me-Brand       2022-11-02 17:07:08 -0400 62)     }
+02ce28f1 (Me-Brand       2022-11-02 17:07:08 -0400 63) 
+2f65a151 (Me-Brand       2022-11-01 20:23:41 -0400 64)     function flip_board() {
+098882cb (Me-Brand       2022-11-02 17:15:53 -0400 65)         flip_b();
+2f65a151 (Me-Brand       2022-11-01 20:23:41 -0400 66)     }
+
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400  10)     pas = "-";
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400  15)     var flip = 0;
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400  16)     curr_en_pas = null;
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  24)     localStorage.flip = flip;
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  26)     const rows = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  56)                 if(i === 1){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  87)             else if (i > 6) {
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  88)                 document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  89)                 piece.classList.add("white-piece");
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  90)                 //Defines all the pieces for the white side
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  91)                 if(i === 8){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  92)                     if(j === 1){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  93)                         piece.classList.add("R");
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  94)                         piece.classList.add("W_r");
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  95)                         piece.classList.add("First");
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  96)                         piece.classList.add(0);
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  97)                     }else if(j === 8){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  98)                         piece.classList.add("R");
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  99)                         piece.classList.add("W_r");
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 100)                         piece.classList.add("First");
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 101)                         piece.classList.add(1); 
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 102)                     }    
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 103)                     else if(j === 2 || j === 7){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 104)                         piece.classList.add("N");
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 105)                     }else if(j === 3 || j === 6){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 106)                         piece.classList.add("B");
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 107)                     }else if(j === 4){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 108)                         piece.classList.add("Q");
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 109)                     }else{
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 110)                         piece.classList.add("K");
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 111)                         piece.classList.add("First");
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 112)                     }
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 113)                 }else{
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 114)                     piece.classList.add("P");
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 115)                     piece.classList.add("W_p");
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 116)                     piece.classList.add("First");
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 117)                 }
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 118)             }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 127) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 128)         turn = localStorage.turn;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 129)         pas = localStorage.pas;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 130)         cas = localStorage.cas;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 131)         half = localStorage.half;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 132)         full = localStorage.full;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 148)             if(validMove(col, cur.parentNode, cur, 0)){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 149)                 //IF a pawn checks if an en passant is now valid
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 150)                 if((cur.classList.contains("B_p") === true) || (cur.classList.contains("P") === true)){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 151)                     half = 0;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 153)                     if(cur.classList.contains("First")){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 154)                         en_Pas(col, cur.parentNode);
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 155)                     }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 157)                 }else{
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 158)                     half++;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 159)                 }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 161)                 if(((cur.classList.contains("k") || cur.classList.contains("K")) || ((cur.classList.contains("r") || cur.classList.contains("R")))) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 162)                     && cur.classList.contains("First")){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 163)                         castling(cur);
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 164)                 }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 166)                 move(col, cur.parentNode, cur);
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 167)                 //en_pas_ignore = false;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 169)                 full++;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 171)                 localStorage.half = half;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 172)                 localStorage.full = full;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 173)             }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 181)             if(validMove(col, cur.parentNode, cur, 1)){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 182)                 half = 0;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 183)                 col.removeChild(col.children[0]);
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 184)                 move(col, cur.parentNode, cur);
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 185)                 full++;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 187)                 localStorage.half = half;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 188)                 localStorage.full = full;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 189)             }
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400 197)         if(en_pas_ignore === false){
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400 198)             pas = "-";
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400 199)             curr_en_pas =  null;
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400 200)             localStorage.pas = pas;
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400 201)         }else{
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400 202)             en_pas_ignore = false;
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400 203)         }
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400 204) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 224)     function validMove(new_col, cur_col, piece, take){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 225) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 226)         var new_index = [].indexOf.call(new_col.parentNode.children, new_col);
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 227)         var old_index = [].indexOf.call(cur_col.parentNode.children, cur_col);
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 228)         var diff;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 229) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 230)         if(localStorage.flip === '1'){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 231)             diff = 8;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 232)         }else{
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 233)             diff = -8;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 234)             console.log(localStorage.flip);
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 235)         }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 236) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 237)         if((piece.classList.item(1) === "P") || (piece.classList.item(1) === "p")){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 238)             
+2d7661e0 (Me-Brand                 2022-11-09 16:10:58 -0500 239)             console.log("In pawn");
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 240)             console.log("value diff " + diff + " new " + new_index + " old " + old_index + " flipe " + localStorage.flip);
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 241)             //Move up one
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 242)             if(!take && (((new_index + diff) === old_index && piece.classList.item(0) === "black-piece") 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 243)                 || ((new_index - diff) === old_index && piece.classList.item(0) === "white-piece"))){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 244)                 //console.log("test hi");
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 245)                 return true;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 246)             }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 247) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 248)             //For taking pieces diagonally
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 249)             if(take && (((((new_index + diff) - old_index) === 1 || ((new_index + diff) - old_index) === -1) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 250)                 && piece.classList.item(0) === "black-piece") 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 251)                 || ((((new_index - diff) - old_index) === 1 || ((new_index - diff) - old_index) === -1) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 252)                 && piece.classList.item(0) === "white-piece"))){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 253)                 //console.log("hit");
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 254)                 return true;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 255)             }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 256) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 257)             //Move up two. Only valid on first move
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 258)             if(piece.classList.contains("First")){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 259)                 if(((new_index + (diff * 2)) === old_index && piece.classList.item(0) === "black-piece") 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 260)                     || ((new_index - (diff * 2)) === old_index) && piece.classList.item(0) === "white-piece"){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 261)                     
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 262)                     //Must have no piece one above
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 263)                     if(check_path(new_index, old_index)){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 264)                         return true;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 265)                     }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 266)                 }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 267)             }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 268) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 269)             //En pas check goes here
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 270) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 271)             alert("Invalid pawn move");
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 272)         }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 273) 
+7d90a5df (Me-Brand                 2022-11-08 08:25:44 -0500 274)         else if((piece.classList.item(1) === "Q") || (piece.classList.item(1) === "q")){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 275)             
+2d7661e0 (Me-Brand                 2022-11-09 16:10:58 -0500 276)             console.log("In queen");
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 277)             //Checks up/down
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 278)             if((new_index % 8) === (old_index % 8)){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 279)                 if(check_path(new_index, old_index)){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 280)                     return true;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 281)                 }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 282)             }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 283) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 284)             //Checks left and right
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 285)             if(Math.floor(new_index / 8) === Math.floor(old_index / 8)){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 286)                 if(check_path(new_index, old_index)){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 287)                     return true;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 288)                 }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 289)             }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 290) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 291)             //Checks diagonaly
+2d7661e0 (Me-Brand                 2022-11-09 16:10:58 -0500 292)             if(Math.abs((new_index % 8) - (old_index % 8)) === Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8))){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 293)                 if(check_path_dia(new_index, old_index)){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 294)                     return true;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 295)                 }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 296)                 //console.log("YIPPPE " + old_index + " " + (((new_index % 8) * 8) + (new_index % 8)));
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 297)             }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 298) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 299)             alert("Invalid queen move");
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 300)         }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 301) 
+2d7661e0 (Me-Brand                 2022-11-09 16:10:58 -0500 305)             console.log("In rook");
+2d7661e0 (Me-Brand                 2022-11-09 16:10:58 -0500 327)             console.log("In bis");
+2d7661e0 (Me-Brand                 2022-11-09 16:10:58 -0500 330)             if(Math.abs((new_index % 8) - (old_index % 8)) === Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8))){
+2d7661e0 (Me-Brand                 2022-11-09 16:10:58 -0500 331)                 console.log("YIPPPE " + Math.abs((new_index % 8) - (old_index % 8)) + " " + Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8)));
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 340)         //King check
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 341)         else if((piece.classList.item(1) === "K") || (piece.classList.item(1) === "k")){
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 342)             
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 343)             /* If there is attempted diagonal move, we return true and allow move */
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 344)             if(( 6 < Math.abs(new_index - old_index) && Math.abs(new_index - old_index) < 10) || (Math.abs(new_index - old_index) === 1)){
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 345)                 
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 346)                 console.log("YIPPPE " + Math.abs((new_index % 8) - (old_index % 8)) + " " + Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8)));
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 347)                 
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 348)                 //if(check_path_dia(new_index, old_index)){
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 349)                 return true;
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 350)                 //}
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 351)             }
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 352)             
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 353)             alert("Invalid king move");
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 354)         }
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 355) 
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 356)         else{
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 357) 
+90cc6552 (Me-Brand                 2022-11-10 13:59:17 -0500 358)             if(Math.abs(new_index - old_index) === 15 || Math.abs(new_index - old_index) === 17 || Math.abs(new_index - old_index) === 10 || Math.abs(new_index - old_index) === 6){
+90cc6552 (Me-Brand                 2022-11-10 13:59:17 -0500 359)                 
+90cc6552 (Me-Brand                 2022-11-10 13:59:17 -0500 360)                 console.log("YIPPPE " + Math.abs((new_index % 8) - (old_index % 8)) + " " + Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8)));
+90cc6552 (Me-Brand                 2022-11-10 13:59:17 -0500 361)                 
+90cc6552 (Me-Brand                 2022-11-10 13:59:17 -0500 362)                 //if(check_path_dia(new_index, old_index)){
+90cc6552 (Me-Brand                 2022-11-10 13:59:17 -0500 363)                 return true;
+90cc6552 (Me-Brand                 2022-11-10 13:59:17 -0500 364)                 //}
+90cc6552 (Me-Brand                 2022-11-10 13:59:17 -0500 365)             }
+90cc6552 (Me-Brand                 2022-11-10 13:59:17 -0500 366) 
+90cc6552 (Me-Brand                 2022-11-10 13:59:17 -0500 367)             alert("Invalid knight move");
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 368)         }
+935973a5 (Me-Brand                 2022-11-10 13:54:48 -0500 369) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 370)         return false;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 371)     }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 372) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 373)     function check_path(new_index, old_index){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 374) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 375)         board = document.getElementById("chessboard");
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 376)         var start;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 377)         var end;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 378) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 379)         //Up and Down
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 380)         if(new_index - old_index >= 8 || old_index - new_index >= 8){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 381)             if(new_index > old_index){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 382)                 start = old_index;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 383)                 end = new_index;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 384)             }else{
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 385)                 start = new_index;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 386)                 end = old_index;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 387)             }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 388)             
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 389)             for(var i = start + 8; i < end; i += 8){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 390)                 if(board.children[i].children[0] !== undefined){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 391)                     console.log("Zap at " + i);
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 392)                     return false;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 393)                 }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 394)             }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 395)         }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 396)         //Left or right
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 397)         else{
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 398)             if(new_index < old_index){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 399)                 start = new_index;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 400)                 end = old_index
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 401)             }else{
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 402)                 start = old_index;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 403)                 end = new_index;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 404)             }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 405) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 406)             for(var i = start + 1; i < end; i++){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 407)                 if(board.children[i].children[0] !== undefined){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 408)                     console.log("Zap at " + i);
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 409)                     return false;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 410)                 }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 411)             }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 412)         }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 413) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 414)         return true;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 415)     }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 416) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 417)     function check_path_dia(new_index, old_index){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 418)         board = document.getElementById("chessboard");
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 419)         var start;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 420)         var end;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 421)         var side;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 422)         if(new_index > old_index){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 423)             end = old_index;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 424)             start = new_index;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 425)         }else{
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 426)             start = old_index;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 427)             end = new_index;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 428)         }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 429) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 430)         //GOING UP
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 431)             console.log("UP");
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 432)             //Going right
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 433)             if((end % 8) > (start % 8)){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 434)                 console.log("Right");
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 435)                 side = -1;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 436)             }else{
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 437)                 side = 1;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 438)             }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 439) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 440)             //console.log("Zap at " + i + " start " + start + " end " + end + " " + (start - (side + 8)));
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 441)             for(var i = (start - (side + 8)); i > end; i -= (side + 8)){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 442)                 //console.log("Zap at " + i + " start " + start + " end " + end + " " + (start - (side + 8)));
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 443)                 if(board.children[i].children[0] !== undefined){
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 444)                     console.log("Zap at " + i + " start " + start + " end " + end + " " + (start - (side + 8)));
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 445)                     return false;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 446)                 }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 447)             }
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 448) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 449)         return true;
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 450)     }
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 460)         var old_index = [].indexOf.call(old_col.parentNode.children, old_col);
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 461)         var check = localStorage.flip;
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 466)             //If the board has been fliped it string add
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 467)             if(check === 0){
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400 468)                 pas = rows[new_index % 8];
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400 469)                 pas += 8 - Math.floor(new_index / 8);
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400 470)                 //console.log(rows[new_index % 8] + " " + (8 - Math.floor(new_index / 8)) + " enpas1 " + check + " " + localStorage.flip);
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 471)             }else{
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400 472)                 pas = rows[7 - (new_index % 8)]
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400 473)                 pas += 1 + Math.floor(new_index / 8);
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400 474)                 //console.log(rows[7 - (new_index % 8)] + " " + (1 + Math.floor(new_index / 8)) + " enpas2 " + check);
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400 475)             }
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400 477)             curr_en_pas = old_col.children[0];
+
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400   9)     flip = localStorage.flip;
+7d90a5df (Me-Brand                 2022-11-08 08:25:44 -0500  17)     if(flip === "0"){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  18)         for(let i = 0; i <= 7; i++){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  19)             for(let j = 0; j < 8; j++){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  22)                 if(tab.children[(i * 8) + j].children[0] === undefined){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  23)                     space++;
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  24)             }   else{
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  25)                     //Add the spaces now that there is a piece
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  26)                     if(space !== 0){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  27)                         fen += space;
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  28)                         space = 0;
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  29)                     }
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  30) 
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  31)                     fen += tab.children[(i * 8) + j].children[0].classList.item(1);
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  34)                 //End of the row and not the last row
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  35)                 if(j === 7 && i !== 7){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  36)                 
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  37)                     if(space !== 0){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  38)                         fen += space;
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  39)                     }
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  40) 
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  41)                     fen += '/';
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  42)                     space = 0;
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  43)                 }
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  45)         }
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  46)     }else{
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  47)         for(let i = 7; i >= 0; i--){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  48)             for(let j = 0; j < 8; j++){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  50)             //Add a space if there is no piece
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  51)                 if(tab.children[(i * 8) + j].children[0] === undefined){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  52)                     space++;
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  53)             }   else{
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  54)                     //Add the spaces now that there is a piece
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  55)                     if(space !== 0){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  56)                         fen += space;
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  57)                         space = 0;
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  58)                     }
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  59) 
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  60)                     fen += tab.children[(i * 8) + j].children[0].classList.item(1);
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  63)                 //End of the row and not the last row
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  64)                 if(j === 7 && i !== 0){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  65)                 
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  66)                     if(space !== 0){
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  67)                         fen += space;
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  68)                     }
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  69) 
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  70)                     fen += '/';
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  71)                     space = 0;
+2f65a151 (Me-Brand                 2022-11-01 20:23:41 -0400  72)                 }
+a142412a (Me-Brand                 2022-11-02 15:04:33 -0400  96)     fen += pas + ' ';
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400  97) 
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 108)     console.log("My fen I send " + fen);
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 109) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 112) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 113) function fenin(fen){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 114)  
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 115)     flip = localStorage.flip;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 116)     let full = fen[fen.length-1];
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 117)     let half = fen[fen.length-3];
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 118)  
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 119)     var check = fen.length - 5;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 120)  
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 121)     let pas = "-";
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 122)     if(fen[check] !== "-"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 123)         pas = fen[check-1] + fen[check];
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 124)         check--;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 125)     }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 126)  
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 127)     check -= 2;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 128)  
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 129)     let castle = "-";
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 130)     if(fen[check] !== "-"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 131)         while(fen[check] !== " "){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 132)             castle += fen[check];
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 133)             check--;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 134)         }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 135)         check++;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 136)     }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 137)     check -= 2;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 138)  
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 139)     let color = fen[check];
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 140)     check -= 2;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 141) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 142)     var index;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 143)     var slash = 0;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 144)     localStorage.cas = cas;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 145)     localStorage.pas = pas;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 146)     localStorage.half = half;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 147)     localStorage.full = full;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 148)     localStorage.turn = (color === "w") ? "white-piece" : "black-piece";
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 149)     let board = document.getElementById("chessboard");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 150) 
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 151)     for(var i = 0; i < 64; i++){
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 152)         if(board.children[i].children[0] !== undefined){
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 153)             board.children[i].removeChild(board.children[i].children[0]);
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 154)             //console.log("Removed piece at " + i);
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 155)         }
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 156)     }
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 157) 
+5cbbb3f4 (Me-Brand                 2022-11-08 08:06:37 -0500 158)     if(flip === '0'){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 159)         index = 63;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 160)         //var test = "r4R"
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 161)         while(check !== -1){
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 162)             //console.log("At index " + index + " " + board.children[index].children[0]);
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 163)             //if(board.children[index].children[0] !== undefined){
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 164)             //    board.children[index].removeChild(board.children[index].children[0]);
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 165)             //    console.log("Removed piece at " + index);
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 166)             //}
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 167) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 168)             if(Number(fen[check]) > 0){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 169)                 //count += fen[count]
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 170)                 index -= Number(fen[check]);
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 171)                 index += 1;
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 172)             //    console.log("TEST " + check + " " + index + " del " + Number(fen[check]));
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 173)             }else if(fen[check] !== "/"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 174)                 piece = document.createElement("DIV");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 175)                 piece.id = index + 9 + 9;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 176)                 if(fen[check] > "a"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 177)                     piece.classList.add("black-piece");
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 178)                     //console.log("YEP");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 179)                     if(fen[check] === "p"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 180)                         piece.classList.add("p");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 181)                         piece.classList.add("B_p");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 182)                         if(slash === 6){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 183)                             piece.classList.add("First");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 184)                         }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 185)                     }else if(fen[check] === "r"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 186)                         piece.classList.add("r");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 187)                         piece.classList.add("B_r");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 188)                         if(cas.includes("k")){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 189)                             cas.replace('k', '');
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 190)                             cas += "b"
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 191)                             piece.classList.add("First");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 192)                             piece.classList.add(2);
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 193)                         }else if(cas.includes("q")){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 194)                             cas.replace('q', '');
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 195)                             //cas += "b"
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 196)                             piece.classList.add("First");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 197)                             piece.classList.add(3); 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 198)                         }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 199)                     }else if(fen[check] === "k"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 200)                         piece.classList.add("k");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 201)                         piece.classList.add("B_k");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 202)                         if(cas.includes("q") || cas.includes("b")){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 203)                             piece.classList.add("First");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 204)                         }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 205)                     }else if(fen[check] === "q"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 206)                         piece.classList.add("q");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 207)                         piece.classList.add("B_q");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 208)                     }else if(fen[check] === "b"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 209)                         piece.classList.add("b");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 210)                         piece.classList.add("B_b");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 211)                     }else{
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 212)                         piece.classList.add("n");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 213)                         piece.classList.add("B_n");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 214)                     }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 215)                 }else{
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 216)                     piece.classList.add("white-piece");
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 217)                     //console.log("?Noope");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 218)                     if(fen[check] === "P"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 219)                         piece.classList.add("P");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 220)                         piece.classList.add("W_p");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 221)                         if(slash === 1){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 222)                             piece.classList.add("First");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 223)                         }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 224)                     }else if(fen[check] === "R"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 225)                         piece.classList.add("R");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 226)                         piece.classList.add("W_r");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 227)                         if(cas.includes("K")){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 228)                             cas.replace('K', '');
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 229)                             cas += "W"
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 230)                             piece.classList.add("First");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 231)                             piece.classList.add(0);
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 232)                         }else if(cas.includes("Q")){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 233)                             cas.replace('Q', '');
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 234)                             //cas += "W"
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 235)                             piece.classList.add("First");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 236)                             piece.classList.add(1); 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 237)                         }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 238)                     }else if(fen[check] === "K"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 239)                         piece.classList.add("K");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 240)                         if(cas.includes("Q") || cas.includes("W")){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 241)                             piece.classList.add("First");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 242)                         }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 243)                     }else if(fen[check] === "Q"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 244)                         piece.classList.add("Q");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 245)                     }else if(fen[check] === "B"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 246)                         piece.classList.add("B");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 247)                     }else{
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 248)                         piece.classList.add("N");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 249)                     }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 250) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 251)                 }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 252) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 253)                 board.children[index].appendChild(piece);
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 254) 
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 255)                 //console.log("TEST " + check + " Mid " + index);
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 256) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 257)             }else{
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 258)                 slash++;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 259)                 index++;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 260) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 261)                 //console.log("TEST " + check + "  slash " + index);
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 262)             }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 263) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 264)             index--;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 265)             check--;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 266)         }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 267)     }else{
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 268)         index = 0;
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 269)         //console.log(flip);
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 270)         //var test = "r4R"
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 271)         while(check !== -1){
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 272)             //if(board.children[index].children[0] !== undefined){
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 273)             //    board.children[index].removeChild(board.children[index].children[0]);
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 274)             //}
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 275) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 276)             if(Number(fen[check]) > 0){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 277)                 //count += fen[count]
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 278)                 index += Number(fen[check]);
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 279)                 index -= 1;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 280)                 //console.log("TEST " + check + " " + index + " del " + Number(fen[check]));
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 281)             }else if(fen[check] !== "/"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 282)                 piece = document.createElement("DIV");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 283)                 piece.id = index + 9 + 9;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 284)                 if(fen[check] > "a"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 285)                     piece.classList.add("black-piece");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 286)                     //console.log("YEP");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 287)                     if(fen[check] === "p"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 288)                         piece.classList.add("p");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 289)                         piece.classList.add("B_p");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 290)                         if(slash === 6){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 291)                             piece.classList.add("First");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 292)                         }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 293)                     }else if(fen[check] === "r"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 294)                         piece.classList.add("r");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 295)                         piece.classList.add("B_r");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 296)                         if(cas.includes("q")){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 297)                             cas.replace('q', '');
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 298)                             cas += "b"
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 299)                             piece.classList.add("First");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 300)                             piece.classList.add(2);
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 301)                         }else if(cas.includes("k")){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 302)                             cas.replace('k', '');
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 303)                             //cas += "b"
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 304)                             piece.classList.add("First");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 305)                             piece.classList.add(3); 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 306)                         }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 307)                     }else if(fen[check] === "k"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 308)                         piece.classList.add("k");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 309)                         piece.classList.add("B_k");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 310)                         if(cas.includes("k") || cas.includes("b")){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 311)                             piece.classList.add("First");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 312)                         }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 313)                     }else if(fen[check] === "q"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 314)                         piece.classList.add("q");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 315)                         piece.classList.add("B_q");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 316)                     }else if(fen[check] === "b"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 317)                         piece.classList.add("b");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 318)                         piece.classList.add("B_b");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 319)                     }else{
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 320)                         piece.classList.add("n");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 321)                         piece.classList.add("B_n");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 322)                     }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 323)                 }else{
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 324)                     piece.classList.add("white-piece");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 325)                     //console.log("?Noope");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 326)                     if(fen[check] === "P"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 327)                         piece.classList.add("P");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 328)                         piece.classList.add("W_p");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 329)                         if(slash === 1){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 330)                             piece.classList.add("First");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 331)                         }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 332)                     }else if(fen[check] === "R"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 333)                         piece.classList.add("R");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 334)                         piece.classList.add("W_r");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 335)                         if(cas.includes("Q")){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 336)                             cas.replace('Q', '');
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 337)                             cas += "W"
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 338)                             piece.classList.add("First");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 339)                             piece.classList.add(0);
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 340)                         }else if(cas.includes("K")){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 341)                             cas.replace('K', '');
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 342)                             //cas += "W"
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 343)                             piece.classList.add("First");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 344)                             piece.classList.add(1); 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 345)                         }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 346)                     }else if(fen[check] === "K"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 347)                         piece.classList.add("K");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 348)                         if(cas.includes("K") || cas.includes("W")){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 349)                             piece.classList.add("First");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 350)                         }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 351)                     }else if(fen[check] === "Q"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 352)                         piece.classList.add("Q");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 353)                     }else if(fen[check] === "B"){
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 354)                         piece.classList.add("B");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 355)                     }else{
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 356)                         piece.classList.add("N");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 357)                     }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 358) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 359)                 }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 360) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 361)                 board.children[index].appendChild(piece);
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 362) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 363)                 //console.log("TEST " + check + " Mid " + index);
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 364) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 365)             }else{
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 366)                 slash++;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 367)                 index--;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 368) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 369)                 //console.log("TEST " + check + "  slash " + index);
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 370)             }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 371) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 372)             index++;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 373)             check--;
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 374)         }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 375) 
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 376)     }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 377) 
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 378)     //console.log(color + " " + castle + " " + pas + " " + full + " " + half + " " + fen[check]);
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 379) 
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 380) }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 381) 
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 382) function flip_b(){
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 383)     test = document.getElementById("chessboard");
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 384)         table;
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 385)             let color, color2;
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 386)             for(var i = 0; i < 32; i++){
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 387)                     piece = document.createElement("DIV");
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 388)                     piece.id = "fd" + i + 7 + 7;
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 389)                     piece2 = document.createElement("DIV");
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 390)                     piece2.id = "fd" + (i+3)*2 + 7 + 8;
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 391) 
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 392)                     let t = (table.children[i].children[0] !== undefined) ? true : false;
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 393) 
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 394)                     let f = (table.children[63-i].children[0] !== undefined) ? true : false;
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 395) 
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 396) 
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 397)                     for(var j = 0; j < 8; j++){
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 398)                         //console.log(table.children[0].children[0].classList.item(j));
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 399)                         if(t){
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 400)                             piece.classList.add(table.children[i].children[0].classList.item(j));
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 401)                             //console.log(table.children[0].children[0].classList.item(j) + " top");
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 402)                         }
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 403)                         if(f){
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 404)                             piece2.classList.add(table.children[63-i].children[0].classList.item(j));
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 405)                             //console.log(table.children[63].children[0].classList.item(j) + " bottom");
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 406)                         }
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 407)                         //console.log(piece.classList.item(j));
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 408)                     }
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 409) 
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 410) 
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 411)                     if(t){
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 412)                         table.children[63-i].appendChild(piece);
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 413)                         table.children[i].removeChild(table.children[i].firstChild);
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 414)                         //console.log(table.children[63].children[0].classList.item(1));
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 415)                     }
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 416)                     if(f){
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 417)                         table.children[63-i].removeChild(table.children[63-i].firstChild);
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 418)                         table.children[i].appendChild(piece2);
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 419)                         //console.log(table.children[63].children[0].classList.item(1));
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 420)                     }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 421) 
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 422)             }
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 423) 
+65d40b4c (brandonmarth14@gmail.com 2022-11-03 15:30:22 -0400 424)             if(localStorage.flip === '0'){
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 425)                 localStorage.flip = 1;
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 426)                 //console.log("hit YESSSSSSSSSS");
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 427)             }else{
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 428)                 localStorage.flip = 0;
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 429)                 //console.log("hit NOOOO " + localStorage.flip);
+098882cb (Me-Brand                 2022-11-02 17:15:53 -0400 430)             }
+ca9f9b5a (Me-Brand                 2022-11-10 13:16:34 -0500 431)             //console.log("hit");
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 432) }
+02ce28f1 (Me-Brand                 2022-11-02 17:07:08 -0400 433) 
+
+ca9f9b5a (Me-Brand       2022-11-10 13:16:34 -0500 11) .././Chesswebsite/static/chess.js: .././src/board.cpp .././src/game.cpp .././src/main.cpp .././src/move.cpp .././src/search.cpp
+ca9f9b5a (Me-Brand       2022-11-10 13:16:34 -0500 12) 	emcc -lembind -o .././Chesswebsite/static/chess.js .././src/board.cpp .././src/game.cpp .././src/main.cpp .././src/move.cpp .././src/search.cpp
