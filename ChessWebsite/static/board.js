@@ -337,6 +337,27 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Invalid bishop move");
         }
 
+        //King check
+        else if((piece.classList.item(1) === "K") || (piece.classList.item(1) === "k")){
+            
+            /* If there is attempted diagonal move, we return true and allow move */
+            if(( 6 < Math.abs(new_index - old_index) && Math.abs(new_index - old_index) < 10) || (Math.abs(new_index - old_index) === 1)){
+                
+                console.log("YIPPPE " + Math.abs((new_index % 8) - (old_index % 8)) + " " + Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8)));
+                
+                //if(check_path_dia(new_index, old_index)){
+                return true;
+                //}
+            }
+            
+            alert("Invalid king move");
+        }
+
+        else{
+
+            
+        }
+
         return false;
     }
 
