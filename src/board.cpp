@@ -1017,7 +1017,7 @@ int Board::getMaterialCount(int color){
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
 		tmpBitBoard &= ~(1 << square);
-		rv += 500;
+		rv += 300;
 	}
 	tmpBitBoard = pieceTypes[color][5];
 	while(tmpBitBoard != 0){
@@ -1034,6 +1034,7 @@ int Board::evaluatePosition(){
 	whiteMaterial = getMaterialCount(0);
 	blackMaterial = getMaterialCount(1);
 	rv = whiteMaterial-blackMaterial;
+
 
 
 
