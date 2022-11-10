@@ -46,7 +46,7 @@
 
 <!-- If the mobile menu is closed, we show the chess board -->
 {#if noMenu === true}
-    <div class="flex justify-center items-center bg-[#b0a23a]/30">
+    <div class="flex justify-center items-center">
         <embed class="md:w-screen md:h-[89vh] md:pt-[12vh] w-screen h-[85vh] pt-[12vh] pb-[4vh]" type="text/html" src="board.html" id="chessEmbed">
     </div>
     <Footer />

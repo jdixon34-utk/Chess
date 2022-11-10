@@ -1034,7 +1034,6 @@ int Board::evaluatePosition(){
 	whiteMaterial = getMaterialCount(0);
 	blackMaterial = getMaterialCount(1);
 	rv = whiteMaterial-blackMaterial;
-	
 
 
 
