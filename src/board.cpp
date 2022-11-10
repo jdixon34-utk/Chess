@@ -456,7 +456,7 @@ void Board::genPawnLeftMoves(){
 			moves[moveIndex++] = move;
 		}
     }else{ // Black's Turn
-        pawn_left_moves = ((pieceTypes[0][5] >> 7ULL) & ~FILE_A) & pieces[0];
+        pawn_left_moves = ((pieceTypes[1][5] >> 7ULL) & ~FILE_A) & pieces[0];
 
 		//pawn promotion
 		if(pawn_left_moves & RANK_1){
@@ -744,14 +744,14 @@ int Board::squareUnderAttack(int square){
 		}
 		if((tmpBitBoard & pieceTypes[!color][2]) != 0 || (tmpBitBoard & pieceTypes[!color][1]) != 0) return 1;
 		//King
-		if(KING_LOOKUP_TBL[getLSBIndex(pieceTypes[!color][0])] & square){
+		if(KING_LOOKUP_TBL[square] & pieceTypes[!color][0]){
 			return 1;
 		}
 		//Pawn (will change slightly for black)
 		if(color){
-			if((pieceTypes[!color][5] & (1ULL << (square-9))) != 0 || (pieceTypes[!color][1] & (1ULL << (square-7)))) return 1;
+			if((pieceTypes[!color][5] & (1ULL << (square-9))) != 0 || (pieceTypes[!color][5] & (1ULL << (square-7)))) return 1;
 		}else{
-			if((pieceTypes[!color][5] & (1ULL << (square+9))) != 0 || (pieceTypes[!color][1] & (1ULL << (square+7)))) return 1;
+			if((pieceTypes[!color][5] & (1ULL << (square+9))) != 0 || (pieceTypes[!color][5] & (1ULL << (square+7)))) return 1;
 		}
 
 	return 0;
@@ -1035,8 +1035,12 @@ int Board::evaluatePosition(){
 	blackMaterial = getMaterialCount(1);
 	rv = whiteMaterial-blackMaterial;
 
-
-
+	color = 0;
+	genMoves();
+	rv += moveIndex * 10;
+	color = 1;
+	genMoves();
+	rv -= moveIndex * 10;
 
 	return rv;
 }
