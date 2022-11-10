@@ -93,6 +93,7 @@ public:
 	void undoEnPassMove(class Move move);
 	void undoCastleMove(class Move move);
 	void undoPromotionMove(class Move move, int capturedPieceType);
+	int evaluatePosition();
 };
 
 #endif

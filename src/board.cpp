@@ -962,7 +962,6 @@ void Board::undoCastleMove(Move move){
 }
 //reverts to state before promotion move
 void Board::undoPromotionMove(Move move, int capturedPieceType){
-
 	if(capturedPieceType == 0){
 		 allPieces &= ~(1 << move.toSquare);
 		 emptySquares |= (1 << move.toSquare);
@@ -977,4 +976,46 @@ void Board::undoPromotionMove(Move move, int capturedPieceType){
 	pieces[color] |= (1 << move.fromSquare);
 	pieceTypes[color][int(move.promotedPiece)] &= ~(1 << move.toSquare);
 	pieceTypes[color][5] |= (1 << move.fromSquare);
+}
+int Board::getMaterialCount(int color){
+	int rv, square;
+	long long tmpBitBoard;
+
+	rv = 0;
+	tmpBitBoard = pieceTypes[color][1];
+	while(tmpBitBoard != 0){
+		square = getLSBIndex(tmpBitBoard);
+		tmpBitBoard &= ~(1 << square);
+		rv += 900;
+	}
+	tmpBitBoard = pieceTypes[color][2];
+	while(tmpBitBoard != 0){
+		square = getLSBIndex(tmpBitBoard);
+		tmpBitBoard &= ~(1 << square);
+		rv += 500;
+	}
+	tmpBitBoard = pieceTypes[color][3];
+	while(tmpBitBoard != 0){
+		square = getLSBIndex(tmpBitBoard);
+		tmpBitBoard &= ~(1 << square);
+		rv += 300;
+	}
+	tmpBitBoard = pieceTypes[color][4];
+	while(tmpBitBoard != 0){
+		square = getLSBIndex(tmpBitBoard);
+		tmpBitBoard &= ~(1 << square);
+		rv += 500;
+	}
+	tmpBitBoard = pieceTypes[color][5];
+	while(tmpBitBoard != 0){
+		square = getLSBIndex(tmpBitBoard);
+		tmpBitBoard &= ~(1 << square);
+		rv += 100;
+	}
+
+	return rv;
+}
+//Material imbalance, king safety, weak squares
+int Board::evaluatePosition(){
+
 }
