@@ -1,0 +1,101 @@
+5609c9a1 (JMcknight              2022-11-10 13:34:38 -0500  730) 			new_square = getMSBIndex(RAYS[square][2]&allPieces);
+5609c9a1 (JMcknight              2022-11-10 13:34:38 -0500  736) 			new_square = getMSBIndex(RAYS[square][4]&allPieces);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  877) 	allPieces &= ~(1ULL << move.fromSquare);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  878) 	allPieces |= (1ULL << move.toSquare);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  879) 	emptySquares &= ~(1ULL << move.toSquare);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  880) 	emptySquares |= (1ULL << move.fromSquare);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  881) 	pieces[color] &= ~(1ULL << move.fromSquare);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  882) 	pieces[color] |= (1ULL << move.toSquare);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  883) 	pieceTypes[color][5] &= ~(1ULL << move.fromSquare);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  884) 	pieceTypes[color][int(move.promotedPiece)] |= (1ULL << move.toSquare);
+c4084634 (JMcknight              2022-11-08 08:48:15 -0500  973) //reverts to state before promotion move
+f459ef6b (JMcknight              2022-11-01 09:36:42 -0400  974) void Board::undoPromotionMove(Move move, int capturedPieceType){
+c4084634 (JMcknight              2022-11-08 08:48:15 -0500  975) 	if(capturedPieceType == 0){
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  976) 		 allPieces &= ~(1ULL << move.toSquare);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  977) 		 emptySquares |= (1ULL << move.toSquare);
+c4084634 (JMcknight              2022-11-08 08:48:15 -0500  978) 	 }
+9b300221 (JMcknight              2022-11-08 08:25:56 -0500  979) 	else{
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  980) 		pieceTypes[!color][capturedPieceType] |= (1ULL << move.toSquare);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  981) 		pieces[!color] |= (1ULL << move.toSquare);
+9b300221 (JMcknight              2022-11-08 08:25:56 -0500  982) 	}
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  983) 	allPieces |= (1ULL << move.fromSquare);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  984) 	emptySquares &= ~(1ULL << move.fromSquare);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  985) 	pieces[color] &= ~(1ULL << move.toSquare);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  986) 	pieces[color] |= (1ULL << move.fromSquare);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  987) 	pieceTypes[color][int(move.promotedPiece)] &= ~(1ULL << move.toSquare);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  988) 	pieceTypes[color][5] |= (1ULL << move.fromSquare);
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500  990) int Board::getMaterialCount(int color){
+1b8a80be (JMcknight              2022-11-10 08:10:41 -0500  991) 	int rv, square, count = 0;
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500  992) 	long long tmpBitBoard;
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500  993)
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500  994) 	rv = 0;
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500  995) 	tmpBitBoard = pieceTypes[color][1];
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500  996) 	while(tmpBitBoard != 0){
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500  997) 		square = getLSBIndex(tmpBitBoard);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500  998) 		tmpBitBoard &= ~(1ULL << square);
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500  999) 		rv += 900;
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1000) 	}
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1001) 	tmpBitBoard = pieceTypes[color][2];
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1002) 	while(tmpBitBoard != 0){
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1003) 		square = getLSBIndex(tmpBitBoard);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500 1004) 		tmpBitBoard &= ~(1ULL << square);
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1005) 		rv += 500;
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1006) 	}
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1007) 	tmpBitBoard = pieceTypes[color][3];
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1008) 	while(tmpBitBoard != 0){
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1009) 		square = getLSBIndex(tmpBitBoard);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500 1010) 		tmpBitBoard &= ~(1ULL << square);
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1011) 		rv += 300;
+1b8a80be (JMcknight              2022-11-10 08:10:41 -0500 1012) 		count++;
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1013) 	}
+1b8a80be (JMcknight              2022-11-10 08:10:41 -0500 1014) 	//Bishop pair bonus
+1b8a80be (JMcknight              2022-11-10 08:10:41 -0500 1015) 	if(count == 2)rv += 50;
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1016) 	tmpBitBoard = pieceTypes[color][4];
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1017) 	while(tmpBitBoard != 0){
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1018) 		square = getLSBIndex(tmpBitBoard);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500 1019) 		tmpBitBoard &= ~(1ULL << square);
+b1e9a957 (JMcknight              2022-11-10 14:51:40 -0500 1020) 		rv += 325;
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1021) 	}
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1022) 	tmpBitBoard = pieceTypes[color][5];
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1023) 	while(tmpBitBoard != 0){
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1024) 		square = getLSBIndex(tmpBitBoard);
+cf909e42 (JMcknight              2022-11-10 08:32:32 -0500 1025) 		tmpBitBoard &= ~(1ULL << square);
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1026) 		rv += 100;
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1027) 	}
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1028) 	return rv;
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1029) }
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1030) //Material imbalance, king safety, weak squares
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1031) int Board::evaluatePosition(){
+b1e9a957 (JMcknight              2022-11-10 14:51:40 -0500 1032) 	int whiteMaterial, blackMaterial, kingPos, oPos, check,noMoves, rv;
+2506a59b (JMcknight              2022-11-10 14:19:09 -0500 1033) 	unsigned long long tmpBitBoard;
+d3e76d2f (JMcknight              2022-11-09 22:38:03 -0500 1034)
+d3e76d2f (JMcknight              2022-11-09 22:38:03 -0500 1035) 	whiteMaterial = getMaterialCount(0);
+d3e76d2f (JMcknight              2022-11-09 22:38:03 -0500 1036) 	blackMaterial = getMaterialCount(1);
+d3e76d2f (JMcknight              2022-11-09 22:38:03 -0500 1037) 	rv = whiteMaterial-blackMaterial;
+1b8a80be (JMcknight              2022-11-10 08:10:41 -0500 1038)
+2506a59b (JMcknight              2022-11-10 14:19:09 -0500 1045) 	kingPos = getLSBIndex(pieceTypes[color][0]);
+2506a59b (JMcknight              2022-11-10 14:19:09 -0500 1046) 	oPos = getLSBIndex(pieceTypes[!color][0]);
+2506a59b (JMcknight              2022-11-10 14:19:09 -0500 1047) 	tmpBitBoard = KING_LOOKUP_TBL[oPos] ^ (pieces[!color] & KING_LOOKUP_TBL[oPos]);
+2506a59b (JMcknight              2022-11-10 14:19:09 -0500 1048) 	check = squareUnderAttack(oPos);
+2506a59b (JMcknight              2022-11-10 14:19:09 -0500 1049) 	if(check) rv+= 50;
+b1e9a957 (JMcknight              2022-11-10 14:51:40 -0500 1050) 	noMoves = 1;
+b1e9a957 (JMcknight              2022-11-10 14:51:40 -0500 1051) 	while(tmpBitBoard != 0){
+b1e9a957 (JMcknight              2022-11-10 14:51:40 -0500 1052) 		if(!squareUnderAttack(getLSBIndex(tmpBitBoard))) noMoves = 0;
+b1e9a957 (JMcknight              2022-11-10 14:51:40 -0500 1053) 		else rv += 30;
+b1e9a957 (JMcknight              2022-11-10 14:51:40 -0500 1054) 		tmpBitBoard &= ~(1ULL << getLSBIndex(tmpBitBoard));
+b1e9a957 (JMcknight              2022-11-10 14:51:40 -0500 1055) 	}
+b1e9a957 (JMcknight              2022-11-10 14:51:40 -0500 1056) 	if(check && noMoves) rv+= 200;
+2506a59b (JMcknight              2022-11-10 14:19:09 -0500 1057)
+2506a59b (JMcknight              2022-11-10 14:19:09 -0500 1058) 	if(kingPos%4 == 1 || kingPos%4 == 2) rv += 50;
+2506a59b (JMcknight              2022-11-10 14:19:09 -0500 1059)
+2506a59b (JMcknight              2022-11-10 14:19:09 -0500 1060) 	tmpBitBoard = KING_LOOKUP_TBL[kingPos] & pieces[color];
+2506a59b (JMcknight              2022-11-10 14:19:09 -0500 1061) 	while(tmpBitBoard != 0){
+2506a59b (JMcknight              2022-11-10 14:19:09 -0500 1062) 		tmpBitBoard &= ~(1ULL << getLSBIndex(tmpBitBoard));
+2506a59b (JMcknight              2022-11-10 14:19:09 -0500 1063) 		rv += 25;
+2506a59b (JMcknight              2022-11-10 14:19:09 -0500 1064) 	}
+b1e9a957 (JMcknight              2022-11-10 14:51:40 -0500 1065)
+2506a59b (JMcknight              2022-11-10 14:19:09 -0500 1066)
+2506a59b (JMcknight              2022-11-10 14:19:09 -0500 1067)
+e1cee418 (JMcknight              2022-11-10 08:27:40 -0500 1068)
+d3e76d2f (JMcknight              2022-11-09 22:38:03 -0500 1069) 	return rv;
+46abb0c2 (JMcknight              2022-11-09 22:25:57 -0500 1070) }
