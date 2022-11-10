@@ -30,7 +30,7 @@ Group: ChessWebsite
     * The backend engine did not send a move until Thursday morning.
     * Did not want to lock the user into only being able to only move one piece color if we weren't getting a engine move.
 - Front-end check if the user move is valid
-    * Did not add en passant, castling, and due to lack of time
+    * Did not add en passant and castling due to lack of time
 
 ### Issues I worked on
 - Create a front-end to read in a fenstring and set the board.
