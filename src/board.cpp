@@ -749,9 +749,9 @@ int Board::squareUnderAttack(int square){
 		}
 		//Pawn (will change slightly for black)
 		if(color){
-			if((pieceTypes[!color][5] & (1 << (square-9))) != 0 || (pieceTypes[!color][1] & (1 << (square-7)))) return 1;
+			if((pieceTypes[!color][5] & (1ULL << (square-9))) != 0 || (pieceTypes[!color][1] & (1ULL << (square-7)))) return 1;
 		}else{
-			if((pieceTypes[!color][5] & (1 << (square+9))) != 0 || (pieceTypes[!color][1] & (1 << (square+7)))) return 1;
+			if((pieceTypes[!color][5] & (1ULL << (square+9))) != 0 || (pieceTypes[!color][1] & (1ULL << (square+7)))) return 1;
 		}
 
 	return 0;
@@ -866,22 +866,22 @@ int Board::makePromotionMove(Move move){
 	if((allPieces&(1<<move.toSquare)) != 0){
 		//Capture into Promotion
 		for(int i = 1; i < 4; i++){
-			if((pieceTypes[!color][i] & (1 << move.toSquare)) != 0){
-				pieceTypes[!color][i] &= ~(1 << move.toSquare);
-				pieces[!color] &= ~(1 << move.toSquare);
+			if((pieceTypes[!color][i] & (1ULL << move.toSquare)) != 0){
+				pieceTypes[!color][i] &= ~(1ULL << move.toSquare);
+				pieces[!color] &= ~(1ULL << move.toSquare);
 				capturedPieceType = i;
 				break;
 			}
 		}
 	}
-	allPieces &= ~(1 << move.fromSquare);
-	allPieces |= (1 << move.toSquare);
-	emptySquares &= ~(1 << move.toSquare);
-	emptySquares |= (1 << move.fromSquare);
-	pieces[color] &= ~(1 << move.fromSquare);
-	pieces[color] |= (1 << move.toSquare);
-	pieceTypes[color][5] &= ~(1 << move.fromSquare);
-	pieceTypes[color][int(move.promotedPiece)] |= (1 << move.toSquare);
+	allPieces &= ~(1ULL << move.fromSquare);
+	allPieces |= (1ULL << move.toSquare);
+	emptySquares &= ~(1ULL << move.toSquare);
+	emptySquares |= (1ULL << move.fromSquare);
+	pieces[color] &= ~(1ULL << move.fromSquare);
+	pieces[color] |= (1ULL << move.toSquare);
+	pieceTypes[color][5] &= ~(1ULL << move.fromSquare);
+	pieceTypes[color][int(move.promotedPiece)] |= (1ULL << move.toSquare);
 
 	return capturedPieceType;
 }
@@ -973,19 +973,19 @@ void Board::undoCastleMove(Move move){
 //reverts to state before promotion move
 void Board::undoPromotionMove(Move move, int capturedPieceType){
 	if(capturedPieceType == 0){
-		 allPieces &= ~(1 << move.toSquare);
-		 emptySquares |= (1 << move.toSquare);
+		 allPieces &= ~(1ULL << move.toSquare);
+		 emptySquares |= (1ULL << move.toSquare);
 	 }
 	else{
-		pieceTypes[!color][capturedPieceType] |= (1 << move.toSquare);
-		pieces[!color] |= (1 << move.toSquare);
+		pieceTypes[!color][capturedPieceType] |= (1ULL << move.toSquare);
+		pieces[!color] |= (1ULL << move.toSquare);
 	}
-	allPieces |= (1 << move.fromSquare);
-	emptySquares &= ~(1 << move.fromSquare);
-	pieces[color] &= ~(1 << move.toSquare);
-	pieces[color] |= (1 << move.fromSquare);
-	pieceTypes[color][int(move.promotedPiece)] &= ~(1 << move.toSquare);
-	pieceTypes[color][5] |= (1 << move.fromSquare);
+	allPieces |= (1ULL << move.fromSquare);
+	emptySquares &= ~(1ULL << move.fromSquare);
+	pieces[color] &= ~(1ULL << move.toSquare);
+	pieces[color] |= (1ULL << move.fromSquare);
+	pieceTypes[color][int(move.promotedPiece)] &= ~(1ULL << move.toSquare);
+	pieceTypes[color][5] |= (1ULL << move.fromSquare);
 }
 int Board::getMaterialCount(int color){
 	int rv, square, count = 0;
@@ -995,19 +995,19 @@ int Board::getMaterialCount(int color){
 	tmpBitBoard = pieceTypes[color][1];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
-		tmpBitBoard &= ~(1 << square);
+		tmpBitBoard &= ~(1ULL << square);
 		rv += 900;
 	}
 	tmpBitBoard = pieceTypes[color][2];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
-		tmpBitBoard &= ~(1 << square);
+		tmpBitBoard &= ~(1ULL << square);
 		rv += 500;
 	}
 	tmpBitBoard = pieceTypes[color][3];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
-		tmpBitBoard &= ~(1 << square);
+		tmpBitBoard &= ~(1ULL << square);
 		rv += 300;
 		count++;
 	}
@@ -1016,13 +1016,13 @@ int Board::getMaterialCount(int color){
 	tmpBitBoard = pieceTypes[color][4];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
-		tmpBitBoard &= ~(1 << square);
+		tmpBitBoard &= ~(1ULL << square);
 		rv += 300;
 	}
 	tmpBitBoard = pieceTypes[color][5];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
-		tmpBitBoard &= ~(1 << square);
+		tmpBitBoard &= ~(1ULL << square);
 		rv += 100;
 	}
 	return rv;
