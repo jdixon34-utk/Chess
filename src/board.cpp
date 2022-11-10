@@ -727,13 +727,13 @@ int Board::squareUnderAttack(int square){
 		//e
 		tmpBitBoard |= RAYS[square][2] ^ (pieces[color] & RAYS[square][2]);
 		if(RAYS[square][2] & allPieces){
-			new_square = getLSBIndex(RAYS[square][2]&allPieces);
+			new_square = getMSBIndex(RAYS[square][2]&allPieces);
 			tmpBitBoard &= ~RAYS[new_square][2];
 		}
 		//s
 		tmpBitBoard |= RAYS[square][4] ^ (pieces[color] & RAYS[square][4]);
 		if(RAYS[square][4] & allPieces){
-			new_square = getLSBIndex(RAYS[square][4]&allPieces);
+			new_square = getMSBIndex(RAYS[square][4]&allPieces);
 			tmpBitBoard &= ~RAYS[new_square][4];
 		}
 		//w
