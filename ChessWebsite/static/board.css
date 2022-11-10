@@ -1,6 +1,6 @@
 :root {
     display: flex;
-    margin-left: 25%;
+    /* margin-left: 25%; */
   }
 
 #button{
@@ -252,6 +252,8 @@
     filter: drop-shadow(0 0 0.75rem rgb(70, 171, 234));
 }
 .container {
+    width: 45vw;
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
