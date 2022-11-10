@@ -15,7 +15,7 @@ Group: ChessWebsite
     * #57 [issue](https://github.com/utk-cs340-fall22/Chess/issues/57)
 
 ### What I did not do
-- I was able to finish all my issues.
+- Did not get to do issue 55. I was waiting to do this issue until the engine sent out a move, as there is no point in locking the user to a color with nothing to play against. The engine could not send a move until Thursday morning, which caused this issue to be pushed to sprint4.
 
 ### What problems I encountered
 - Fenstring read in function
@@ -25,10 +25,6 @@ Group: ChessWebsite
     * Other aspects of the board rely on reading the board in a cetrain order, such as black first then white.
     * A non flipped board has black at index 0 and a flipped board has white at index 0.
     * Had to add some checks to pervious code to make it work correctly when flipped.
-- Have the player choose what color to play
-    * Didn't get to work on this issue.
-    * The backend engine did not send a move until Thursday morning.
-    * Did not want to lock the user into only being able to only move one piece color if we weren't getting a engine move.
 - Front-end check if the user move is valid
     * Did not add en passant and castling due to lack of time
 
