@@ -11,7 +11,7 @@
 <div class="container">
     <div>
         <div style="display: left;" id="button">
-            <button id="run_button" onclick="run_ws()">=</button>
+            <button id="run_button" onclick="flip_board()">=</button>
         </div>
         <div style="display: left;" id="button2">
             <button id="run_button2" onclick="instring()">=</button>
@@ -56,7 +56,9 @@
 
     function instring() {
         //Temp delete later
-        fenin("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1");
+        //fenin("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1");
+        let instance = new Module["chessGame"];
+        fenin(instance["playTurn"](fen()));
     }
 
     function flip_board() {

@@ -7,12 +7,11 @@
 class Game{
 private:
 
-    	std::vector<class Board> positions;
+    std::vector<class Board> positions;
 
 public:
 
-	void printBitBoard();
-    	std::string playTurn(std::string FEN);
+    std::string playTurn(std::string FEN);
 
 };
 

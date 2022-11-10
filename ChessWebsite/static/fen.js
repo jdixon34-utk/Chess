@@ -105,6 +105,8 @@ function fen(){
 
     fen += full + ' ';
 
+    console.log("My fen I send " + fen);
+
     return fen;
 }
 
@@ -146,25 +148,34 @@ function fenin(fen){
     localStorage.turn = (color === "w") ? "white-piece" : "black-piece";
     let board = document.getElementById("chessboard");
 
+    for(var i = 0; i < 64; i++){
+        if(board.children[i].children[0] !== undefined){
+            board.children[i].removeChild(board.children[i].children[0]);
+            //console.log("Removed piece at " + i);
+        }
+    }
+
     if(flip === '0'){
         index = 63;
         //var test = "r4R"
         while(check !== -1){
-            if(board.children[index].children[0] !== undefined){
-                board.children[index].removeChild(board.children[index].children[0]);
-            }
+            //console.log("At index " + index + " " + board.children[index].children[0]);
+            //if(board.children[index].children[0] !== undefined){
+            //    board.children[index].removeChild(board.children[index].children[0]);
+            //    console.log("Removed piece at " + index);
+            //}
 
             if(Number(fen[check]) > 0){
                 //count += fen[count]
                 index -= Number(fen[check]);
                 index += 1;
-                console.log("TEST " + check + " " + index + " del " + Number(fen[check]));
+            //    console.log("TEST " + check + " " + index + " del " + Number(fen[check]));
             }else if(fen[check] !== "/"){
                 piece = document.createElement("DIV");
                 piece.id = index + 9 + 9;
                 if(fen[check] > "a"){
                     piece.classList.add("black-piece");
-                    console.log("YEP");
+                    //console.log("YEP");
                     if(fen[check] === "p"){
                         piece.classList.add("p");
                         piece.classList.add("B_p");
@@ -203,7 +214,7 @@ function fenin(fen){
                     }
                 }else{
                     piece.classList.add("white-piece");
-                    console.log("?Noope");
+                    //console.log("?Noope");
                     if(fen[check] === "P"){
                         piece.classList.add("P");
                         piece.classList.add("W_p");
@@ -241,7 +252,7 @@ function fenin(fen){
 
                 board.children[index].appendChild(piece);
 
-                console.log("TEST " + check + " Mid " + index);
+                //console.log("TEST " + check + " Mid " + index);
 
             }else{
                 slash++;
@@ -255,12 +266,12 @@ function fenin(fen){
         }
     }else{
         index = 0;
-        console.log(flip);
+        //console.log(flip);
         //var test = "r4R"
         while(check !== -1){
-            if(board.children[index].children[0] !== undefined){
-                board.children[index].removeChild(board.children[index].children[0]);
-            }
+            //if(board.children[index].children[0] !== undefined){
+            //    board.children[index].removeChild(board.children[index].children[0]);
+            //}
 
             if(Number(fen[check]) > 0){
                 //count += fen[count]
@@ -412,11 +423,11 @@ function flip_b(){
 
             if(localStorage.flip === '0'){
                 localStorage.flip = 1;
-                console.log("hit YESSSSSSSSSS");
+                //console.log("hit YESSSSSSSSSS");
             }else{
                 localStorage.flip = 0;
-                console.log("hit NOOOO " + localStorage.flip);
+                //console.log("hit NOOOO " + localStorage.flip);
             }
-            console.log("hit");
+            //console.log("hit");
 }
 
