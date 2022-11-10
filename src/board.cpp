@@ -1012,10 +1012,16 @@ int Board::getMaterialCount(int color){
 		tmpBitBoard &= ~(1 << square);
 		rv += 100;
 	}
-
 	return rv;
 }
 //Material imbalance, king safety, weak squares
 int Board::evaluatePosition(){
+	int whiteMaterial, blackMaterial, rv;
 
+	whiteMaterial = getMaterialCount(0);
+	blackMaterial = getMaterialCount(1);
+	rv = whiteMaterial-blackMaterial;
+
+
+	return rv;
 }
