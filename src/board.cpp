@@ -456,7 +456,7 @@ void Board::genPawnLeftMoves(){
 			moves[moveIndex++] = move;
 		}
     }else{ // Black's Turn
-        pawn_left_moves = ((pieceTypes[1][5] >> 7ULL) & ~FILE_A) & pieces[0];
+        pawn_left_moves = ((pieceTypes[0][5] >> 7ULL) & ~FILE_A) & pieces[0];
 
 		//pawn promotion
 		if(pawn_left_moves & RANK_1){
@@ -744,7 +744,7 @@ int Board::squareUnderAttack(int square){
 		}
 		if((tmpBitBoard & pieceTypes[!color][2]) != 0 || (tmpBitBoard & pieceTypes[!color][1]) != 0) return 1;
 		//King
-		if(KING_LOOKUP_TBL[square] & (1ULL << getLSBIndex(pieceTypes[!color][0]))){
+		if(KING_LOOKUP_TBL[getLSBIndex(pieceTypes[!color][0])] & square){
 			return 1;
 		}
 		//Pawn (will change slightly for black)
@@ -866,22 +866,22 @@ int Board::makePromotionMove(Move move){
 	if((allPieces&(1<<move.toSquare)) != 0){
 		//Capture into Promotion
 		for(int i = 1; i < 4; i++){
-			if((pieceTypes[!color][i] & (1 << move.toSquare)) != 0){
-				pieceTypes[!color][i] &= ~(1 << move.toSquare);
-				pieces[!color] &= ~(1 << move.toSquare);
+			if((pieceTypes[!color][i] & (1ULL << move.toSquare)) != 0){
+				pieceTypes[!color][i] &= ~(1ULL << move.toSquare);
+				pieces[!color] &= ~(1ULL << move.toSquare);
 				capturedPieceType = i;
 				break;
 			}
 		}
 	}
-	allPieces &= ~(1 << move.fromSquare);
-	allPieces |= (1 << move.toSquare);
-	emptySquares &= ~(1 << move.toSquare);
-	emptySquares |= (1 << move.fromSquare);
-	pieces[color] &= ~(1 << move.fromSquare);
-	pieces[color] |= (1 << move.toSquare);
-	pieceTypes[color][5] &= ~(1 << move.fromSquare);
-	pieceTypes[color][int(move.promotedPiece)] |= (1 << move.toSquare);
+	allPieces &= ~(1ULL << move.fromSquare);
+	allPieces |= (1ULL << move.toSquare);
+	emptySquares &= ~(1ULL << move.toSquare);
+	emptySquares |= (1ULL << move.fromSquare);
+	pieces[color] &= ~(1ULL << move.fromSquare);
+	pieces[color] |= (1ULL << move.toSquare);
+	pieceTypes[color][5] &= ~(1ULL << move.fromSquare);
+	pieceTypes[color][int(move.promotedPiece)] |= (1ULL << move.toSquare);
 
 	return capturedPieceType;
 }
@@ -972,53 +972,54 @@ void Board::undoCastleMove(Move move){
 }
 //reverts to state before promotion move
 void Board::undoPromotionMove(Move move, int capturedPieceType){
-
 	if(capturedPieceType == 0){
-		 allPieces &= ~(1 << move.toSquare);
-		 emptySquares |= (1 << move.toSquare);
+		 allPieces &= ~(1ULL << move.toSquare);
+		 emptySquares |= (1ULL << move.toSquare);
 	 }
 	else{
-		pieceTypes[!color][capturedPieceType] |= (1 << move.toSquare);
-		pieces[!color] |= (1 << move.toSquare);
+		pieceTypes[!color][capturedPieceType] |= (1ULL << move.toSquare);
+		pieces[!color] |= (1ULL << move.toSquare);
 	}
-	allPieces |= (1 << move.fromSquare);
-	emptySquares &= ~(1 << move.fromSquare);
-	pieces[color] &= ~(1 << move.toSquare);
-	pieces[color] |= (1 << move.fromSquare);
-	pieceTypes[color][int(move.promotedPiece)] &= ~(1 << move.toSquare);
-	pieceTypes[color][5] |= (1 << move.fromSquare);
+	allPieces |= (1ULL << move.fromSquare);
+	emptySquares &= ~(1ULL << move.fromSquare);
+	pieces[color] &= ~(1ULL << move.toSquare);
+	pieces[color] |= (1ULL << move.fromSquare);
+	pieceTypes[color][int(move.promotedPiece)] &= ~(1ULL << move.toSquare);
+	pieceTypes[color][5] |= (1ULL << move.fromSquare);
 }
-
-int Board::getMaterialCount(int colorParam){
-	int rv, square;
-	unsigned long long tmpBitBoard;
+int Board::getMaterialCount(int color){
+	int rv, square, count = 0;
+	long long tmpBitBoard;
 
 	rv = 0;
-	tmpBitBoard = pieceTypes[colorParam][1];
+	tmpBitBoard = pieceTypes[color][1];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
 		tmpBitBoard &= ~(1ULL << square);
 		rv += 900;
 	}
-	tmpBitBoard = pieceTypes[colorParam][2];
+	tmpBitBoard = pieceTypes[color][2];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
 		tmpBitBoard &= ~(1ULL << square);
 		rv += 500;
 	}
-	tmpBitBoard = pieceTypes[colorParam][3];
+	tmpBitBoard = pieceTypes[color][3];
+	while(tmpBitBoard != 0){
+		square = getLSBIndex(tmpBitBoard);
+		tmpBitBoard &= ~(1ULL << square);
+		rv += 300;
+		count++;
+	}
+	//Bishop pair bonus
+	if(count == 2)rv += 50;
+	tmpBitBoard = pieceTypes[color][4];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
 		tmpBitBoard &= ~(1ULL << square);
 		rv += 300;
 	}
-	tmpBitBoard = pieceTypes[colorParam][4];
-	while(tmpBitBoard != 0){
-		square = getLSBIndex(tmpBitBoard);
-		tmpBitBoard &= ~(1ULL << square);
-		rv += 300;
-	}
-	tmpBitBoard = pieceTypes[colorParam][5];
+	tmpBitBoard = pieceTypes[color][5];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
 		tmpBitBoard &= ~(1ULL << square);
@@ -1026,7 +1027,6 @@ int Board::getMaterialCount(int colorParam){
 	}
 	return rv;
 }
-
 //Material imbalance, king safety, weak squares
 int Board::evaluatePosition(){
 	int whiteMaterial, blackMaterial, rv;
@@ -1035,12 +1035,8 @@ int Board::evaluatePosition(){
 	blackMaterial = getMaterialCount(1);
 	rv = whiteMaterial-blackMaterial;
 
-	color = 0;
-	genMoves();
-	rv += moveIndex * 10;
-	color = 1;
-	genMoves();
-	rv -= moveIndex * 10;
+
+
 
 	return rv;
 }
