@@ -1029,7 +1029,8 @@ int Board::getMaterialCount(int color){
 }
 //Material imbalance, king safety, weak squares
 int Board::evaluatePosition(){
-	int whiteMaterial, blackMaterial, rv;
+	int whiteMaterial, blackMaterial, kingPos, oPos, check, rv;
+	unsigned long long tmpBitBoard;
 
 	whiteMaterial = getMaterialCount(0);
 	blackMaterial = getMaterialCount(1);
@@ -1041,6 +1042,23 @@ int Board::evaluatePosition(){
 	color = 1;
 	genMoves();
 	rv -= moveIndex * 10;
+	kingPos = getLSBIndex(pieceTypes[color][0]);
+	oPos = getLSBIndex(pieceTypes[!color][0]);
+	tmpBitBoard = KING_LOOKUP_TBL[oPos] ^ (pieces[!color] & KING_LOOKUP_TBL[oPos]);
+	check = squareUnderAttack(oPos);
+	if(check) rv+= 50;
+	if(check && tmpBitBoard == 0) rv+= 100000;
+
+	if(kingPos%4 == 1 || kingPos%4 == 2) rv += 50;
+
+	tmpBitBoard = KING_LOOKUP_TBL[kingPos] & pieces[color];
+	while(tmpBitBoard != 0){
+		tmpBitBoard &= ~(1ULL << getLSBIndex(tmpBitBoard));
+		rv += 25;
+	}
+	
+
+
 
 	return rv;
 }
