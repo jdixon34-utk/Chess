@@ -7,7 +7,7 @@
 
 <h1 class="pt-[12vh] flex justify-center items-center font-bold text-3xl bg-white">About the Project</h1>
 
-<div class="pt-[4vh] w-full h-full flex flex-col justify-center items-center px-[10vw] pb-[2vh]">
+<div class="pt-[3vh] w-full h-full flex flex-col justify-center items-center px-[10vw] pb-[2vh]">
     <p class="pb-[4vh]">
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui distinctio 
         voluptates rerum repudiandae laudantium ducimus ullam eos natus possimus. 
