@@ -100,6 +100,7 @@ ed0c43ac (jdixon34-cs340         2022-11-10 00:02:07 -0500 1041)        color = 
 ed0c43ac (jdixon34-cs340         2022-11-10 00:02:07 -0500 1042)        genMoves();
 ed0c43ac (jdixon34-cs340         2022-11-10 00:02:07 -0500 1043)        rv -= moveIndex * 10;
 a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500  1) #include <cstring>
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500  1) #include <cstring>
 6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500  2) #include "board.h"
 a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500  3) #include "move.h"
 6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500  4) #include "search.h"
@@ -125,3 +126,56 @@ a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 22)             capturedPiece
 6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 24)                 position->color = 1;
 a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 25)                 wcurrent = search(position, depth + 1);
 a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 26)                 if(wcurrent > max){
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 27)                     max = wcurrent;
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 28)                     if(depth == 0) position->bestMove = whiteMoves[>
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 29)                 }
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 30)                 position->color = 0;
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 31)             }
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 32)             position->undoMove(whiteMoves[i], capturedPieceType);
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 33)         }
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 34)         return max;
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 35)     }
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 36)     else{
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 37)         int bcurrent;
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 38)         int min = 10000;
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 39)         int capturedPieceType;
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 40)         int numMovesBlack;
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 41)         Move blackMoves[128];
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 42) 
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 43)         position->genMoves();
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 44)         memcpy(blackMoves, position->moves, sizeof(Move) * 128);
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 45)         numMovesBlack = position->moveIndex;
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 46)         for(int i = 0; i < numMovesBlack; i++){
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 47)             //printf("Depth %d Trying Black Move %d: ", depth, i);
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 48)             //blackMoves[i].printMove();
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 49)             capturedPieceType = position->makeMove(blackMoves[i]);
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 50)             if(!position->squareUnderAttack(position->getKingPositi>
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 51)                 position->color = 0;
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 52)                 bcurrent = search(position, depth + 1);
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 53)                 if(bcurrent < min){
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 54)                     min = bcurrent;
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 55)                     if(depth == 0) position->bestMove = blackMoves[>
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 56)                 }
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 57)                 position->color = 1;
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 58)             }
+a5b00ffa (jdixon34-cs340 2022-11-10 00:00:01 -0500 59)             position->undoMove(blackMoves[i], capturedPieceType);
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 60)         }
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 61)         return min;
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 62)     }
+6496cd81 (jdixon34-cs340 2022-11-09 14:32:28 -0500 63) }
+ff72fff8 (jdixon34-cs340 2022-11-09 14:33:08 -0500 14)     int eval; 
+ff72fff8 (jdixon34-cs340 2022-11-09 14:33:08 -0500 18)     //set up position
+ff72fff8 (jdixon34-cs340 2022-11-09 14:33:08 -0500 19)     position.initialize_tables();
+ff72fff8 (jdixon34-cs340 2022-11-09 14:33:08 -0500 23)     eval = search(&position, 0);
+ff72fff8 (jdixon34-cs340 2022-11-09 14:33:08 -0500 24) 
+bc681683 (jdixon34-cs340 2022-11-10 00:01:01 -0500 25)     printf("Evaluation: %f\n", double(eval) / 100);
+bc681683 (jdixon34-cs340 2022-11-10 00:01:01 -0500 26)     printf("Best Move: ");
+bc681683 (jdixon34-cs340 2022-11-10 00:01:01 -0500 27)     (position.bestMove).printMove();
+bc681683 (jdixon34-cs340 2022-11-10 00:01:01 -0500 28) 
+bc681683 (jdixon34-cs340 2022-11-10 00:01:01 -0500 29)     //make the best move
+bc681683 (jdixon34-cs340 2022-11-10 00:01:01 -0500 30)     position.makeMove(position.bestMove);
+bc681683 (jdixon34-cs340 2022-11-10 00:01:01 -0500 31)     position.color = !position.color;
+bc681683 (jdixon34-cs340 2022-11-10 00:01:01 -0500 32) 
+bc681683 (jdixon34-cs340 2022-11-10 00:01:01 -0500 33)     printf("Returning FEN String: %s\n", (position.genFENFromBoard(> 
+17684b29 (jdixon34-cs340 2022-11-01 00:18:29 -0400 35)     //return the updated FEN string
+17684b29 (jdixon34-cs340 2022-11-01 00:18:29 -0400 36)     return position.genFENFromBoard();
