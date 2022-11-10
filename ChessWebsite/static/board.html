@@ -5,35 +5,40 @@
 </head>
 
 <header>
-    <div style="display: left;" id="button">
-        <button id="run_button" onclick="run_ws()">=</button>
-    </div>
-    <div style="display: left;" id="button2">
-        <button id="run_button2" onclick="instring()">=</button>
-    </div>
+
 </header>
 
+<div class="container">
+    <div>
+        <div style="display: left;" id="button">
+            <button id="run_button" onclick="run_ws()">=</button>
+        </div>
+        <div style="display: left;" id="button2">
+            <button id="run_button2" onclick="instring()">=</button>
+        </div>
+    </div>
+    <div class="chessarea" id="chessarea"></div>
+</div>
 
-<div class="chessarea" id="chessarea"></div>
 
 <script src="board.js"></script>
 <script>
     setInterval(
         function() {
-            chessarea = document.getElementById("chessarea");
+            chessarea = document.getElementById("container");
             whitePiece = document.querySelectorAll(".white-piece");
             blackPiece = document.querySelectorAll(".black-piece");
             rect = chessarea.getBoundingClientRect();
 
             chessarea.style.height = rect.width;
             whitePiece.forEach((piece) => {
-                piece.style.width = rect.width * 1.85;
-                piece.style.height = rect.width * 1.85;
+                piece.style.width = rect.width * 2.5;
+                piece.style.height = rect.width * 2.5;
             })
 
             blackPiece.forEach((piece) => {
-                piece.style.width = rect.width * 1.85;
-                piece.style.height = rect.width * 1.85;
+                piece.style.width = rect.width * 2.5;
+                piece.style.height = rect.width * 2.5;
             })
         },
         100

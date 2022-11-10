@@ -52,8 +52,8 @@
 }
  
 /*lowercase is for black pieces and uppercase is for white pieces*/
-/*Pawns*/
-.P{
+/*Pawns If we switch back: multiplier on in board.html is 2.85 for these pieces*/
+/* .P{
     background-image: url(pawn.png);
     background-repeat: no-repeat;
     background-position: center;
@@ -62,7 +62,6 @@
 }
  
 .B_p{
-    /*border-radius: 25px;*/
     background-image: url(B_pawn.png);
     background-repeat: no-repeat;
     background-position: center;
@@ -70,7 +69,6 @@
     padding-top: 53%;
 }
  
-/*Rooks/Castles*/
 .R{
     background-image: url(rook.png);
     background-repeat: no-repeat;
@@ -87,7 +85,6 @@
     padding-top: 40%;
 }
  
-/*Bishops*/
 .B{
     background-image: url(bis.png);
     background-repeat: no-repeat;
@@ -104,7 +101,6 @@
     padding-top: 36%;
 }
  
-/*Knights*/
 .N{
     background-image: url(n.png);
     background-repeat: no-repeat;
@@ -121,7 +117,6 @@
     padding-top: 44%;
 }
  
-/*Queens*/
 .Q{
     background-image: url(queen.png);
     background-repeat: no-repeat;
@@ -138,7 +133,6 @@
     padding-top: 35%;
 }
  
-/*Kings*/
 .K{
     background-image: url(king.png);
     background-repeat: no-repeat;
@@ -153,11 +147,111 @@
     background-position: center;
     background-size: 52%;
     padding-top: 33%;
+} */
+ 
+/* New pieces */
+.P{
+    background-image: url(./piecees_data/Chess_plt60.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 120%;
+    padding-top: 53%;
 }
  
+.B_p{
+    background-image: url(./piecees_data/Chess_pdt60.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 120%;
+    padding-top: 53%;
+}
+ 
+.R{
+    background-image: url(./piecees_data/Chess_rlt60.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 120%;
+    padding-top: 40%;
+}
+ 
+.B_r{
+    background-image: url(./piecees_data/Chess_rdt60.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 120%;
+    padding-top: 40%;
+}
+ 
+.B{
+    background-image: url(./piecees_data/Chess_blt60.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 120%;
+    padding-top: 36%;
+}
+ 
+.B_b{
+    background-image: url(./piecees_data/Chess_bdt60.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 120%;
+    padding-top: 36%;
+}
+ 
+.N{
+    background-image: url(./piecees_data/Chess_nlt60.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 120%;
+    padding-top: 44%;
+}
+ 
+.B_n{
+    background-image: url(./piecees_data/Chess_ndt60.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 120%;
+    padding-top: 44%;
+}
+ 
+.Q{
+    background-image: url(./piecees_data/Chess_qlt60.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 120%;
+    padding-top: 35%;
+}
+ 
+.B_q{
+    background-image: url(./piecees_data/Chess_qdt60.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 120%;
+    padding-top: 35%;
+}
+ 
+.K{
+    background-image: url(./piecees_data/Chess_klt60.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 120%;
+    padding-top: 33%;
+}
+ 
+.B_k{
+    background-image: url(./piecees_data/Chess_kdt60.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 120%;
+    padding-top: 33%;
+}
 /*Currently selected piece to move*/
 .current{
     /* border: 1px solid #FF8200;
     border-radius: 10%; */
     filter: drop-shadow(0 0 0.75rem rgb(70, 171, 234));
+}
+.container {
+    display: flex;
+    flex-direction: row;
 }
