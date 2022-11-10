@@ -20,7 +20,7 @@
     float: left;
     width: 12.5%;
     height: 12.5%;
-    background-color: gray;
+    background-color: #f9eda7;
 
     /* This is to center the pieces properly on the board */
     display: flex;
@@ -31,7 +31,7 @@
     float: left;
     width: 12.5%;
     height: 12.5%;
-    background-color: white;
+    background-color: #b0673a;
 
     /* This is to center the pieces properly on the board */
     display: flex;
@@ -57,7 +57,7 @@
     background-image: url(pawn.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 72%;
+    background-size: 80%;
     padding-top: 53%;
 }
  
@@ -66,7 +66,7 @@
     background-image: url(B_pawn.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 72%;
+    background-size: 80%;
     padding-top: 53%;
 }
  
@@ -75,7 +75,7 @@
     background-image: url(rook.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 70%;
+    background-size: 78%;
     padding-top: 40%;
 }
  
@@ -83,7 +83,7 @@
     background-image: url(B_rook.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 70%;
+    background-size: 78%;
     padding-top: 40%;
 }
  
@@ -92,7 +92,7 @@
     background-image: url(bis.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 61%;
+    background-size: 69%;
     padding-top: 36%;
 }
  
@@ -100,7 +100,7 @@
     background-image: url(B_bis.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 61%;
+    background-size: 69%;
     padding-top: 36%;
 }
  
@@ -109,7 +109,7 @@
     background-image: url(n.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 75%;
+    background-size: 83%;
     padding-top: 44%;
 }
  
@@ -117,7 +117,7 @@
     background-image: url(B_n.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 75%;
+    background-size: 83%;
     padding-top: 44%;
 }
  
@@ -126,7 +126,7 @@
     background-image: url(queen.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 59%;
+    background-size: 55%;
     padding-top: 35%;
 }
  
@@ -134,7 +134,7 @@
     background-image: url(B_queen.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 59%;
+    background-size: 57%;
     padding-top: 35%;
 }
  
@@ -143,8 +143,8 @@
     background-image: url(king.png);
     background-repeat: no-repeat;
     background-position: top;
-    background-size: 52%;
-    padding-top: 33%;
+    background-size: 48%;
+    padding-top: 25%;
 }
  
 .B_k{
@@ -159,5 +159,5 @@
 .current{
     /* border: 1px solid #FF8200;
     border-radius: 10%; */
-    filter: drop-shadow(0 0 0.75rem rgb(11, 61, 225));
+    filter: drop-shadow(0 0 0.75rem rgb(70, 171, 234));
 }

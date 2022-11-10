@@ -6,6 +6,12 @@
 
 using namespace std;
 
+void Board::initialize_tables(){
+	INITIALIZE_KING_LOOKUP_TBL();
+	INITIALIZE_KNIGHT_LOOKUP_TBL();
+	INITIALIZE_RAYS();
+}
+
 void Board::genBoardFromFEN(string FEN){
 	int indexFEN = 0, indexBoard = 56;
 
@@ -749,6 +755,10 @@ int Board::squareUnderAttack(int square){
 		}
 
 	return 0;
+}
+
+int Board::getKingPosition(){
+	return getLSBIndex(pieceTypes[color][0]);
 }
 
 int Board::makeMove(Move move){

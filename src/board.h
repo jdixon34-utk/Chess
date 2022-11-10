@@ -35,7 +35,7 @@ class Board{
 private:
 
     //important info given from FEN string
-	int color;//0 = white's turn, 1 = black's turn
+	//color - made public
 	bool whiteCastleRightsKS;
 	bool whiteCastleRightsQS;
 	bool blackCastleRightsKS;
@@ -51,10 +51,16 @@ private:
 
 public:
 
+	class Move bestMove;
+
+	int color;//0 = white's turn, 1 = black's turn
+
 	//Move is a struct that will be defined somewhere else
 	//it just holds the information of a move: "from" square, "to" square, and other small info
 	class Move moves[128];
 	int moveIndex;
+
+	void initialize_tables();
 
 	void genBoardFromFEN(std::string FEN);
 	std::string genFENFromBoard();
@@ -82,6 +88,7 @@ public:
 	void genCastleQS();
 
 	int squareUnderAttack(int square);
+	int getKingPosition();
 
 	int makeMove(class Move move);
 	int makeNormalMove(class Move move);

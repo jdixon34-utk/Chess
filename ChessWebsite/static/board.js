@@ -236,6 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if((piece.classList.item(1) === "P") || (piece.classList.item(1) === "p")){
             
+            console.log("In pawn");
             console.log("value diff " + diff + " new " + new_index + " old " + old_index + " flipe " + localStorage.flip);
             //Move up one
             if(!take && (((new_index + diff) === old_index && piece.classList.item(0) === "black-piece") 
@@ -272,6 +273,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         else if((piece.classList.item(1) === "Q") || (piece.classList.item(1) === "q")){
             
+            console.log("In queen");
             //Checks up/down
             if((new_index % 8) === (old_index % 8)){
                 if(check_path(new_index, old_index)){
@@ -287,7 +289,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             //Checks diagonaly
-            if(((Math.floor(new_index / 8) * 8) + (new_index % 8)) === new_index){
+            if(Math.abs((new_index % 8) - (old_index % 8)) === Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8))){
                 if(check_path_dia(new_index, old_index)){
                     return true;
                 }
@@ -295,6 +297,44 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             alert("Invalid queen move");
+        }
+
+        /* Checks if the piece is a Rook or not and determines the valid moves */
+        else if((piece.classList.item(1) === "R") || (piece.classList.item(1) === "r")){
+            
+            console.log("In rook");
+            /* Veritcal movement */
+            if((new_index % 8) === (old_index % 8)){
+                if(check_path(new_index, old_index)){
+                    return true;
+                }
+            }
+
+            /* Horizontal movement */
+            if(Math.floor(new_index / 8) === Math.floor(old_index / 8)){
+                if(check_path(new_index, old_index)){
+                    return true;
+                }
+                console.log("YIPPPE " + old_index + " " + (((new_index % 8) * 8) + (new_index % 8)));
+            }
+
+            alert("Invalid rook move");
+        }
+
+        /* Checks if the piece is a Bishop or not and determines the valid moves */
+        else if((piece.classList.item(1) === "B") || (piece.classList.item(1) === "b")){
+
+            console.log("In bis");
+
+            /* If there is attempted diagonal move, we return true and allow move */
+            if(Math.abs((new_index % 8) - (old_index % 8)) === Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8))){
+                console.log("YIPPPE " + Math.abs((new_index % 8) - (old_index % 8)) + " " + Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8)));
+                if(check_path_dia(new_index, old_index)){
+                    return true;
+                }
+            }
+            
+            alert("Invalid bishop move");
         }
 
         return false;
