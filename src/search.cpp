@@ -4,7 +4,10 @@
 #include "search.h"
 
 int search(Board* position, int depth){
-    if(depth == 4) return position->evaluatePosition();
+    if(depth == 4){
+        position->positionsEvaluated++;
+        return position->evaluatePosition();
+    }
 
     if(position->color == 0){
         int wcurrent;
@@ -20,7 +23,7 @@ int search(Board* position, int depth){
             //printf("Depth %d Trying White Move %d: ", depth, i);
             //whiteMoves[i].printMove();
             capturedPieceType = position->makeMove(whiteMoves[i]);
-            if(!position->squareUnderAttack(position->getKingPosition())){
+            if(!position->inCheck()){
                 position->color = 1;
                 wcurrent = search(position, depth + 1);
                 if(wcurrent > max){
@@ -31,6 +34,9 @@ int search(Board* position, int depth){
             }
             position->undoMove(whiteMoves[i], capturedPieceType);
         }
+        //if stalemate
+        if(max == -10000 && !position->inCheck()) return 0;
+        //if it's checkmate, then -10000 will be returned, otherwise the eval for white's best move is returned
         return max;
     }
     else{
@@ -47,7 +53,7 @@ int search(Board* position, int depth){
             //printf("Depth %d Trying Black Move %d: ", depth, i);
             //blackMoves[i].printMove();
             capturedPieceType = position->makeMove(blackMoves[i]);
-            if(!position->squareUnderAttack(position->getKingPosition())){
+            if(!position->inCheck()){
                 position->color = 0;
                 bcurrent = search(position, depth + 1);
                 if(bcurrent < min){
@@ -58,6 +64,9 @@ int search(Board* position, int depth){
             }
             position->undoMove(blackMoves[i], capturedPieceType);
         }
+        //if stalemate
+        if(min == 10000 && !position->inCheck()) return 0;
+        //if it's checkmate, then 10000 will be returned, otherwise the eval for black's best move is returned
         return min;
     }
 }

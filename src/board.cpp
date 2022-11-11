@@ -757,8 +757,33 @@ int Board::squareUnderAttack(int square){
 	return 0;
 }
 
+int Board::inCheck(){
+	return squareUnderAttack(getKingPosition());
+}
+
 int Board::getKingPosition(){
 	return getLSBIndex(pieceTypes[color][0]);
+}
+
+//returns 0 for neither, 1 for checkmate, 2 for stalemate
+//ASSUMES MOVES HAVE ALREADY BEEN GENEREATED
+int Board::checkmateOrStalemate(){
+	int capturedPieceType;
+	int noLegalMoves = 1;
+
+	for(int i = 0; i < moveIndex; i++){
+		capturedPieceType = makeMove(moves[i]);
+		if(!inCheck()){
+			//we found a legal move that doesn't lead to white being in check
+			noLegalMoves = 0;
+			undoMove(moves[i], capturedPieceType);
+			break;
+		}
+		undoMove(moves[i], capturedPieceType);
+	}
+	if(noLegalMoves && inCheck()) return 1;
+	if(noLegalMoves && !inCheck()) return 2;
+	return 0;
 }
 
 int Board::makeMove(Move move){
@@ -987,39 +1012,39 @@ void Board::undoPromotionMove(Move move, int capturedPieceType){
 	pieceTypes[color][int(move.promotedPiece)] &= ~(1ULL << move.toSquare);
 	pieceTypes[color][5] |= (1ULL << move.fromSquare);
 }
-int Board::getMaterialCount(int color){
+int Board::getMaterialCount(int colorParam){
 	int rv, square, count = 0;
 	long long tmpBitBoard;
 
 	rv = 0;
-	tmpBitBoard = pieceTypes[color][1];
+	tmpBitBoard = pieceTypes[colorParam][1];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
 		tmpBitBoard &= ~(1ULL << square);
 		rv += 900;
 	}
-	tmpBitBoard = pieceTypes[color][2];
+	tmpBitBoard = pieceTypes[colorParam][2];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
 		tmpBitBoard &= ~(1ULL << square);
 		rv += 500;
 	}
-	tmpBitBoard = pieceTypes[color][3];
-	while(tmpBitBoard != 0){
-		square = getLSBIndex(tmpBitBoard);
-		tmpBitBoard &= ~(1ULL << square);
-		rv += 300;
-		count++;
-	}
-	//Bishop pair bonus
-	if(count == 2)rv += 50;
-	tmpBitBoard = pieceTypes[color][4];
+	tmpBitBoard = pieceTypes[colorParam][3];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
 		tmpBitBoard &= ~(1ULL << square);
 		rv += 325;
+		count++;
 	}
-	tmpBitBoard = pieceTypes[color][5];
+	//Bishop pair bonus
+	if(count == 2) rv += 50;
+	tmpBitBoard = pieceTypes[colorParam][4];
+	while(tmpBitBoard != 0){
+		square = getLSBIndex(tmpBitBoard);
+		tmpBitBoard &= ~(1ULL << square);
+		rv += 300;
+	}
+	tmpBitBoard = pieceTypes[colorParam][5];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
 		tmpBitBoard &= ~(1ULL << square);
@@ -1029,8 +1054,13 @@ int Board::getMaterialCount(int color){
 }
 //Material imbalance, king safety, weak squares
 int Board::evaluatePosition(){
-	int whiteMaterial, blackMaterial, kingPos, oPos, check,noMoves, rv;
+	int whiteMaterial, blackMaterial, kingPos, oPos, check, noMoves, rv;
+	int whiteTurn = !color;
+	int noLegalMoves = 1;
+	int capturedPieceType;
+	int checkmateStalemateVal;
 	unsigned long long tmpBitBoard;
+	
 
 	whiteMaterial = getMaterialCount(0);
 	blackMaterial = getMaterialCount(1);
@@ -1038,10 +1068,34 @@ int Board::evaluatePosition(){
 
 	color = 0;
 	genMoves();
+	//if white's turn, check if white is checkmated/stalemated
+	if(whiteTurn){
+		checkmateStalemateVal = checkmateOrStalemate();
+		switch(checkmateStalemateVal){
+			case 0: break;
+			case 1: return -10000;
+			case 2: return 0;
+		}
+	}
+	//add 10 pts for each possible move that white has
 	rv += moveIndex * 10;
+
+
 	color = 1;
 	genMoves();
+	//if black's turn, check if black is checkmated/stalemated
+	if(!whiteTurn){
+		checkmateStalemateVal = checkmateOrStalemate();
+		switch(checkmateStalemateVal){
+			case 0: break;
+			case 1: return 10000;
+			case 2: return 0;
+		}
+	}
+	//subtract 10 pts for each possible move that black has
 	rv -= moveIndex * 10;
+	
+	/*
 	kingPos = getLSBIndex(pieceTypes[color][0]);
 	oPos = getLSBIndex(pieceTypes[!color][0]);
 	tmpBitBoard = KING_LOOKUP_TBL[oPos] ^ (pieces[!color] & KING_LOOKUP_TBL[oPos]);
@@ -1062,7 +1116,7 @@ int Board::evaluatePosition(){
 		tmpBitBoard &= ~(1ULL << getLSBIndex(tmpBitBoard));
 		rv += 25;
 	}
-
+	*/
 
 
 

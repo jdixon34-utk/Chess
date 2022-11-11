@@ -16,6 +16,7 @@ std::string Game::playTurn(std::string FEN){
     positions.push_back(position);
 
     //set up position
+    position.positionsEvaluated = 0;
     position.initialize_tables();
     position.genBoardFromFEN(FEN);
 
@@ -23,6 +24,7 @@ std::string Game::playTurn(std::string FEN){
     eval = search(&position, 0);
 
     printf("Evaluation: %f\n", double(eval) / 100);
+    printf("Positions Evaluated: %d\n", position.positionsEvaluated);
     printf("Best Move: ");
     (position.bestMove).printMove();
 

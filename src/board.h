@@ -52,6 +52,7 @@ private:
 public:
 
 	class Move bestMove;
+	int positionsEvaluated;
 
 	int color;//0 = white's turn, 1 = black's turn
 
@@ -88,6 +89,8 @@ public:
 	void genCastleQS();
 
 	int squareUnderAttack(int square);
+	int inCheck();
+	int checkmateOrStalemate(); //returns 0 for neither, 1 for checkmate, 2 for stalemate
 	int getKingPosition();
 
 	int makeMove(class Move move);
