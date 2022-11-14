@@ -19,7 +19,7 @@ std::string Game::playTurn(std::string FEN){
     position.positionsEvaluated = 0;
     position.initialize_tables();
     position.genBoardFromFEN(FEN);
-
+    
     //then do the search for the best move
     eval = search(&position, 0);
 
@@ -33,6 +33,7 @@ std::string Game::playTurn(std::string FEN){
     position.color = !position.color;
 
     printf("Returning FEN String: %s\n", (position.genFENFromBoard()).c_str());
+    
 
     //return the updated FEN string
     return position.genFENFromBoard();

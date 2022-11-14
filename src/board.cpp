@@ -316,11 +316,11 @@ void Board::genMoves(){
 	genPawnSinglePushMoves();
 	genPawnDoublePushMoves();
 	genPawnRightMoves();
-	if(enPassantTargetSquare != 0) genEnPassantMoves();
-	if(color == 0 && whiteCastleRightsKS) genCastleKS();
-	else if(color == 1 && blackCastleRightsKS) genCastleKS();
-	if(color == 0 && whiteCastleRightsQS) genCastleQS();
-	else if(color == 1 && blackCastleRightsQS) genCastleQS();
+	//if(enPassantTargetSquare != 0) genEnPassantMoves();
+	//if(color == 0 && whiteCastleRightsKS) genCastleKS();
+	//else if(color == 1 && blackCastleRightsKS) genCastleKS();
+	//if(color == 0 && whiteCastleRightsQS) genCastleQS();
+	//else if(color == 1 && blackCastleRightsQS) genCastleQS();
 }
 
 void Board::genKingMoves(int square){
@@ -445,7 +445,7 @@ void Board::genPawnLeftMoves(){
 
 		//pawn promotion
 		if(pawn_left_moves & RANK_8){
-			pawn_left_moves = genPromoMoves(pawn_left_moves, RANK_8, -7);
+			//pawn_left_moves = genPromoMoves(pawn_left_moves, RANK_8, -7);
 		}
 
 		while(pawn_left_moves != 0){
@@ -460,7 +460,7 @@ void Board::genPawnLeftMoves(){
 
 		//pawn promotion
 		if(pawn_left_moves & RANK_1){
-			pawn_left_moves = genPromoMoves(pawn_left_moves, RANK_1, 7);
+			//pawn_left_moves = genPromoMoves(pawn_left_moves, RANK_1, 7);
 		}
 
 		while(pawn_left_moves != 0){
@@ -484,7 +484,7 @@ void Board::genPawnSinglePushMoves(){
 
 		//pawn promotion
 		if(pawn_sp_moves & RANK_8){
-			pawn_sp_moves = genPromoMoves(pawn_sp_moves, RANK_8, -8);
+			//pawn_sp_moves = genPromoMoves(pawn_sp_moves, RANK_8, -8);
 		}
 
 		while(pawn_sp_moves != 0){
@@ -499,7 +499,7 @@ void Board::genPawnSinglePushMoves(){
 
 		//pawn promotion
 		if(pawn_sp_moves & RANK_1){
-			pawn_sp_moves = genPromoMoves(pawn_sp_moves, RANK_1, 8);
+			//pawn_sp_moves = genPromoMoves(pawn_sp_moves, RANK_1, 8);
 		}
 
 		while(pawn_sp_moves != 0){
@@ -548,7 +548,7 @@ void Board::genPawnRightMoves(){
 
 		//pawn promotion
 		if(pawn_right_moves & RANK_8){
-			pawn_right_moves = genPromoMoves(pawn_right_moves, RANK_8, -9);
+			//pawn_right_moves = genPromoMoves(pawn_right_moves, RANK_8, -9);
 		}
 
 		while(pawn_right_moves != 0){
@@ -563,7 +563,7 @@ void Board::genPawnRightMoves(){
 
 		//pawn promotion
 		if(pawn_right_moves & RANK_1){
-			pawn_right_moves = genPromoMoves(pawn_right_moves, RANK_1, 9);
+			//pawn_right_moves = genPromoMoves(pawn_right_moves, RANK_1, 9);
 		}
 
 		while(pawn_right_moves != 0){
@@ -1012,6 +1012,7 @@ void Board::undoPromotionMove(Move move, int capturedPieceType){
 	pieceTypes[color][int(move.promotedPiece)] &= ~(1ULL << move.toSquare);
 	pieceTypes[color][5] |= (1ULL << move.fromSquare);
 }
+
 int Board::getMaterialCount(int colorParam){
 	int rv, square, count = 0;
 	long long tmpBitBoard;

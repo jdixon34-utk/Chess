@@ -1,12 +1,15 @@
 #include <cstring>
+#include <unistd.h>
 #include "board.h"
 #include "move.h"
 #include "search.h"
 
 int search(Board* position, int depth){
     if(depth == 4){
+        int eval;
         position->positionsEvaluated++;
-        return position->evaluatePosition();
+        eval = position->evaluatePosition();
+        return eval;
     }
 
     if(position->color == 0){
@@ -32,6 +35,7 @@ int search(Board* position, int depth){
                 }
                 position->color = 0;
             }
+            //else printf("White in check   %s\n", (position->genFENFromBoard()).c_str());
             position->undoMove(whiteMoves[i], capturedPieceType);
         }
         //if stalemate
@@ -62,6 +66,7 @@ int search(Board* position, int depth){
                 }
                 position->color = 1;
             }
+            //else printf("Black in check   %s\n", (position->genFENFromBoard()).c_str());
             position->undoMove(blackMoves[i], capturedPieceType);
         }
         //if stalemate
