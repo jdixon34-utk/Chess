@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     full = 0;
     var en_pas_ignore = false;
     var flip = 0;
-    curr_en_pas = null;
+    curr_en_pas = "null";
     win_con = null;
 
     //Lets these variables be used in the .html file and any files .js files in the .html
@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.full = full;
     localStorage.flip = flip;
     localStorage.win_con = win_con;
+    localStorage.curr_en_pas = curr_en_pas;
    
     const rows = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
     //Create the squares and pieces
@@ -133,6 +134,7 @@ function moveStart(e, col){
         half = localStorage.half;
         full = localStorage.full;
         win = localStorage.win_con;
+        curr_en_pas = localStorage.curr_en_pas;
 
         if(full === "100"){
             console.log("IN");
@@ -167,6 +169,8 @@ function moveStart(e, col){
                 
                         if(cur.classList.contains("First")){
                             en_Pas(col, cur.parentNode);
+                            console.log("test " + curr_en_pas);
+                            //en_pas_ignore = true;
                         }
 
                     }else{
@@ -219,10 +223,11 @@ function moveStart(e, col){
 
             if(en_pas_ignore === false){
                 pas = "-";
-                curr_en_pas =  null;
+                curr_en_pas =  "null";
                 localStorage.pas = pas;
             }else{
                 en_pas_ignore = false;
+                console.log("IN THIS " + pas + " " + curr_en_pas);
             }
         }
 }
@@ -300,6 +305,21 @@ function moveStart(e, col){
             }
 
             //En pas check goes here
+            board = document.getElementById("chessboard");
+            console.log("En_pas why " + (new_index + 8));
+            //Only works when not a backend move
+            if(((new_index + 8).toString() === curr_en_pas || (new_index - 8).toString() === curr_en_pas) && 
+            (((((new_index + diff) - old_index) === 1 || ((new_index + diff) - old_index) === -1) 
+                && piece.classList.item(0) === "black-piece") 
+                || ((((new_index - diff) - old_index) === 1 || ((new_index - diff) - old_index) === -1) 
+                && piece.classList.item(0) === "white-piece"))){
+                
+                //Delete the piece
+                board.children[curr_en_pas].removeChild(board.children[curr_en_pas].children[0]);
+                return true;
+            }else{
+                console.log(curr_en_pas + " bad " + pas);
+            }
 
             alert("Invalid pawn move");
         }
@@ -507,7 +527,8 @@ function moveStart(e, col){
                 //console.log(rows[7 - (new_index % 8)] + " " + (1 + Math.floor(new_index / 8)) + " enpas2 " + check);
             }
 
-            curr_en_pas = old_col.children[0];
+            curr_en_pas = new_index.toString();
+            localStorage.curr_en_pas = curr_en_pas;
             localStorage.pas = pas;
             en_pas_ignore = true;
         }

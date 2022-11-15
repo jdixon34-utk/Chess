@@ -132,10 +132,17 @@ function fenin(fen){
     //var check = fen.length - 5;
     check--;
     let pas = "-";
+    let cur_en_pas = "null";
     console.log("pas check " + fen[check] + " " + check);
     if(fen[check] !== "-"){
         pas = fen[check-1] + fen[check];
         check--;
+    }
+
+    //Current the en passent given to an index on the board
+    //NEED TO CHECK FOR FLIP
+    if(pas !== "-"){
+        cur_en_pas = make_en_pas(pas);
     }
  
     check -= 2;
@@ -158,6 +165,7 @@ function fenin(fen){
 
     var index;
     var slash = 0;
+    localStorage.cur_en_pas = cur_en_pas;
     localStorage.cas = cas;
     localStorage.pas = pas;
     localStorage.half = half;
@@ -396,7 +404,28 @@ function fenin(fen){
 
 }
 
+function make_en_pas(pas){
+    flip = localStorage.flip;
+    
+    //Ascii value of the letter - 'a' + the row of the number
+    if(flip === '0'){
+        //console.log(pas.charCodeAt(0) + " " + (pas.charCodeAt(0) - 97) + " " + ((pas.charCodeAt(0) - 97) + ((8 - parseInt(pas[1])) * 8)));
+        cur_en_pas = ((pas.charCodeAt(0) - 97) + ((8 - parseInt(pas[1])) * 8)).toString();
+    }else{
+        //console.log((104 - pas.charCodeAt(0)) + " " + ((parseInt(pas[1]) - 1) * 8) + " crap");
+        cur_en_pas = ((104 - pas.charCodeAt(0)) + ((parseInt(pas[1]) - 1) * 8)).toString();
+    }
+
+    return cur_en_pas;
+}
+
 function flip_b(){
+
+    //Need to change where our current en passent is on the board.
+    cur_en_pas = localStorage.cur_en_pas;
+    cur_en_pas = (63 - parseInt(cur_en_pas)).toString();
+    localStorage.cur_en_pas = cur_en_pas;
+
     test = document.getElementById("chessboard");
         table;
             let color, color2;
