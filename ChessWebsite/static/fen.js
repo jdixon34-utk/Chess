@@ -113,12 +113,26 @@ function fen(){
 function fenin(fen){
  
     flip = localStorage.flip;
-    let full = fen[fen.length-1];
-    let half = fen[fen.length-3];
+    var check = fen.length-1;
+    let full = ""
+    while(fen[check] !== " "){
+        full += fen[check];
+        check--;
+        console.log(full);
+    }
+    check--;
+    let half = "";
+    while(fen[check] !== " "){
+        half += fen[check];
+        check--;
+        console.log(half);
+        console.log(fen[check]);
+    }
  
-    var check = fen.length - 5;
- 
+    //var check = fen.length - 5;
+    check--;
     let pas = "-";
+    console.log("pas check " + fen[check] + " " + check);
     if(fen[check] !== "-"){
         pas = fen[check-1] + fen[check];
         check--;
@@ -126,13 +140,16 @@ function fenin(fen){
  
     check -= 2;
  
-    let castle = "-";
+    let castle = "";
     if(fen[check] !== "-"){
         while(fen[check] !== " "){
+            console.log(fen[check]);
             castle += fen[check];
             check--;
         }
         check++;
+    }else{
+        castle = "-";
     }
     check -= 2;
  
@@ -375,7 +392,7 @@ function fenin(fen){
 
     }
 
-    //console.log(color + " " + castle + " " + pas + " " + full + " " + half + " " + fen[check]);
+    console.log(color + " " + castle + " " + pas + " " + full + " " + half + " " + fen[check]);
 
 }
 
