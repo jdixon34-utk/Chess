@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var en_pas_ignore = false;
     var flip = 0;
     curr_en_pas = null;
+    win_con = null;
 
     //Lets these variables be used in the .html file and any files .js files in the .html
     localStorage.turn = turn;
@@ -22,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.half = half;
     localStorage.full = full;
     localStorage.flip = flip;
+    localStorage.win_con = win_con;
    
     const rows = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
     //Create the squares and pieces
@@ -123,89 +125,112 @@ document.addEventListener("DOMContentLoaded", function () {
     //Checks if a move is valid, if so does the move
     //e is click event, not used.
     //Col is the column the user clicked on
-    function moveStart(e, col){
+function moveStart(e, col){
 
         turn = localStorage.turn;
         pas = localStorage.pas;
         cas = localStorage.cas;
         half = localStorage.half;
         full = localStorage.full;
- 
-        //Current piece selected, will be undefined at start
-        var cur = document.getElementsByClassName("current")[0];
-       
-        //Nothing is currently selected and column selected has a piece
-        if(cur === undefined && col.children[0] !== undefined){
-            if(col.children[0].classList.item(0) === turn){
-                col.children[0].classList.add("current");
-            }else{
-                alert("It is currently " + turn + "'s turn.");
-                console.log(col.children[0].classList.item(0) + " " + half);
-            }
+        win = localStorage.win_con;
+
+        if(full === "100"){
+            console.log("IN");
+            alert("100 turn timer reached you have tied");
+            localStorage.win_con = "t";
+            return;
+        }else if(half === "50"){
+            alert("50 half-turn timer reached you have tied");
+            localStorage.win_con = "t";
+            return;
         }
-        //Valid move. So move the piece
-        else if(cur !== undefined && col.children[0] === undefined){
-            if(validMove(col, cur.parentNode, cur, 0)){
-                //IF a pawn checks if an en passant is now valid
-                if((cur.classList.contains("B_p") === true) || (cur.classList.contains("P") === true)){
-                    half = 0;
+        
+        if(win === "null"){
+            //Current piece selected, will be undefined at start
+            var cur = document.getElementsByClassName("current")[0];
+       
+            //Nothing is currently selected and column selected has a piece
+            if(cur === undefined && col.children[0] !== undefined){
+                if(col.children[0].classList.item(0) === turn){
+                    col.children[0].classList.add("current");
+                }else{
+                    alert("It is currently " + turn + "'s turn.");
+                    console.log(col.children[0].classList.item(0) + " " + half);
+                }
+            }
+            //Valid move. So move the piece
+            else if(cur !== undefined && col.children[0] === undefined){
+                if(validMove(col, cur.parentNode, cur, 0)){
+                    //IF a pawn checks if an en passant is now valid
+                    if((cur.classList.contains("B_p") === true) || (cur.classList.contains("P") === true)){
+                        half = 0;
                 
-                    if(cur.classList.contains("First")){
-                        en_Pas(col, cur.parentNode);
+                        if(cur.classList.contains("First")){
+                            en_Pas(col, cur.parentNode);
+                        }
+
+                    }else{
+                        half++;
                     }
 
-                }else{
-                    half++;
+                    if(((cur.classList.contains("k") || cur.classList.contains("K")) || ((cur.classList.contains("r") || cur.classList.contains("R")))) 
+                        && cur.classList.contains("First")){
+                            castling(cur);
+                    }
+
+                    move(col, cur.parentNode, cur);
+                    //en_pas_ignore = false;
+
+                    full++;
+
+                    localStorage.half = half;
+                    localStorage.full = full;
                 }
+            }
+            //Unselect the current piece
+            else if(col.children[0] === cur){
+                    cur.classList.remove("current");
+            }
+            //Take a piece
+            else if(col.children[0] !== undefined && ((cur.classList.contains("white-piece") && col.children[0].classList.contains("black-piece")) || (cur.classList.contains("black-piece") && col.children[0].classList.contains("white-piece")))){
+                if(validMove(col, cur.parentNode, cur, 1)){
+                    half = 0;
 
-                if(((cur.classList.contains("k") || cur.classList.contains("K")) || ((cur.classList.contains("r") || cur.classList.contains("R")))) 
-                    && cur.classList.contains("First")){
-                        castling(cur);
+                    if(col.children[0].item(1) === 'K'){
+                        alert("Black wins!");
+                    }else if(col.children[0].item(1) === 'k'){
+                        alert("White wins!");
+                    }
+
+                    col.removeChild(col.children[0]);
+                    move(col, cur.parentNode, cur);
+                    full++;
+
+                    localStorage.half = half;
+                    localStorage.full = full;
+
                 }
+            }
+            //Good attempt but there is already a piece there ;D
+            else if(col.children[0] !== undefined){
+                alert("Column already has a piece of the same color");
+            }
+            //Else nothing is currently selected and the selected square has no piece so do nothing
 
-                move(col, cur.parentNode, cur);
-                //en_pas_ignore = false;
-
-                full++;
-
-                localStorage.half = half;
-                localStorage.full = full;
+            if(en_pas_ignore === false){
+                pas = "-";
+                curr_en_pas =  null;
+                localStorage.pas = pas;
+            }else{
+                en_pas_ignore = false;
             }
         }
-        //Unselect the current piece
-        else if(col.children[0] === cur){
-                cur.classList.remove("current");
-        }
-        //Take a piece
-        else if(col.children[0] !== undefined && ((cur.classList.contains("white-piece") && col.children[0].classList.contains("black-piece")) || (cur.classList.contains("black-piece") && col.children[0].classList.contains("white-piece")))){
-            if(validMove(col, cur.parentNode, cur, 1)){
-                half = 0;
-                col.removeChild(col.children[0]);
-                move(col, cur.parentNode, cur);
-                full++;
-
-                localStorage.half = half;
-                localStorage.full = full;
-            }
-        }
-        //Good attempt but there is already a piece there ;D
-        else if(col.children[0] !== undefined){
-            alert("Column already has a piece of the same color");
-        }
-        //Else nothing is currently selected and the selected square has no piece so do nothing
-
-        if(en_pas_ignore === false){
-            pas = "-";
-            curr_en_pas =  null;
-            localStorage.pas = pas;
-        }else{
-            en_pas_ignore = false;
-        }
-
-    }
+}
  
     //Move piece from cur_col to new_col
     function move(new_col, cur_col, piece) {
+
+       
 
         //No longer first move so first is removed
         if(piece.classList.contains("First")){
@@ -219,7 +244,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         turn = (turn === "white-piece") ? "black-piece" : "white-piece";
         localStorage.turn = turn;
+
+        //call backend to do move, want to delay it by half a second.
+        //setTimeout(instring(), 5000);
+        //instring();
     }
+
+    //function codingCourse() {
+    //    console.log("freeCodeCamp");
+    //  }
  
     function validMove(new_col, cur_col, piece, take){
 
