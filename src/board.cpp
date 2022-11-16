@@ -890,7 +890,7 @@ int Board::makePromotionMove(Move move){
 	int capturedPieceType = 0;
 	if((allPieces&(1<<move.toSquare)) != 0){
 		//Capture into Promotion
-		for(int i = 1; i < 4; i++){
+		for(int i = 1; i < 5; i++){
 			if((pieceTypes[!color][i] & (1ULL << move.toSquare)) != 0){
 				pieceTypes[!color][i] &= ~(1ULL << move.toSquare);
 				pieces[!color] &= ~(1ULL << move.toSquare);
@@ -899,9 +899,11 @@ int Board::makePromotionMove(Move move){
 			}
 		}
 	}
+	if(capturedPieceType == 0){
+		allPieces |= (1ULL << move.toSquare);
+		emptyPieces &= ~(1ULL << move.toSquare);
+	}
 	allPieces &= ~(1ULL << move.fromSquare);
-	allPieces |= (1ULL << move.toSquare);
-	emptySquares &= ~(1ULL << move.toSquare);
 	emptySquares |= (1ULL << move.fromSquare);
 	pieces[color] &= ~(1ULL << move.fromSquare);
 	pieces[color] |= (1ULL << move.toSquare);
@@ -997,20 +999,20 @@ void Board::undoCastleMove(Move move){
 }
 //reverts to state before promotion move
 void Board::undoPromotionMove(Move move, int capturedPieceType){
+	allPieces |= (1ULL << move.fromSquare);
+	pieces[color] |= (1ULL << move.fromSquare);
+	pieceTypes[color][5] |= (1ULL << move.fromSquare);
+	emptySquares &= ~(1ULL << move.fromSquare);
+
+	pieces[color] &= ~(1ULL << move.toSquare);
+	pieceTypes[color][int(move.promotedPiece)] &= ~(1ULL << move.toSquare);
 	if(capturedPieceType == 0){
-		 allPieces &= ~(1ULL << move.toSquare);
-		 emptySquares |= (1ULL << move.toSquare);
-	 }
-	else{
+		allPieces &= ~(1ULL << move.toSquare);
+		emptySquares |= (1ULL << move.toSquare);
+	}else{
 		pieceTypes[!color][capturedPieceType] |= (1ULL << move.toSquare);
 		pieces[!color] |= (1ULL << move.toSquare);
 	}
-	allPieces |= (1ULL << move.fromSquare);
-	emptySquares &= ~(1ULL << move.fromSquare);
-	pieces[color] &= ~(1ULL << move.toSquare);
-	pieces[color] |= (1ULL << move.fromSquare);
-	pieceTypes[color][int(move.promotedPiece)] &= ~(1ULL << move.toSquare);
-	pieceTypes[color][5] |= (1ULL << move.fromSquare);
 }
 
 int Board::getMaterialCount(int colorParam){
@@ -1061,7 +1063,7 @@ int Board::evaluatePosition(){
 	int capturedPieceType;
 	int checkmateStalemateVal;
 	unsigned long long tmpBitBoard;
-	
+
 
 	whiteMaterial = getMaterialCount(0);
 	blackMaterial = getMaterialCount(1);
@@ -1095,7 +1097,7 @@ int Board::evaluatePosition(){
 	}
 	//subtract 10 pts for each possible move that black has
 	rv -= moveIndex * 10;
-	
+
 	/*
 	kingPos = getLSBIndex(pieceTypes[color][0]);
 	oPos = getLSBIndex(pieceTypes[!color][0]);
