@@ -8,6 +8,8 @@
     /* Handlers and other functions */
     const CloseMenu = () => noMenu = true;
     const OpenMenu = () => noMenu = false;
+
+
 </script>
 
 <!-- This is the top of the Navigation Bar -->

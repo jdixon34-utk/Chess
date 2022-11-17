@@ -420,7 +420,6 @@ function make_en_pas(pas){
 }
 
 function flip_b(){
-
     //Need to change where our current en passent is on the board.
     cur_en_pas = localStorage.cur_en_pas;
     cur_en_pas = (63 - parseInt(cur_en_pas)).toString();
