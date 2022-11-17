@@ -445,7 +445,7 @@ void Board::genPawnLeftMoves(){
 
 		//pawn promotion
 		if(pawn_left_moves & RANK_8){
-			//pawn_left_moves = genPromoMoves(pawn_left_moves, RANK_8, -7);
+			pawn_left_moves = genPromoMoves(pawn_left_moves, RANK_8, -7);
 		}
 
 		while(pawn_left_moves != 0){
@@ -460,7 +460,7 @@ void Board::genPawnLeftMoves(){
 
 		//pawn promotion
 		if(pawn_left_moves & RANK_1){
-			//pawn_left_moves = genPromoMoves(pawn_left_moves, RANK_1, 7);
+			pawn_left_moves = genPromoMoves(pawn_left_moves, RANK_1, 7);
 		}
 
 		while(pawn_left_moves != 0){
@@ -484,7 +484,7 @@ void Board::genPawnSinglePushMoves(){
 
 		//pawn promotion
 		if(pawn_sp_moves & RANK_8){
-			//pawn_sp_moves = genPromoMoves(pawn_sp_moves, RANK_8, -8);
+			pawn_sp_moves = genPromoMoves(pawn_sp_moves, RANK_8, -8);
 		}
 
 		while(pawn_sp_moves != 0){
@@ -499,7 +499,7 @@ void Board::genPawnSinglePushMoves(){
 
 		//pawn promotion
 		if(pawn_sp_moves & RANK_1){
-			//pawn_sp_moves = genPromoMoves(pawn_sp_moves, RANK_1, 8);
+			pawn_sp_moves = genPromoMoves(pawn_sp_moves, RANK_1, 8);
 		}
 
 		while(pawn_sp_moves != 0){
@@ -548,7 +548,7 @@ void Board::genPawnRightMoves(){
 
 		//pawn promotion
 		if(pawn_right_moves & RANK_8){
-			//pawn_right_moves = genPromoMoves(pawn_right_moves, RANK_8, -9);
+			pawn_right_moves = genPromoMoves(pawn_right_moves, RANK_8, -9);
 		}
 
 		while(pawn_right_moves != 0){
@@ -563,7 +563,7 @@ void Board::genPawnRightMoves(){
 
 		//pawn promotion
 		if(pawn_right_moves & RANK_1){
-			//pawn_right_moves = genPromoMoves(pawn_right_moves, RANK_1, 9);
+			pawn_right_moves = genPromoMoves(pawn_right_moves, RANK_1, 9);
 		}
 
 		while(pawn_right_moves != 0){
@@ -792,7 +792,7 @@ int Board::makeMove(Move move){
 		case 0: return makeNormalMove(move);
 		case 1: makeEnPassMove(move); break;
 		case 2: makeCastleMove(move); break;
-		case 3: makePromotionMove(move); break;
+		case 3: return makePromotionMove(move); break;
 	}
 	return 0;
 }
@@ -890,7 +890,7 @@ int Board::makePromotionMove(Move move){
 	int capturedPieceType = 0;
 	if((allPieces&(1<<move.toSquare)) != 0){
 		//Capture into Promotion
-		for(int i = 1; i < 4; i++){
+		for(int i = 1; i < 5; i++){
 			if((pieceTypes[!color][i] & (1ULL << move.toSquare)) != 0){
 				pieceTypes[!color][i] &= ~(1ULL << move.toSquare);
 				pieces[!color] &= ~(1ULL << move.toSquare);
@@ -899,15 +899,15 @@ int Board::makePromotionMove(Move move){
 			}
 		}
 	}
-	allPieces &= ~(1ULL << move.fromSquare);
-	allPieces |= (1ULL << move.toSquare);
-	emptySquares &= ~(1ULL << move.toSquare);
-	emptySquares |= (1ULL << move.fromSquare);
 	pieces[color] &= ~(1ULL << move.fromSquare);
 	pieces[color] |= (1ULL << move.toSquare);
 	pieceTypes[color][5] &= ~(1ULL << move.fromSquare);
 	pieceTypes[color][int(move.promotedPiece)] |= (1ULL << move.toSquare);
 
+	allPieces = pieces[0] | pieces[1];
+	emptySquares = ~allPieces;
+
+//	if(capturedPieceType == 1) printf("here\n");
 	return capturedPieceType;
 }
 
@@ -997,20 +997,17 @@ void Board::undoCastleMove(Move move){
 }
 //reverts to state before promotion move
 void Board::undoPromotionMove(Move move, int capturedPieceType){
-	if(capturedPieceType == 0){
-		 allPieces &= ~(1ULL << move.toSquare);
-		 emptySquares |= (1ULL << move.toSquare);
-	 }
-	else{
+	pieces[color] |= (1ULL << move.fromSquare);
+	pieceTypes[color][5] |= (1ULL << move.fromSquare);
+
+	pieces[color] &= ~(1ULL << move.toSquare);
+	pieceTypes[color][int(move.promotedPiece)] &= ~(1ULL << move.toSquare);
+	if(capturedPieceType != 0){
 		pieceTypes[!color][capturedPieceType] |= (1ULL << move.toSquare);
 		pieces[!color] |= (1ULL << move.toSquare);
 	}
-	allPieces |= (1ULL << move.fromSquare);
-	emptySquares &= ~(1ULL << move.fromSquare);
-	pieces[color] &= ~(1ULL << move.toSquare);
-	pieces[color] |= (1ULL << move.fromSquare);
-	pieceTypes[color][int(move.promotedPiece)] &= ~(1ULL << move.toSquare);
-	pieceTypes[color][5] |= (1ULL << move.fromSquare);
+	allPieces = pieces[1] | pieces[0];
+	emptySquares = ~allPieces;
 }
 
 int Board::getMaterialCount(int colorParam){
@@ -1061,7 +1058,7 @@ int Board::evaluatePosition(){
 	int capturedPieceType;
 	int checkmateStalemateVal;
 	unsigned long long tmpBitBoard;
-	
+
 
 	whiteMaterial = getMaterialCount(0);
 	blackMaterial = getMaterialCount(1);
@@ -1095,7 +1092,7 @@ int Board::evaluatePosition(){
 	}
 	//subtract 10 pts for each possible move that black has
 	rv -= moveIndex * 10;
-	
+
 	/*
 	kingPos = getLSBIndex(pieceTypes[color][0]);
 	oPos = getLSBIndex(pieceTypes[!color][0]);

@@ -147,7 +147,7 @@ function moveStart(e, col){
             return;
         }
         
-        if(win === "null"){
+        //if(win === "null"){
             //Current piece selected, will be undefined at start
             var cur = document.getElementsByClassName("current")[0];
        
@@ -200,11 +200,14 @@ function moveStart(e, col){
                 if(validMove(col, cur.parentNode, cur, 1)){
                     half = 0;
 
-                    if(col.children[0].item(1) === 'K'){
-                        alert("Black wins!");
-                    }else if(col.children[0].item(1) === 'k'){
-                        alert("White wins!");
-                    }
+                    //console.log("Val = rure");
+                    //if(col.children[0].item(1) === 'K'){
+                    //    alert("Black wins!");
+                    //}else if(col.children[0].item(1) === 'k'){
+                    //    alert("White wins!");
+                    //}
+
+                    //console.log("PAs king");
 
                     col.removeChild(col.children[0]);
                     move(col, cur.parentNode, cur);
@@ -229,7 +232,7 @@ function moveStart(e, col){
                 en_pas_ignore = false;
                 console.log("IN THIS " + pas + " " + curr_en_pas);
             }
-        }
+        //}
 }
  
     //Move piece from cur_col to new_col
