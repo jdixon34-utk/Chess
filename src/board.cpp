@@ -799,6 +799,27 @@ int Board::makeMove(Move move){
 
 //returns 1 if move is a capture, otherwise returns 0
 int Board::makeNormalMove(Move move){
+	// Check for Rook Moving to Stop Castling
+	if(color == 0 && move.fromSquare == 0 && (pieceTypes[color][2] & move.fromSquare)){
+		whiteCastleRightsQS = false;
+	}else if(color == 0 && move.fromSquare == 7 && (pieceTypes[color][2] & move.fromSquare)){
+		whiteCastleRightsKS = false;
+	}else if(color == 1 && move.fromSquare == 56 && (pieceTypes[color][2] & move.fromSquare)){
+		blackCastleRightsQS = false;
+	}else if(color == 1 && move.fromSquare == 63 && (pieceTypes[color][2] & move.fromSquare)){
+		blackCastleRightsKS = false;
+	}
+
+	if(color == 0 && move.fromSquare != 0 && (pieceTypes[color][2] & move.fromSquare)){
+		whiteQSRookMoved = true;
+	}else if(color == 0 && move.fromSquare != 7 && (pieceTypes[color][2] & move.fromSquare)){
+		whiteKSRookMoved = true;
+	}else if(color == 1 && move.fromSquare != 56 && (pieceTypes[color][2] & move.fromSquare)){
+		blackQSRookMoved = true;
+	}else if(color == 1 && move.fromSquare != 63 && (pieceTypes[color][2] & move.fromSquare)){
+		blackKSRookMoved = true;
+	}
+
 	//setting/unsetting squares for side that is moving
 	for(int i = 5; i >= 0; i--){
 		if(pieceTypes[color][i] & (1ULL << move.fromSquare)){
@@ -925,6 +946,17 @@ void Board::undoMove(Move move, int capturedPieceType){
 }
 
 void Board::undoNormalMove(Move move, int capturedPieceType){
+	//Resetting the castling bools for Rook Movements
+	if(color == 0 && move.fromSquare == 0 && (pieceTypes[color][2] & move.toSquare) && !whiteQSRookMoved){
+		whiteCastleRightsQS = true;
+	}else if(color == 0 && move.fromSquare == 7 && (pieceTypes[color][2] & move.toSquare) && !whiteKSRookMoved){
+		whiteCastleRightsKS = true;
+	}else if(color == 1 && move.fromSquare == 56 && (pieceTypes[color][2] & move.toSquare) && !blackQSRookMoved){
+		blackCastleRightsQS = true;
+	}else if(color == 1 && move.fromSquare == 63 && (pieceTypes[color][2] & move.toSquare) && !blackKSRookMoved){
+		blackCastleRightsKS = true;
+	}
+
 	//setting/unsetting squares for side that was moving
 	for(int i = 5; i >= 0; i--){
 		if(pieceTypes[color][i] & (1ULL << move.toSquare)){

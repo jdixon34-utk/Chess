@@ -35,11 +35,15 @@ class Board{
 private:
 
     //important info given from FEN string
-	//color - made public
+	//color - made public || Need Rook Variables for Undo Normal Move
 	bool whiteCastleRightsKS;
 	bool whiteCastleRightsQS;
 	bool blackCastleRightsKS;
 	bool blackCastleRightsQS;
+	bool whiteQSRookMoved = false;
+	bool blackQSRookMoved = false;
+	bool whiteKSRookMoved = false;
+	bool blackKSRookMoved = false;
 	int enPassantTargetSquare;//square that a pawn that has moved forward 2 spaces goes over
 	int halfMoveClock;//The number of halfmoves since the last capture or pawn advance, used for the fifty-move rule
     int fullMoveNumber;//The number of the full moves. It starts at 1 and is incremented after Black's move
