@@ -391,7 +391,9 @@ function moveStart(e, col){
         }
 
         //King check
-        else if((piece.classList.item(1) === "K") || (piece.classList.item(1) === "k")){
+        else if((piece.classList.contains("K") === true) || (piece.classList.contains("k") === true)){
+
+            console.log("In king");
             
             /* If there is attempted diagonal move, we return true and allow move */
             if(( 6 < Math.abs(new_index - old_index) && Math.abs(new_index - old_index) < 10) || (Math.abs(new_index - old_index) === 1)){
@@ -545,14 +547,14 @@ function moveStart(e, col){
             b = cas.replace(options[piece.classList.item(4)], '');
         }else if(piece.classList.contains("K")){
             a = cas.replace("K", '');
-            document.getElementsByClassName(0)[0].classList.remove("First");
+            document.getElementsByClassName("K")[0].classList.remove("First");
             b = a.replace("Q", '');
-            document.getElementsByClassName(1)[0].classList.remove("First");
+            document.getElementsByClassName("Q")[0].classList.remove("First");
         }else{
             a = cas.replace("k", '');
-            document.getElementsByClassName(2)[0].classList.remove("First");
+            document.getElementsByClassName("k")[0].classList.remove("First");
             b = a.replace("q", '');
-            document.getElementsByClassName(3)[0].classList.remove("First");
+            document.getElementsByClassName("q")[0].classList.remove("First");
         }
 
         piece.classList.remove("First");
