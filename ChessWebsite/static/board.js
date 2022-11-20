@@ -413,13 +413,17 @@ function moveStart(e, col){
 
         else{
 
-            if(Math.abs(new_index - old_index) === 15 || Math.abs(new_index - old_index) === 17 || Math.abs(new_index - old_index) === 10 || Math.abs(new_index - old_index) === 6){
+            if(((Math.abs(new_index - old_index) === 15 || Math.abs(new_index - old_index) === 17) 
+            && Math.abs(Math.floor((new_index - (new_index % 8)) / 8) - Math.floor((old_index - (old_index % 8)) / 8)) === 2)
+            || ((Math.abs(new_index - old_index) === 10 || Math.abs(new_index - old_index) === 6) && Math.abs((new_index % 8) - (old_index % 8)) === 2)){
                 
-                console.log("YIPPPE " + Math.abs((new_index % 8) - (old_index % 8)) + " " + Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8)));
+                console.log(Math.abs(new_index - old_index) + " " + Math.abs(Math.floor((new_index - (new_index % 8)) / 8) - Math.floor((old_index - (old_index % 8)) / 8)));
                 
                 //if(check_path_dia(new_index, old_index)){
                 return true;
                 //}
+            }else{
+                console.log(Math.abs(new_index - old_index) + " " + Math.abs(Math.floor((new_index - (new_index % 8)) / 8) - Math.floor((old_index - (old_index % 8)) / 8)));
             }
 
             alert("Invalid knight move");
@@ -499,7 +503,7 @@ function moveStart(e, col){
             for(var i = (start - (side + 8)); i > end; i -= (side + 8)){
                 //console.log("Zap at " + i + " start " + start + " end " + end + " " + (start - (side + 8)));
                 if(board.children[i].children[0] !== undefined){
-                    console.log("Zap at " + i + " start " + start + " end " + end + " " + (start - (side + 8)));
+                    //console.log("Zap at " + i + " start " + start + " end " + end + " " + (start - (side + 8)));
                     return false;
                 }
             }
@@ -565,5 +569,368 @@ function moveStart(e, col){
         cas = b;
         localStorage.cas = cas;
     }
+
+    //Checks if castling is ok
+    //for side 0 = left and 1 = right
+    //color is either "w" or "b"
+    function valid_castling(side, color){
+ 
+        pas = localStorage.pas;
+        flip = localStorage.flip;
+        let check, rook_loc, king_loc;
+
+        if(pas === "-"){
+            return false;
+        }
+ 
+        if(side === 0 && color === "w"){
+            if(flip === "0"){
+                check = "Q";
+                king_loc = 60;
+                rook_loc = 56;
+            }else{
+                check = "K";
+                king_loc = 3;
+                rook_loc = 0;
+            }
+        }else if(side === 1 && color === "w"){
+            if(flip === "0"){
+                check = "K";
+                king_loc = 60;
+                rook_loc = 63;
+            }else{
+                check = "Q";
+                king_loc = 3;
+                rook_loc = 7;
+            }
+           
+        }else if(side === 0 && color === "b"){
+            if(flip === "0"){
+                check = "q";
+                king_loc = 4;
+                rook_loc = 0;
+            }else{
+                check = "k";
+                king_loc = 59;
+                rook_loc = 56;
+            }
+        }else{
+            if(flip === "0"){
+                check = "k";
+                king_loc = 4;
+                rook_loc = 7;
+            }else{
+                check = "q";
+                king_loc = 59;
+                rook_loc = 63;
+            }
+        }
+ 
+        if(!pas.includes(check)){
+            return false;
+        }
+
+        //Is there pieces between the rook and king
+        board = document.getElementById("chessboard");
+        if(king_loc - rook_loc > 0){
+            for(var i = (rook_loc + 1); i < king_loc; i++){
+                if(board.children[i].children[0] !== undefined){
+                    return false;
+                }
+            }
+        }else{
+            for(var i = (king_loc + 1); i < rook_loc; i++){
+                if(board.children[i].children[0] !== undefined){
+                    return false;
+                }
+            }
+        }
+
+        //Sees if the king will be in check
+ 
+        return true;
+ 
+    }
+
+    //Returns true if the piece at index is in check
+    function in_check(index, color){
+
+        flip = localStorage.flip;
+        if(color === "w"){
+            let color_check = "white-piece";
+        }else{
+            let color_check = "black-piece";
+        }
+
+        //Left check
+        let counter = index - 1;
+        while(true){
+            if(Math.floor(counter / 8) !== Math.floor(index / 8)){
+                break;
+            }
+
+            if(board.children[counter].children[0] !== undefined){
+                if(board.children[counter].children[0].classList.contains(color_check)){
+                    break;
+                }
+
+                if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("r")  
+                || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R")){
+                    return true;
+                }
+
+                if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
+                && (index - counter) === 1){
+                    return true;
+                }
+
+                break;
+            }
+
+            counter--;
+        }
+
+        //Right check
+        counter = index + 1;
+        while(true){
+            if(Math.floor(counter / 8) !== Math.floor(index / 8)){
+                break;
+            }
+
+            if(board.children[counter].children[0] !== undefined){
+                if(board.children[counter].children[0].classList.contains(color_check)){
+                    break;
+                }
+
+                if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("r")  
+                || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R")){
+                    return true;
+                }
+
+                if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
+                && (counter - index) === 1){
+                    return true;
+                }
+
+                break;
+            }
+
+            counter++;
+        }
+
+        //Up check
+        counter = index - 8;
+        while(true){
+            if(counter < 0){
+                break;
+            }
+
+            if(board.children[counter].children[0] !== undefined){
+                if(board.children[counter].children[0].classList.contains(color_check)){
+                    break;
+                }
+
+                if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("r")  
+                || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R")){
+                    return true;
+                }
+
+                if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
+                && (index - 8) === counter){
+                    return true;
+                }
+
+                break;
+            }
+
+            counter -= 8;
+        }
+
+        //Down check
+        counter = index + 8;
+        while(true){
+            if(counter > 63){
+                break;
+            }
+
+            if(board.children[counter].children[0] !== undefined){
+                if(board.children[counter].children[0].classList.contains(color_check)){
+                    break;
+                }
+
+                if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("r")  
+                || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R")){
+                    return true;
+                }
+
+                if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
+                && (index + 8) === counter){
+                    return true;
+                }
+
+                break;
+            }
+
+            counter += 8;
+        }
+
+        //Up left check
+        counter = index - 9;
+        while(true){
+            if(counter < 0){
+                break;
+            }
+
+            if(board.children[counter].children[0] !== undefined){
+                if(board.children[counter].children[0].classList.contains(color_check)){
+                    break;
+                }
+
+                if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("Q")  
+                || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
+                    return true;
+                }
+
+                if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
+                && (index - 9) === counter){
+                    return true;
+                }
+
+                //For pawns
+                if((board.children[counter].children[0].classList.contains("p") && flip === "0")
+                || (board.children[counter].children[0].classList.contains("P") && flip === "1")){
+                    return true;
+                }
+
+                break;
+            }
+
+            if((counter % 8) === 0){
+                break;
+            }
+
+            counter -= 9;
+        }
+
+        //Up right check
+        counter = index - 7;
+        while(true){
+            if(counter < 0){
+                break;
+            }
+        
+            if(board.children[counter].children[0] !== undefined){
+                if(board.children[counter].children[0].classList.contains(color_check)){
+                     break;
+                }
+        
+                if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("Q")  
+                || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
+                    return true;
+                }
+        
+                if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
+                && (index - 7) === counter){
+                    return true;
+                }
+        
+                //For pawns
+                if((board.children[counter].children[0].classList.contains("p") && flip === "0")
+                || (board.children[counter].children[0].classList.contains("P") && flip === "1")){
+                    return true;
+                }
+        
+                break;
+            }
+        
+            if((counter % 8) === 7){
+                break;
+            }
+        
+            counter -= 7;
+        }
+
+         //Down right check
+         counter = index + 9;
+         while(true){
+             if(counter > 63){
+                 break;
+             }
+ 
+             if(board.children[counter].children[0] !== undefined){
+                 if(board.children[counter].children[0].classList.contains(color_check)){
+                     break;
+                 }
+ 
+                 if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("Q")  
+                 || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
+                     return true;
+                 }
+ 
+                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
+                 && (index + 9) === counter){
+                     return true;
+                 }
+ 
+                 //For pawns
+                 if((board.children[counter].children[0].classList.contains("p") && flip === "1")
+                 || (board.children[counter].children[0].classList.contains("P") && flip === "0")){
+                     return true;
+                 }
+ 
+                 break;
+             }
+ 
+             if((counter % 8) === 7){
+                 break;
+             }
+ 
+             counter += 9;
+        }
+
+        //Down left check
+        counter = index + 7;
+        while(true){
+            if(counter > 63){
+                break;
+            }
+
+            if(board.children[counter].children[0] !== undefined){
+                if(board.children[counter].children[0].classList.contains(color_check)){
+                    break;
+                }
+
+                if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("Q")  
+                || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
+                    return true;
+                }
+
+                if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
+                && (index + 9) === counter){
+                    return true;
+                }
+
+                //For pawns
+                if((board.children[counter].children[0].classList.contains("p") && flip === "1")
+                || (board.children[counter].children[0].classList.contains("P") && flip === "0")){
+                    return true;
+                }
+
+                break;
+            }
+
+            if((counter % 8) === 0){
+                break;
+            }
+
+            counter += 7;
+        }
+        
+        //Knight check
+        //if(){
+
+        //}
+    }
+
 
   });
