@@ -162,7 +162,31 @@ function moveStart(e, col){
             }
             //Valid move. So move the piece
             else if(cur !== undefined && col.children[0] === undefined){
-                if(validMove(col, cur.parentNode, cur, 0)){
+
+                let side, color, diff;
+                if(turn === "white-piece"){
+                    color = "w";
+                }else{
+                    color = "b";
+                }
+
+                //col = new
+                //cur.par = old;
+                diff = ([].indexOf.call(col.parentNode.children, col)) - ([].indexOf.call(cur.parentNode.parentNode.children, cur.parentNode));
+                if(diff > 0){
+                    side = 1;
+                }else{
+                    side = 0;
+                }
+                
+
+                if((cur.classList.contains("k") || cur.classList.contains("K")) && Math.abs(diff) === 1 && valid_castling(side, color)){
+                    //console.log("Valid castle went through ");
+                    full++;
+
+                    localStorage.half = half;
+                    localStorage.full = full;
+                }else if(validMove(col, cur.parentNode, cur, 0)){
                     //IF a pawn checks if an en passant is now valid
                     if((cur.classList.contains("B_p") === true) || (cur.classList.contains("P") === true)){
                         half = 0;
@@ -232,6 +256,18 @@ function moveStart(e, col){
                 en_pas_ignore = false;
                 console.log("IN THIS " + pas + " " + curr_en_pas);
             }
+
+            //Test delete later
+            //let temp;
+            //if(turn === "white-piece"){
+            //    temp = "b";
+            //}else{
+            //    temp = "w";
+            //}
+            //console.log("temp is " + temp);
+            //if(in_check([].indexOf.call(cur.parentNode.parentNode.children, cur.parentNode), temp)){
+            //    console.log("IN CHECK");
+            //}
         //}
 }
  
@@ -577,9 +613,11 @@ function moveStart(e, col){
  
         pas = localStorage.pas;
         flip = localStorage.flip;
-        let check, rook_loc, king_loc;
+        let check, king_loc, rook_loc;
 
-        if(pas === "-"){
+        //console.log("Just got into valid_castle " + side + " " + color);
+
+        if(cas === "-"){
             return false;
         }
  
@@ -626,10 +664,12 @@ function moveStart(e, col){
             }
         }
  
-        if(!pas.includes(check)){
+        //console.log(cas + " was a pas chek outs is " + check);
+        if(!cas.includes(check)){
             return false;
         }
 
+        //console.log("Pre piece between check");
         //Is there pieces between the rook and king
         board = document.getElementById("chessboard");
         if(king_loc - rook_loc > 0){
@@ -647,7 +687,48 @@ function moveStart(e, col){
         }
 
         //Sees if the king will be in check
- 
+        if(side === 0){
+            for(var i = king_loc; i > (king_loc - 3); i--){
+                if(in_check(i, color)){
+                    return false;
+                }
+            }
+        }else{
+            for(var i = king_loc; i < (king_loc + 3); i++){
+                if(in_check(i, color)){
+                    return false;
+                }
+            }
+        }
+
+        //Move the pieces as the castle is valid
+        king = board.children[king_loc].children[0];
+        rook = board.children[rook_loc].children[0];
+        board.children[king_loc].removeChild(king);
+        board.children[rook_loc].removeChild(rook);
+
+        if(side === 0){
+            board.children[king_loc - 2].appendChild(king);
+            board.children[king_loc - 1].appendChild(rook);
+        }else{
+            board.children[king_loc + 2].appendChild(king);
+            board.children[king_loc + 1].appendChild(rook);
+        }
+
+        if(color === "w"){
+            cas = cas.replace("K", '');
+            document.getElementsByClassName("K")[0].classList.remove("First");
+            cas = cas.replace("Q", '');
+            document.getElementsByClassName("Q")[0].classList.remove("First");
+        }else{
+            cas = cas.replace("k", '');
+            document.getElementsByClassName("k")[0].classList.remove("First");
+            cas = cas.replace("q", '');
+            document.getElementsByClassName("q")[0].classList.remove("First");
+        }
+
+        localStorage.cas = cas;
+
         return true;
  
     }
@@ -656,10 +737,11 @@ function moveStart(e, col){
     function in_check(index, color){
 
         flip = localStorage.flip;
+        let color_check
         if(color === "w"){
-            let color_check = "white-piece";
+            color_check = "white-piece";
         }else{
-            let color_check = "black-piece";
+            color_check = "black-piece";
         }
 
         //Left check
@@ -690,6 +772,7 @@ function moveStart(e, col){
             counter--;
         }
 
+        //console.log("Pr right check ");
         //Right check
         counter = index + 1;
         while(true){
@@ -718,6 +801,7 @@ function moveStart(e, col){
             counter++;
         }
 
+        //console.log("Pr up check ");
         //Up check
         counter = index - 8;
         while(true){
@@ -746,6 +830,7 @@ function moveStart(e, col){
             counter -= 8;
         }
 
+        //console.log("Pr down check ");
         //Down check
         counter = index + 8;
         while(true){
@@ -774,6 +859,7 @@ function moveStart(e, col){
             counter += 8;
         }
 
+        //console.log("Pr up left check ");
         //Up left check
         counter = index - 9;
         while(true){
@@ -788,17 +874,20 @@ function moveStart(e, col){
 
                 if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("Q")  
                 || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
+                    //console.log("Pr up left check first");
                     return true;
                 }
 
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
                 && (index - 9) === counter){
+                    //console.log("Pr up left check second");
                     return true;
                 }
 
                 //For pawns
-                if((board.children[counter].children[0].classList.contains("p") && flip === "0")
-                || (board.children[counter].children[0].classList.contains("P") && flip === "1")){
+                if(((board.children[counter].children[0].classList.contains("p") && flip === "0")
+                || (board.children[counter].children[0].classList.contains("P") && flip === "1")) && (index - 9) === counter){
+                    //console.log("Pr up left check third");
                     return true;
                 }
 
@@ -812,6 +901,7 @@ function moveStart(e, col){
             counter -= 9;
         }
 
+        //console.log("Pr up right check ");
         //Up right check
         counter = index - 7;
         while(true){
@@ -826,17 +916,20 @@ function moveStart(e, col){
         
                 if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("Q")  
                 || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
+                    //console.log("Pr up right check first");
                     return true;
                 }
         
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
                 && (index - 7) === counter){
+                    //console.log("Pr up right check second");
                     return true;
                 }
         
                 //For pawns
-                if((board.children[counter].children[0].classList.contains("p") && flip === "0")
-                || (board.children[counter].children[0].classList.contains("P") && flip === "1")){
+                if(((board.children[counter].children[0].classList.contains("p") && flip === "0")
+                || (board.children[counter].children[0].classList.contains("P") && flip === "1")) && (index - 7) === counter){
+                    //console.log("Pr up right check third");
                     return true;
                 }
         
@@ -850,6 +943,7 @@ function moveStart(e, col){
             counter -= 7;
         }
 
+        //console.log("Pr down right check ");
          //Down right check
          counter = index + 9;
          while(true){
@@ -873,8 +967,8 @@ function moveStart(e, col){
                  }
  
                  //For pawns
-                 if((board.children[counter].children[0].classList.contains("p") && flip === "1")
-                 || (board.children[counter].children[0].classList.contains("P") && flip === "0")){
+                 if(((board.children[counter].children[0].classList.contains("p") && flip === "1")
+                 || (board.children[counter].children[0].classList.contains("P") && flip === "0")) && (index + 9) === counter){
                      return true;
                  }
  
@@ -888,6 +982,7 @@ function moveStart(e, col){
              counter += 9;
         }
 
+        //console.log("Pr down left check ");
         //Down left check
         counter = index + 7;
         while(true){
@@ -911,8 +1006,8 @@ function moveStart(e, col){
                 }
 
                 //For pawns
-                if((board.children[counter].children[0].classList.contains("p") && flip === "1")
-                || (board.children[counter].children[0].classList.contains("P") && flip === "0")){
+                if(((board.children[counter].children[0].classList.contains("p") && flip === "1")
+                || (board.children[counter].children[0].classList.contains("P") && flip === "0")) && (index + 9) === counter){
                     return true;
                 }
 
@@ -926,11 +1021,74 @@ function moveStart(e, col){
             counter += 7;
         }
         
-        //Knight check
-        //if(){
-
-        //}
+        //console.log("Pr knight check");
+        //Knight checks
+        if(index + 17 <= 63){
+            if(board.children[index + 17].children[0] !== undefined){
+                if(!(board.children[index + 17].children[0].classList.contains(color_check)) && 
+                (board.children[index + 17].children[0].classList.contains("N") || board.children[index + 17].children[0].classList.contains("n"))){
+                    return true;
+                }
+            }
+        }
+        if(index + 15 <= 63){
+            if(board.children[index + 15].children[0] !== undefined){
+                if(!(board.children[index + 15].children[0].classList.contains(color_check)) && 
+                (board.children[index + 15].children[0].classList.contains("N") || board.children[index + 15].children[0].classList.contains("n"))){
+                    return true;
+                }
+            }
+        }
+        if(index + 10 <= 63){
+            if(board.children[index + 10].children[0] !== undefined){
+                if(!(board.children[index + 10].children[0].classList.contains(color_check)) && 
+                (board.children[index + 10].children[0].classList.contains("N") || board.children[index + 10].children[0].classList.contains("n"))){
+                    return true;
+                }
+            }
+        }
+        if(index + 6 <= 63){
+            if(board.children[index + 6].children[0] !== undefined){
+                if(!(board.children[index + 6].children[0].classList.contains(color_check)) && 
+                (board.children[index + 6].children[0].classList.contains("N") || board.children[index + 6].children[0].classList.contains("n"))){
+                    return true;
+                }
+            }
+        }
+        if(index - 6 >= 0){
+            if(board.children[index - 6].children[0] !== undefined){
+                if(!(board.children[index - 6].children[0].classList.contains(color_check)) && 
+                (board.children[index - 6].children[0].classList.contains("N") || board.children[index - 6].children[0].classList.contains("n"))){
+                    return true;
+                }
+            }
+        }
+        if(index - 10 >= 0){
+            if(board.children[index - 10].children[0] !== undefined){
+                if(!(board.children[index - 10].children[0].classList.contains(color_check)) && 
+                (board.children[index - 10].children[0].classList.contains("N") || board.children[index - 10].children[0].classList.contains("n"))){
+                    return true;
+                } 
+            }
+        }
+        if(index - 15 >= 0){
+            if(board.children[index - 15].children[0] !== undefined){
+                if(!(board.children[index - 15].children[0].classList.contains(color_check)) && 
+                (board.children[index - 15].children[0].classList.contains("N") || board.children[index - 15].children[0].classList.contains("n"))){
+                    return true;
+                }
+            }
+        }
+        if(index - 17 >= 0){
+            if(board.children[index - 17].children[0] !== undefined){
+                if(!(board.children[index - 17].children[0].classList.contains(color_check)) && 
+                (board.children[index - 17].children[0].classList.contains("N") || board.children[index - 17].children[0].classList.contains("n"))){
+                    return true;
+                }
+            }
+        }
     }
 
+    return false;
 
   });
