@@ -53,8 +53,11 @@ document.addEventListener("DOMContentLoaded", function () {
  
             //Define the colors and piece type of the pieces
             if (i < 3) {
-                document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
-                piece.classList.add("black-piece");
+                //Uncomment to test checkmate and stalemate
+                //if((i === 1 && j === 5) || (i === 1 && j === 4) || (i === 1 && j === 8) || (i === 1 && j === 1)){
+                //    document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
+                //    piece.classList.add("black-piece");
+                //}
                 //Define all the pieces for the black side
                 if(i === 1){
                     if(j === 1){
@@ -88,8 +91,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
             else if (i > 6) {
-                document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
-                piece.classList.add("white-piece");
+                //Uncomment to test stalemate and checkmate
+                //if(i === 8 && j === 5){
+                //    document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
+                //    piece.classList.add("white-piece");
+                //}
                 //Defines all the pieces for the white side
                 if(i === 8){
                     if(j === 1){
@@ -147,7 +153,7 @@ function moveStart(e, col){
             localStorage.win_con = "t";
             return;
         }
-        
+
         //if(win === "null"){
             //Current piece selected, will be undefined at start
             var cur = document.getElementsByClassName("current")[0];
@@ -187,7 +193,7 @@ function moveStart(e, col){
 
                     localStorage.half = half;
                     localStorage.full = full;
-                }else if(validMove(col, cur.parentNode, cur, 0) && !king_check(col, cur.parentNode, cur, 0)){
+                }else if(validMove(col, cur.parentNode, cur, 0, 0) && !king_check(col, cur.parentNode, cur, 0, 0)){
                     //IF a pawn checks if an en passant is now valid
                     if((cur.classList.contains("B_p") === true) || (cur.classList.contains("P") === true)){
                         half = 0;
@@ -222,7 +228,7 @@ function moveStart(e, col){
             }
             //Take a piece
             else if(col.children[0] !== undefined && ((cur.classList.contains("white-piece") && col.children[0].classList.contains("black-piece")) || (cur.classList.contains("black-piece") && col.children[0].classList.contains("white-piece")))){
-                if(validMove(col, cur.parentNode, cur, 1) && !king_check(col, cur.parentNode, cur, 1)){
+                if(validMove(col, cur.parentNode, cur, 1, 0) && !king_check(col, cur.parentNode, cur, 1, 0)){
                     half = 0;
 
                     //console.log("Val = rure");
@@ -270,6 +276,32 @@ function moveStart(e, col){
             //    console.log("IN CHECK");
             //}
         //}
+
+        if(stalemate()){
+            
+            console.log("Inside Statemate pass");
+
+            let index;
+            turn = localStorage.turn;
+            if(turn === "white-piece"){
+                color = "w";
+                king_loc = document.querySelector(".W_K"); 
+                index = [].indexOf.call(king_loc.parentNode.parentNode.children, king_loc.parentNode);
+            }else{
+                color = "b";
+                king_loc = document.querySelector(".b_k"); 
+                index = [].indexOf.call(king_loc.parentNode.parentNode.children, king_loc.parentNode);
+            }
+
+
+
+            if(in_check(index, color)){
+                alert("Checkmate! " + turn + " has won!");
+            }else{
+                alert("Tie! You have reached a stalemate");
+                return;
+            }
+        }
 }
  
     //Move piece from cur_col to new_col
@@ -301,7 +333,10 @@ function moveStart(e, col){
     //    console.log("freeCodeCamp");
     //  }
  
-    function validMove(new_col, cur_col, piece, take){
+    //Checks if the move is valid
+    //Take === 1 when you are taking a piece, used for pawns.
+    //Stale === 1 if this is a stalemate check. This is to not use the alerts
+    function validMove(new_col, cur_col, piece, take, stale){
 
         var new_index = [].indexOf.call(new_col.parentNode.children, new_col);
         var old_index = [].indexOf.call(cur_col.parentNode.children, cur_col);
@@ -316,8 +351,8 @@ function moveStart(e, col){
 
         if((piece.classList.item(1) === "P") || (piece.classList.item(1) === "p")){
             
-            console.log("In pawn");
-            console.log("value diff " + diff + " new " + new_index + " old " + old_index + " flipe " + localStorage.flip);
+            //console.log("In pawn");
+            //console.log("value diff " + diff + " new " + new_index + " old " + old_index + " flipe " + localStorage.flip);
             //Move up one
             if(!take && (((new_index + diff) === old_index && piece.classList.item(0) === "black-piece") 
                 || ((new_index - diff) === old_index && piece.classList.item(0) === "white-piece"))){
@@ -348,7 +383,7 @@ function moveStart(e, col){
 
             //En pas check goes here
             board = document.getElementById("chessboard");
-            console.log("En_pas why " + (new_index + 8));
+            //console.log("En_pas why " + (new_index + 8));
             //Only works when not a backend move
             if(((new_index + 8).toString() === curr_en_pas || (new_index - 8).toString() === curr_en_pas) && 
             (((((new_index + diff) - old_index) === 1 || ((new_index + diff) - old_index) === -1) 
@@ -359,16 +394,19 @@ function moveStart(e, col){
                 //Delete the piece
                 board.children[curr_en_pas].removeChild(board.children[curr_en_pas].children[0]);
                 return true;
-            }else{
-                console.log(curr_en_pas + " bad " + pas);
             }
+            //else{
+            //    console.log(curr_en_pas + " bad " + pas);
+           // }
 
-            alert("Invalid pawn move");
+            if(!stale){
+                alert("Invalid pawn move");
+            }
         }
 
         else if((piece.classList.item(1) === "Q") || (piece.classList.item(1) === "q")){
             
-            console.log("In queen");
+            //console.log("In queen");
             //Checks up/down
             if((new_index % 8) === (old_index % 8)){
                 if(check_path(new_index, old_index)){
@@ -391,13 +429,15 @@ function moveStart(e, col){
                 //console.log("YIPPPE " + old_index + " " + (((new_index % 8) * 8) + (new_index % 8)));
             }
 
-            alert("Invalid queen move");
+            if(!stale){
+                alert("Invalid queen move");
+            }
         }
 
         /* Checks if the piece is a Rook or not and determines the valid moves */
         else if((piece.classList.item(1) === "R") || (piece.classList.item(1) === "r")){
             
-            console.log("In rook");
+            //console.log("In rook");
             /* Veritcal movement */
             if((new_index % 8) === (old_index % 8)){
                 if(check_path(new_index, old_index)){
@@ -410,44 +450,50 @@ function moveStart(e, col){
                 if(check_path(new_index, old_index)){
                     return true;
                 }
-                console.log("YIPPPE " + old_index + " " + (((new_index % 8) * 8) + (new_index % 8)));
+                //console.log("YIPPPE " + old_index + " " + (((new_index % 8) * 8) + (new_index % 8)));
             }
 
-            alert("Invalid rook move");
+            if(!stale){
+                alert("Invalid rook move");
+            }
         }
 
         /* Checks if the piece is a Bishop or not and determines the valid moves */
         else if((piece.classList.item(1) === "B") || (piece.classList.item(1) === "b")){
 
-            console.log("In bis");
+            //console.log("In bis");
 
             /* If there is attempted diagonal move, we return true and allow move */
             if(Math.abs((new_index % 8) - (old_index % 8)) === Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8))){
-                console.log("YIPPPE " + Math.abs((new_index % 8) - (old_index % 8)) + " " + Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8)));
+                //console.log("YIPPPE " + Math.abs((new_index % 8) - (old_index % 8)) + " " + Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8)));
                 if(check_path_dia(new_index, old_index)){
                     return true;
                 }
             }
             
-            alert("Invalid bishop move");
+            if(!stale){
+                alert("Invalid bishop move");
+            }
         }
 
         //King check
         else if((piece.classList.contains("K") === true) || (piece.classList.contains("k") === true)){
 
-            console.log("In king");
+            //console.log("In king");
             
             /* If there is attempted diagonal move, we return true and allow move */
             if(( 6 < Math.abs(new_index - old_index) && Math.abs(new_index - old_index) < 10) || (Math.abs(new_index - old_index) === 1)){
                 
-                console.log("YIPPPE " + Math.abs((new_index % 8) - (old_index % 8)) + " " + Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8)));
+                //console.log("YIPPPE " + Math.abs((new_index % 8) - (old_index % 8)) + " " + Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8)));
                 
                 //if(check_path_dia(new_index, old_index)){
                 return true;
                 //}
             }
             
-            alert("Invalid king move");
+            if(!stale){
+                alert("Invalid king move");
+            }
         }
 
         else{
@@ -456,24 +502,72 @@ function moveStart(e, col){
             && Math.abs(Math.floor((new_index - (new_index % 8)) / 8) - Math.floor((old_index - (old_index % 8)) / 8)) === 2)
             || ((Math.abs(new_index - old_index) === 10 || Math.abs(new_index - old_index) === 6) && Math.abs((new_index % 8) - (old_index % 8)) === 2)){
                 
-                console.log(Math.abs(new_index - old_index) + " " + Math.abs(Math.floor((new_index - (new_index % 8)) / 8) - Math.floor((old_index - (old_index % 8)) / 8)));
+                //console.log(Math.abs(new_index - old_index) + " " + Math.abs(Math.floor((new_index - (new_index % 8)) / 8) - Math.floor((old_index - (old_index % 8)) / 8)));
                 
                 //if(check_path_dia(new_index, old_index)){
                 return true;
                 //}
-            }else{
-                console.log(Math.abs(new_index - old_index) + " " + Math.abs(Math.floor((new_index - (new_index % 8)) / 8) - Math.floor((old_index - (old_index % 8)) / 8)));
             }
+            //else{
+            //    console.log(Math.abs(new_index - old_index) + " " + Math.abs(Math.floor((new_index - (new_index % 8)) / 8) - Math.floor((old_index - (old_index % 8)) / 8)));
+            //}
 
-            alert("Invalid knight move");
+            if(!stale){
+                alert("Invalid knight move");
+            }
         }
 
         return false;
     }
 
+    //Return true if the match ends in a stalemate
+    function stalemate(){
+
+        board = document.getElementById("chessboard");
+        turn = localStorage.turn;
+
+        //let color;
+        //if(turn === "white-piece"){
+          //  color = "black-piece";
+        //}else{
+          //  color = "white-piece";
+        //}
+
+        console.log("Color is " + turn);
+
+        //Loop ever piece and test everypossible move to see if it is not in check
+        for(var i = 0; i < 64; i++){
+            
+            if(board.children[i].children[0] !== undefined && board.children[i].children[0].classList.contains(turn)){
+                for(var j = 0; j < 64; j++){
+                    if(i !== j){
+                        if(board.children[i].children[0] !== undefined && 
+                            !board.children[i].children[0].classList.contains(turn)){
+
+                            if(validMove(board.children[j], board.children[i], board.children[i].children[0], 1, 1)
+                                && !king_check(board.children[j], board.children[i], board.children[i].children[0], 1, 1)){
+                                
+                                return false;
+                            }
+                        }else{
+                            if(validMove(board.children[j], board.children[i], board.children[i].children[0], 0, 1)
+                                && !king_check(board.children[j], board.children[i], board.children[i].children[0], 0, 1)){
+                                
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
     //Checks if the king will be in check after a move
     //take === 1 when you are taking a piece
-    function king_check(new_col, cur_col, piece, take){
+    //stale === 1 when checking stalemate and to not print alerts
+    function king_check(new_col, cur_col, piece, take, stale){
         turn = localStorage.turn;
         let color, fail, index;
         //take_piece;
@@ -504,7 +598,9 @@ function moveStart(e, col){
 
         //Cant make a move that would put you into check
         if(in_check(index, color)){
-            alert("You can't make a move that would put you into check");
+            if(!stale){
+                alert("You can't make a move that would put you into check");
+            }
             fail = 1;
             //return true;
         }
@@ -541,7 +637,7 @@ function moveStart(e, col){
             
             for(var i = start + 8; i < end; i += 8){
                 if(board.children[i].children[0] !== undefined){
-                    console.log("Zap at " + i);
+              //      console.log("Zap at " + i);
                     return false;
                 }
             }
@@ -558,7 +654,7 @@ function moveStart(e, col){
 
             for(var i = start + 1; i < end; i++){
                 if(board.children[i].children[0] !== undefined){
-                    console.log("Zap at " + i);
+                //    console.log("Zap at " + i);
                     return false;
                 }
             }
@@ -581,10 +677,10 @@ function moveStart(e, col){
         }
 
         //GOING UP
-            console.log("UP");
+            //console.log("UP");
             //Going right
             if((end % 8) > (start % 8)){
-                console.log("Right");
+              //  console.log("Right");
                 side = -1;
             }else{
                 side = 1;
