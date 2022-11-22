@@ -54,9 +54,10 @@ document.addEventListener("DOMContentLoaded", function () {
             //Define the colors and piece type of the pieces
             if (i < 3) {
                 //Uncomment to test checkmate and stalemate
-                //if((i === 1 && j === 5) || (i === 1 && j === 4) || (i === 1 && j === 8) || (i === 1 && j === 1)){
-                //    document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
-                //    piece.classList.add("black-piece");
+                //if((i === 1 && j === 5) || (i === 1 && j === 3)){ 
+                //|| (i === 1 && j === 4) || (i === 1 && j === 8) || (i === 1 && j === 1)){
+                    document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
+                    piece.classList.add("black-piece");
                 //}
                 //Define all the pieces for the black side
                 if(i === 1){
@@ -92,9 +93,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             else if (i > 6) {
                 //Uncomment to test stalemate and checkmate
-                //if(i === 8 && j === 5){
-                //    document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
-                //    piece.classList.add("white-piece");
+                //if((i === 8 && j === 5) || (i === 8 && j === 3)){
+                    document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
+                    piece.classList.add("white-piece");
                 //}
                 //Defines all the pieces for the white side
                 if(i === 8){
@@ -301,6 +302,10 @@ function moveStart(e, col){
                 alert("Tie! You have reached a stalemate");
                 return;
             }
+        }
+
+        if(insufficient_materials()){
+            alert("Tie! By insufficient materials.");
         }
 }
  
@@ -619,6 +624,80 @@ function moveStart(e, col){
         return false;
     }
 
+    function insufficient_materials(){
+        
+        let white_bis = 0;
+        let black_bis = 0;
+        let white_kni = 0;
+        let black_kni = 0;
+        let black_bis_black = false;
+        let black_bis_white = false;
+        let white_bis_black = false;
+        let white_bis_white = false;
+
+        board = document.getElementById("chessboard");
+        for(let i = 0; i < 63; i++){
+            if(board.children[i].children[0] !== undefined){
+                if(board.children[i].children[0].classList.contains("K")){
+                    //Do nothing
+                }else if(board.children[i].children[0].classList.contains("k")){
+                    //Do nothing
+                }else if(board.children[i].children[0].classList.contains("B")){
+                    white_bis++;
+                    if(board.children[i].classList.contains("white")){
+                        white_bis_white = true;
+                    }else{
+                        white_bis_black = true;
+                    }
+                }else if(board.children[i].children[0].classList.contains("b")){
+                    black_bis++;
+                    if(board.children[i].classList.contains("white")){
+                        black_bis_white = true;
+                    }else{
+                        black_bis_black = true;
+                    }
+                }else if(board.children[i].children[0].classList.contains("N")){
+                    white_kni++
+                }else if(board.children[i].children[0].classList.contains("n")){
+                    black_kni++;
+                }else{
+                    return false;
+                }
+            }
+        }
+
+        //Only kings left
+        if(black_bis === 0 && black_kni === 0 && white_bis === 0 && white_kni === 0){
+            return true;
+        }
+        //King and bis vs king
+        else if(((black_bis === 1 && white_bis === 0) || (black_bis === 0 && white_bis === 1)) 
+            && black_kni === 0 && white_kni === 0){
+            
+            return true;
+        }
+        //King and kni vs king
+        else if(((black_kni === 1 && white_kni === 0) || (black_kni === 0 && white_kni === 1))
+            && black_bis === 0 && white_bis === 0){
+
+            return true;
+        }
+        //King and two knights vs king
+        else if(((black_kni === 2 && white_kni === 0) || (black_kni === 0 && white_kni === 2))
+            && black_bis === 0 && white_bis === 0){
+
+            return true;
+        }
+        //King and bis vs king and bis when both bises are on the same color.
+        else if(((black_bis === 1 && white_bis === 1) && (black_kni === 0 && white_kni === 0))
+            && ((black_bis_white && white_bis_white) || (black_bis_black && white_bis_black))){
+
+            return true;
+        }
+
+        return false;
+    }
+
     function check_path(new_index, old_index){
 
         board = document.getElementById("chessboard");
@@ -741,14 +820,22 @@ function moveStart(e, col){
             b = cas.replace(options[piece.classList.item(4)], '');
         }else if(piece.classList.contains("K")){
             a = cas.replace("K", '');
-            document.getElementsByClassName("K")[0].classList.remove("First");
+            if(document.getElementsByClassName("K")[0] !== undefined){
+                document.getElementsByClassName("K")[0].classList.remove("First");
+            }
             b = a.replace("Q", '');
-            document.getElementsByClassName("Q")[0].classList.remove("First");
+            if(document.getElementsByClassName("Q")[0] !== undefined){
+                document.getElementsByClassName("Q")[0].classList.remove("First");
+            }
         }else{
             a = cas.replace("k", '');
-            document.getElementsByClassName("k")[0].classList.remove("First");
+            if(document.getElementsByClassName("k")[0] !== undefined){
+                document.getElementsByClassName("k")[0].classList.remove("First");
+            }
             b = a.replace("q", '');
-            document.getElementsByClassName("q")[0].classList.remove("First");
+            if(document.getElementsByClassName("q")[0] !== undefined){
+                document.getElementsByClassName("q")[0].classList.remove("First");
+            }
         }
 
         piece.classList.remove("First");
