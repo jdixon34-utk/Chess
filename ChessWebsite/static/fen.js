@@ -265,6 +265,7 @@ function fenin(fen){
                         if(cas.includes("Q") || cas.includes("W")){
                             piece.classList.add("First");
                         }
+                        piece.classList.add("W_K");
                     }else if(fen[check] === "Q"){
                         piece.classList.add("Q");
                     }else if(fen[check] === "B"){
@@ -475,4 +476,7 @@ function flip_b(){
             }
             //console.log("hit");
 }
+
+
+//Document.querySelector(".K");
 

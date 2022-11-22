@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     }else{
                         piece.classList.add("K");
                         piece.classList.add("First");
+                        piece.classList.add("W_K");
                     }
                 }else{
                     piece.classList.add("P");
@@ -186,7 +187,7 @@ function moveStart(e, col){
 
                     localStorage.half = half;
                     localStorage.full = full;
-                }else if(validMove(col, cur.parentNode, cur, 0)){
+                }else if(validMove(col, cur.parentNode, cur, 0) && !king_check(col, cur.parentNode, cur, 0)){
                     //IF a pawn checks if an en passant is now valid
                     if((cur.classList.contains("B_p") === true) || (cur.classList.contains("P") === true)){
                         half = 0;
@@ -221,7 +222,7 @@ function moveStart(e, col){
             }
             //Take a piece
             else if(col.children[0] !== undefined && ((cur.classList.contains("white-piece") && col.children[0].classList.contains("black-piece")) || (cur.classList.contains("black-piece") && col.children[0].classList.contains("white-piece")))){
-                if(validMove(col, cur.parentNode, cur, 1)){
+                if(validMove(col, cur.parentNode, cur, 1) && !king_check(col, cur.parentNode, cur, 1)){
                     half = 0;
 
                     //console.log("Val = rure");
@@ -274,7 +275,8 @@ function moveStart(e, col){
     //Move piece from cur_col to new_col
     function move(new_col, cur_col, piece) {
 
-       
+       //let color;
+       //let turn = localStorage.turn;
 
         //No longer first move so first is removed
         if(piece.classList.contains("First")){
@@ -284,6 +286,7 @@ function moveStart(e, col){
         //Moves the piece
         cur_col.removeChild(piece);
         new_col.appendChild(piece); 
+
         piece.classList.remove("current");
 
         turn = (turn === "white-piece") ? "black-piece" : "white-piece";
@@ -463,6 +466,58 @@ function moveStart(e, col){
             }
 
             alert("Invalid knight move");
+        }
+
+        return false;
+    }
+
+    //Checks if the king will be in check after a move
+    //take === 1 when you are taking a piece
+    function king_check(new_col, cur_col, piece, take){
+        turn = localStorage.turn;
+        let color, fail, index;
+        //take_piece;
+
+        if(take === 1){
+            take_piece = new_col.children[0];
+            new_col.removeChild(new_col.children[0]);    
+        }
+
+        cur_col.removeChild(piece);
+        new_col.appendChild(piece); 
+
+
+        if(turn === "white-piece"){
+            color = "w";
+        }else{
+            color = "b";
+        }
+
+        //king_loc;
+        if(color === "w"){
+            king_loc = document.querySelector(".W_K"); 
+            index = [].indexOf.call(king_loc.parentNode.parentNode.children, king_loc.parentNode);
+        }else{
+            king_loc = document.querySelector(".b_k");
+            index = [].indexOf.call(king_loc.parentNode.parentNode.children, king_loc.parentNode);
+        }
+
+        //Cant make a move that would put you into check
+        if(in_check(index, color)){
+            alert("You can't make a move that would put you into check");
+            fail = 1;
+            //return true;
+        }
+
+        new_col.removeChild(piece);
+        cur_col.appendChild(piece);
+        
+        if(take === 1){
+            new_col.appendChild(take_piece);
+        }
+
+        if(fail === 1){
+            return true;
         }
 
         return false;
