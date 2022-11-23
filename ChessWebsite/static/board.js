@@ -64,12 +64,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         piece.classList.add("r");
                         piece.classList.add("B_r");
                         piece.classList.add("First");
-                        piece.classList.add(2);
+                        piece.classList.add(3);
                     }else if(j === 8){
                         piece.classList.add("r");
                         piece.classList.add("B_r");
                         piece.classList.add("First");
-                        piece.classList.add(3);   
+                        piece.classList.add(2);   
                     }else if(j === 2 || j === 7){
                         piece.classList.add("n");
                         piece.classList.add("B_n");
@@ -102,12 +102,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         piece.classList.add("R");
                         piece.classList.add("W_r");
                         piece.classList.add("First");
-                        piece.classList.add(0);
+                        piece.classList.add(1);
                     }else if(j === 8){
                         piece.classList.add("R");
                         piece.classList.add("W_r");
                         piece.classList.add("First");
-                        piece.classList.add(1); 
+                        piece.classList.add(0); 
                     }    
                     else if(j === 2 || j === 7){
                         piece.classList.add("N");
@@ -338,7 +338,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }else{
             diff = -8;
         }
-
+        /* Checks if the piece is a Pawn or not and determines the valid moves */
         if((piece.classList.item(1) === "P") || (piece.classList.item(1) === "p")){
             
             //Move up one
@@ -349,11 +349,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             //For taking pieces diagonally
-            if(take && (((((new_index + diff) - old_index) === 1 || ((new_index + diff) - old_index) === -1) 
-                && piece.classList.item(0) === "black-piece") 
-                || ((((new_index - diff) - old_index) === 1 || ((new_index - diff) - old_index) === -1) 
-                && piece.classList.item(0) === "white-piece"))){
-
+            if(take && (((Math.abs((new_index + diff) - old_index) === 1) && piece.classList.item(0) === "black-piece") 
+                || ((Math.abs((new_index - diff) - old_index) === 1) && piece.classList.item(0) === "white-piece"))){
 
                 return true;
             }
@@ -363,43 +360,33 @@ document.addEventListener("DOMContentLoaded", function () {
                 if(((new_index + (diff * 2)) === old_index && piece.classList.item(0) === "black-piece") 
                     || ((new_index - (diff * 2)) === old_index) && piece.classList.item(0) === "white-piece"){
                     
-                    //Must have no piece one above
+                    //Must have no piece one above the pawn moving
                     if(check_path(new_index, old_index)){
-                        console.log("Moving up two");
                         return true;
                     }
                 }
             }
 
-            //En pas check goes here
+            //En passant is checked here
             board = document.getElementById("chessboard");
-            //console.log("En_pas why " + (new_index + 8));
-            //Only works when not a backend move
             if(((new_index + 8).toString() === curr_en_pas || (new_index - 8).toString() === curr_en_pas) && 
-            (((((new_index + diff) - old_index) === 1 || ((new_index + diff) - old_index) === -1) 
-                && piece.classList.item(0) === "black-piece") 
-                || ((((new_index - diff) - old_index) === 1 || ((new_index - diff) - old_index) === -1) 
-                && piece.classList.item(0) === "white-piece"))){
+                (((Math.abs((new_index + diff) - old_index) === 1) && piece.classList.item(0) === "black-piece") 
+                || ((Math.abs((new_index - diff) - old_index) === 1) && piece.classList.item(0) === "white-piece"))){
                 
-                //Delete the piece
-                console.log(curr_en_pas);
+                //Delete the piece if this is not stalemate checking
                 if(!stale){
                     board.children[curr_en_pas].removeChild(board.children[curr_en_pas].children[0]);
                 }
                 return true;
             }
-            //else{
-            //    console.log(curr_en_pas + " bad " + pas);
-           // }
 
             if(!stale){
                 alert("Invalid pawn move");
             }
         }
-
+        /* Checks if the piece is a Queen or not and determines the valid moves */
         else if((piece.classList.item(1) === "Q") || (piece.classList.item(1) === "q")){
             
-            //console.log("In queen");
             //Checks up/down
             if((new_index % 8) === (old_index % 8)){
                 if(check_path(new_index, old_index)){
@@ -414,12 +401,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
 
-            //Checks diagonaly
+            //Checks diagonally
             if(Math.abs((new_index % 8) - (old_index % 8)) === Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8))){
                 if(check_path_dia(new_index, old_index)){
                     return true;
                 }
-                //console.log("YIPPPE " + old_index + " " + (((new_index % 8) * 8) + (new_index % 8)));
             }
 
             if(!stale){
@@ -430,7 +416,6 @@ document.addEventListener("DOMContentLoaded", function () {
         /* Checks if the piece is a Rook or not and determines the valid moves */
         else if((piece.classList.item(1) === "R") || (piece.classList.item(1) === "r")){
             
-            //console.log("In rook");
             /* Veritcal movement */
             if((new_index % 8) === (old_index % 8)){
                 if(check_path(new_index, old_index)){
@@ -443,7 +428,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 if(check_path(new_index, old_index)){
                     return true;
                 }
-                //console.log("YIPPPE " + old_index + " " + (((new_index % 8) * 8) + (new_index % 8)));
             }
 
             if(!stale){
@@ -454,11 +438,9 @@ document.addEventListener("DOMContentLoaded", function () {
         /* Checks if the piece is a Bishop or not and determines the valid moves */
         else if((piece.classList.item(1) === "B") || (piece.classList.item(1) === "b")){
 
-            //console.log("In bis");
 
             /* If there is attempted diagonal move, we return true and allow move */
             if(Math.abs((new_index % 8) - (old_index % 8)) === Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8))){
-                //console.log("YIPPPE " + Math.abs((new_index % 8) - (old_index % 8)) + " " + Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8)));
                 if(check_path_dia(new_index, old_index)){
                     return true;
                 }
@@ -469,19 +451,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-        //King check
+        /* Checks if the piece is a King or not and determines the valid moves */
         else if((piece.classList.contains("K") === true) || (piece.classList.contains("k") === true)){
 
-            //console.log("In king");
             
             /* If there is attempted diagonal move, we return true and allow move */
             if(( 6 < Math.abs(new_index - old_index) && Math.abs(new_index - old_index) < 10) || (Math.abs(new_index - old_index) === 1)){
                 
-                //console.log("YIPPPE " + Math.abs((new_index % 8) - (old_index % 8)) + " " + Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8)));
-                
-                //if(check_path_dia(new_index, old_index)){
                 return true;
-                //}
             }
             
             if(!stale){
@@ -489,21 +466,15 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
+        /* Piece is a Knight and we determine the valid moves */
         else{
 
             if(((Math.abs(new_index - old_index) === 15 || Math.abs(new_index - old_index) === 17) 
             && Math.abs(Math.floor((new_index - (new_index % 8)) / 8) - Math.floor((old_index - (old_index % 8)) / 8)) === 2)
             || ((Math.abs(new_index - old_index) === 10 || Math.abs(new_index - old_index) === 6) && Math.abs((new_index % 8) - (old_index % 8)) === 2)){
                 
-                //console.log(Math.abs(new_index - old_index) + " " + Math.abs(Math.floor((new_index - (new_index % 8)) / 8) - Math.floor((old_index - (old_index % 8)) / 8)));
-                
-                //if(check_path_dia(new_index, old_index)){
                 return true;
-                //}
             }
-            //else{
-            //    console.log(Math.abs(new_index - old_index) + " " + Math.abs(Math.floor((new_index - (new_index % 8)) / 8) - Math.floor((old_index - (old_index % 8)) / 8)));
-            //}
 
             if(!stale){
                 alert("Invalid knight move");
@@ -513,27 +484,19 @@ document.addEventListener("DOMContentLoaded", function () {
         return false;
     }
 
-    //Return true if the match ends in a stalemate
+    //Return true if the match ends in a stalemate or checkmate
     function stalemate(){
 
         board = document.getElementById("chessboard");
         turn = localStorage.turn;
 
-        //let color;
-        //if(turn === "white-piece"){
-          //  color = "black-piece";
-        //}else{
-          //  color = "white-piece";
-        //}
-
-        console.log("Color is " + turn);
-
-        //Loop ever piece and test everypossible move to see if it is not in check
+        //Loop over ever piece and test every possible move to see if it is not in check or not after all of them
         for(var i = 0; i < 64; i++){
             
             if(board.children[i].children[0] !== undefined && board.children[i].children[0].classList.contains(turn)){
                 for(var j = 0; j < 64; j++){
                     if(i !== j){
+                        //Sees if taking a piece will be in check
                         if(board.children[j].children[0] !== undefined && 
                             !board.children[j].children[0].classList.contains(turn)){
 
@@ -543,6 +506,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 return false;
                             }
                         }
+                        //Sees if moving without taking a piece will be in check
                         else if(board.children[j].children[0] === undefined){
                             if(validMove(board.children[j], board.children[i], board.children[i].children[0], 0, 1)
                                 && !king_check(board.children[j], board.children[i], board.children[i].children[0], 0, 1)){
@@ -555,27 +519,24 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-        return false;
-        //return true;
+        return true;
     }
 
-    //Checks if the king will be in check after a move
+    //Checks if the king will be in check after a move, then undoes the move. Returns true if in check or false if not
     //take === 1 when you are taking a piece
     //stale === 1 when checking stalemate and to not print alerts
     function king_check(new_col, cur_col, piece, take, stale){
+        
         turn = localStorage.turn;
         let color, fail, index;
-        //take_piece;
 
         if(take === 1){
             take_piece = new_col.children[0];
-            console.log("Take Removed from " + [].indexOf.call(new_col.parentNode.children, new_col));
             new_col.removeChild(new_col.children[0]);    
         }
 
-        console.log("First Removed from " + [].indexOf.call(cur_col.parentNode.children, cur_col));
+        //Does the move
         cur_col.removeChild(piece);
-        console.log("First ADD from " + [].indexOf.call(new_col.parentNode.children, new_col));
         new_col.appendChild(piece); 
 
 
@@ -585,7 +546,7 @@ document.addEventListener("DOMContentLoaded", function () {
             color = "b";
         }
 
-        //king_loc;
+        //Finds the king's index
         if(color === "w"){
             king_loc = document.querySelector(".W_K"); 
             index = [].indexOf.call(king_loc.parentNode.parentNode.children, king_loc.parentNode);
@@ -594,24 +555,20 @@ document.addEventListener("DOMContentLoaded", function () {
             index = [].indexOf.call(king_loc.parentNode.parentNode.children, king_loc.parentNode);
         }
 
-        //Cant make a move that would put you into check
+        //Cant make a move that would put you into check so it fails
         if(in_check(index, color)){
             if(!stale){
                 alert("You can't make a move that would put you into check");
             }
             fail = 1;
-            //return true;
         }
 
+        //Undoes the move
         new_col.removeChild(piece);
-        console.log("Removed from " + [].indexOf.call(new_col.parentNode.children, new_col));
         cur_col.appendChild(piece);
-        console.log("ADD from " + [].indexOf.call(cur_col.parentNode.children, cur_col));
         
         if(take === 1){
             new_col.appendChild(take_piece);
-            console.log("Take ADD from " + [].indexOf.call(new_col.parentNode.children, new_col));
-        
         }
 
         if(fail === 1){
@@ -621,12 +578,14 @@ document.addEventListener("DOMContentLoaded", function () {
         return false;
     }
 
+    //Returns true if there are not enough pieces to have a checkmate.
     function insufficient_materials(){
         
-        let white_bis = 0;
+        let white_bis = 0;  
         let black_bis = 0;
         let white_kni = 0;
         let black_kni = 0;
+        //Tells what square color the bishop is on
         let black_bis_black = false;
         let black_bis_white = false;
         let white_bis_black = false;
@@ -667,13 +626,13 @@ document.addEventListener("DOMContentLoaded", function () {
         if(black_bis === 0 && black_kni === 0 && white_bis === 0 && white_kni === 0){
             return true;
         }
-        //King and bis vs king
+        //King and bishop vs king
         else if(((black_bis === 1 && white_bis === 0) || (black_bis === 0 && white_bis === 1)) 
             && black_kni === 0 && white_kni === 0){
             
             return true;
         }
-        //King and kni vs king
+        //King and knight vs king
         else if(((black_kni === 1 && white_kni === 0) || (black_kni === 0 && white_kni === 1))
             && black_bis === 0 && white_bis === 0){
 
@@ -685,7 +644,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             return true;
         }
-        //King and bis vs king and bis when both bises are on the same color.
+        //King and bishop vs king and bishop when both bishops are on the same color.
         else if(((black_bis === 1 && white_bis === 1) && (black_kni === 0 && white_kni === 0))
             && ((black_bis_white && white_bis_white) || (black_bis_black && white_bis_black))){
 
@@ -695,6 +654,8 @@ document.addEventListener("DOMContentLoaded", function () {
         return false;
     }
 
+    //Checks if any piece is in the path of a potential movement
+    //Returns false if there is a piece in the path
     function check_path(new_index, old_index){
 
         board = document.getElementById("chessboard");
@@ -703,6 +664,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         //Up and Down
         if(new_index - old_index >= 8 || old_index - new_index >= 8){
+            
+            //Start is the smaller index and the for loop ending is the larger index
             if(new_index > old_index){
                 start = old_index;
                 end = new_index;
@@ -712,14 +675,16 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             
             for(var i = start + 8; i < end; i += 8){
+                //There is a piece in the way return false
                 if(board.children[i].children[0] !== undefined){
-              //      console.log("Zap at " + i);
                     return false;
                 }
             }
         }
         //Left or right
         else{
+
+            //Start is the smaller index and the for loop ending is the larger index
             if(new_index < old_index){
                 start = new_index;
                 end = old_index
@@ -729,8 +694,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             for(var i = start + 1; i < end; i++){
+                //There is a piece in the way return false
                 if(board.children[i].children[0] !== undefined){
-                //    console.log("Zap at " + i);
                     return false;
                 }
             }
@@ -739,11 +704,16 @@ document.addEventListener("DOMContentLoaded", function () {
         return true;
     }
 
+    //Checks if there is a piece in the diagonal path of a potential movement
+    //Returns false if a piece is in the path
     function check_path_dia(new_index, old_index){
+        
         board = document.getElementById("chessboard");
         var start;
         var end;
         var side;
+
+        //For loop start is the larger index and ending the smaller
         if(new_index > old_index){
             end = old_index;
             start = new_index;
@@ -752,24 +722,21 @@ document.addEventListener("DOMContentLoaded", function () {
             end = new_index;
         }
 
-        //GOING UP
-            //console.log("UP");
-            //Going right
-            if((end % 8) > (start % 8)){
-              //  console.log("Right");
-                side = -1;
-            }else{
-                side = 1;
-            }
+        //Going right
+        if((end % 8) > (start % 8)){
+            side = -1;
+        }
+        //Going left
+        else{
+            side = 1;
+        }
 
-            //console.log("Zap at " + i + " start " + start + " end " + end + " " + (start - (side + 8)));
-            for(var i = (start - (side + 8)); i > end; i -= (side + 8)){
-                //console.log("Zap at " + i + " start " + start + " end " + end + " " + (start - (side + 8)));
-                if(board.children[i].children[0] !== undefined){
-                    //console.log("Zap at " + i + " start " + start + " end " + end + " " + (start - (side + 8)));
-                    return false;
-                }
+        for(var i = (start - (side + 8)); i > end; i -= (side + 8)){
+            //Piece in the path return false
+            if(board.children[i].children[0] !== undefined){
+                return false;
             }
+        }
 
         return true;
     }
@@ -788,17 +755,16 @@ document.addEventListener("DOMContentLoaded", function () {
         //Might not be an En Passant so we check
         if((old_index + 16) === new_index || (old_index - 16) === new_index){
             
-            //If the board has been fliped it string add
+            //If the board has been flipped the math of adding to the pas string is different
             if(check === 0){
                 pas = rows[new_index % 8];
                 pas += 8 - Math.floor(new_index / 8);
-                //console.log(rows[new_index % 8] + " " + (8 - Math.floor(new_index / 8)) + " enpas1 " + check + " " + localStorage.flip);
             }else{
                 pas = rows[7 - (new_index % 8)]
                 pas += 1 + Math.floor(new_index / 8);
-                //console.log(rows[7 - (new_index % 8)] + " " + (1 + Math.floor(new_index / 8)) + " enpas2 " + check);
             }
 
+            //Set curr_en_pas to be the index of the piece that can be en passanted
             curr_en_pas = new_index.toString();
             localStorage.curr_en_pas = curr_en_pas;
             localStorage.pas = pas;
@@ -807,15 +773,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+    //Changes the castling string and classes of the king or rook which just moved
     function castling(piece){
 
         const options = ['K', 'Q', 'k', 'q'];
 
         var a, b;
 
+        console.log("In castling");
+
+        //Rook just moved remove its side from the cas string
         if(piece.classList.contains("r") || piece.classList.contains("R")){
             b = cas.replace(options[piece.classList.item(4)], '');
-        }else if(piece.classList.contains("K")){
+            console.log(piece.classList.item(4));
+        }
+        //White king just moved remove all its future castling potential
+        else if(piece.classList.contains("K")){
             a = cas.replace("K", '');
             if(document.getElementsByClassName("K")[0] !== undefined){
                 document.getElementsByClassName("K")[0].classList.remove("First");
@@ -824,7 +797,9 @@ document.addEventListener("DOMContentLoaded", function () {
             if(document.getElementsByClassName("Q")[0] !== undefined){
                 document.getElementsByClassName("Q")[0].classList.remove("First");
             }
-        }else{
+        }
+        //Black king just moved remove all its future castling potential
+        else{
             a = cas.replace("k", '');
             if(document.getElementsByClassName("k")[0] !== undefined){
                 document.getElementsByClassName("k")[0].classList.remove("First");
@@ -841,7 +816,8 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.cas = cas;
     }
 
-    //Checks if castling is ok
+    //Checks current attempted castling is ok
+    //Return true if is is and false if it isn't
     //for side 0 = left and 1 = right
     //color is either "w" or "b"
     function valid_castling(side, color){
@@ -850,12 +826,13 @@ document.addEventListener("DOMContentLoaded", function () {
         flip = localStorage.flip;
         let check, king_loc, rook_loc;
 
-        //console.log("Just got into valid_castle " + side + " " + color);
-
         if(cas === "-"){
             return false;
         }
  
+        //Check equal 'Q' = queenside castle attempted, 'k' = kingside attempt
+        //Captial letters if white and lowercase black
+        //Stores the location of the king and rook about to move
         if(side === 0 && color === "w"){
             if(flip === "0"){
                 check = "Q";
@@ -899,29 +876,18 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
  
-        //console.log(cas + " was a pas chek outs is " + check);
+        //Checks if the attempted castle is in the cas string
         if(!cas.includes(check)){
             return false;
         }
 
-        //console.log("Pre piece between check");
         //Is there pieces between the rook and king
         board = document.getElementById("chessboard");
-        if(king_loc - rook_loc > 0){
-            for(var i = (rook_loc + 1); i < king_loc; i++){
-                if(board.children[i].children[0] !== undefined){
-                    return false;
-                }
-            }
-        }else{
-            for(var i = (king_loc + 1); i < rook_loc; i++){
-                if(board.children[i].children[0] !== undefined){
-                    return false;
-                }
-            }
+        if(!check_path(rook_loc, king_loc)){
+            return false;
         }
 
-        //Sees if the king will be in check
+        //Sees if the king will be in check during the castling
         if(side === 0){
             for(var i = king_loc; i > (king_loc - 3); i--){
                 if(in_check(i, color)){
@@ -950,6 +916,7 @@ document.addEventListener("DOMContentLoaded", function () {
             board.children[king_loc + 1].appendChild(rook);
         }
 
+        //Removes future castling potential
         if(color === "w"){
             cas = cas.replace("K", '');
             document.getElementsByClassName("K")[0].classList.remove("First");
@@ -968,11 +935,12 @@ document.addEventListener("DOMContentLoaded", function () {
  
     }
 
-    //Returns true if the piece at index is in check
+    //Returns true if the piece at the index is in check
     function in_check(index, color){
 
         flip = localStorage.flip;
-        let color_check
+        let color_check;
+
         if(color === "w"){
             color_check = "white-piece";
         }else{
@@ -1007,7 +975,6 @@ document.addEventListener("DOMContentLoaded", function () {
             counter--;
         }
 
-        //console.log("Pr right check ");
         //Right check
         counter = index + 1;
         while(true){
@@ -1021,12 +988,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("r")  
-                || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R")){
+                    || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R")){
                     return true;
                 }
 
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
-                && (counter - index) === 1){
+                    && (counter - index) === 1){
                     return true;
                 }
 
@@ -1036,7 +1003,6 @@ document.addEventListener("DOMContentLoaded", function () {
             counter++;
         }
 
-        //console.log("Pr up check ");
         //Up check
         counter = index - 8;
         while(true){
@@ -1050,12 +1016,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("r")  
-                || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R")){
+                    || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R")){
                     return true;
                 }
 
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
-                && (index - 8) === counter){
+                    && (index - 8) === counter){
                     return true;
                 }
 
@@ -1065,7 +1031,6 @@ document.addEventListener("DOMContentLoaded", function () {
             counter -= 8;
         }
 
-        //console.log("Pr down check ");
         //Down check
         counter = index + 8;
         while(true){
@@ -1079,12 +1044,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("r")  
-                || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R")){
+                    || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R")){
                     return true;
                 }
 
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
-                && (index + 8) === counter){
+                    && (index + 8) === counter){
                     return true;
                 }
 
@@ -1094,7 +1059,6 @@ document.addEventListener("DOMContentLoaded", function () {
             counter += 8;
         }
 
-        //console.log("Pr up left check ");
         //Up left check
         counter = index - 9;
         while(true){
@@ -1108,21 +1072,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("Q")  
-                || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
-                    //console.log("Pr up left check first");
+                    || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
+                    
                     return true;
                 }
 
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
-                && (index - 9) === counter){
-                    //console.log("Pr up left check second");
+                    && (index - 9) === counter){
+
                     return true;
                 }
 
                 //For pawns
                 if(((board.children[counter].children[0].classList.contains("p") && flip === "0")
-                || (board.children[counter].children[0].classList.contains("P") && flip === "1")) && (index - 9) === counter){
-                    //console.log("Pr up left check third");
+                    || (board.children[counter].children[0].classList.contains("P") && flip === "1")) && (index - 9) === counter){
+                    
                     return true;
                 }
 
@@ -1136,7 +1100,6 @@ document.addEventListener("DOMContentLoaded", function () {
             counter -= 9;
         }
 
-        //console.log("Pr up right check ");
         //Up right check
         counter = index - 7;
         while(true){
@@ -1146,25 +1109,26 @@ document.addEventListener("DOMContentLoaded", function () {
         
             if(board.children[counter].children[0] !== undefined){
                 if(board.children[counter].children[0].classList.contains(color_check)){
-                     break;
+                     
+                    break;
                 }
         
                 if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("Q")  
-                || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
-                    //console.log("Pr up right check first");
+                    || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
+
                     return true;
                 }
         
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
-                && (index - 7) === counter){
-                    //console.log("Pr up right check second");
+                    && (index - 7) === counter){
+                    
                     return true;
                 }
         
                 //For pawns
                 if(((board.children[counter].children[0].classList.contains("p") && flip === "0")
-                || (board.children[counter].children[0].classList.contains("P") && flip === "1")) && (index - 7) === counter){
-                    //console.log("Pr up right check third");
+                    || (board.children[counter].children[0].classList.contains("P") && flip === "1")) && (index - 7) === counter){
+                    
                     return true;
                 }
         
@@ -1178,7 +1142,6 @@ document.addEventListener("DOMContentLoaded", function () {
             counter -= 7;
         }
 
-        //console.log("Pr down right check ");
          //Down right check
          counter = index + 9;
          while(true){
@@ -1192,19 +1155,22 @@ document.addEventListener("DOMContentLoaded", function () {
                  }
  
                  if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("Q")  
-                 || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
-                     return true;
+                    || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
+                     
+                    return true;
                  }
  
                  if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
-                 && (index + 9) === counter){
-                     return true;
+                    && (index + 9) === counter){
+                    
+                    return true;
                  }
  
                  //For pawns
                  if(((board.children[counter].children[0].classList.contains("p") && flip === "1")
-                 || (board.children[counter].children[0].classList.contains("P") && flip === "0")) && (index + 9) === counter){
-                     return true;
+                    || (board.children[counter].children[0].classList.contains("P") && flip === "0")) && (index + 9) === counter){
+                    
+                    return true;
                  }
  
                  break;
@@ -1217,7 +1183,6 @@ document.addEventListener("DOMContentLoaded", function () {
              counter += 9;
         }
 
-        //console.log("Pr down left check ");
         //Down left check
         counter = index + 7;
         while(true){
@@ -1231,18 +1196,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("Q")  
-                || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
+                    || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
+                
                     return true;
                 }
 
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
-                && (index + 9) === counter){
+                    && (index + 9) === counter){
+                
                     return true;
                 }
 
                 //For pawns
                 if(((board.children[counter].children[0].classList.contains("p") && flip === "1")
-                || (board.children[counter].children[0].classList.contains("P") && flip === "0")) && (index + 9) === counter){
+                    || (board.children[counter].children[0].classList.contains("P") && flip === "0")) && (index + 9) === counter){
+                    
                     return true;
                 }
 
@@ -1256,68 +1224,75 @@ document.addEventListener("DOMContentLoaded", function () {
             counter += 7;
         }
         
-        //console.log("Pr knight check");
         //Knight checks
         if(index + 17 <= 63){
             if(board.children[index + 17].children[0] !== undefined){
-                if(!(board.children[index + 17].children[0].classList.contains(color_check)) && 
-                (board.children[index + 17].children[0].classList.contains("N") || board.children[index + 17].children[0].classList.contains("n"))){
+                if(!(board.children[index + 17].children[0].classList.contains(color_check))
+                    && (board.children[index + 17].children[0].classList.contains("N") || board.children[index + 17].children[0].classList.contains("n"))){
+                    
                     return true;
                 }
             }
         }
         if(index + 15 <= 63){
             if(board.children[index + 15].children[0] !== undefined){
-                if(!(board.children[index + 15].children[0].classList.contains(color_check)) && 
-                (board.children[index + 15].children[0].classList.contains("N") || board.children[index + 15].children[0].classList.contains("n"))){
+                if(!(board.children[index + 15].children[0].classList.contains(color_check)) 
+                    && (board.children[index + 15].children[0].classList.contains("N") || board.children[index + 15].children[0].classList.contains("n"))){
+                    
                     return true;
                 }
             }
         }
         if(index + 10 <= 63){
             if(board.children[index + 10].children[0] !== undefined){
-                if(!(board.children[index + 10].children[0].classList.contains(color_check)) && 
-                (board.children[index + 10].children[0].classList.contains("N") || board.children[index + 10].children[0].classList.contains("n"))){
+                if(!(board.children[index + 10].children[0].classList.contains(color_check)) 
+                    && (board.children[index + 10].children[0].classList.contains("N") || board.children[index + 10].children[0].classList.contains("n"))){
+                    
                     return true;
                 }
             }
         }
         if(index + 6 <= 63){
             if(board.children[index + 6].children[0] !== undefined){
-                if(!(board.children[index + 6].children[0].classList.contains(color_check)) && 
-                (board.children[index + 6].children[0].classList.contains("N") || board.children[index + 6].children[0].classList.contains("n"))){
+                if(!(board.children[index + 6].children[0].classList.contains(color_check)) 
+                    && (board.children[index + 6].children[0].classList.contains("N") || board.children[index + 6].children[0].classList.contains("n"))){
+                    
                     return true;
                 }
             }
         }
         if(index - 6 >= 0){
             if(board.children[index - 6].children[0] !== undefined){
-                if(!(board.children[index - 6].children[0].classList.contains(color_check)) && 
-                (board.children[index - 6].children[0].classList.contains("N") || board.children[index - 6].children[0].classList.contains("n"))){
+                if(!(board.children[index - 6].children[0].classList.contains(color_check)) 
+                    && (board.children[index - 6].children[0].classList.contains("N") || board.children[index - 6].children[0].classList.contains("n"))){
+                    
                     return true;
                 }
             }
         }
         if(index - 10 >= 0){
             if(board.children[index - 10].children[0] !== undefined){
-                if(!(board.children[index - 10].children[0].classList.contains(color_check)) && 
-                (board.children[index - 10].children[0].classList.contains("N") || board.children[index - 10].children[0].classList.contains("n"))){
+                if(!(board.children[index - 10].children[0].classList.contains(color_check)) 
+                    && (board.children[index - 10].children[0].classList.contains("N") || board.children[index - 10].children[0].classList.contains("n"))){
+                    
                     return true;
                 } 
             }
         }
         if(index - 15 >= 0){
             if(board.children[index - 15].children[0] !== undefined){
-                if(!(board.children[index - 15].children[0].classList.contains(color_check)) && 
-                (board.children[index - 15].children[0].classList.contains("N") || board.children[index - 15].children[0].classList.contains("n"))){
+                if(!(board.children[index - 15].children[0].classList.contains(color_check))
+                    && (board.children[index - 15].children[0].classList.contains("N") || board.children[index - 15].children[0].classList.contains("n"))){
+                    
                     return true;
                 }
             }
         }
         if(index - 17 >= 0){
             if(board.children[index - 17].children[0] !== undefined){
-                if(!(board.children[index - 17].children[0].classList.contains(color_check)) && 
-                (board.children[index - 17].children[0].classList.contains("N") || board.children[index - 17].children[0].classList.contains("n"))){
+                if(!(board.children[index - 17].children[0].classList.contains(color_check))
+                    && (board.children[index - 17].children[0].classList.contains("N") || board.children[index - 17].children[0].classList.contains("n"))){
+                    
                     return true;
                 }
             }
