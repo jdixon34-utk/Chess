@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.half = half;
     localStorage.full = full;
     localStorage.flip = flip;
-    localStorage.win_con = win_con;
     localStorage.curr_en_pas = curr_en_pas;
    
     const rows = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
@@ -93,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             else if (i > 6) {
                 //Uncomment to test stalemate and checkmate
-                //if((i === 8 && j === 5) || (i === 8 && j === 3)){
+                //if((i === 8 && j === 5) || (i === 8 && j === 6)){
                     document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
                     piece.classList.add("white-piece");
                 //}
@@ -134,153 +133,137 @@ document.addEventListener("DOMContentLoaded", function () {
     //Checks if a move is valid, if so does the move
     //e is click event, not used.
     //Col is the column the user clicked on
-function moveStart(e, col){
+    function moveStart(e, col){
 
         turn = localStorage.turn;
         pas = localStorage.pas;
         cas = localStorage.cas;
         half = localStorage.half;
         full = localStorage.full;
-        win = localStorage.win_con;
         curr_en_pas = localStorage.curr_en_pas;
 
-        if(full === "100"){
-            console.log("IN");
-            alert("100 turn timer reached you have tied");
-            localStorage.win_con = "t";
-            return;
-        }else if(half === "50"){
-            alert("50 half-turn timer reached you have tied");
-            localStorage.win_con = "t";
+        //A win or tie has been reached, this will not allow the user to make another move
+        if(win_con !== null){
+            alert(win_con);
             return;
         }
 
-        //if(win === "null"){
-            //Current piece selected, will be undefined at start
-            var cur = document.getElementsByClassName("current")[0];
+        if(full === "100"){
+            console.log("IN");
+            alert("100 turn timer reached. The game has ended in a tie.");
+            win_con = "Game has ended in a tie by turn timer. Please refresh the page to play again";
+            return;
+        }else if(half === "50"){
+            alert("50 half-turn timer reached. The game has ended in a tie.");
+            win_con = "Game has ended in a tie by half-turn timer. Please refresh the page to play again";
+            return;
+        }
+
+        //Current piece selected, will be undefined at start
+        var cur = document.getElementsByClassName("current")[0];
        
-            //Nothing is currently selected and column selected has a piece
-            if(cur === undefined && col.children[0] !== undefined){
-                if(col.children[0].classList.item(0) === turn){
-                    col.children[0].classList.add("current");
-                }else{
-                    alert("It is currently " + turn + "'s turn.");
-                    console.log(col.children[0].classList.item(0) + " " + half);
-                }
+        //Nothing is currently selected and column selected has a piece
+        if(cur === undefined && col.children[0] !== undefined){
+            if(col.children[0].classList.item(0) === turn){
+                col.children[0].classList.add("current");
+            }else{
+                alert("It is currently " + turn + "'s turn.");
+                console.log(col.children[0].classList.item(0) + " " + half);
             }
-            //Valid move. So move the piece
-            else if(cur !== undefined && col.children[0] === undefined){
+        }
+        //Valid move. So move the piece
+        else if(cur !== undefined && col.children[0] === undefined){
 
-                let side, color, diff;
-                if(turn === "white-piece"){
-                    color = "w";
-                }else{
-                    color = "b";
-                }
+            let side, color, diff;
+            if(turn === "white-piece"){
+                color = "w";
+            }else{
+                color = "b";
+            }
 
-                //col = new
-                //cur.par = old;
-                diff = ([].indexOf.call(col.parentNode.children, col)) - ([].indexOf.call(cur.parentNode.parentNode.children, cur.parentNode));
-                if(diff > 0){
-                    side = 1;
-                }else{
-                    side = 0;
-                }
+            diff = ([].indexOf.call(col.parentNode.children, col)) - ([].indexOf.call(cur.parentNode.parentNode.children, cur.parentNode));
+            if(diff > 0){
+                side = 1;
+            }else{
+                side = 0;
+            }
                 
 
-                if((cur.classList.contains("k") || cur.classList.contains("K")) && Math.abs(diff) === 1 && valid_castling(side, color)){
-                    //console.log("Valid castle went through ");
-                    full++;
+            //Testes if this is a castling move
+            if((cur.classList.contains("k") || cur.classList.contains("K")) && Math.abs(diff) === 1 && valid_castling(side, color)){
+                full++;
 
-                    localStorage.half = half;
-                    localStorage.full = full;
-                }else if(validMove(col, cur.parentNode, cur, 0, 0) && !king_check(col, cur.parentNode, cur, 0, 0)){
-                    //IF a pawn checks if an en passant is now valid
-                    if((cur.classList.contains("B_p") === true) || (cur.classList.contains("P") === true)){
+                localStorage.half = half;
+                localStorage.full = full;
+            }
+            //Tests if this is actually a valid move
+            else if(validMove(col, cur.parentNode, cur, 0, 0) && !king_check(col, cur.parentNode, cur, 0, 0)){
+                
+                //IF a pawn checks if an en passant is now valid
+                if((cur.classList.contains("B_p") === true) || (cur.classList.contains("P") === true)){
                         half = 0;
                 
-                        if(cur.classList.contains("First")){
-                            en_Pas(col, cur.parentNode);
-                            console.log("test " + curr_en_pas);
-                            //en_pas_ignore = true;
-                        }
-
-                    }else{
-                        half++;
+                    if(cur.classList.contains("First")){
+                        en_Pas(col, cur.parentNode);
                     }
 
-                    if(((cur.classList.contains("k") || cur.classList.contains("K")) || ((cur.classList.contains("r") || cur.classList.contains("R")))) 
-                        && cur.classList.contains("First")){
-                            castling(cur);
-                    }
-
-                    move(col, cur.parentNode, cur);
-                    //en_pas_ignore = false;
-
-                    full++;
-
-                    localStorage.half = half;
-                    localStorage.full = full;
+                }else{
+                    half++;
                 }
+
+
+                if(((cur.classList.contains("k") || cur.classList.contains("K")) || ((cur.classList.contains("r") || cur.classList.contains("R")))) 
+                    && cur.classList.contains("First")){
+                        castling(cur);
+                }
+
+                move(col, cur.parentNode, cur);
+
+                full++;
+
+                localStorage.half = half;
+                localStorage.full = full;
             }
+        }
             //Unselect the current piece
-            else if(col.children[0] === cur){
-                    cur.classList.remove("current");
+        else if(col.children[0] === cur){
+                cur.classList.remove("current");
+        }
+        //Take a piece
+        else if(col.children[0] !== undefined && ((cur.classList.contains("white-piece") && col.children[0].classList.contains("black-piece")) || (cur.classList.contains("black-piece") && col.children[0].classList.contains("white-piece")))){
+                
+            //Tests if this is a valid move
+            if(validMove(col, cur.parentNode, cur, 1, 0) && !king_check(col, cur.parentNode, cur, 1, 0)){
+                    
+                half = 0;
+
+                col.removeChild(col.children[0]);
+                move(col, cur.parentNode, cur);
+                    
+                full++;
+
+                localStorage.half = half;
+                localStorage.full = full;
+
             }
-            //Take a piece
-            else if(col.children[0] !== undefined && ((cur.classList.contains("white-piece") && col.children[0].classList.contains("black-piece")) || (cur.classList.contains("black-piece") && col.children[0].classList.contains("white-piece")))){
-                if(validMove(col, cur.parentNode, cur, 1, 0) && !king_check(col, cur.parentNode, cur, 1, 0)){
-                    half = 0;
+        }
+        //Good attempt but there is already a piece there ;D
+        else if(col.children[0] !== undefined){
+            alert("Column already has a piece of the same color");
+        }
+        //Else nothing is currently selected and the selected square has no piece so do nothing
 
-                    //console.log("Val = rure");
-                    //if(col.children[0].item(1) === 'K'){
-                    //    alert("Black wins!");
-                    //}else if(col.children[0].item(1) === 'k'){
-                    //    alert("White wins!");
-                    //}
+        //The current en passant possibility was not used so reset it.
+        if(en_pas_ignore === false){
+            pas = "-";
+            curr_en_pas =  "null";
+            localStorage.pas = pas;
+        }else{
+            en_pas_ignore = false;
+        }
 
-                    //console.log("PAs king");
-
-                    col.removeChild(col.children[0]);
-                    move(col, cur.parentNode, cur);
-                    full++;
-
-                    localStorage.half = half;
-                    localStorage.full = full;
-
-                }
-            }
-            //Good attempt but there is already a piece there ;D
-            else if(col.children[0] !== undefined){
-                alert("Column already has a piece of the same color");
-            }
-            //Else nothing is currently selected and the selected square has no piece so do nothing
-
-            if(en_pas_ignore === false){
-                pas = "-";
-                curr_en_pas =  "null";
-                localStorage.pas = pas;
-            }else{
-                en_pas_ignore = false;
-                console.log("IN THIS " + pas + " " + curr_en_pas);
-            }
-
-            //Test delete later
-            //let temp;
-            //if(turn === "white-piece"){
-            //    temp = "b";
-            //}else{
-            //    temp = "w";
-            //}
-            //console.log("temp is " + temp);
-            //if(in_check([].indexOf.call(cur.parentNode.parentNode.children, cur.parentNode), temp)){
-            //    console.log("IN CHECK");
-            //}
-        //}
-
+        //Tests if the game has ended in a stalemate or a checkmate
         if(stalemate()){
-            
-            console.log("Inside Statemate pass");
 
             let index;
             turn = localStorage.turn;
@@ -295,25 +278,36 @@ function moveStart(e, col){
             }
 
 
-
+            //Getting here means that there are no possible valid moves for the current color.
+            //If the king is in check it is a checkmate, if not then it is a stalemate.
             if(in_check(index, color)){
                 alert("Checkmate! " + turn + " has won!");
+                win_con = "The game has ended with " + turn + " winning by checkmate. Please refresh the page to play again";
+                return;
             }else{
                 alert("Tie! You have reached a stalemate");
+                win_con = "The game has ended in a tie by stalemate. Please refresh the page to play again";
                 return;
             }
         }
 
+        //Tests if there is enough pieces to force a checkmate
         if(insufficient_materials()){
             alert("Tie! By insufficient materials.");
+            win_con = "The game has ended in a tie by insufficient materials. Please refresh the page to play again";
+            return;
         }
-}
+
+        //For when the back links to the frontend
+        //call backend to do move, want to delay it by half a second.
+        //setTimeout(instring(), 5000);
+        //instring();
+
+        //Call turn, halfturn, stalemate, and insufficent_materials again to see if the game is over
+    }
  
     //Move piece from cur_col to new_col
     function move(new_col, cur_col, piece) {
-
-       //let color;
-       //let turn = localStorage.turn;
 
         //No longer first move so first is removed
         if(piece.classList.contains("First")){
@@ -328,17 +322,9 @@ function moveStart(e, col){
 
         turn = (turn === "white-piece") ? "black-piece" : "white-piece";
         localStorage.turn = turn;
-
-        //call backend to do move, want to delay it by half a second.
-        //setTimeout(instring(), 5000);
-        //instring();
     }
 
-    //function codingCourse() {
-    //    console.log("freeCodeCamp");
-    //  }
- 
-    //Checks if the move is valid
+    //Checks if the move is valid. For example, a rook only move left or right
     //Take === 1 when you are taking a piece, used for pawns.
     //Stale === 1 if this is a stalemate check. This is to not use the alerts
     function validMove(new_col, cur_col, piece, take, stale){
@@ -351,17 +337,14 @@ function moveStart(e, col){
             diff = 8;
         }else{
             diff = -8;
-            console.log(localStorage.flip);
         }
 
         if((piece.classList.item(1) === "P") || (piece.classList.item(1) === "p")){
             
-            //console.log("In pawn");
-            //console.log("value diff " + diff + " new " + new_index + " old " + old_index + " flipe " + localStorage.flip);
             //Move up one
             if(!take && (((new_index + diff) === old_index && piece.classList.item(0) === "black-piece") 
                 || ((new_index - diff) === old_index && piece.classList.item(0) === "white-piece"))){
-                //console.log("test hi");
+
                 return true;
             }
 
@@ -370,7 +353,8 @@ function moveStart(e, col){
                 && piece.classList.item(0) === "black-piece") 
                 || ((((new_index - diff) - old_index) === 1 || ((new_index - diff) - old_index) === -1) 
                 && piece.classList.item(0) === "white-piece"))){
-                //console.log("hit");
+
+
                 return true;
             }
 
@@ -381,6 +365,7 @@ function moveStart(e, col){
                     
                     //Must have no piece one above
                     if(check_path(new_index, old_index)){
+                        console.log("Moving up two");
                         return true;
                     }
                 }
@@ -397,7 +382,10 @@ function moveStart(e, col){
                 && piece.classList.item(0) === "white-piece"))){
                 
                 //Delete the piece
-                board.children[curr_en_pas].removeChild(board.children[curr_en_pas].children[0]);
+                console.log(curr_en_pas);
+                if(!stale){
+                    board.children[curr_en_pas].removeChild(board.children[curr_en_pas].children[0]);
+                }
                 return true;
             }
             //else{
@@ -546,15 +534,16 @@ function moveStart(e, col){
             if(board.children[i].children[0] !== undefined && board.children[i].children[0].classList.contains(turn)){
                 for(var j = 0; j < 64; j++){
                     if(i !== j){
-                        if(board.children[i].children[0] !== undefined && 
-                            !board.children[i].children[0].classList.contains(turn)){
+                        if(board.children[j].children[0] !== undefined && 
+                            !board.children[j].children[0].classList.contains(turn)){
 
                             if(validMove(board.children[j], board.children[i], board.children[i].children[0], 1, 1)
                                 && !king_check(board.children[j], board.children[i], board.children[i].children[0], 1, 1)){
                                 
                                 return false;
                             }
-                        }else{
+                        }
+                        else if(board.children[j].children[0] === undefined){
                             if(validMove(board.children[j], board.children[i], board.children[i].children[0], 0, 1)
                                 && !king_check(board.children[j], board.children[i], board.children[i].children[0], 0, 1)){
                                 
@@ -566,7 +555,8 @@ function moveStart(e, col){
             }
         }
 
-        return true;
+        return false;
+        //return true;
     }
 
     //Checks if the king will be in check after a move
@@ -579,10 +569,13 @@ function moveStart(e, col){
 
         if(take === 1){
             take_piece = new_col.children[0];
+            console.log("Take Removed from " + [].indexOf.call(new_col.parentNode.children, new_col));
             new_col.removeChild(new_col.children[0]);    
         }
 
+        console.log("First Removed from " + [].indexOf.call(cur_col.parentNode.children, cur_col));
         cur_col.removeChild(piece);
+        console.log("First ADD from " + [].indexOf.call(new_col.parentNode.children, new_col));
         new_col.appendChild(piece); 
 
 
@@ -611,10 +604,14 @@ function moveStart(e, col){
         }
 
         new_col.removeChild(piece);
+        console.log("Removed from " + [].indexOf.call(new_col.parentNode.children, new_col));
         cur_col.appendChild(piece);
+        console.log("ADD from " + [].indexOf.call(cur_col.parentNode.children, cur_col));
         
         if(take === 1){
             new_col.appendChild(take_piece);
+            console.log("Take ADD from " + [].indexOf.call(new_col.parentNode.children, new_col));
+        
         }
 
         if(fail === 1){
