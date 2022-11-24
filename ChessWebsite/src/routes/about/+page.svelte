@@ -5,84 +5,110 @@
 
 <Navbar />
 
-<h1 class="pt-[12vh] flex justify-center items-center font-bold text-3xl bg-white">About the Project</h1>
+<div class="w-full min-h-[89vh] h-full md:px-[5vh] lg:px-[10vh]">
+    <h1 class="pt-[12vh] flex justify-center items-center font-bold text-3xl bg-white">About the Project</h1>
 
-<div class="pt-[3vh] w-full h-full flex flex-col justify-center items-center px-[10vw] pb-[2vh]">
-    <p class="pb-[4vh]">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui distinctio 
-        voluptates rerum repudiandae laudantium ducimus ullam eos natus possimus. 
-        At cum doloribus saepe cumque voluptatum ducimus doloremque qui tempore 
-        explicabo! Eaque obcaecati, voluptatem voluptates porro beatae odit? Laborum 
-        accusantium voluptatibus hic provident nostrum repellat rerum dolorem. 
-        Consectetur placeat maxime reprehenderit vitae est sunt, magnam nulla eaque 
-        tenetur, voluptates non voluptatum soluta voluptatem corporis! Distinctio 
-        reiciendis tempora eaque architecto, voluptas perspiciatis! Vel veniam 
-        ratione nostrum possimus sapiente ad sunt neque libero voluptatem excepturi 
-        deleniti voluptas minus iure non, soluta nobis vero tempora minima est 
-        placeat similique! Cum voluptates officia eum! Natus esse et tempora, autem 
-        illo vel sapiente delectus impedit saepe suscipit reiciendis voluptatibus 
-        aperiam, eum est non. Omnis nobis corrupti sequi dolore quaerat! Hic enim 
-        quasi soluta consequuntur incidunt dolorem aliquam, iste, animi reprehenderit 
-        tenetur illo neque odit esse, molestias ratione laborum blanditiis eveniet 
-        cumque labore quis perferendis! Cum, iusto?
-    </p>
+    <div class="pt-[3vh] w-full h-full flex flex-col justify-center items-center px-[10vw] pb-[2vh]">
 
-    <p class="pb-[4vh]">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui distinctio 
-        voluptates rerum repudiandae laudantium ducimus ullam eos natus possimus. 
-        At cum doloribus saepe cumque voluptatum ducimus doloremque qui tempore 
-        explicabo! Eaque obcaecati, voluptatem voluptates porro beatae odit? Laborum 
-        accusantium voluptatibus hic provident nostrum repellat rerum dolorem. 
-        Consectetur placeat maxime reprehenderit vitae est sunt, magnam nulla eaque 
-        tenetur, voluptates non voluptatum soluta voluptatem corporis! Distinctio 
-        reiciendis tempora eaque architecto, voluptas perspiciatis! Vel veniam 
-        ratione nostrum possimus sapiente ad sunt neque libero voluptatem excepturi 
-        deleniti voluptas minus iure non, soluta nobis vero tempora minima est 
-        placeat similique! Cum voluptates officia eum! Natus esse et tempora, autem 
-        illo vel sapiente delectus impedit saepe suscipit reiciendis voluptatibus 
-        aperiam, eum est non. Omnis nobis corrupti sequi dolore quaerat! Hic enim 
-        quasi soluta consequuntur incidunt dolorem aliquam, iste, animi reprehenderit 
-        tenetur illo neque odit esse, molestias ratione laborum blanditiis eveniet 
-        cumque labore quis perferendis! Cum, iusto?
-    </p>
+        <!-- Describing our project -->
+        <div class="flex flex-col">
+            <h1 class="text-2xl font-semibold pb-[1vh]">Project Information</h1>
+            <p class="pb-[2vh]">
+                A person gets to move one piece per turn. Players continue trading turns until either 
+                someone gets checkmated, someone resigns, or there is a <span class="font-medium underline">stalemate 
+                (a player is not in check but can't move except into check)</span>. 
+            </p>
 
-    <p class="pb-[4vh]">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui distinctio 
-        voluptates rerum repudiandae laudantium ducimus ullam eos natus possimus. 
-        At cum doloribus saepe cumque voluptatum ducimus doloremque qui tempore 
-        explicabo! Eaque obcaecati, voluptatem voluptates porro beatae odit? Laborum 
-        accusantium voluptatibus hic provident nostrum repellat rerum dolorem. 
-        Consectetur placeat maxime reprehenderit vitae est sunt, magnam nulla eaque 
-        tenetur, voluptates non voluptatum soluta voluptatem corporis! Distinctio 
-        reiciendis tempora eaque architecto, voluptas perspiciatis! Vel veniam 
-        ratione nostrum possimus sapiente ad sunt neque libero voluptatem excepturi 
-        deleniti voluptas minus iure non, soluta nobis vero tempora minima est 
-        placeat similique! Cum voluptates officia eum! Natus esse et tempora, autem 
-        illo vel sapiente delectus impedit saepe suscipit reiciendis voluptatibus 
-        aperiam, eum est non. Omnis nobis corrupti sequi dolore quaerat! Hic enim 
-        quasi soluta consequuntur incidunt dolorem aliquam, iste, animi reprehenderit 
-        tenetur illo neque odit esse, molestias ratione laborum blanditiis eveniet 
-        cumque labore quis perferendis! Cum, iusto?
-    </p>
+            <p class="pb-[4vh]">
+                Each piece has its own 
+                specific valid moves it can make during that turn. Let's dive into the types of pieces and 
+                how they can move across the board.
+            </p>
+        </div>
 
-    <p class="pb-[4vh]">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui distinctio 
-        voluptates rerum repudiandae laudantium ducimus ullam eos natus possimus. 
-        At cum doloribus saepe cumque voluptatum ducimus doloremque qui tempore 
-        explicabo! Eaque obcaecati, voluptatem voluptates porro beatae odit? Laborum 
-        accusantium voluptatibus hic provident nostrum repellat rerum dolorem. 
-        Consectetur placeat maxime reprehenderit vitae est sunt, magnam nulla eaque 
-        tenetur, voluptates non voluptatum soluta voluptatem corporis! Distinctio 
-        reiciendis tempora eaque architecto, voluptas perspiciatis! Vel veniam 
-        ratione nostrum possimus sapiente ad sunt neque libero voluptatem excepturi 
-        deleniti voluptas minus iure non, soluta nobis vero tempora minima est 
-        placeat similique! Cum voluptates officia eum! Natus esse et tempora, autem 
-        illo vel sapiente delectus impedit saepe suscipit reiciendis voluptatibus 
-        aperiam, eum est non. Omnis nobis corrupti sequi dolore quaerat! Hic enim 
-        quasi soluta consequuntur incidunt dolorem aliquam, iste, animi reprehenderit 
-        tenetur illo neque odit esse, molestias ratione laborum blanditiis eveniet 
-        cumque labore quis perferendis! Cum, iusto?
-    </p>
+    
+        <!-- Languages and technologies used -->
+        <div class="flex flex-col">
+            <h1 class="text-2xl font-semibold pb-[1vh]">Languages and Technologies Used</h1>
+            <p class="pb-[2vh]">
+                Here are all the unique chess pieces that you will have to learn as you play. While our website
+                will prevent you from making illegal moves, 
+                <span class="font-medium underline">it is important to become familiar with these pieces and how they move</span> 
+                to improve your game.
+            </p>
+
+            <ul class="pb-[1vh]">
+                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-king" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">King</a> - can <span class="font-medium">move one square in any direction</span> (left, right, up, down, diagonal).</li>
+                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-queen" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Queen</a> - can <span class="font-medium">move in any direction</span> like the king, but is <span class="font-medium">not limited to one square</span>.</li>
+                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-rook" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Rook</a> - can <span class="font-medium">move in any valid square</span> that is either <span class="font-medium">horizontal or vertical to it</span>.</li>
+                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-bishop" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Bishop</a> - can <span class="font-medium">move in any valid square</span> that is <span class="font-medium">diagonal to it</span>.</li>
+                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-knight" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Knight</a> - can 
+                    <span class="font-medium">move up or down one square vertically and over two squares horizontally</span> 
+                    OR <span class="font-medium">up or down two squares vertically and over one square horizontally</span>
+                    ("L" shape movement).
+                </li>
+                <li><a href="https://www.chess.com/terms/chess-pawn" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Pawn</a> - can move one square in any direction (left, right, up, down, diagonal)</li>
+            </ul>
+            <p class="pb-[4vh] text-[13px] text-[#c5986b]">
+                * Click on the <span class="underline">piece name</span> to get more information
+            </p>
+        </div>
+
+        <!-- Resources -->
+        <div class="flex flex-col">
+            <h1 class="text-2xl font-semibold pb-[1vh]">Project Timeline</h1>
+            <p class="pb-[2vh]">
+                While we have provided a considerable amount of information regarding the basics
+                and "need to know's" of chess. It is HIGHLY recommended that you use these
+                sources here. They will provide more in depth explanations and exceptions to the rules
+                that we did not cover. As well as some basic tips, strategies, and tactics to learn 
+                as you go.
+            </p>
+
+            <ul class="pb-[4vh]">
+                <li class="pb-[1vh]">
+                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://www.chesshouse.com/pages/chess-rules" target="_blank">The Rules of Chess</a>
+                    - A great website that goes into more detail on the basics above.
+                </li>
+                <li class="pb-[1vh]">
+                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://www.chess.com/learn-how-to-play-chess" target="_blank">7 Steps To Get You Started</a>
+                    - Essential information with videos to help with concepts.
+                </li>
+                <li class="pb-[1vh]">
+                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://nextlevelchess.blog/beginner-chess-strategy/" target="_blank">Beginner Chess Strategy</a>
+                    - After learning the basics, we recommend learning strategy.
+                </li>
+            </ul>
+        </div>
+
+        <!-- Contributors -->
+        <div class="flex flex-col">
+            <h1 class="text-2xl font-semibold pb-[1vh]">Contributors</h1>
+            <p class="pb-[2vh]">
+                While we have provided a considerable amount of information regarding the basics
+                and "need to know's" of chess. It is HIGHLY recommended that you use these
+                sources here. They will provide more in depth explanations and exceptions to the rules
+                that we did not cover. As well as some basic tips, strategies, and tactics to learn 
+                as you go.
+            </p>
+        
+            <ul class="pb-[4vh]">
+                <li class="pb-[1vh]">
+                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://www.chesshouse.com/pages/chess-rules" target="_blank">The Rules of Chess</a>
+                    - A great website that goes into more detail on the basics above.
+                </li>
+                <li class="pb-[1vh]">
+                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://www.chess.com/learn-how-to-play-chess" target="_blank">7 Steps To Get You Started</a>
+                    - Essential information with videos to help with concepts.
+                </li>
+                <li class="pb-[1vh]">
+                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://nextlevelchess.blog/beginner-chess-strategy/" target="_blank">Beginner Chess Strategy</a>
+                    - After learning the basics, we recommend learning strategy.
+                </li>
+            </ul>
+        </div>
+
+    </div>
 </div>
 
 <Footer />

@@ -12,7 +12,7 @@
 
         <!-- Overall general concept -->
         <div class="flex flex-col">
-            <h1 class="text-2xl font-semibold pb-[1vh]">The general idea</h1>
+            <h1 class="text-2xl font-semibold pb-[1vh] capitalize">The general idea</h1>
             <p class="pb-[4vh]">
                 Chess is played between two people. Each player has 16 pieces: 8 pawns,
                 2 knights, 2 bishops, 2 rooks, 1 queen, and finally 1 king. The main point 
@@ -24,7 +24,7 @@
 
         <!-- Basic rules -->
         <div class="flex flex-col">
-            <h1 class="text-2xl font-semibold pb-[1vh]">Some basic rules</h1>
+            <h1 class="text-2xl font-semibold pb-[1vh] capitalize">Some basic rules</h1>
             <p class="pb-[2vh]">
                 A person gets to move one piece per turn. Players continue trading turns until either 
                 someone gets checkmated, someone resigns, or there is a <span class="font-medium underline">stalemate 
@@ -40,7 +40,7 @@
     
         <!-- How to move pieces -->
         <div class="flex flex-col">
-            <h1 class="text-2xl font-semibold pb-[1vh]">Pieces and how they move</h1>
+            <h1 class="text-2xl font-semibold pb-[1vh] capitalize">Pieces and how they move</h1>
             <p class="pb-[2vh]">
                 Here are all the unique chess pieces that you will have to learn as you play. While our website
                 will prevent you from making illegal moves, 
@@ -67,7 +67,7 @@
 
         <!-- Resources -->
         <div class="flex flex-col">
-            <h1 class="text-2xl font-semibold pb-[1vh]">Helpful resources</h1>
+            <h1 class="text-2xl font-semibold pb-[1vh] capitalize">Helpful resources</h1>
             <p class="pb-[2vh]">
                 While we have provided a considerable amount of information regarding the basics
                 and "need to know's" of chess. It is HIGHLY recommended that you use these
