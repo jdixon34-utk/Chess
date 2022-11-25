@@ -29,29 +29,32 @@
     
         <!-- Languages and technologies used -->
         <div class="flex flex-col">
-            <h1 class="text-2xl font-semibold pb-[1vh]">Languages and Technologies Used</h1>
+            <h1 class="text-2xl font-semibold pb-[1vh]">Languages and Technologies</h1>
             <p class="pb-[2vh]">
-                Here are all the unique chess pieces that you will have to learn as you play. While our website
-                will prevent you from making illegal moves, 
-                <span class="font-medium underline">it is important to become familiar with these pieces and how they move</span> 
-                to improve your game.
+                .
             </p>
 
-            <ul class="pb-[1vh]">
-                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-king" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">King</a> - can <span class="font-medium">move one square in any direction</span> (left, right, up, down, diagonal).</li>
-                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-queen" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Queen</a> - can <span class="font-medium">move in any direction</span> like the king, but is <span class="font-medium">not limited to one square</span>.</li>
-                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-rook" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Rook</a> - can <span class="font-medium">move in any valid square</span> that is either <span class="font-medium">horizontal or vertical to it</span>.</li>
-                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-bishop" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Bishop</a> - can <span class="font-medium">move in any valid square</span> that is <span class="font-medium">diagonal to it</span>.</li>
-                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-knight" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Knight</a> - can 
-                    <span class="font-medium">move up or down one square vertically and over two squares horizontally</span> 
-                    OR <span class="font-medium">up or down two squares vertically and over one square horizontally</span>
-                    ("L" shape movement).
+            <ul class="pb-[4vh]">
+                <li class="pb-[1vh]">
+                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://devdocs.io/cpp/" target="_blank">C++</a>
+                    - Chess Engine
                 </li>
-                <li><a href="https://www.chess.com/terms/chess-pawn" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Pawn</a> - can move one square in any direction (left, right, up, down, diagonal)</li>
+                <li class="pb-[1vh]">
+                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://developer.mozilla.org/en-US/docs/WebAssembly" target="_blank">Web Assembly</a>
+                    - Bridging Back End and Front End
+                </li>
+                <li class="pb-[1vh]">
+                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://svelte.dev/docs" target="_blank">Svelte</a>
+                    - Web Application
+                </li>
+                <li class="pb-[1vh]">
+                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://v2.tailwindcss.com/docs" target="_blank">TailwindCSS</a>
+                    - Main Styling
+                </li>
+                <li class="pb-[1vh]">
+                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://developer.mozilla.org/en-US/" target="_blank">JavaScript, HTML, CSS</a>
+                    - Chess Board
             </ul>
-            <p class="pb-[4vh] text-[13px] text-[#c5986b]">
-                * Click on the <span class="underline">piece name</span> to get more information
-            </p>
         </div>
 
         <!-- Resources -->
@@ -85,26 +88,32 @@
         <div class="flex flex-col">
             <h1 class="text-2xl font-semibold pb-[1vh]">Contributors</h1>
             <p class="pb-[2vh]">
-                While we have provided a considerable amount of information regarding the basics
-                and "need to know's" of chess. It is HIGHLY recommended that you use these
-                sources here. They will provide more in depth explanations and exceptions to the rules
-                that we did not cover. As well as some basic tips, strategies, and tactics to learn 
-                as you go.
+               This project was created by the quintet listed below, with advice along the way from
+               our TA 
+               <a class="underline hover:text-" href="https://github.com/adam-mcdaniel" target="_blank">Adam McDaniel</a>.
+                Please checkout our individual github profiles as well as the project repo below.
             </p>
-        
+
             <ul class="pb-[4vh]">
                 <li class="pb-[1vh]">
-                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://www.chesshouse.com/pages/chess-rules" target="_blank">The Rules of Chess</a>
-                    - A great website that goes into more detail on the basics above.
+                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://github.com/jdixon34-cs340" target="_blank">Jared Dixon</a>
+                    - Back End (Chess Engine)
                 </li>
                 <li class="pb-[1vh]">
-                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://www.chess.com/learn-how-to-play-chess" target="_blank">7 Steps To Get You Started</a>
-                    - Essential information with videos to help with concepts.
+                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://github.com/Brandon-Marth" target="_blank">Brandon Marth</a>
+                    - Front End (Web Assembly and Web Application)
                 </li>
                 <li class="pb-[1vh]">
-                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://nextlevelchess.blog/beginner-chess-strategy/" target="_blank">Beginner Chess Strategy</a>
-                    - After learning the basics, we recommend learning strategy.
+                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://github.com/JMcknight75" target="_blank">Justin McKnight</a>
+                    - Back End (Chess Engine)
                 </li>
+                <li class="pb-[1vh]">
+                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://github.com/Dev5ter" target="_blank">Devin Munsey</a>
+                    - Back End (Chess Engine)
+                </li>
+                <li class="pb-[1vh]">
+                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://github.com/Jxk0be" target="_blank">Jake Shoffner</a>
+                    - Front End (Web Application)
             </ul>
         </div>
 
