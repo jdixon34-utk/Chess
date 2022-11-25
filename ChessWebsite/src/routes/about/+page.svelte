@@ -31,8 +31,8 @@
         <div class="flex flex-col">
             <h1 class="text-2xl font-semibold pb-[1vh]">Languages and Technologies</h1>
             <p class="pb-[2vh]">
-                .
-            </p>
+                We were able to use an array of different tools in our project. While the engine was done
+                solely in C++, we used a variation of technologies for the front end. Here they are listed.
 
             <ul class="pb-[4vh]">
                 <li class="pb-[1vh]">
@@ -49,7 +49,7 @@
                 </li>
                 <li class="pb-[1vh]">
                     <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://v2.tailwindcss.com/docs" target="_blank">TailwindCSS</a>
-                    - Main Styling
+                    - Major Styling
                 </li>
                 <li class="pb-[1vh]">
                     <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://developer.mozilla.org/en-US/" target="_blank">JavaScript, HTML, CSS</a>
