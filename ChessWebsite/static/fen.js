@@ -118,22 +118,17 @@ function fenin(fen){
     while(fen[check] !== " "){
         full += fen[check];
         check--;
-        console.log(full);
     }
     check--;
     let half = "";
     while(fen[check] !== " "){
         half += fen[check];
         check--;
-        console.log(half);
-        console.log(fen[check]);
     }
- 
-    //var check = fen.length - 5;
+
     check--;
     let pas = "-";
     let cur_en_pas = "null";
-    console.log("pas check " + fen[check] + " " + check);
     if(fen[check] !== "-"){
         pas = fen[check-1] + fen[check];
         check--;
@@ -150,7 +145,6 @@ function fenin(fen){
     let castle = "";
     if(fen[check] !== "-"){
         while(fen[check] !== " "){
-            console.log(fen[check]);
             castle += fen[check];
             check--;
         }
@@ -176,31 +170,21 @@ function fenin(fen){
     for(var i = 0; i < 64; i++){
         if(board.children[i].children[0] !== undefined){
             board.children[i].removeChild(board.children[i].children[0]);
-            //console.log("Removed piece at " + i);
         }
     }
 
     if(flip === '0'){
         index = 63;
-        //var test = "r4R"
         while(check !== -1){
-            //console.log("At index " + index + " " + board.children[index].children[0]);
-            //if(board.children[index].children[0] !== undefined){
-            //    board.children[index].removeChild(board.children[index].children[0]);
-            //    console.log("Removed piece at " + index);
-            //}
 
             if(Number(fen[check]) > 0){
-                //count += fen[count]
                 index -= Number(fen[check]);
                 index += 1;
-            //    console.log("TEST " + check + " " + index + " del " + Number(fen[check]));
             }else if(fen[check] !== "/"){
                 piece = document.createElement("DIV");
                 piece.id = index + 9 + 9;
                 if(fen[check] > "a"){
                     piece.classList.add("black-piece");
-                    //console.log("YEP");
                     if(fen[check] === "p"){
                         piece.classList.add("p");
                         piece.classList.add("B_p");
@@ -239,7 +223,6 @@ function fenin(fen){
                     }
                 }else{
                     piece.classList.add("white-piece");
-                    //console.log("?Noope");
                     if(fen[check] === "P"){
                         piece.classList.add("P");
                         piece.classList.add("W_p");
@@ -278,13 +261,9 @@ function fenin(fen){
 
                 board.children[index].appendChild(piece);
 
-                //console.log("TEST " + check + " Mid " + index);
-
             }else{
                 slash++;
                 index++;
-
-                //console.log("TEST " + check + "  slash " + index);
             }
 
             index--;
@@ -292,24 +271,19 @@ function fenin(fen){
         }
     }else{
         index = 0;
-        //console.log(flip);
-        //var test = "r4R"
+
         while(check !== -1){
-            //if(board.children[index].children[0] !== undefined){
-            //    board.children[index].removeChild(board.children[index].children[0]);
-            //}
+            
 
             if(Number(fen[check]) > 0){
                 //count += fen[count]
                 index += Number(fen[check]);
                 index -= 1;
-                //console.log("TEST " + check + " " + index + " del " + Number(fen[check]));
             }else if(fen[check] !== "/"){
                 piece = document.createElement("DIV");
                 piece.id = index + 9 + 9;
                 if(fen[check] > "a"){
                     piece.classList.add("black-piece");
-                    //console.log("YEP");
                     if(fen[check] === "p"){
                         piece.classList.add("p");
                         piece.classList.add("B_p");
@@ -348,7 +322,6 @@ function fenin(fen){
                     }
                 }else{
                     piece.classList.add("white-piece");
-                    //console.log("?Noope");
                     if(fen[check] === "P"){
                         piece.classList.add("P");
                         piece.classList.add("W_p");
@@ -386,13 +359,9 @@ function fenin(fen){
 
                 board.children[index].appendChild(piece);
 
-                //console.log("TEST " + check + " Mid " + index);
-
             }else{
                 slash++;
                 index--;
-
-                //console.log("TEST " + check + "  slash " + index);
             }
 
             index++;
@@ -410,10 +379,8 @@ function make_en_pas(pas){
     
     //Ascii value of the letter - 'a' + the row of the number
     if(flip === '0'){
-        //console.log(pas.charCodeAt(0) + " " + (pas.charCodeAt(0) - 97) + " " + ((pas.charCodeAt(0) - 97) + ((8 - parseInt(pas[1])) * 8)));
         cur_en_pas = ((pas.charCodeAt(0) - 97) + ((8 - parseInt(pas[1])) * 8)).toString();
     }else{
-        //console.log((104 - pas.charCodeAt(0)) + " " + ((parseInt(pas[1]) - 1) * 8) + " crap");
         cur_en_pas = ((104 - pas.charCodeAt(0)) + ((parseInt(pas[1]) - 1) * 8)).toString();
     }
 
@@ -441,42 +408,32 @@ function flip_b(){
 
 
                     for(var j = 0; j < 8; j++){
-                        //console.log(table.children[0].children[0].classList.item(j));
                         if(t){
                             piece.classList.add(table.children[i].children[0].classList.item(j));
-                            //console.log(table.children[0].children[0].classList.item(j) + " top");
                         }
                         if(f){
                             piece2.classList.add(table.children[63-i].children[0].classList.item(j));
-                            //console.log(table.children[63].children[0].classList.item(j) + " bottom");
                         }
-                        //console.log(piece.classList.item(j));
                     }
 
 
                     if(t){
                         table.children[63-i].appendChild(piece);
                         table.children[i].removeChild(table.children[i].firstChild);
-                        //console.log(table.children[63].children[0].classList.item(1));
                     }
                     if(f){
                         table.children[63-i].removeChild(table.children[63-i].firstChild);
                         table.children[i].appendChild(piece2);
-                        //console.log(table.children[63].children[0].classList.item(1));
                     }
 
             }
 
             if(localStorage.flip === '0'){
                 localStorage.flip = 1;
-                //console.log("hit YESSSSSSSSSS");
             }else{
                 localStorage.flip = 0;
-                //console.log("hit NOOOO " + localStorage.flip);
             }
-            //console.log("hit");
 }
 
 
-//Document.querySelector(".K");
 

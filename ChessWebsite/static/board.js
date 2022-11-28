@@ -141,21 +141,11 @@ document.addEventListener("DOMContentLoaded", function () {
         half = localStorage.half;
         full = localStorage.full;
         curr_en_pas = localStorage.curr_en_pas;
+        var check = false;
 
         //A win or tie has been reached, this will not allow the user to make another move
         if(win_con !== null){
             alert(win_con);
-            return;
-        }
-
-        if(full === "100"){
-            console.log("IN");
-            alert("100 turn timer reached. The game has ended in a tie.");
-            win_con = "Game has ended in a tie by turn timer. Please refresh the page to play again";
-            return;
-        }else if(half === "50"){
-            alert("50 half-turn timer reached. The game has ended in a tie.");
-            win_con = "Game has ended in a tie by half-turn timer. Please refresh the page to play again";
             return;
         }
 
@@ -195,6 +185,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 localStorage.half = half;
                 localStorage.full = full;
+
+                check = true;
             }
             //Tests if this is actually a valid move
             else if(validMove(col, cur.parentNode, cur, 0, 0) && !king_check(col, cur.parentNode, cur, 0, 0)){
@@ -223,6 +215,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 localStorage.half = half;
                 localStorage.full = full;
+
+                check = true;
             }
         }
             //Unselect the current piece
@@ -245,6 +239,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 localStorage.half = half;
                 localStorage.full = full;
 
+                check = true;
+
             }
         }
         //Good attempt but there is already a piece there ;D
@@ -261,49 +257,62 @@ document.addEventListener("DOMContentLoaded", function () {
         }else{
             en_pas_ignore = false;
         }
-
-        //Tests if the game has ended in a stalemate or a checkmate
-        if(stalemate()){
-
-            let index;
-            turn = localStorage.turn;
-            if(turn === "white-piece"){
-                color = "w";
-                king_loc = document.querySelector(".W_K"); 
-                index = [].indexOf.call(king_loc.parentNode.parentNode.children, king_loc.parentNode);
-            }else{
-                color = "b";
-                king_loc = document.querySelector(".b_k"); 
-                index = [].indexOf.call(king_loc.parentNode.parentNode.children, king_loc.parentNode);
-            }
-
-
-            //Getting here means that there are no possible valid moves for the current color.
-            //If the king is in check it is a checkmate, if not then it is a stalemate.
-            if(in_check(index, color)){
-                alert("Checkmate! " + turn + " has won!");
-                win_con = "The game has ended with " + turn + " winning by checkmate. Please refresh the page to play again";
+        
+        if(check){
+            
+            //Game ends in tie if the turn timer is 100 or the half turn timer is 50
+            if(full === "100"){
+                console.log("IN");
+                alert("100 turn timer reached. The game has ended in a tie.");
+                win_con = "Game has ended in a tie by turn timer. Please refresh the page to play again";
                 return;
-            }else{
-                alert("Tie! You have reached a stalemate");
-                win_con = "The game has ended in a tie by stalemate. Please refresh the page to play again";
+            }else if(half === "50"){
+                alert("50 half-turn timer reached. The game has ended in a tie.");
+                win_con = "Game has ended in a tie by half-turn timer. Please refresh the page to play again";
                 return;
             }
+
+            //Tests if the game has ended in a stalemate or a checkmate
+            if(stalemate()){
+
+                let index;
+                turn = localStorage.turn;
+                if(turn === "white-piece"){
+                    color = "w";
+                    king_loc = document.querySelector(".W_K"); 
+                    index = [].indexOf.call(king_loc.parentNode.parentNode.children, king_loc.parentNode);
+                }else{
+                    color = "b";
+                    king_loc = document.querySelector(".b_k"); 
+                    index = [].indexOf.call(king_loc.parentNode.parentNode.children, king_loc.parentNode);
+                }
+
+
+                //Getting here means that there are no possible valid moves for the current color.
+                //If the king is in check it is a checkmate, if not then it is a stalemate.
+                if(in_check(index, color)){
+                    victory = (turn === "white-piece") ? "black-piece" : "white-piece";
+                    alert("Checkmate! " + victory + " has won!");
+                    win_con = "The game has ended with " + victory + " winning by checkmate. Please refresh the page to play again";
+                    return;
+                }else{
+                    alert("Tie! You have reached a stalemate");
+                    win_con = "The game has ended in a tie by stalemate. Please refresh the page to play again";
+                    return;
+                }
+            }
+
+            //Tests if there is enough pieces to force a checkmate
+            if(insufficient_materials()){
+                alert("Tie! By insufficient materials.");
+                win_con = "The game has ended in a tie by insufficient materials. Please refresh the page to play again";
+                return;
+            }
+
+            //Calls the engine after 0.5 seconds
+            setTimeout(engine_move,500);
+
         }
-
-        //Tests if there is enough pieces to force a checkmate
-        if(insufficient_materials()){
-            alert("Tie! By insufficient materials.");
-            win_con = "The game has ended in a tie by insufficient materials. Please refresh the page to play again";
-            return;
-        }
-
-        //For when the back links to the frontend
-        //call backend to do move, want to delay it by half a second.
-        //setTimeout(instring(), 5000);
-        //instring();
-
-        //Call turn, halfturn, stalemate, and insufficent_materials again to see if the game is over
     }
  
     //Move piece from cur_col to new_col
@@ -319,6 +328,23 @@ document.addEventListener("DOMContentLoaded", function () {
         new_col.appendChild(piece); 
 
         piece.classList.remove("current");
+
+        var piece_index = [].indexOf.call(piece.parentNode.parentNode.children, piece.parentNode);
+
+        //Pawn promotion
+        if((piece.classList.contains("P") || piece.classList.contains("p")) && (piece_index < 8 || piece_index > 55)){
+            //promotion = User_function_call();
+
+            //If(promotion === queen){
+                //make_queen(piece_index);
+            //}else if(promotion === bishop){
+                //make_bishop(piece_index);
+            //}else if(promotion === rook){
+                //make_rook(piece_index);
+            //}else{
+                //make_knight(piece_index);
+            //}
+        }
 
         turn = (turn === "white-piece") ? "black-piece" : "white-piece";
         localStorage.turn = turn;
@@ -940,6 +966,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         flip = localStorage.flip;
         let color_check;
+        board = document.getElementById("chessboard");
 
         if(color === "w"){
             color_check = "white-piece";
@@ -1297,8 +1324,162 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         }
+
+        return false;
     }
 
-    return false;
+    //Makes a queen piece at the given index
+    //Used when pawns reach the end of the board
+    function make_queen(index){
+        
+        board = document.getElementById("chessboard");
+
+        piece = document.createElement("DIV");
+        piece.id = index + 9 + 9;
+
+        if(board.children[index].children[0].classList.contains("white-piece")){
+            piece.classList.add("white-piece");
+            piece.classList.add("Q");
+        }else{
+            piece.classList.add("black-piece");
+            piece.classList.add("B_q");
+        }
+
+        board.children[index].removeChild(board.children[index].children[0]);
+        board.children[index].appendChild(piece);
+
+    }
+
+    //Makes a rook piece at the given index
+    //Used when pawns reach the end of the board
+    function make_rook(index){
+        
+        board = document.getElementById("chessboard");
+
+        piece = document.createElement("DIV");
+        piece.id = index + 9 + 9;
+
+        if( board.children[index].children[0].classList.contains("white-piece") === true){
+            piece.classList.add("white-piece");
+            piece.classList.add("R");
+            piece.classList.add("W_r");
+        }else{
+            piece.classList.add("black-piece");
+            piece.classList.add("r");
+            piece.classList.add("B_r");
+        }
+
+        board.children[index].removeChild(board.children[index].children[0]);
+        board.children[index].appendChild(piece);
+
+    }
+
+    //Makes a knight piece at the given index
+    //Used when pawns reach the end of the board
+    function make_knight(index){
+        board = document.getElementById("chessboard");
+
+        piece = document.createElement("DIV");
+        piece.id = index + 9 + 9;
+
+        if( board.children[index].children[0].classList.contains("white-piece") === true){
+            piece.classList.add("white-piece");
+            piece.classList.add("N");
+        }else{
+            piece.classList.add("black-piece");
+            piece.classList.add("n");
+            piece.classList.add("B_n");
+        }
+
+        board.children[index].removeChild(board.children[index].children[0]);
+        board.children[index].appendChild(piece);
+
+    }
+
+    //Makes a bishop piece at the given index
+    //Used when pawns reach the end of the board
+    function make_bishop(index){
+        board = document.getElementById("chessboard");
+
+        piece = document.createElement("DIV");
+        piece.id = index + 9 + 9;
+
+        if(board.children[index].children[0].classList.contains("white-piece") === true){
+            piece.classList.add("white-piece");
+            piece.classList.add("B");
+        }else{
+            piece.classList.add("black-piece");
+            piece.classList.add("b");
+            piece.classList.add("B_b");
+        }
+
+        board.children[index].removeChild(board.children[index].children[0]);
+        board.children[index].appendChild(piece);
+
+    }
+
+    function engine_move(){
+
+        //call backend to do move, want to delay it by half a second as it is too fast now
+        instring();
+        //setTimeout(instring(), 5000);
+
+        turn = localStorage.turn;
+        pas = localStorage.pas;
+        cas = localStorage.cas;
+        half = localStorage.half;
+        full = localStorage.full;
+        curr_en_pas = localStorage.curr_en_pas;
+
+        if(full === "100"){
+            console.log("IN");
+            alert("100 turn timer reached. The game has ended in a tie.");
+            win_con = "Game has ended in a tie by turn timer. Please refresh the page to play again";
+            return;
+        }else if(half === "50"){
+            alert("50 half-turn timer reached. The game has ended in a tie.");
+            win_con = "Game has ended in a tie by half-turn timer. Please refresh the page to play again";
+            return;
+        }
+
+        //turn = (turn === "white-piece") ? "black-piece" : "white-piece";
+        //localStorage.turn = turn;
+
+        if(stalemate()){
+
+            let index;
+            if(turn === "white-piece"){
+                color = "w";
+                king_loc = document.querySelector(".W_K"); 
+                index = [].indexOf.call(king_loc.parentNode.parentNode.children, king_loc.parentNode);
+            }else{
+                color = "b";
+                king_loc = document.querySelector(".b_k"); 
+                index = [].indexOf.call(king_loc.parentNode.parentNode.children, king_loc.parentNode);
+            }
+
+
+            //Getting here means that there are no possible valid moves for the current color.
+            //If the king is in check it is a checkmate, if not then it is a stalemate.
+            if(in_check(index, color)){
+                victory = (turn === "white-piece") ? "black-piece" : "white-piece";
+                alert("Checkmate! " + victory + " has won!");
+                win_con = "The game has ended with " + victory + " winning by checkmate. Please refresh the page to play again";
+                return;
+            }else{
+                alert("Tie! You have reached a stalemate");
+                win_con = "The game has ended in a tie by stalemate. Please refresh the page to play again";
+                return;
+            }
+        }
+
+        //Tests if there is enough pieces to force a checkmate
+        if(insufficient_materials()){
+            alert("Tie! By insufficient materials.");
+            win_con = "The game has ended in a tie by insufficient materials. Please refresh the page to play again";
+            return;
+        }
+
+    }
 
   });

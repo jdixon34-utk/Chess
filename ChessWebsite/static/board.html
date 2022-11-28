@@ -24,24 +24,26 @@
 <script src="board.js"></script>
 
 <script>
+
+    //Testing for fen strings
     function run_ws() {
         let instance = new Module["chessGame"];
         console.log('Fen default result: ' + instance["playTurn"]("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"));
-        //console.log(localStorage.turn + " " + localStorage.pas + " " + localStorage.cas + " " + localStorage.half + " " + localStorage.full);
         console.log('fen result: ' + fen());
         console.log('Our fen result: ' + instance["playTurn"](fen()));
     };
 
+    //Calls the engine to do a move
     function instring() {
-        //Temp delete later
-        //fenin("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1");
         let instance = new Module["chessGame"];
         fenin(instance["playTurn"](fen()));
     }
 
+    //Flips the board, called by a button
     function flip_board() {
         flip_b();
     }
+
 </script>
 <script src="chess.js"></script>
 <script type="text/javascript" src="fen.js"></script>
