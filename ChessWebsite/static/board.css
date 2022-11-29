@@ -1,11 +1,6 @@
 :root {
     display: flex;
     /* margin-left: 25%; */
-  }
-
-#button{
-    display: flex;
-    margin: right 5000px;
 }
 
 #chessboard {
@@ -143,8 +138,46 @@
     filter: drop-shadow(0 0 0.75rem rgb(70, 171, 234));
 }
 .container {
-    width: 45vw;
+    width: 49.2vw;
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+.cringe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 99.5%;
+    height: 98.8%;
+    position: absolute;
+}
+.menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+
+    width: 30%;
+    height: 53.1%;
+    background-color: black;
+    position: absolute;
+    z-index: 80;
+    border-radius: 4.5%;
+}
+.blackout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: black;
+    width: 50vw;
+    height: 99.5%;
+    z-index: 20;
+    opacity: 30%;
+    left: 24.7vw;
+}
+.hidden {
+    visibility: hidden;
+    z-index: -10;
 }

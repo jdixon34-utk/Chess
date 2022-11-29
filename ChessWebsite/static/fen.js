@@ -434,6 +434,3 @@ function flip_b(){
                 localStorage.flip = 0;
             }
 }
-
-
-

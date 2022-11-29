@@ -8,15 +8,30 @@
 
 </header>
 
-<div class="container">
-    <div>
+<div style="display: left;" id="button2">
+    <button id="run_button2" onclick="instring()">=</button>
+</div>
+<div class="cringe">
+    <div class="blackout">
+
+    </div>
+</div>
+
+<div class="cringe">
+    <div class="menu">
         <div style="display: left;" id="button">
             <button id="run_button" onclick="flip_board()">=</button>
         </div>
-        <div style="display: left;" id="button2">
-            <button id="run_button2" onclick="instring()">=</button>
+
+        <div style="display: left;" id="button">
+            <button id="run_button" onclick="flip_board()">=</button>
         </div>
     </div>
+</div>
+
+
+<div class="container">
+
     <div class="chessarea" id="chessarea"></div>
 </div>
 
@@ -41,6 +56,13 @@
 
     //Flips the board, called by a button
     function flip_board() {
+        let total = document.querySelector('.cringe');
+        total.classList.add('hidden');
+
+        let menu = document.querySelector('.menu');
+        menu.classList.add('hidden');
+
+        
         flip_b();
     }
 
