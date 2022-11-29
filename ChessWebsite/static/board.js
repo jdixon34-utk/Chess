@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var flip = 0;
     curr_en_pas = "null";
     win_con = null;
+    var past_fen = new Array(0);
 
     //Lets these variables be used in the .html file and any files .js files in the .html
     localStorage.turn = turn;
@@ -59,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
                     piece.classList.add("black-piece");
                 //}
+
                 //Define all the pieces for the black side
                 if(i === 1){
                     if(j === 1){
@@ -263,13 +265,19 @@ document.addEventListener("DOMContentLoaded", function () {
             
             //Game ends in tie if the turn timer is 100 or the half turn timer is 50
             if(full === "100"){
-                console.log("IN");
                 alert("100 turn timer reached. The game has ended in a tie.");
                 win_con = "Game has ended in a tie by turn timer. Please refresh the page to play again";
                 return;
             }else if(half === "50"){
                 alert("50 half-turn timer reached. The game has ended in a tie.");
                 win_con = "Game has ended in a tie by half-turn timer. Please refresh the page to play again";
+                return;
+            }
+
+            //Three repition rule
+            if(three_rep()){
+                alert("Threefold repetition has occured. The game has ended in a tie.");
+                win_con = "Game has ended in a tie by threefold repetition. Please refresh the page to play again";
                 return;
             }
 
@@ -1437,8 +1445,12 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        //turn = (turn === "white-piece") ? "black-piece" : "white-piece";
-        //localStorage.turn = turn;
+        //Three repetition rule
+        if(three_rep()){
+            alert("Threefold repetition has occured. The game has ended in a tie.");
+            win_con = "Game has ended in a tie by threefold repetition. Please refresh the page to play again";
+            return;
+        }
 
         if(stalemate()){
 
@@ -1475,6 +1487,55 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+    }
+
+    function three_rep(){
+        
+        let new_fen = get_fen();
+
+        //new_fen[new_fen.length - 1] = "";
+        result = new_fen.slice(0, (new_fen.length - 2));
+        //console.log(result);
+        
+        while((result[result.length - 1]) !== " "){
+            result = result.slice(0, (result.length - 1));
+            //console.log(result);
+        }
+
+        result = result.slice(0, (result.length - 1));
+        //console.log("Post " + result);
+
+        while((result[result.length - 1]) !== " "){
+            result = result.slice(0, (result.length - 1));
+            //console.log(result);
+        }
+
+        result = result.slice(0, (result.length - 1));
+        //console.log("Post " + result);
+
+        for(var i = 0; i < past_fen.length; i += 2){
+            
+            //console.log("TESt " + result + " " + past_fen[i])
+            
+            if(past_fen[i] === result){
+                
+                //console.log("Fen match " + (past_fen[i+1] + 1));
+                
+                past_fen[i+1]++;
+
+                if(past_fen[i+1] === 3){
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        past_fen.push(result, 1);
+        //past_fen[past_fen.length - 1][0] = new_fen;
+        //past_fen[past_fen.length - 1][1] = 1;
+
+        return false;
     }
 
   });
