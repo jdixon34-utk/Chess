@@ -8,9 +8,11 @@
 
 </header>
 
-<div style="display: left;" id="button2">
+<!-- ENGINE BUTTON, THIS WILL APPEAR BELOW THE NAVBAR AND ABOVE THE CHESSBOARD IF YOU UNCOMMENT THIS -->
+<!-- <div style="display: left;" id="button2">
     <button id="run_button2" onclick="instring()">=</button>
-</div>
+</div> -->
+
 <div class="cringe">
     <div class="blackout">
 
@@ -19,12 +21,11 @@
 
 <div class="cringe">
     <div class="menu">
-        <div style="display: left;" id="button">
-            <button id="run_button" onclick="flip_board()">=</button>
+        <div class="whiteOption">
+            <img src="./pieces_data/Chess_klt60.png" alt="white king" class="d_image" onclick="dont_flip()"/>
         </div>
-
-        <div style="display: left;" id="button">
-            <button id="run_button" onclick="flip_board()">=</button>
+        <div class="blackOption">
+            <img src="./pieces_data/Chess_kdt60.png" alt="white king" class="d_image" onclick="flip_board()"/>
         </div>
     </div>
 </div>
@@ -54,15 +55,27 @@
         fenin(instance["playTurn"](fen()));
     }
 
+    /* Since white is the default color, we don't need to flip the board, just get rid of the
+       menu that pops up. */
+    function dont_flip() {
+        /* Finding the Menu and blacked out background and hiding them once function is called */
+        let total = document.querySelector('.cringe');
+        let menu = document.querySelector('.menu');
+
+        total.classList.add('hidden');
+        menu.classList.add('hidden');
+    }
+
     //Flips the board, called by a button
     function flip_board() {
+        /* Finding the Menu and blacked out background and hiding them once function is called */
         let total = document.querySelector('.cringe');
-        total.classList.add('hidden');
-
         let menu = document.querySelector('.menu');
+
+        total.classList.add('hidden');
         menu.classList.add('hidden');
 
-        
+        /* Flip the board baby*/
         flip_b();
     }
 
