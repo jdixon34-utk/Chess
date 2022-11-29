@@ -333,8 +333,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         //Pawn promotion
         if((piece.classList.contains("P") || piece.classList.contains("p")) && (piece_index < 8 || piece_index > 55)){
-            //promotion = User_function_call();
-
+            promotion = pawn_promotion(piece);
+            
             //If(promotion === queen){
                 //make_queen(piece_index);
             //}else if(promotion === bishop){
