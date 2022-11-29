@@ -8,3 +8,11 @@
 html {
     scroll-behavior: smooth;
 }
+body {
+    background: rgb(250,249,246);
+    background: linear-gradient(90deg, rgba(250,249,246,1) 0%, rgba(250,246,233,1) 100%);
+}
+.override {
+    background: rgb(250,249,246);
+    background: linear-gradient(90deg, rgba(250,249,246,1) 0%, rgba(250,246,233,1) 100%);  
+}

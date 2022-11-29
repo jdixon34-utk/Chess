@@ -15,7 +15,7 @@
     float: left;
     width: 12.5%;
     height: 12.5%;
-    background-color: #f9eda7;
+    background-color: #b0673a;
 
     /* This is to center the pieces properly on the board */
     display: flex;
@@ -26,7 +26,8 @@
     float: left;
     width: 12.5%;
     height: 12.5%;
-    background-color: #b0673a;
+
+    background-color: #f9eda7;
 
     /* This is to center the pieces properly on the board */
     display: flex;
@@ -168,7 +169,8 @@
 
     width: 20%;
     height: 35.4%;
-    background-color: #6949f9;
+    background: rgb(207,122,104);
+    background: linear-gradient(90deg, rgba(207,122,104,1) 0%, rgba(238,126,103,1) 100%);
     position: absolute;
     z-index: 80;
     border-radius: 4.5%;
@@ -195,7 +197,7 @@
     width: 50vw;
     height: 99.5%;
     z-index: 20;
-    opacity: 30%;
+    opacity: 70%;
     left: 24.7vw;
 }
 .hidden {
