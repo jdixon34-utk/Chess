@@ -211,6 +211,7 @@ function fenin(fen){
                         if(cas.includes("q") || cas.includes("b")){
                             piece.classList.add("First");
                         }
+                        piece.classList.add("b_k");
                     }else if(fen[check] === "q"){
                         piece.classList.add("q");
                         piece.classList.add("B_q");
@@ -310,6 +311,7 @@ function fenin(fen){
                         if(cas.includes("k") || cas.includes("b")){
                             piece.classList.add("First");
                         }
+                        piece.classList.add("b_k");
                     }else if(fen[check] === "q"){
                         piece.classList.add("q");
                         piece.classList.add("B_q");
@@ -347,6 +349,7 @@ function fenin(fen){
                         if(cas.includes("K") || cas.includes("W")){
                             piece.classList.add("First");
                         }
+                        piece.classList.add("W_K");
                     }else if(fen[check] === "Q"){
                         piece.classList.add("Q");
                     }else if(fen[check] === "B"){

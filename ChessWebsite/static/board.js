@@ -577,7 +577,7 @@ document.addEventListener("DOMContentLoaded", function () {
             king_loc = document.querySelector(".W_K"); 
             index = [].indexOf.call(king_loc.parentNode.parentNode.children, king_loc.parentNode);
         }else{
-            king_loc = document.querySelector(".b_k");
+            king_loc = document.querySelector(".B_k");
             index = [].indexOf.call(king_loc.parentNode.parentNode.children, king_loc.parentNode);
         }
 
