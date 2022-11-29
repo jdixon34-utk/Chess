@@ -13,6 +13,8 @@
     <button id="run_button2" onclick="instring()">=</button>
 </div> -->
 
+
+
 <div class="cringe">
     <div class="blackout">
 
@@ -25,24 +27,202 @@
             <img src="./pieces_data/Chess_klt60.png" alt="white king" class="d_image" onclick="dont_flip()"/>
         </div>
         <div class="blackOption">
-            <img src="./pieces_data/Chess_kdt60.png" alt="white king" class="d_image" onclick="flip_board()"/>
+            <img src="./pieces_data/Chess_kdt60.png" alt="black king" class="d_image" onclick="flip_board()"/>
         </div>
     </div>
 </div>
 
 
-<div class="container">
 
+<div class="container">
     <div class="chessarea" id="chessarea"></div>
 </div>
 
+<div class="hidden" id="hid">
+    <div class="hidden" id="UI">
+        <div class="whiteOption">
+            <img src="./pieces_data/Chess_qlt60.png" alt="white queen" class="d_image" onclick="wQueen()"/>
+        </div>
+        <div class="whiteOption">
+            <img src="./pieces_data/Chess_nlt60.png" alt="white knight" class="d_image" onclick="wKnight()"/>
+        </div>
+        <div class="whiteOption">
+            <img src="./pieces_data/Chess_blt60.png" alt="white bishop" class="d_image" onclick="wBishop()"/>
+        </div>
+        <div class="whiteOption">
+            <img src="./pieces_data/Chess_rlt60.png" alt="white rook" class="d_image" onclick="wRook()"/>
+        </div>
+    </div>
+</div>
+
+<div class="hidden" id="hid2">
+    <div class="hidden" id="UI2">
+        <div class="blackOption">
+            <img src="./pieces_data/Chess_qdt60.png" alt="black queen" class="d_image" onclick="bQueen()"/>
+        </div>
+        <div class="blackOption">
+            <img src="./pieces_data/Chess_ndt60.png" alt="black knight" class="d_image" onclick="bKnight()"/>
+        </div>
+        <div class="blackOption">
+            <img src="./pieces_data/Chess_bdt60.png" alt="black bishop" class="d_image" onclick="bBishop()"/>
+        </div>
+        <div class="blackOption">
+            <img src="./pieces_data/Chess_rdt60.png" alt="black rook" class="d_image" onclick="bRook()"/>
+        </div>
+    </div>
+</div>
 
 <script src="board.js"></script>
 
 <script>
-    /* A function that takes the given pawn and promotes it to the selected piece */
+    let newPiece;
+
+    function wQueen() {
+        newPiece.classList.remove("p");
+        newPiece.classList.remove('P');
+        newPiece.classList.remove('W_p');
+        newPiece.classList.remove('First');
+        newPiece.classList.add('Q')
+
+        WPPdestroyUI();
+    }
+    function bQueen() {
+        newPiece.classList.remove("p");
+        newPiece.classList.remove('P');
+        newPiece.classList.remove('B_p');
+        newPiece.classList.remove('First');
+        newPiece.classList.add('q')
+        newPiece.classList.add('B_q')
+
+        BPPdestroyUI();
+    }
+
+    function wKnight() {
+        newPiece.classList.remove("p");
+        newPiece.classList.remove('P');
+        newPiece.classList.remove('W_p');
+        newPiece.classList.remove('First');
+        newPiece.classList.add('N');
+        
+        WPPdestroyUI();
+    }
+    function bKnight() {
+        newPiece.classList.remove("p");
+        newPiece.classList.remove('P');
+        newPiece.classList.remove('B_p');
+        newPiece.classList.remove('First');
+        newPiece.classList.add('n');
+        newPiece.classList.add('B_n');
+
+        BPPdestroyUI();
+    }
+
+    function wBishop() {
+        newPiece.classList.remove("p");
+        newPiece.classList.remove('P');
+        newPiece.classList.remove('W_p');
+        newPiece.classList.remove('First');
+        newPiece.classList.add('B');
+
+        WPPdestroyUI();
+    }
+    function bBishop() {
+        newPiece.classList.remove("p");
+        newPiece.classList.remove('P');
+        newPiece.classList.remove('B_p');
+        newPiece.classList.remove('First');
+        newPiece.classList.add('b');
+        newPiece.classList.add('B_b');
+
+        BPPdestroyUI();
+    }
+    
+    function wRook() {
+        newPiece.classList.remove("p");
+        newPiece.classList.remove('P');
+        newPiece.classList.remove('W_p');
+        newPiece.classList.add('R');
+        newPiece.classList.add('W_r');
+        newPiece.classList.add('0');
+
+        WPPdestroyUI();
+    }
+    function bRook() {
+        newPiece.classList.remove("p");
+        newPiece.classList.remove('P');
+        newPiece.classList.remove('B_p');
+        newPiece.classList.add('r');
+        newPiece.classList.add('B_r');
+        newPiece.classList.add('2');
+
+        BPPdestroyUI();
+    }
+
+    /* Generates the UI needed for white pawn promotion */
+    function WPPdestroyUI() {
+        /* Makes UI and blacked out background appear */
+        let hid = document.getElementById('hid');
+        let UI = document.getElementById('UI');
+        let total = document.querySelector('.cringe');
+
+        hid.classList.add('hidden');
+        hid.classList.remove('cringe');
+        total.classList.add('hidden');
+        UI.classList.add('hidden');
+        UI.classList.remove('pSelect');
+    }
+
+    /* Generates the UI needed for black pawn promotion */
+    function BPPdestroyUI() {
+        /* Makes UI and blacked out background appear */
+        let hid2 = document.getElementById('hid2');
+        let UI = document.getElementById('UI2');
+        let total = document.querySelector('.cringe');
+
+        hid2.classList.add('hidden');
+        hid2.classList.remove('cringe');
+        total.classList.add('hidden');
+        UI.classList.add('hidden');
+        UI.classList.remove('pSelect');
+    }
+
+    /* Generates the UI needed for white pawn promotion */
+    function WPPcreateUI() {
+        /* Makes UI and blacked out background appear */
+        let hid = document.getElementById('hid');
+        let UI = document.getElementById('UI');
+        let total = document.querySelector('.cringe');
+
+        hid.classList.remove('hidden');
+        hid.classList.add('cringe');
+        total.classList.remove('hidden');
+        UI.classList.remove('hidden');
+        UI.classList.add('pSelect');
+    }
+
+    /* Generates the UI needed for black pawn promotion */
+    function BPPcreateUI() {
+        /* Makes UI and blacked out background appear */
+        let hid2 = document.getElementById('hid2');
+        let UI = document.getElementById('UI2');
+        let total = document.querySelector('.cringe');
+
+        hid2.classList.remove('hidden');
+        hid2.classList.add('cringe');
+        total.classList.remove('hidden');
+        UI.classList.remove('hidden');
+        UI.classList.add('pSelect');
+    }
+
+    /* A function that takes the given pawn, gives a selection UI, then promotes given pawn */
     function pawn_promotion(pawn) {
-        console.log("--- PAWN PROMOTION CHECK ---")
+        if (pawn.classList.contains('B_p')) {
+            BPPcreateUI();
+        }
+        else {
+            WPPcreateUI();
+        }
+        newPiece = pawn;
     }
 
     //Testing for fen strings
