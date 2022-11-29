@@ -310,7 +310,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             //Calls the engine after 1 millisecond
-            //setTimeout(engine_move,1);
+            setTimeout(engine_move,1);
 
         }
     }
@@ -333,17 +333,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         //Pawn promotion
         if((piece.classList.contains("P") || piece.classList.contains("p")) && (piece_index < 8 || piece_index > 55)){
-            promotion = pawn_promotion(piece);
-            
-            //If(promotion === queen){
-                //make_queen(piece_index);
-            //}else if(promotion === bishop){
-                //make_bishop(piece_index);
-            //}else if(promotion === rook){
-                //make_rook(piece_index);
-            //}else{
-                //make_knight(piece_index);
-            //}
+            pawn_promotion(piece);
         }
 
         turn = (turn === "white-piece") ? "black-piece" : "white-piece";
