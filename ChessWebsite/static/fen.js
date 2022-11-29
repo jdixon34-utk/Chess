@@ -291,7 +291,7 @@ function fenin(fen){
                         if(slash === 6){
                             piece.classList.add("First");
                         }
-                        console.log("black pawn " + index);
+                        //console.log("black pawn " + index);
                     }else if(fen[check] === "r"){
                         piece.classList.add("r");
                         piece.classList.add("B_r");
@@ -306,7 +306,7 @@ function fenin(fen){
                             piece.classList.add("First");
                             piece.classList.add(3); 
                         }
-                        console.log("black rook " + index);
+                        //console.log("black rook " + index);
                     }else if(fen[check] === "k"){
                         piece.classList.add("k");
                         piece.classList.add("B_k");
@@ -314,19 +314,19 @@ function fenin(fen){
                             piece.classList.add("First");
                         }
                         piece.classList.add("b_k");
-                        console.log("black king " + index);
+                        //console.log("black king " + index);
                     }else if(fen[check] === "q"){
                         piece.classList.add("q");
                         piece.classList.add("B_q");
-                        console.log("black queen " + index);
+                        //console.log("black queen " + index);
                     }else if(fen[check] === "b"){
                         piece.classList.add("b");
                         piece.classList.add("B_b");
-                        console.log("black bishop " + index);
+                        //console.log("black bishop " + index);
                     }else{
                         piece.classList.add("n");
                         piece.classList.add("B_n");
-                        console.log("black knight " + index);
+                        //console.log("black knight " + index);
                     }
                 }else{
                     piece.classList.add("white-piece");
@@ -336,7 +336,7 @@ function fenin(fen){
                         if(slash === 1){
                             piece.classList.add("First");
                         }
-                        console.log("white pawn " + index);
+                        //console.log("white pawn " + index);
                     }else if(fen[check] === "R"){
                         piece.classList.add("R");
                         piece.classList.add("W_r");
@@ -351,23 +351,23 @@ function fenin(fen){
                             piece.classList.add("First");
                             piece.classList.add(1); 
                         }
-                        console.log("white rook " + index);
+                        //console.log("white rook " + index);
                     }else if(fen[check] === "K"){
                         piece.classList.add("K");
                         if(cas.includes("K") || cas.includes("W")){
                             piece.classList.add("First");
                         }
                         piece.classList.add("W_K");
-                        console.log("white king " + index);
+                        //console.log("white king " + index);
                     }else if(fen[check] === "Q"){
                         piece.classList.add("Q");
-                        console.log("white queen " + index);
+                        //console.log("white queen " + index);
                     }else if(fen[check] === "B"){
                         piece.classList.add("B");
-                        console.log("white bishop " + index);
+                        //console.log("white bishop " + index);
                     }else{
                         piece.classList.add("N");
-                        console.log("white knight " + index);
+                        //console.log("white knight " + index);
                     }
 
                 }
