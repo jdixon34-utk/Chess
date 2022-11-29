@@ -309,8 +309,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            //Calls the engine after 0.5 seconds
-            setTimeout(engine_move,500);
+            //Calls the engine after 1 millisecond
+            setTimeout(engine_move,1);
 
         }
     }
