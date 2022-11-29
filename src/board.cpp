@@ -805,7 +805,7 @@ int* Board::makeNormalMove(Move move){
 	// [3] Black_QS Rook Moved or Captured
 	// [4] Black_KS Rook Moved or Captured
 	// [5] King Moved
-	int moveInfo[4] = {0,0,0,0};
+	int moveInfo[6] = {0,0,0,0,0,0};
 
 	// Check for Rook Moving to Stop Castling
 	if(color == 0 && move.fromSquare == 0 && (pieceTypes[color][2] & move.fromSquare)){
