@@ -53,8 +53,9 @@ document.addEventListener("DOMContentLoaded", function () {
             //Define the colors and piece type of the pieces
             if (i < 3) {
                 //Uncomment to test checkmate and stalemate
-                //if((i === 1 && j === 5) || (i === 1 && j === 3)){ 
-                //|| (i === 1 && j === 4) || (i === 1 && j === 8) || (i === 1 && j === 1)){
+                //if((i === 1 && j === 5) || (i === 1 && j === 2)) 
+                //|| (i === 1 && j === 4) || (i === 1 && j === 8) || (i === 1 && j === 1))
+                //{
                     document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
                     piece.classList.add("black-piece");
                 //}
@@ -310,7 +311,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             //Calls the engine after 1 millisecond
-            //setTimeout(engine_move,1);
+            setTimeout(engine_move,1);
 
         }
     }
@@ -333,17 +334,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         //Pawn promotion
         if((piece.classList.contains("P") || piece.classList.contains("p")) && (piece_index < 8 || piece_index > 55)){
-            promotion = pawn_promotion(piece);
-            
-            //If(promotion === queen){
-                //make_queen(piece_index);
-            //}else if(promotion === bishop){
-                //make_bishop(piece_index);
-            //}else if(promotion === rook){
-                //make_rook(piece_index);
-            //}else{
-                //make_knight(piece_index);
-            //}
+            pawn_promotion(piece);
         }
 
         turn = (turn === "white-piece") ? "black-piece" : "white-piece";
@@ -673,6 +664,10 @@ document.addEventListener("DOMContentLoaded", function () {
         //King and bishop vs king and bishop when both bishops are on the same color.
         else if(((black_bis === 1 && white_bis === 1) && (black_kni === 0 && white_kni === 0))
             && ((black_bis_white && white_bis_white) || (black_bis_black && white_bis_black))){
+
+            return true;
+        }else if(((black_kni === 1 && white_kni === 0) && (black_bis === 0 && white_bis === 1)) 
+            || ((black_kni === 0 && white_kni === 1) && (black_bis === 1 && white_bis === 0))){
 
             return true;
         }
