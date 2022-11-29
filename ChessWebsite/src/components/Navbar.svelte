@@ -10,7 +10,7 @@
 </script>
 
 <!-- This is the top of the Navigation Bar -->
-<div class="w-full h-[9vh] bg-[#272D2D] text-[#161616] flex flex-row justify-between items-center text-[25px] fixed z-40 override">
+<div class="w-full h-[8vh] bg-[#272D2D] text-[#161616] flex flex-row justify-between items-center text-[25px] fixed z-40 override">
     <a href="/" class="ml-6 font-bold text-[#161616] hover:text-[#CF7A68] transition ease-in-out duration-150 cursor-pointer"><h1>ChadChess&trade</h1></a>
 
     <!-- This is only viewed on mobile, right side of Navbar -->

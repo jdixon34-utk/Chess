@@ -13,7 +13,7 @@
 </script>
 
 <!-- This is the top of the Navigation Bar -->
-<div class="w-full h-[9vh] bg-[#272D2D] text-[#161616] flex flex-row justify-between items-center text-[25px] fixed z-40 override">
+<div class="w-full h-[8vh] bg-[#272D2D] text-[#161616] flex flex-row justify-between items-center text-[25px] fixed z-40 override">
     <a href="/" class="ml-6 font-bold text-[#161616] hover:text-[#CF7A68] transition ease-in-out duration-150 cursor-pointer"><h1>ChadChess&trade</h1></a>
 
     <!-- This is only viewed on mobile, right side of Navbar -->
@@ -49,7 +49,7 @@
 <!-- If the mobile menu is closed, we show the chess board -->
 {#if noMenu === true}
     <div class="flex justify-center items-center">
-        <embed class="md:w-screen md:h-[89vh] md:pt-[12vh] w-screen h-[85vh] pt-[12vh] pb-[4vh]" type="text/html" src="board.html" id="chessEmbed">
+        <embed class="md:w-screen md:h-[89vh] md:pt-[9vh] w-screen h-[85vh] pt-[12vh] pb-[4vh]" type="text/html" src="board.html" id="chessEmbed">
     </div>
     <Footer />
 {/if}

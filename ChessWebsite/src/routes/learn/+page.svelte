@@ -6,7 +6,7 @@
 <Navbar />
 
 <div class="w-full min-h-[89vh] h-full md:px-[5vh] lg:px-[10vh]">
-    <h1 class="pt-[12vh] flex justify-center items-center font-bold text-3xl">How to Play</h1>
+    <h1 class="pt-[9vh] flex justify-center items-center font-bold text-3xl">How to Play</h1>
 
     <div class="pt-[3vh] w-full h-full flex flex-col justify-center items-center px-[10vw] pb-[2vh]">
 
