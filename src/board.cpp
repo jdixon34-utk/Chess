@@ -772,7 +772,7 @@ int Board::checkmateOrStalemate(){
 	int noLegalMoves = 1;
 
 	for(int i = 0; i < moveIndex; i++){
-		capturedPieceType = makeMove(moves[i]);
+		capturedPieceType = makeMove(moves[i])[0];
 		if(!inCheck()){
 			//we found a legal move that doesn't lead to white being in check
 			noLegalMoves = 0;
@@ -786,7 +786,7 @@ int Board::checkmateOrStalemate(){
 	return 0;
 }
 
-int Board::makeMove(Move move){
+int* Board::makeMove(Move move){
 	//call appropriate make move function
 	switch(move.specialMove){
 		case 0: return makeNormalMove(move);
@@ -798,7 +798,15 @@ int Board::makeMove(Move move){
 }
 
 //returns 1 if move is a capture, otherwise returns 0
-int Board::makeNormalMove(Move move){
+int* Board::makeNormalMove(Move move){
+	// [0] Captured Piece
+	// [1] White_QS Rook Moved or Captured
+	// [2] White_KS Rook Moved or Captured
+	// [3] Black_QS Rook Moved or Captured
+	// [4] Black_KS Rook Moved or Captured
+	// [5] King Moved
+	int moveInfo[4] = {0,0,0,0};
+
 	// Check for Rook Moving to Stop Castling
 	if(color == 0 && move.fromSquare == 0 && (pieceTypes[color][2] & move.fromSquare)){
 		whiteCastleRightsQS = false;
@@ -812,13 +820,13 @@ int Board::makeNormalMove(Move move){
 	//Captured piece type, all the bools, king moves
 
 	if(color == 0 && move.fromSquare != 0 && (pieceTypes[color][2] & move.fromSquare)){
-		whiteQSRookMoved = true;
+		moveInfo[1] = 1;
 	}else if(color == 0 && move.fromSquare != 7 && (pieceTypes[color][2] & move.fromSquare)){
-		whiteKSRookMoved = true;
+		moveInfo[2] = 1;
 	}else if(color == 1 && move.fromSquare != 56 && (pieceTypes[color][2] & move.fromSquare)){
-		blackQSRookMoved = true;
+		moveInfo[3] = 1;
 	}else if(color == 1 && move.fromSquare != 63 && (pieceTypes[color][2] & move.fromSquare)){
-		blackKSRookMoved = true;
+		moveInfo[4] = 1;
 	}
 
 	//setting/unsetting squares for side that is moving
@@ -846,7 +854,8 @@ int Board::makeNormalMove(Move move){
 				//retval is used for capture parameter in undoNormalMove that tells us the piece that was captured
 				//0 = no capture, 1 = queen capture, 2 = rook capture, etc.
 				//king cannot be captured, so that is why 0 can represent a non capture
-				return i;
+				moveInfo[0] = i;
+				return moveInfo;
 			}
 		}
 	}
@@ -855,7 +864,8 @@ int Board::makeNormalMove(Move move){
 	allPieces = pieces[0] | pieces[1];
 	emptySquares = ~allPieces;
 
-	return 0;
+	moveInfo[0] = 0;
+	return moveInfo;
 }
 
 void Board::makeEnPassMove(Move move){
@@ -908,7 +918,7 @@ void Board::makeCastleMove(Move move){
 }
 
 //Updates bit boards for a pawn promotion
-int Board::makePromotionMove(Move move){
+int* Board::makePromotionMove(Move move){
 	int capturedPieceType = 0;
 	if((allPieces&(1<<move.toSquare)) != 0){
 		//Capture into Promotion
@@ -930,7 +940,8 @@ int Board::makePromotionMove(Move move){
 	emptySquares = ~allPieces;
 
 //	if(capturedPieceType == 1) printf("here\n");
-	return capturedPieceType;
+	int moveInfo[1] = {capturedPieceType};
+	return moveInfo;
 }
 
 void Board::undoMove(Move move, int capturedPieceType){
