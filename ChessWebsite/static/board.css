@@ -173,17 +173,17 @@
     align-items: center;
     flex-direction: column;
     min-width: 100px;
-    min-height: 200px;
-
+    min-height: 150px;
     width: 15%;
-    height: 35.4%;
-  
-    background: rgb(250,249,246);
-    background: linear-gradient(90deg, rgba(250,249,246,1) 0%, rgba(250,246,233,1) 100%);  
+    height: 27.4%;
+
+    background: rgb(136,172,100);
+    background: linear-gradient(90deg, rgba(136,172,100,1) 0%, rgba(118,150,86,1) 100%);
 
     position: absolute;
     z-index: 80;
     border-radius: 4.5%;
+    border: 1px solid white;
 }
 .bookshelf {
     display: flex;
@@ -191,14 +191,31 @@
     align-items: center;
     width: 100%;
     height: 100%;
+    padding-bottom: 2vh;
+}
+.bookshelf2 {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 2vh;
 }
 .baby {
-    padding-top: 2vh;
+    padding-top: 0.6vh;
     width: 100%;
     height: 25%;
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    text-transform: capitalize;
+    color: rgb(240,240,231);
+}
+.baby2 {
+    padding-top: 0.6vh;
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color: rgb(240,240,231);
 }
 .blackout {
     display: flex;
@@ -223,8 +240,8 @@
     justify-content: center;
     align-items: center;
 
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
 }
 .blackOption {
     display: flex;
@@ -232,8 +249,8 @@
     justify-content: center;
     align-items: center;
 
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
 }
 .queenOption {
     display: flex;
@@ -248,21 +265,37 @@
     max-width: 110px;
     width: 60%;
     cursor: pointer;
-    transition: all 200ms;
+    transition: all 150ms;
+    filter: drop-shadow(.56rem 1rem 1.5rem rgba(0, 0, 0, 0.264));
 }
 .d_image:hover {
+    width: 64%;
+}
+.d_image2 {
+    max-width: 110px;
+    width: 60%;
+    cursor: pointer;
+    transition: all 150ms;
+    filter: drop-shadow(.56rem 1rem 1.5rem rgba(0, 0, 0, 0.264));
+}
+.d_image2:hover {
     width: 64%;
 }
 .pSelect {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-direction: column;
+    min-width: 200px;
+    min-height: 175px;
+    width: 27%;
+    height: 27%;
 
+    background: rgb(136,172,100);
+    background: linear-gradient(90deg, rgba(136,172,100,1) 0%, rgba(118,150,86,1) 100%);
 
-    width: 40%;
-    height: 18.4%;
-    background-color: #c9cc17;
     position: absolute;
     z-index: 80;
     border-radius: 14px;
+    border: 1px solid white;
 }

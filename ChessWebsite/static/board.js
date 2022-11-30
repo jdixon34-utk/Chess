@@ -326,7 +326,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             //Calls the engine after 1 millisecond
-            setTimeout(engine_move,1);
+            // setTimeout(engine_move,1);
 
         }
     }
