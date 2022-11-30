@@ -259,8 +259,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         //The current en passant possibility was not used so reset it.
         if(en_pas_ignore === false){
+            console.log("en_{pas_ignore");
             pas = "-";
             curr_en_pas =  "null";
+            localStorage.curr_en_pas = curr_en_pas;
             localStorage.pas = pas;
         }else{
             en_pas_ignore = false;
@@ -375,12 +377,19 @@ document.addEventListener("DOMContentLoaded", function () {
             if(!take && (((new_index + diff) === old_index && piece.classList.item(0) === "black-piece") 
                 || ((new_index - diff) === old_index && piece.classList.item(0) === "white-piece"))){
 
+                    if(!stale){
+                        console.log("Hit Yeah " + new_index + " " + old_index);
+                    }
                 return true;
             }
 
             //For taking pieces diagonally
             if(take && (((Math.abs((new_index + diff) - old_index) === 1) && piece.classList.item(0) === "black-piece") 
                 || ((Math.abs((new_index - diff) - old_index) === 1) && piece.classList.item(0) === "white-piece"))){
+
+                    if(!stale){
+                        console.log("Hit Yeah dia " + new_index + " " + old_index);
+                    }
 
                 return true;
             }
@@ -403,6 +412,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 (((Math.abs((new_index + diff) - old_index) === 1) && piece.classList.item(0) === "black-piece") 
                 || ((Math.abs((new_index - diff) - old_index) === 1) && piece.classList.item(0) === "white-piece"))){
                 
+                if(!stale){
+                    console.log("Hit Yeah enpas " + new_index + " " + old_index + " " + curr_en_pas);
+                }
+
                 //Delete the piece if this is not stalemate checking
                 if(!stale){
                     board.children[curr_en_pas].removeChild(board.children[curr_en_pas].children[0]);
@@ -533,6 +546,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             if(validMove(board.children[j], board.children[i], board.children[i].children[0], 1, 1)
                                 && !king_check(board.children[j], board.children[i], board.children[i].children[0], 1, 1)){
                                 
+                                    console.log("False " + i + " " + j + " take");
+
                                 return false;
                             }
                         }
@@ -541,6 +556,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             if(validMove(board.children[j], board.children[i], board.children[i].children[0], 0, 1)
                                 && !king_check(board.children[j], board.children[i], board.children[i].children[0], 0, 1)){
                                 
+                                    console.log("False " + i + " " + j + " no take");
+
                                 return false;
                             }
                         }

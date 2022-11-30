@@ -41,11 +41,6 @@ private:
 	bool blackCastleRightsKS;
 	bool blackCastleRightsQS;
 
-	bool whiteKSRookMoved = false;
-	bool whiteQSRookMoved = false;
-	bool blackKSRookMoved = false;
-	bool blackQSRookMoved = false;
-
 	int enPassantTargetSquare;//square that a pawn that has moved forward 2 spaces goes over
 	int halfMoveClock;//The number of halfmoves since the last capture or pawn advance, used for the fifty-move rule
     int fullMoveNumber;//The number of the full moves. It starts at 1 and is incremented after Black's move
@@ -99,11 +94,11 @@ public:
 	int checkmateOrStalemate(); //returns 0 for neither, 1 for checkmate, 2 for stalemate
 	int getKingPosition();
 
-	int makeMove(class Move move);
-	int makeNormalMove(class Move move);
+	int* makeMove(class Move move);
+	int* makeNormalMove(class Move move);
 	void makeEnPassMove(class Move move);
 	void makeCastleMove(class Move move);
-	int makePromotionMove(class Move move);
+	int* makePromotionMove(class Move move);
 	void undoMove(class Move move, int capturedPieceType);
 	void undoNormalMove(class Move move, int capturePieceType);
 	void undoEnPassMove(class Move move);

@@ -6,7 +6,7 @@
 <Navbar />
 
 <div class="w-full min-h-[89vh] h-full md:px-[5vh] lg:px-[10vh]">
-    <h1 class="pt-[12vh] flex justify-center items-center font-bold text-3xl bg-white">How to Play</h1>
+    <h1 class="pt-[9vh] flex justify-center items-center font-bold text-3xl">How to Play</h1>
 
     <div class="pt-[3vh] w-full h-full flex flex-col justify-center items-center px-[10vw] pb-[2vh]">
 
@@ -40,7 +40,7 @@
     
         <!-- How to move pieces -->
         <div class="flex flex-col">
-            <h1 class="text-2xl font-semibold pb-[1vh] capitalize">Pieces and how they move</h1>
+            <h1 class="text-2xl font-semibold pb-[1vh]">Pieces and How They Move</h1>
             <p class="pb-[2vh]">
                 Here are all the unique chess pieces that you will have to learn as you play. While our website
                 will prevent you from making illegal moves, 
@@ -49,18 +49,18 @@
             </p>
 
             <ul class="pb-[1vh]">
-                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-king" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">King</a> - can <span class="font-medium">move one square in any direction</span> (left, right, up, down, diagonal).</li>
-                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-queen" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Queen</a> - can <span class="font-medium">move in any direction</span> like the king, but is <span class="font-medium">not limited to one square</span>.</li>
-                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-rook" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Rook</a> - can <span class="font-medium">move in any valid square</span> that is either <span class="font-medium">horizontal or vertical to it</span>.</li>
-                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-bishop" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Bishop</a> - can <span class="font-medium">move in any valid square</span> that is <span class="font-medium">diagonal to it</span>.</li>
-                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-knight" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Knight</a> - can 
+                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-king" target="_blank" class="text-[#769656] hover:text-[#526d38] font-bold underline">King</a> - can <span class="font-medium">move one square in any direction</span> (left, right, up, down, diagonal).</li>
+                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-queen" target="_blank" class="text-[#769656] hover:text-[#526d38] font-bold underline">Queen</a> - can <span class="font-medium">move in any direction</span> like the king, but is <span class="font-medium">not limited to one square</span>.</li>
+                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-rook" target="_blank" class="text-[#769656] hover:text-[#526d38] font-bold underline">Rook</a> - can <span class="font-medium">move in any valid square</span> that is either <span class="font-medium">horizontal or vertical to it</span>.</li>
+                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-bishop" target="_blank" class="text-[#769656] hover:text-[#526d38] font-bold underline">Bishop</a> - can <span class="font-medium">move in any valid square</span> that is <span class="font-medium">diagonal to it</span>.</li>
+                <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-knight" target="_blank" class="text-[#769656] hover:text-[#526d38] font-bold underline">Knight</a> - can 
                     <span class="font-medium">move up or down one square vertically and over two squares horizontally</span> 
                     OR <span class="font-medium">up or down two squares vertically and over one square horizontally</span>
                     ("L" shape movement).
                 </li>
-                <li><a href="https://www.chess.com/terms/chess-pawn" target="_blank" class="text-[#c5986b] hover:text-[#b18960] font-bold underline">Pawn</a> - can move one square in any direction (left, right, up, down, diagonal)</li>
+                <li><a href="https://www.chess.com/terms/chess-pawn" target="_blank" class="text-[#769656] hover:text-[#526d38] font-bold underline">Pawn</a> - can move one square in any direction (left, right, up, down, diagonal)</li>
             </ul>
-            <p class="pb-[4vh] text-[13px] text-[#c5986b]">
+            <p class="pb-[4vh] text-[13px] text-[#769656]">
                 * Click on the <span class="underline">piece name</span> to get more information
             </p>
         </div>
@@ -78,15 +78,15 @@
 
             <ul class="pb-[4vh]">
                 <li class="pb-[1vh]">
-                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://www.chesshouse.com/pages/chess-rules" target="_blank">The Rules of Chess</a>
+                    <a class="text-[#769656] hover:text-[#526d38] font-bold underline" href="https://www.chesshouse.com/pages/chess-rules" target="_blank">The Rules of Chess</a>
                     - A great website that goes into more detail on the basics above.
                 </li>
                 <li class="pb-[1vh]">
-                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://www.chess.com/learn-how-to-play-chess" target="_blank">7 Steps To Get You Started</a>
+                    <a class="text-[#769656] hover:text-[#526d38] font-bold underline" href="https://www.chess.com/learn-how-to-play-chess" target="_blank">7 Steps To Get You Started</a>
                     - Essential information with videos to help with concepts.
                 </li>
                 <li class="pb-[1vh]">
-                    <a class="text-[#c5986b] hover:text-[#b18960] font-bold underline" href="https://nextlevelchess.blog/beginner-chess-strategy/" target="_blank">Beginner Chess Strategy</a>
+                    <a class="text-[#769656] hover:text-[#526d38] font-bold underline" href="https://nextlevelchess.blog/beginner-chess-strategy/" target="_blank">Beginner Chess Strategy</a>
                     - After learning the basics, we recommend learning strategy.
                 </li>
             </ul>

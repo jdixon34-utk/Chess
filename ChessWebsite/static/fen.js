@@ -105,7 +105,7 @@ function fen(){
 
     fen += full + ' ';
 
-    console.log("My fen I send " + fen);
+    //console.log("My fen I send " + fen);
 
     return fen;
 }
@@ -385,7 +385,7 @@ function fenin(fen){
 
     }
 
-    console.log(color + " " + castle + " " + pas + " " + full + " " + half + " " + fen[check]);
+    //console.log(color + " " + castle + " " + pas + " " + full + " " + half + " " + fen[check]);
 
 }
 

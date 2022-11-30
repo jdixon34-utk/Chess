@@ -1,6 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 :root {
     display: flex;
-    /* margin-left: 25%; */
 }
 
 #chessboard {
@@ -15,7 +16,11 @@
     float: left;
     width: 12.5%;
     height: 12.5%;
-    background-color: #f9eda7;
+    
+    /* background-color: #b0673a; */
+
+    background: rgb(136,172,100);
+    background: linear-gradient(90deg, rgba(136,172,100,1) 0%, rgba(118,150,86,1) 100%);
 
     /* This is to center the pieces properly on the board */
     display: flex;
@@ -26,8 +31,12 @@
     float: left;
     width: 12.5%;
     height: 12.5%;
-    background-color: #b0673a;
 
+    /* background-color: #f9eda7; */
+
+    background: rgb(240,240,231);
+    background: linear-gradient(90deg, rgba(240,240,231,1) 0%, rgba(238,238,210,1) 100%);
+    
     /* This is to center the pieces properly on the board */
     display: flex;
     justify-content: center;
@@ -133,9 +142,7 @@
 
 /*Currently selected piece to move*/
 .current{
-    /* border: 1px solid #FF8200;
-    border-radius: 10%; */
-    filter: drop-shadow(0 0 0.75rem rgb(70, 171, 234));
+    filter: drop-shadow(0 0 0.85rem rgb(70, 234, 108));
 }
 .container {
     width: 49.2vw;
@@ -164,27 +171,34 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-direction: column;
+    min-width: 100px;
+    min-height: 200px;
 
-
-    width: 20%;
+    width: 15%;
     height: 35.4%;
-    background-color: #6949f9;
+  
+    background: rgb(250,249,246);
+    background: linear-gradient(90deg, rgba(250,249,246,1) 0%, rgba(250,246,233,1) 100%);  
+
     position: absolute;
     z-index: 80;
     border-radius: 4.5%;
 }
-.menu2 {
+.bookshelf {
     display: flex;
     justify-content: space-around;
     align-items: center;
-
-
-    width: 20%;
-    height: 35.4%;
-    background-color: #6949f9;
-    position: absolute;
-    z-index: 80;
-    border-radius: 4.5%;
+    width: 100%;
+    height: 100%;
+}
+.baby {
+    padding-top: 2vh;
+    width: 100%;
+    height: 25%;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    text-transform: capitalize;
 }
 .blackout {
     display: flex;
@@ -192,10 +206,10 @@
     align-items: center;
     position: absolute;
     background-color: black;
-    width: 50vw;
+    width: 50.02vw;
     height: 99.5%;
     z-index: 20;
-    opacity: 30%;
+    opacity: 70%;
     left: 24.7vw;
 }
 .hidden {
@@ -231,12 +245,13 @@
     height: 100%;
 }
 .d_image {
-    width: 45%;
+    max-width: 110px;
+    width: 60%;
     cursor: pointer;
     transition: all 200ms;
 }
 .d_image:hover {
-    width: 50%;
+    width: 64%;
 }
 .pSelect {
     display: flex;
