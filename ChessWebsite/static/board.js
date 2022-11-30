@@ -183,9 +183,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 
 
             //Testes if this is a castling move
-            if((cur.classList.contains("k") || cur.classList.contains("K")) && Math.abs(diff) === 1 && valid_castling(side, color)){
+            if((cur.classList.contains("k") || cur.classList.contains("K")) && Math.abs(diff) === 2 && valid_castling(side, color)){
+                console.log("Just castled");
+                
                 full++;
 
+                turn = (turn === "white-piece") ? "black-piece" : "white-piece";
+        
+                localStorage.turn = turn;
                 localStorage.half = half;
                 localStorage.full = full;
 
