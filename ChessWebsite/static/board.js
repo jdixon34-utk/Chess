@@ -348,7 +348,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         //Pawn promotion
         if((piece.classList.contains("P") || piece.classList.contains("p")) && (piece_index < 8 || piece_index > 55)){
-            pawn_promotion(piece);
+            let FORTNITE = pawn_promotion(piece);
+            if (FORTNITE !== "success") {
+                return;
+            }
+
         }
 
         turn = (turn === "white-piece") ? "black-piece" : "white-piece";

@@ -829,7 +829,6 @@ int* Board::makeNormalMove(Move move){
 		moveInfo[4] = 1;
 	}
 
-	i
 
 	//setting/unsetting squares for side that is moving
 	for(int i = 5; i >= 0; i--){
