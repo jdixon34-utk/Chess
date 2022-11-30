@@ -829,6 +829,8 @@ int* Board::makeNormalMove(Move move){
 		moveInfo[4] = 1;
 	}
 
+	i
+
 	//setting/unsetting squares for side that is moving
 	for(int i = 5; i >= 0; i--){
 		if(pieceTypes[color][i] & (1ULL << move.fromSquare)){
@@ -855,6 +857,27 @@ int* Board::makeNormalMove(Move move){
 				//0 = no capture, 1 = queen capture, 2 = rook capture, etc.
 				//king cannot be captured, so that is why 0 can represent a non capture
 				moveInfo[0] = i;
+				if(i == 2){
+					if(color){
+						if(whiteCastleRightsKS && move.toSquare%8 == 7){
+							moveInfo[2] = 1;
+							whiteCastleRightsKS = false;
+						}
+						if(whiteCastleRightsQS && move.toSquare%8 == 0){
+							moveInfo[1] = 1;
+							whiteCastleRightsQS = false;
+						}
+					}else{
+						if(blackCastleRightsQS && move.toSquare%8 == 0){
+							moveInfo[3] = 1;
+							blackCastleRightsQS = false;
+						}
+						if(blackCastleRightsKS && move.toSquare%8 == 7){
+							moveInfo[4] = 1;
+							blackCastleRightsKS = false;
+						}
+					}
+				}
 				return moveInfo;
 			}
 		}
