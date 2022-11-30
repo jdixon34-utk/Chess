@@ -1,0 +1,12 @@
+Product Requirements Document
+
+Devin Munsey
+ChessWebsite (ChadChess)
+
+BACKGROUND:
+
+Our product is a website that offers the service of playing chess against an engine.
+This product doesn't solve any major earthly problems.
+They are other websites that let you do this exact same thing and more.
+BUT, this could be used as a product for people trying to host random games on a website.
+Our engine does work; it might not be the greatest engine, but it can beat you.
