@@ -1178,7 +1178,7 @@ int Board::evaluatePosition(){
 	//subtract 10 pts for each possible move that black has
 	rv -= moveIndex * 10;
 
-
+/*
 	kingPos = getLSBIndex(pieceTypes[color][0]);
   oPos = getLSBIndex(pieceTypes[!color][0]);
 	tmpBitBoard = KING_LOOKUP_TBL[oPos] ^ (pieces[!color] & KING_LOOKUP_TBL[oPos]);
@@ -1198,7 +1198,7 @@ int Board::evaluatePosition(){
 	while(tmpBitBoard != 0){
 		tmpBitBoard &= ~(1ULL << getLSBIndex(tmpBitBoard));
 		rv += 25;
-	}
+	}*/
 
 
 
