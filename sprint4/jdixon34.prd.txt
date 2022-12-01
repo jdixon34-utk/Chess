@@ -1,1 +1,32 @@
+Product Requirements Document
+Name: Jared Dixon
 
+Product Name: Chess Website
+
+Background:
+People love playing chess and people also love to watch and/or play AI in strategy games such as chess.
+Additionally, if someone doesn't have an opponent that they can play in real life and they want to
+challenge themselves, they can play a chess engine.
+Chess engines can also be used to learn from, as they play very differently from humans.
+Another benefit of chess engines is that they can play good moves quickly, so that you don't have to wait for your opponent to think.
+
+Project Overview:
+Build a playable chess game where you can play against a chess engine.
+The engine will be C++ that will make all the decisions using bitboards and bit arethmetic to increase performance.
+The front end will be a svelte frame-work so that the player can simply open a browser and got to the domain
+This engine could be sold for customers who already have the front-end and then use the engine to make it a single player experience
+
+Features:
+1. **Frontend UI** As a chess player, I want have a nice looking and intuitive UI
+2. **Fast Engine Play** As a chess player, I want the engine to respond quickly
+3. **Special Moves** As a chess player, I want to make use of all possible chess moves (en passant, castling, promotion)
+4. **Checkmate/Stalemate** As a chess player, I want the game to end properly with checkmate and stalemate situations
+5. **Other End Conditions** As a chess player, I want the game to end properly with other end conditions (50 move rule, insufficient material, repetition)
+6. **Color Selection** As a chess player, I want to select what color I want to be
+7. **Valid Moves** As a chess player, I want to have the UI only allow me to make valid moves
+8. **Engine Strength** As a chess player, I want the engine I am playing to actually be a challenging opponent
+
+Technologies to be used:
+Engine purely in C++
+Web Assembly run in the browser used to call the engine
+Frontend written in Javascript using the Svelte framework
