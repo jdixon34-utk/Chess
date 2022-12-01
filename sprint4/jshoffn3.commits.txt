@@ -1,0 +1,528 @@
+* ChessWebsite/src/app.css *
+931f89e7 (Jake                     2022-11-29 12:04:46 -0500 10) }
+931f89e7 (Jake                     2022-11-29 12:04:46 -0500 11) body {
+931f89e7 (Jake                     2022-11-29 12:04:46 -0500 12)     background: rgb(250,249,246);
+931f89e7 (Jake                     2022-11-29 12:04:46 -0500 13)     background: linear-gradient(90deg, rgba(250,249,246,1) 0%, rgba(250,246,233,1) 100%);
+931f89e7 (Jake                     2022-11-29 12:04:46 -0500 14) }
+931f89e7 (Jake                     2022-11-29 12:04:46 -0500 15) .override {
+931f89e7 (Jake                     2022-11-29 12:04:46 -0500 16)     background: rgb(250,249,246);
+931f89e7 (Jake                     2022-11-29 12:04:46 -0500 17)     background: linear-gradient(90deg, rgba(250,249,246,1) 0%, rgba(250,246,233,1) 100%);  
+
+* ChessWebsite/static/board.css *
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500   1) @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap');
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500   2) 
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  19)     
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  20)     /* background-color: #b0673a; */
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  21) 
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  22)     background: rgb(136,172,100);
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  23)     background: linear-gradient(90deg, rgba(136,172,100,1) 0%, rgba(118,150,86,1) 100%);
+931f89e7 (Jake                     2022-11-29 12:04:46 -0500  34) 
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  35)     /* background-color: #f9eda7; */
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  37)     background: rgb(240,240,231);
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  38)     background: linear-gradient(90deg, rgba(240,240,231,1) 0%, rgba(238,238,210,1) 100%);
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  39)     
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 145)     filter: drop-shadow(0 0 0.85rem rgb(70, 234, 108));
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 148)     width: 49.2vw;
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 152) }
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 153) 
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 154) .cringe {
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 155)     display: flex;
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 156)     justify-content: center;
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 157)     align-items: center;
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 158)     width: 99.5%;
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 159)     height: 98.8%;
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 160)     position: absolute;
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 161) }
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 170) .menu {
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 171)     display: flex;
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 172)     justify-content: space-around;
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 173)     align-items: center;
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 174)     flex-direction: column;
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 175)     min-width: 100px;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 176)     min-height: 150px;
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 177)     width: 15%;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 178)     height: 27.4%;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 179) 
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 180)     background: rgb(136,172,100);
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 181)     background: linear-gradient(90deg, rgba(136,172,100,1) 0%, rgba(118,150,86,1) 100%);
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 182) 
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 186)     border: 1px solid white;
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 188) .bookshelf {
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 192)     width: 100%;
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 193)     height: 100%;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 194)     padding-bottom: 2vh;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 195) }
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 196) .bookshelf2 {
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 197)     display: flex;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 198)     justify-content: space-around;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 199)     align-items: center;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 200)     width: 100%;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 201)     height: 100%;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 202)     padding-bottom: 2vh;
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 203) }
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 204) .baby {
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 205)     padding-top: 0.6vh;
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 206)     width: 100%;
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 207)     height: 25%;
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 208)     text-align: center;
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 209)     font-family: 'Roboto', sans-serif;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 210)     color: rgb(240,240,231);
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 211) }
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 212) .baby2 {
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 213)     padding-top: 0.6vh;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 214)     width: 100%;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 215)     height: 20%;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 216)     text-align: center;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 217)     font-family: 'Roboto', sans-serif;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 218)     color: rgb(240,240,231);
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 219) }
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 220) .blackout {
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 221)     display: flex;
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 222)     justify-content: center;
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 223)     align-items: center;
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 224)     position: absolute;
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 225)     background-color: black;
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 226)     width: 50.02vw;
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 227)     height: 99.5%;
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 228)     z-index: 20;
+931f89e7 (Jake                     2022-11-29 12:04:46 -0500 229)     opacity: 70%;
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 230)     left: 24.7vw;
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 231) }
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 232) .hidden {
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 233)     display: none;
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 234)     z-index: -10;
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 235) }
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 236) 
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 237) .whiteOption {
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 238)     display: flex;
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 239)     flex-direction: column;
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 240)     justify-content: center;
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 241)     align-items: center;
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 242) 
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 243)     width: 80%;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 244)     height: 80%;
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 245) }
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 246) .blackOption {
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 247)     display: flex;
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 248)     flex-direction: column;
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 249)     justify-content: center;
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 250)     align-items: center;
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 251) 
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 252)     width: 80%;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 253)     height: 80%;
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 254) }
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 264) .d_image {
+bc5f4c21 (Jake                     2022-11-29 13:32:31 -0500 265)     max-width: 110px;
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 266)     width: 60%;
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 267)     cursor: pointer;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 268)     transition: all 150ms;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 269)     filter: drop-shadow(.56rem 1rem 1.5rem rgba(0, 0, 0, 0.264));
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 270) }
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 271) .d_image:hover {
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 272)     width: 64%;
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 273) }
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 274) .d_image2 {
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 275)     max-width: 110px;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 276)     width: 60%;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 277)     cursor: pointer;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 278)     transition: all 150ms;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 279)     filter: drop-shadow(.56rem 1rem 1.5rem rgba(0, 0, 0, 0.264));
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 280) }
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 281) .d_image2:hover {
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 282)     width: 64%;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 283) }
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 284) .pSelect {
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 285)     display: flex;
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 286)     justify-content: space-around;
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 287)     align-items: center;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 288)     flex-direction: column;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 289)     min-width: 200px;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 290)     min-height: 175px;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 291)     width: 27%;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 292)     height: 27%;
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 293) 
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 294)     background: rgb(136,172,100);
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 295)     background: linear-gradient(90deg, rgba(136,172,100,1) 0%, rgba(118,150,86,1) 100%);
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 296) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 297)     position: absolute;
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 298)     z-index: 80;
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 299)     border-radius: 14px;
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500 300)     border: 1px solid white;
+
+* ChessWebsite/static/board.html *
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500  11) <!-- ENGINE BUTTON, THIS WILL APPEAR BELOW THE NAVBAR AND ABOVE THE CHESSBOARD IF YOU UNCOMMENT THIS -->
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500  12) <!-- <div style="display: left;" id="button2">
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500  13)     <button id="run_button2" onclick="instring()">=</button>
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500  14) </div> -->
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500  15) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  16) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  17) 
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500  18) <div class="cringe">
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500  19)     <div class="blackout">
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500  20) 
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500  21)     </div>
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500  22) </div>
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500  23) 
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500  24) <div class="cringe">
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500  25)     <div class="menu">
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  26)         <h1 class="baby">Select a Color</h1>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  27)         <div class="bookshelf">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  28)             <div class="whiteOption">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  29)                 <img src="./pieces_data/Chess_klt60.png" alt="white king" class="d_image" onclick="dont_flip()"/>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  30)             </div>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  31)             <div class="blackOption">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  32)                 <img src="./pieces_data/Chess_kdt60.png" alt="black king" class="d_image" onclick="flip_board()"/>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  33)             </div>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  35) 
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500  37) </div>
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500  38) 
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500  39) 
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500  40) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  41) <div class="container">
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  45) <div class="hidden" id="hid">
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  46)     <div class="hidden" id="UI">
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  47)         <h1 class="baby2">Promote Your Pawn</h1>
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  48)         <div class="bookshelf2">
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  49)             <div class="whiteOption">
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  50)                 <img src="./pieces_data/Chess_qlt60.png" alt="white queen" class="d_image2" onclick="wQueen()"/>
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  51)             </div>
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  52)             <div class="whiteOption">
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  53)                 <img src="./pieces_data/Chess_nlt60.png" alt="white knight" class="d_image2" onclick="wKnight()"/>
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  54)             </div>
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  55)             <div class="whiteOption">
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  56)                 <img src="./pieces_data/Chess_blt60.png" alt="white bishop" class="d_image2" onclick="wBishop()"/>
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  57)             </div>
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  58)             <div class="whiteOption">
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  59)                 <img src="./pieces_data/Chess_rlt60.png" alt="white rook" class="d_image2" onclick="wRook()"/>
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  60)             </div>
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  61)         </div>
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  62)     </div>
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  63) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  64) </div>
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  65) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  66) <div class="hidden" id="hid2">
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  67)     <div class="hidden" id="UI2">
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  68)         <h1 class="baby2">Promote Your Pawn</h1>
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  69)         <div class="bookshelf2">
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  70)             <div class="blackOption">
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  71)                 <img src="./pieces_data/Chess_qdt60.png" alt="black queen" class="d_image2" onclick="bQueen()"/>
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  72)             </div>
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  73)             <div class="blackOption">
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  74)                 <img src="./pieces_data/Chess_ndt60.png" alt="black knight" class="d_image2" onclick="bKnight()"/>
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  75)             </div>
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  76)             <div class="blackOption">
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  77)                 <img src="./pieces_data/Chess_bdt60.png" alt="black bishop" class="d_image2" onclick="bBishop()"/>
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  78)             </div>
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  79)             <div class="blackOption">
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  80)                 <img src="./pieces_data/Chess_rdt60.png" alt="black rook" class="d_image2" onclick="bRook()"/>
+aaba21c3 (Jake                     2022-11-30 15:16:54 -0500  81)             </div>
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  82)         </div>
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  83)     </div>
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  84) </div>
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  89)     let newPiece;
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  90) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  91)     function wQueen() {
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  92)         newPiece.classList.remove("p");
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  93)         newPiece.classList.remove('P');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  94)         newPiece.classList.remove('W_p');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  95)         newPiece.classList.remove('First');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  96)         newPiece.classList.add('Q')
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  97) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500  98)         WPPdestroyUI();
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 100)     }
+c1f163cd (Jake                     2022-11-30 19:14:05 -0500 101) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 102)     function bQueen() {
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 103)         newPiece.classList.remove("p");
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 104)         newPiece.classList.remove('P');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 105)         newPiece.classList.remove('B_p');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 106)         newPiece.classList.remove('First');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 107)         newPiece.classList.add('q')
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 108)         newPiece.classList.add('B_q')
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 109) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 110)         BPPdestroyUI();
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 112)     }
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 113) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 114)     function wKnight() {
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 115)         newPiece.classList.remove("p");
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 116)         newPiece.classList.remove('P');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 117)         newPiece.classList.remove('W_p');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 118)         newPiece.classList.remove('First');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 119)         newPiece.classList.add('N');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 120)         
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 121)         WPPdestroyUI();
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 123)     }
+c1f163cd (Jake                     2022-11-30 19:14:05 -0500 124) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 125)     function bKnight() {
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 126)         newPiece.classList.remove("p");
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 127)         newPiece.classList.remove('P');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 128)         newPiece.classList.remove('B_p');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 129)         newPiece.classList.remove('First');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 130)         newPiece.classList.add('n');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 131)         newPiece.classList.add('B_n');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 132) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 133)         BPPdestroyUI();
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 135)     }
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 136) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 137)     function wBishop() {
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 138)         newPiece.classList.remove("p");
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 139)         newPiece.classList.remove('P');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 140)         newPiece.classList.remove('W_p');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 141)         newPiece.classList.remove('First');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 142)         newPiece.classList.add('B');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 143) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 144)         WPPdestroyUI();
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 146)     }
+c1f163cd (Jake                     2022-11-30 19:14:05 -0500 147) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 148)     function bBishop() {
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 149)         newPiece.classList.remove("p");
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 150)         newPiece.classList.remove('P');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 151)         newPiece.classList.remove('B_p');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 152)         newPiece.classList.remove('First');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 153)         newPiece.classList.add('b');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 154)         newPiece.classList.add('B_b');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 155) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 156)         BPPdestroyUI();
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 158)     }
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 159)     
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 160)     function wRook() {
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 161)         newPiece.classList.remove("p");
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 162)         newPiece.classList.remove('P');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 163)         newPiece.classList.remove('W_p');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 164)         newPiece.classList.add('R');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 165)         newPiece.classList.add('W_r');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 166) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 167)         WPPdestroyUI();
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 169)     }
+c1f163cd (Jake                     2022-11-30 19:14:05 -0500 170)     
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 171)     function bRook() {
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 172)         newPiece.classList.remove("p");
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 173)         newPiece.classList.remove('P');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 174)         newPiece.classList.remove('B_p');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 175)         newPiece.classList.add('r');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 176)         newPiece.classList.add('B_r');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 177) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 178)         BPPdestroyUI();
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 180)     }
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 181) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 182)     /* Generates the UI needed for white pawn promotion */
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 183)     function WPPdestroyUI() {
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 184)         /* Makes UI and blacked out background appear */
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 185)         let hid = document.getElementById('hid');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 186)         let UI = document.getElementById('UI');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 187)         let total = document.querySelector('.cringe');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 188) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 189)         hid.classList.add('hidden');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 190)         hid.classList.remove('cringe');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 191)         total.classList.add('hidden');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 192)         UI.classList.add('hidden');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 193)         UI.classList.remove('pSelect');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 194)     }
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 195) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 196)     /* Generates the UI needed for black pawn promotion */
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 197)     function BPPdestroyUI() {
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 198)         /* Makes UI and blacked out background appear */
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 199)         let hid2 = document.getElementById('hid2');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 200)         let UI = document.getElementById('UI2');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 201)         let total = document.querySelector('.cringe');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 202) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 203)         hid2.classList.add('hidden');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 204)         hid2.classList.remove('cringe');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 205)         total.classList.add('hidden');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 206)         UI.classList.add('hidden');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 207)         UI.classList.remove('pSelect');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 208)     }
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 209) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 210)     /* Generates the UI needed for white pawn promotion */
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 211)     function WPPcreateUI() {
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 212)         /* Makes UI and blacked out background appear */
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 213)         let hid = document.getElementById('hid');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 214)         let UI = document.getElementById('UI');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 215)         let total = document.querySelector('.cringe');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 216) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 217)         hid.classList.remove('hidden');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 218)         hid.classList.add('cringe');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 219)         total.classList.remove('hidden');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 220)         UI.classList.remove('hidden');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 221)         UI.classList.add('pSelect');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 222)     }
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 223) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 224)     /* Generates the UI needed for black pawn promotion */
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 225)     function BPPcreateUI() {
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 226)         /* Makes UI and blacked out background appear */
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 227)         let hid2 = document.getElementById('hid2');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 228)         let UI = document.getElementById('UI2');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 229)         let total = document.querySelector('.cringe');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 230) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 231)         hid2.classList.remove('hidden');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 232)         hid2.classList.add('cringe');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 233)         total.classList.remove('hidden');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 234)         UI.classList.remove('hidden');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 235)         UI.classList.add('pSelect');
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 236)     }
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 237) 
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 238)     /* A function that takes the given pawn, gives a selection UI, then promotes given pawn */
+9579ac56 (Jake                     2022-11-28 23:58:27 -0500 239)     function pawn_promotion(pawn) {
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 240)         if (pawn.classList.contains('B_p')) {
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 241)             BPPcreateUI();
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 242)         }
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 243)         else {
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 244)             WPPcreateUI();
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 245)         }
+c2814720 (Jake                     2022-11-29 01:31:46 -0500 246)         newPiece = pawn;
+c1f163cd (Jake                     2022-11-30 19:14:05 -0500 248)         return "success";
+9579ac56 (Jake                     2022-11-28 23:58:27 -0500 249)     }
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 265)     /* Since white is the default color, we don't need to flip the board, just get rid of the
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 266)        menu that pops up. */
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 267)     function dont_flip() {
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 268)         /* Finding the Menu and blacked out background and hiding them once function is called */
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 269)         let total = document.querySelector('.cringe');
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 270)         let menu = document.querySelector('.menu');
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 271) 
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 272)         total.classList.add('hidden');
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 273)         menu.classList.add('hidden');
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 274)     }
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 275) 
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 276)     //Flips the board, called by a button
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 277)     function flip_board() {
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 278)         /* Finding the Menu and blacked out background and hiding them once function is called */
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 279)         let total = document.querySelector('.cringe');
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 280)         let menu = document.querySelector('.menu');
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 281) 
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 282)         total.classList.add('hidden');
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 283)         menu.classList.add('hidden');
+67ac2b96 (Jake                     2022-11-28 20:33:59 -0500 284) 
+cd15afb7 (Jake                     2022-11-28 21:25:50 -0500 285)         /* Flip the board baby*/
+
+* ChessWebsite/src/routes/about/+page.svelte *
+055560ae (Jake                     2022-11-23 23:54:54 -0500   8) <div class="w-full min-h-[89vh] h-full md:px-[5vh] lg:px-[10vh]">
+3ac9e68e (Jake                     2022-11-29 12:25:54 -0500   9)     <h1 class="pt-[9vh] flex justify-center items-center font-bold text-3xl">About the Project</h1>
+055560ae (Jake                     2022-11-23 23:54:54 -0500  11)     <div class="pt-[3vh] w-full h-full flex flex-col justify-center items-center px-[10vw] pb-[2vh]">
+055560ae (Jake                     2022-11-23 23:54:54 -0500  13)         <!-- Describing our project -->
+055560ae (Jake                     2022-11-23 23:54:54 -0500  14)         <div class="flex flex-col">
+055560ae (Jake                     2022-11-23 23:54:54 -0500  15)             <h1 class="text-2xl font-semibold pb-[1vh]">Project Information</h1>
+055560ae (Jake                     2022-11-23 23:54:54 -0500  16)             <p class="pb-[2vh]">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  17)                 Our project was to create a chess website, where the user could play our chess bot
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  18)                 and test their skills. When we first came together as a group, we had the general idea
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  19)                 but had no real idea of how we were going to execute this within the given time.
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  20)                 After some thought and advice from our TA, we decided on dividing the work into a front-end
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  21)                 and back-end. The latter being built in pure C++ and the former using Svelte.
+055560ae (Jake                     2022-11-23 23:54:54 -0500  22)             </p>
+055560ae (Jake                     2022-11-23 23:54:54 -0500  24)             <p class="pb-[4vh]">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  25)                 While that is a basic description of the project and how it came to be, there were many hurdles
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  26)                 we had to overcome in order to get where we are today. We learned quickly that we had to
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  27)                 work together if we were to complete this challenge in time.
+055560ae (Jake                     2022-11-23 23:54:54 -0500  28)             </p>
+055560ae (Jake                     2022-11-23 23:54:54 -0500  29)         </div>
+055560ae (Jake                     2022-11-23 23:54:54 -0500  31)     
+055560ae (Jake                     2022-11-23 23:54:54 -0500  32)         <!-- Languages and technologies used -->
+055560ae (Jake                     2022-11-23 23:54:54 -0500  33)         <div class="flex flex-col">
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  34)             <h1 class="text-2xl font-semibold pb-[1vh]">Languages and Technologies</h1>
+055560ae (Jake                     2022-11-23 23:54:54 -0500  35)             <p class="pb-[2vh]">
+bc5f4c21 (Jake                     2022-11-29 13:32:31 -0500  36)                 We were able to use an array of different tools in our project. While the engine itself was done
+bc5f4c21 (Jake                     2022-11-29 13:32:31 -0500  37)                 solely in C++, we had to use a variety of different technologies on the front-end such as: Svelte, TailwindCSS, and Web Assembly.
+bc5f4c21 (Jake                     2022-11-29 13:32:31 -0500  38)                 Here is everything we used and what it was used for.
+055560ae (Jake                     2022-11-23 23:54:54 -0500  39) 
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  40)             <ul class="pb-[4vh]">
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  41)                 <li class="pb-[1vh]">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  42)                     <a class="text-[#769656] hover:text-[#526d38] font-bold underline" href="https://devdocs.io/cpp/" target="_blank">C++</a>
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  43)                     - Chess Engine
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  44)                 </li>
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  45)                 <li class="pb-[1vh]">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  46)                     <a class="text-[#769656] hover:text-[#526d38] font-bold underline" href="https://developer.mozilla.org/en-US/docs/WebAssembly" target="_blank">Web Assembly</a>
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  47)                     - Bridging Back End and Front End
+055560ae (Jake                     2022-11-23 23:54:54 -0500  48)                 </li>
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  49)                 <li class="pb-[1vh]">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  50)                     <a class="text-[#769656] hover:text-[#526d38] font-bold underline" href="https://svelte.dev/docs" target="_blank">Svelte</a>
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  51)                     - Web Application
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  52)                 </li>
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  53)                 <li class="pb-[1vh]">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  54)                     <a class="text-[#769656] hover:text-[#526d38] font-bold underline" href="https://v2.tailwindcss.com/docs" target="_blank">TailwindCSS</a>
+2ff14337 (Jake                     2022-11-24 21:53:42 -0500  55)                     - Major Styling
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  56)                 </li>
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  57)                 <li class="pb-[1vh]">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  58)                     <a class="text-[#769656] hover:text-[#526d38] font-bold underline" href="https://developer.mozilla.org/en-US/" target="_blank">JavaScript, HTML, CSS</a>
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  59)                     - Chess Board
+055560ae (Jake                     2022-11-23 23:54:54 -0500  60)             </ul>
+055560ae (Jake                     2022-11-23 23:54:54 -0500  61)         </div>
+055560ae (Jake                     2022-11-23 23:54:54 -0500  62) 
+055560ae (Jake                     2022-11-23 23:54:54 -0500  63)         <!-- Contributors -->
+055560ae (Jake                     2022-11-23 23:54:54 -0500  64)         <div class="flex flex-col">
+bc5f4c21 (Jake                     2022-11-29 13:32:31 -0500  65)             <h1 class="text-2xl font-semibold pb-[1vh]">Contributors and Repo</h1>
+055560ae (Jake                     2022-11-23 23:54:54 -0500  66)             <p class="pb-[2vh]">
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  67)                This project was created by the quintet listed below, with advice along the way from
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  68)                our TA 
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  69)                <a class="underline hover:text-" href="https://github.com/adam-mcdaniel" target="_blank">Adam McDaniel</a>.
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  70)                 Please checkout our individual github profiles as well as the project repo below.
+055560ae (Jake                     2022-11-23 23:54:54 -0500  71)             </p>
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  72) 
+055560ae (Jake                     2022-11-23 23:54:54 -0500  73)             <ul class="pb-[4vh]">
+055560ae (Jake                     2022-11-23 23:54:54 -0500  74)                 <li class="pb-[1vh]">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  75)                     <a class="text-[#769656] hover:text-[#526d38] font-bold underline" href="https://github.com/jdixon34-cs340" target="_blank">Jared Dixon</a>
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  76)                     - Back End (Chess Engine)
+055560ae (Jake                     2022-11-23 23:54:54 -0500  77)                 </li>
+055560ae (Jake                     2022-11-23 23:54:54 -0500  78)                 <li class="pb-[1vh]">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  79)                     <a class="text-[#769656] hover:text-[#526d38] font-bold underline" href="https://github.com/Brandon-Marth" target="_blank">Brandon Marth</a>
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  80)                     - Front End (Web Assembly and Web Application)
+055560ae (Jake                     2022-11-23 23:54:54 -0500  81)                 </li>
+055560ae (Jake                     2022-11-23 23:54:54 -0500  82)                 <li class="pb-[1vh]">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  83)                     <a class="text-[#769656] hover:text-[#526d38] font-bold underline" href="https://github.com/JMcknight75" target="_blank">Justin McKnight</a>
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  84)                     - Back End (Chess Engine)
+055560ae (Jake                     2022-11-23 23:54:54 -0500  85)                 </li>
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  86)                 <li class="pb-[1vh]">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  87)                     <a class="text-[#769656] hover:text-[#526d38] font-bold underline" href="https://github.com/Dev5ter" target="_blank">Devin Munsey</a>
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  88)                     - Back End (Chess Engine)
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  89)                 </li>
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  90)                 <li class="pb-[1vh]">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  91)                     <a class="text-[#769656] hover:text-[#526d38] font-bold underline" href="https://github.com/Jxk0be" target="_blank">Jake Shoffner</a>
+209c6c67 (Jake                     2022-11-24 19:00:38 -0500  92)                     - Front End (Web Application)
+bc5f4c21 (Jake                     2022-11-29 13:32:31 -0500  93)                 <li class="pb-[1vh]">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500  94)                      <a class="text-[#769656] hover:text-[#526d38] font-bold underline" href="https://github.com/utk-cs340-fall22/Chess" target="_blank">Project Repository</a>
+bc5f4c21 (Jake                     2022-11-29 13:32:31 -0500  95)                     - Source Code (Front and Back End)
+055560ae (Jake                     2022-11-23 23:54:54 -0500  96)             </ul>
+055560ae (Jake                     2022-11-23 23:54:54 -0500  97)         </div>
+055560ae (Jake                     2022-11-23 23:54:54 -0500  98) 
+055560ae (Jake                     2022-11-23 23:54:54 -0500  99)     </div>
+
+* ChessWebsite/src/routes/learn/+page.svelte *
+3ac9e68e (Jake                     2022-11-29 12:25:54 -0500  9)     <h1 class="pt-[9vh] flex justify-center items-center font-bold text-3xl">How to Play</h1>
+055560ae (Jake                     2022-11-23 23:54:54 -0500 15)             <h1 class="text-2xl font-semibold pb-[1vh] capitalize">The general idea</h1>
+055560ae (Jake                     2022-11-23 23:54:54 -0500 27)             <h1 class="text-2xl font-semibold pb-[1vh] capitalize">Some basic rules</h1>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 43)             <h1 class="text-2xl font-semibold pb-[1vh]">Pieces and How They Move</h1>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 52)                 <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-king" target="_blank" class="text-[#769656] hover:text-[#526d38] font-bold underline">King</a> - can <span class="font-medium">move one square in any direction</span> (left, right, up, down, diagonal).</li>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 53)                 <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-queen" target="_blank" class="text-[#769656] hover:text-[#526d38] font-bold underline">Queen</a> - can <span class="font-medium">move in any direction</span> like the king, but is <span class="font-medium">not limited to one square</span>.</li>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 54)                 <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-rook" target="_blank" class="text-[#769656] hover:text-[#526d38] font-bold underline">Rook</a> - can <span class="font-medium">move in any valid square</span> that is either <span class="font-medium">horizontal or vertical to it</span>.</li>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 55)                 <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-bishop" target="_blank" class="text-[#769656] hover:text-[#526d38] font-bold underline">Bishop</a> - can <span class="font-medium">move in any valid square</span> that is <span class="font-medium">diagonal to it</span>.</li>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 56)                 <li class="pb-[1vh]"><a href="https://www.chess.com/terms/chess-knight" target="_blank" class="text-[#769656] hover:text-[#526d38] font-bold underline">Knight</a> - can 
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 61)                 <li><a href="https://www.chess.com/terms/chess-pawn" target="_blank" class="text-[#769656] hover:text-[#526d38] font-bold underline">Pawn</a> - can move one square in any direction (left, right, up, down, diagonal)</li>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 63)             <p class="pb-[4vh] text-[13px] text-[#769656]">
+055560ae (Jake                     2022-11-23 23:54:54 -0500 70)             <h1 class="text-2xl font-semibold pb-[1vh] capitalize">Helpful resources</h1>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 81)                     <a class="text-[#769656] hover:text-[#526d38] font-bold underline" href="https://www.chesshouse.com/pages/chess-rules" target="_blank">The Rules of Chess</a>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 85)                     <a class="text-[#769656] hover:text-[#526d38] font-bold underline" href="https://www.chess.com/learn-how-to-play-chess" target="_blank">7 Steps To Get You Started</a>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 89)                     <a class="text-[#769656] hover:text-[#526d38] font-bold underline" href="https://nextlevelchess.blog/beginner-chess-strategy/" target="_blank">Beginner Chess Strategy</a>
+
+* ChessWebsite/src/routes/+page.svelte *
+9fea1582 (Jake                     2022-11-17 09:59:00 -0500 11) 
+9fea1582 (Jake                     2022-11-17 09:59:00 -0500 12) 
+3ac9e68e (Jake                     2022-11-29 12:25:54 -0500 16) <div class="w-full h-[8vh] bg-[#272D2D] text-[#161616] flex flex-row justify-between items-center text-[25px] fixed z-40 override">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 17)     <a href="/" class="ml-6 font-bold text-[#161616] hover:text-[#769656] transition ease-in-out duration-150 cursor-pointer"><h1>ChadChess&trade</h1></a>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 32)         <a href="/" class="mr-6 hover:text-[#769656] transition ease-in-out duration-200 cursor-pointer font-semibold "><h1>Play</h1></a>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 33)         <a href="/learn" class="mr-6 hover:text-[#769656] transition ease-in-out duration-150 cursor-pointer font-semibold "><h1>How To Play</h1></a>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 34)         <a href="/about" class="mr-6 hover:text-[#769656] transition ease-in-out duration-150 cursor-pointer font-semibold "><h1>About Project</h1></a>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 35)         <a href="https://github.com/utk-cs340-fall22/Chess" target="_blank" class="mr-6 hover:text-[#769656]  font-semibold transition ease-in-out duration-150 cursor-pointer"><h1>Github</h1></a>
+3ac9e68e (Jake                     2022-11-29 12:25:54 -0500 52)         <embed class="md:w-screen md:h-[89vh] md:pt-[9vh] w-screen h-[85vh] pt-[12vh] pb-[4vh]" type="text/html" src="board.html" id="chessEmbed">
+9fea1582 (Jake                     2022-11-17 09:59:00 -0500 55) {/if}
+
+* ChessWebsite/src/components/Navbar.svelte *
+3ac9e68e (Jake                     2022-11-29 12:25:54 -0500 13) <div class="w-full h-[8vh] bg-[#272D2D] text-[#161616] flex flex-row justify-between items-center text-[25px] fixed z-40 override">
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 14)     <a href="/" class="ml-6 font-bold text-[#161616] hover:text-[#769656] transition ease-in-out duration-150 cursor-pointer"><h1>ChadChess&trade</h1></a>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 29)         <a href="/" class="mr-6 hover:text-[#769656] transition ease-in-out duration-150 cursor-pointer font-semibold"><h1>Play</h1></a>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 30)         <a href="/learn" class="mr-6 hover:text-[#769656] transition ease-in-out duration-150 cursor-pointer font-semibold "><h1>How To Play</h1></a>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 31)         <a href="/about" class="mr-6 hover:text-[#769656] transition ease-in-out duration-150 cursor-pointer font-semibold "><h1>About Project</h1></a>
+0dfcee10 (Jake                     2022-11-30 01:23:03 -0500 32)         <a href="https://github.com/utk-cs340-fall22/Chess" target="_blank" class="mr-6 hover:text-[#769656]  font-semibold transition ease-in-out duration-150 cursor-pointer"><h1>Github</h1></a>
+
+* ChessWebsite/src/components/Footer.svelte *
+931f89e7 (Jake                     2022-11-29 12:04:46 -0500 1) <div class="bg-[#161616] text-white h-[15vh] md:h-[11vh] w-full text-center flex justify-center items-center text-sm">
+793e82c3 (Jake                     2022-11-24 13:23:42 -0500 3)         Fabricated by         <a class="underline" href="https://github.com/jdixon34-cs340" target="_blank">Jared Dixon</a>, 
+793e82c3 (Jake                     2022-11-24 13:23:42 -0500 4)         <a class="underline" href="https://github.com/Brandon-Marth" target="_blank">Brandon Marth</a>, 
+793e82c3 (Jake                     2022-11-24 13:23:42 -0500 6)         <a class="underline" href="https://github.com/Dev5ter" target="_blank">Devin Munsey</a>, 
+^e04bc47 (brandonmarth14@gmail.com 2022-11-15 13:12:17 -0500 7)         and <a class="underline" href="https://github.com/Jxk0be" target="_blank">Jake Shoffner</a>.
