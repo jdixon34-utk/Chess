@@ -1,9 +1,9 @@
-Product Requirements Document
+# Product Requirements Document
 
-Justin McKnight
-ChessWebsite
+Name: Justin McKnight
+Name: ChessWebsite
 
-BACKGROUND:
+## BACKGROUND:
 Our product is a website that offers the service of playing chess against an engine.
 Chess is a difficult game to learn when you have never played before.
 This software will be designed with beginners in mind to have an easy place to learn and practice chess.
@@ -11,26 +11,26 @@ This project would be to create a working web-based version of chess with a buil
 This should also include the ability to turn off the bot and play in a two player mode.
 The main purpose for this software is to create an easy way for someone to play and practice chess.
 
-PRODUCT OVERVIEW:
+## PRODUCT OVERVIEW:
 Build a playable chess game where you can play against a chess engine.
 The engine will be C++ that will make all the decisions using bitboards and bit arethmetic to increase performance.
 The front end will be a svelte frame-work so that the player can simply open a browser and got to the domain
 This engine could be sold for customers who already have the front-end and then use the engine to make it a single player experience
 
-FEATURES (User Stories):
-1) Working Game: As a chess player, I want a working game of chess that includes all rules of the game.
-2) Opponent: As a chess player, I want a difficult opponent to challenge me in chess.
-3) How to Play Page: As a chess player, I want to be able to see all of the rules of chess easily on a webpage.
-4) Color Selection: As a chess player, I want to be able to choose what color I play as before I start the game.
-5) Flip board: As a chess player, I want to be able to flip the board to see the board from both sides.
-6) Game Ending w/ Checkmate: As a chess player, I want the game to automatically end when checkmate or a draw has been achieved.
-7) Two Player Mode: As a chess player, I want to be able to play in a two player mode with antoher person.
-8) Offer Draw or Resignation: As a Chess Player, I want the ability to draw or resign from a game.
+## FEATURES (User Stories):
+1. **Working Game**: As a chess player, I want a working game of chess that includes all rules of the game.
+2. **Opponent**: As a chess player, I want a difficult opponent to challenge me in chess.
+3. **How to Play Page**: As a chess player, I want to be able to see all of the rules of chess easily on a webpage.
+4. **Color Selection**: As a chess player, I want to be able to choose what color I play as before I start the game.
+5. **Flip board**: As a chess player, I want to be able to flip the board to see the board from both sides.
+6. **Game Ending w/ Checkmate**: As a chess player, I want the game to automatically end when checkmate or a draw has been achieved.
+7. **Two Player Mode**: As a chess player, I want to be able to play in a two player mode with antoher person.
+8. **Offer Draw or Resignation**: As a Chess Player, I want the ability to draw or resign from a game.
 
-TECHNOLOGIES TO BE USED:
+## TECHNOLOGIES TO BE USED:
 Backend Engine:
 The Backend Engine is coded from scratch in C++.
 
-Front-End:
+## Front-End:
 Web Assembly to convert C++ to Java Script so that it can be used for the Svelte-Framework
 HTML and CSS for web aesthetics.
