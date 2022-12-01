@@ -87,7 +87,6 @@
 
 <script>
     let newPiece;
-    let test = false;
 
     function wQueen() {
         newPiece.classList.remove("p");
@@ -99,6 +98,7 @@
         WPPdestroyUI();
         Please();
     }
+
     function bQueen() {
         newPiece.classList.remove("p");
         newPiece.classList.remove('P');
@@ -120,9 +120,8 @@
         
         WPPdestroyUI();
         Please();
-        
-        
     }
+
     function bKnight() {
         newPiece.classList.remove("p");
         newPiece.classList.remove('P');
@@ -145,6 +144,7 @@
         WPPdestroyUI();
         Please();
     }
+
     function bBishop() {
         newPiece.classList.remove("p");
         newPiece.classList.remove('P');
@@ -163,18 +163,17 @@
         newPiece.classList.remove('W_p');
         newPiece.classList.add('R');
         newPiece.classList.add('W_r');
-        //newPiece.classList.add('0');
 
         WPPdestroyUI();
         Please();
     }
+    
     function bRook() {
         newPiece.classList.remove("p");
         newPiece.classList.remove('P');
         newPiece.classList.remove('B_p');
         newPiece.classList.add('r');
         newPiece.classList.add('B_r');
-        //newPiece.classList.add('2');
 
         BPPdestroyUI();
         Please();
@@ -238,8 +237,6 @@
 
     /* A function that takes the given pawn, gives a selection UI, then promotes given pawn */
     function pawn_promotion(pawn) {
-        
-        test = false;
         if (pawn.classList.contains('B_p')) {
             BPPcreateUI();
         }
@@ -248,12 +245,7 @@
         }
         newPiece = pawn;
 
-        //while(true){
-         //   console.log("FIRE " + newPiece.classList.item(1) !== "P");
-         //   if(newPiece.classList.item(1) !== "P"){
-                return "success";
-        //    }
-        //}
+        return "success";
     }
 
     //Testing for fen strings
@@ -292,9 +284,7 @@
 
         /* Flip the board baby*/
         flip_b();
-        
         instring();
-
     }
 
     //Returns the current fen string of the board
