@@ -83,10 +83,11 @@
     </div>
 </div>
 
-<script src="board.js"></script>
+<script type="text/javascript" src="board.js"></script>
 
 <script>
     let newPiece;
+    let test = false;
 
     function wQueen() {
         newPiece.classList.remove("p");
@@ -96,6 +97,7 @@
         newPiece.classList.add('Q')
 
         WPPdestroyUI();
+        Please();
     }
     function bQueen() {
         newPiece.classList.remove("p");
@@ -106,6 +108,7 @@
         newPiece.classList.add('B_q')
 
         BPPdestroyUI();
+        Please();
     }
 
     function wKnight() {
@@ -116,6 +119,9 @@
         newPiece.classList.add('N');
         
         WPPdestroyUI();
+        Please();
+        
+        
     }
     function bKnight() {
         newPiece.classList.remove("p");
@@ -126,6 +132,7 @@
         newPiece.classList.add('B_n');
 
         BPPdestroyUI();
+        Please();
     }
 
     function wBishop() {
@@ -136,6 +143,7 @@
         newPiece.classList.add('B');
 
         WPPdestroyUI();
+        Please();
     }
     function bBishop() {
         newPiece.classList.remove("p");
@@ -146,6 +154,7 @@
         newPiece.classList.add('B_b');
 
         BPPdestroyUI();
+        Please();
     }
     
     function wRook() {
@@ -157,6 +166,7 @@
         //newPiece.classList.add('0');
 
         WPPdestroyUI();
+        Please();
     }
     function bRook() {
         newPiece.classList.remove("p");
@@ -167,6 +177,7 @@
         //newPiece.classList.add('2');
 
         BPPdestroyUI();
+        Please();
     }
 
     /* Generates the UI needed for white pawn promotion */
@@ -227,6 +238,8 @@
 
     /* A function that takes the given pawn, gives a selection UI, then promotes given pawn */
     function pawn_promotion(pawn) {
+        
+        test = false;
         if (pawn.classList.contains('B_p')) {
             BPPcreateUI();
         }
@@ -234,7 +247,13 @@
             WPPcreateUI();
         }
         newPiece = pawn;
-        return "success";
+
+        //while(true){
+         //   console.log("FIRE " + newPiece.classList.item(1) !== "P");
+         //   if(newPiece.classList.item(1) !== "P"){
+                return "success";
+        //    }
+        //}
     }
 
     //Testing for fen strings

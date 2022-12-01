@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+//document.addEventListener("DOMContentLoaded", function () {
    
     table = document.createElement("BOARD");
     chessArea = document.getElementById("chessarea");
@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     curr_en_pas = "null";
     win_con = null;
     var past_fen = new Array(0);
+    var pro;
 
     //Lets these variables be used in the .html file and any files .js files in the .html
     localStorage.turn = turn;
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.full = full;
     localStorage.flip = flip;
     localStorage.curr_en_pas = curr_en_pas;
+    localStorage.test = "bye";
    
     const rows = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
     //Create the squares and pieces
@@ -54,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
             //Define the colors and piece type of the pieces
             if (i < 3) {
                 //Uncomment to test checkmate and stalemate
-                //if((i === 1 && j === 5) || (i === 1 && j === 2)) 
+                //if((i === 1 && j === 5) || (i === 1 && j === 4)){
                 //|| (i === 1 && j === 4) || (i === 1 && j === 8) || (i === 1 && j === 1))
                 //{
                     document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
@@ -145,6 +147,8 @@ document.addEventListener("DOMContentLoaded", function () {
         full = localStorage.full;
         curr_en_pas = localStorage.curr_en_pas;
         var check = false;
+        pro = false;
+        test = localStorage.test;
 
         //A win or tie has been reached, this will not allow the user to make another move
         if(win_con !== null){
@@ -217,7 +221,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         castling(cur);
                 }
 
-                move(col, cur.parentNode, cur);
+                move(col, cur.parentNode, cur)
 
                 full++;
 
@@ -268,7 +272,7 @@ document.addEventListener("DOMContentLoaded", function () {
             en_pas_ignore = false;
         }
         
-        if(check){
+        if(check && !pro){
             
             //Game ends in tie if the turn timer is 100 or the half turn timer is 50
             if(full === "100"){
@@ -326,8 +330,12 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             //Calls the engine after 1 millisecond
-            setTimeout(engine_move,1);
-        }
+            //if(pro){
+            //    setTimeout(engine_move,8000);
+            //}else{
+                setTimeout(engine_move,1);
+            //}
+        }   
     }
  
     //Move piece from cur_col to new_col
@@ -346,18 +354,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var piece_index = [].indexOf.call(piece.parentNode.parentNode.children, piece.parentNode);
 
+        //let pro = false;
         //Pawn promotion
         if((piece.classList.contains("P") || piece.classList.contains("p")) && (piece_index < 8 || piece_index > 55)){
-            let FORTNITE = pawn_promotion(piece);
-            if (FORTNITE !== "success") {
-                return;
-            }
-
+            pawn_promotion(piece);
+            pro = true;
         }
 
         turn = (turn === "white-piece") ? "black-piece" : "white-piece";
         localStorage.turn = turn;
+
+        //if(pro){
+            return "p"
+        //}
     }
+
 
     //Checks if the move is valid. For example, a rook only move left or right
     //Take === 1 when you are taking a piece, used for pawns.
@@ -1563,4 +1574,72 @@ document.addEventListener("DOMContentLoaded", function () {
         return false;
     }
 
-  });
+  //});
+
+  function Please(){
+        turn = localStorage.turn;
+        pas = localStorage.pas;
+        cas = localStorage.cas;
+        half = localStorage.half;
+        full = localStorage.full;
+        curr_en_pas = localStorage.curr_en_pas;
+        var check = false;
+        pro = false;
+        test = localStorage.test;
+
+        if(full === "100"){
+            alert("100 turn timer reached. The game has ended in a tie.");
+            win_con = "Game has ended in a tie by turn timer. Please refresh the page to play again";
+            return;
+        }else if(half === "50"){
+            alert("50 half-turn timer reached. The game has ended in a tie.");
+            win_con = "Game has ended in a tie by half-turn timer. Please refresh the page to play again";
+            return;
+        }
+
+        //Three repition rule
+        if(three_rep()){
+            alert("Threefold repetition has occured. The game has ended in a tie.");
+            win_con = "Game has ended in a tie by threefold repetition. Please refresh the page to play again";
+            return;
+        }
+
+        //Tests if the game has ended in a stalemate or a checkmate
+        if(stalemate()){
+
+            let index;
+            turn = localStorage.turn;
+            if(turn === "white-piece"){
+                color = "w";
+                king_loc = document.querySelector(".W_K"); 
+                index = [].indexOf.call(king_loc.parentNode.parentNode.children, king_loc.parentNode);
+            }else{
+                color = "b";
+                king_loc = document.querySelector(".b_k"); 
+                index = [].indexOf.call(king_loc.parentNode.parentNode.children, king_loc.parentNode);
+            }
+
+
+            //Getting here means that there are no possible valid moves for the current color.
+            //If the king is in check it is a checkmate, if not then it is a stalemate.
+            if(in_check(index, color)){
+                victory = (turn === "white-piece") ? "black-piece" : "white-piece";
+                alert("Checkmate! " + victory + " has won!");
+                win_con = "The game has ended with " + victory + " winning by checkmate. Please refresh the page to play again";
+                return;
+            }else{
+                alert("Tie! You have reached a stalemate");
+                win_con = "The game has ended in a tie by stalemate. Please refresh the page to play again";
+                return;
+            }
+        }
+
+        //Tests if there is enough pieces to force a checkmate
+        if(insufficient_materials()){
+            alert("Tie! By insufficient materials.");
+            win_con = "The game has ended in a tie by insufficient materials. Please refresh the page to play again";
+            return;
+        }
+
+        setTimeout(engine_move,1);
+  }
