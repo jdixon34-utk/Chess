@@ -6,10 +6,8 @@
 
 int search(Board* position, int depth, int alpha, int beta){
     if(depth == 4){
-        int eval;
         position->positionsEvaluated++;
-        eval = position->evaluatePosition();
-        return eval;
+        return position->evaluatePosition();
     }
 
     if(position->color == 0){
@@ -25,7 +23,7 @@ int search(Board* position, int depth, int alpha, int beta){
         for(int i = 0; i < numMovesWhite; i++){
             //printf("Depth %d Trying White Move %d: ", depth, i);
             //whiteMoves[i].printMove();
-            capturedPieceType = position->makeMove(whiteMoves[i])[0];
+            capturedPieceType = position->makeMove(whiteMoves[i]);
             if(!position->inCheck()){
                 position->color = 1;
                 wcurrent = search(position, depth + 1, alpha, beta);
@@ -63,7 +61,7 @@ int search(Board* position, int depth, int alpha, int beta){
         for(int i = 0; i < numMovesBlack; i++){
             //printf("Depth %d Trying Black Move %d: ", depth, i);
             //blackMoves[i].printMove();
-            capturedPieceType = position->makeMove(blackMoves[i])[0];
+            capturedPieceType = position->makeMove(blackMoves[i]);
             if(!position->inCheck()){
                 position->color = 0;
                 bcurrent = search(position, depth + 1, alpha, beta);
