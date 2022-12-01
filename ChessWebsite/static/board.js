@@ -515,7 +515,7 @@
 
             
             /* If there is attempted diagonal move, we return true and allow move */
-            if(( 6 < Math.abs(new_index - old_index) && Math.abs(new_index - old_index) < 10) && (Math.floor(new_index / 8) !== Math.floor(old_new / 8)) || (Math.abs(new_index - old_index) === 1)){
+            if(( 6 < Math.abs(new_index - old_index) && Math.abs(new_index - old_index) < 10) && (Math.floor(new_index / 8) !== Math.floor(old_index / 8)) || (Math.abs(new_index - old_index) === 1)){
                 
                 return true;
             }
@@ -622,6 +622,7 @@
         if(in_check(index, color)){
             if(!stale){
                 alert("You can't make a move that would put you into check");
+
             }
             fail = 1;
         }
@@ -1028,12 +1029,17 @@
                 }
 
                 if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("r")  
-                || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R")){
+                    || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R")
+                    ){
+                    
+                    console.log("Move is " + counter + " queen or rook");
                     return true;
                 }
 
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
-                && (index - counter) === 1){
+                    ){
+                    
+                    console.log("Move is " + counter + " king");
                     return true;
                 }
 
@@ -1056,12 +1062,15 @@
                 }
 
                 if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("r")  
-                    || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R")){
+                    || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R") 
+                    && ((Math.floor(index / 8) - Math.floor(counter / 8)) === 0)){
+                    console.log("Move is " + counter + " queen or rook");
                     return true;
                 }
 
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
-                    && (counter - index) === 1){
+                    && (counter - index) === 1 && ((Math.floor(index / 8) - Math.floor(counter / 8)) === 0)){
+                    console.log("Move is " + counter + " king");
                     return true;
                 }
 
