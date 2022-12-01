@@ -3,10 +3,10 @@
 Jared Dixon, jdixon34-cs340, ChessWebsite
 
 ### Files you worked on
-src/game.cpp
-src/search.h
-src/search.cpp
-src/board.cpp
+* src/game.cpp
+* src/search.h
+* src/search.cpp
+* src/board.cpp
 
 ### What you accomplished
 This sprint consisted mainly of lots of testing and debugging. I helped debug checkmate/stalemate and a
