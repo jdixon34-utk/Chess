@@ -1,3 +1,24 @@
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  768) //returns 0 for neither, 1 for checkmate, 2 for stalemate
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  769) //ASSUMES MOVES HAVE ALREADY BEEN GENEREATED
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  770) int Board::checkmateOrStalemate(){
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  771)        int capturedPieceType;
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  772)        int noLegalMoves = 1;
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  773) 
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  774)        for(int i = 0; i < moveIndex; i++){
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  775)                capturedPieceType = makeMove(moves[i])[0];
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  776)                if(!inCheck()){
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  777)                        //we found a legal move that doesn't lead to white being in check
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  778)                        noLegalMoves = 0;
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  779)                        undoMove(moves[i], capturedPieceType);
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  780)                        break;
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  781)                }
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  782)                undoMove(moves[i], capturedPieceType);
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  783)        }
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  784)        if(noLegalMoves && inCheck()) return 1;
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  785)        if(noLegalMoves && !inCheck()) return 2;
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  786)        return 0;
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  787) }
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  788)
 6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500  7) int search(Board* position, int depth, int alpha, int beta){
 6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 31)                 wcurrent = search(position, depth + 1, alpha, beta);
 6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 36)                 if(max > alpha) alpha = max;
