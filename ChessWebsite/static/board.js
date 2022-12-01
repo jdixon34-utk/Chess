@@ -499,7 +499,7 @@
 
 
             /* If there is attempted diagonal move, we return true and allow move */
-            if(Math.abs((new_index % 8) - (old_index % 8)) === Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8))){
+            if(Math.abs((new_index % 8) - (old_index % 8)) === Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8)) && (Math.abs(new_index - old_index) !== 1)){
                 if(check_path_dia(new_index, old_index)){
                     return true;
                 }
@@ -515,7 +515,7 @@
 
             
             /* If there is attempted diagonal move, we return true and allow move */
-            if(( 6 < Math.abs(new_index - old_index) && Math.abs(new_index - old_index) < 10) || (Math.abs(new_index - old_index) === 1)){
+            if(( 6 < Math.abs(new_index - old_index) && Math.abs(new_index - old_index) < 10) && (Math.floor(new_index / 8) !== Math.floor(old_new / 8)) || (Math.abs(new_index - old_index) === 1)){
                 
                 return true;
             }
