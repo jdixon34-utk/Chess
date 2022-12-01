@@ -765,6 +765,27 @@ int Board::getKingPosition(){
 	return getLSBIndex(pieceTypes[color][0]);
 }
 
+//returns 0 for neither, 1 for checkmate, 2 for stalemate
+//ASSUMES MOVES HAVE ALREADY BEEN GENEREATED
+int Board::checkmateOrStalemate(){
+	int capturedPieceType;
+	int noLegalMoves = 1;
+
+	for(int i = 0; i < moveIndex; i++){
+		capturedPieceType = makeMove(moves[i])[0];
+		if(!inCheck()){
+			//we found a legal move that doesn't lead to white being in check
+			noLegalMoves = 0;
+			undoMove(moves[i], capturedPieceType);
+			break;
+		}
+		undoMove(moves[i], capturedPieceType);
+	}
+	if(noLegalMoves && inCheck()) return 1;
+	if(noLegalMoves && !inCheck()) return 2;
+	return 0;
+}
+
 int* Board::makeMove(Move move){
 	//call appropriate make move function
 	switch(move.specialMove){
