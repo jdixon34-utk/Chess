@@ -1,0 +1,75 @@
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  832)
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  859) 				if(i == 2){
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  860) 					if(color){
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  861) 						if(whiteCastleRightsKS && move.toSquare%8 == 7){
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  862) 							moveInfo[2] = 1;
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  863) 							whiteCastleRightsKS = false;
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  864) 						}
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  865) 						if(whiteCastleRightsQS && move.toSquare%8 == 0){
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  866) 							moveInfo[1] = 1;
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  867) 							whiteCastleRightsQS = false;
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  868) 						}
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  869) 					}else{
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  870) 						if(blackCastleRightsQS && move.toSquare%8 == 0){
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  871) 							moveInfo[3] = 1;
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  872) 							blackCastleRightsQS = false;
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  873) 						}
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  874) 						if(blackCastleRightsKS && move.toSquare%8 == 7){
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  875) 							moveInfo[4] = 1;
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  876) 							blackCastleRightsKS = false;
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  877) 						}
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  878) 					}
+219d7c63 (ColonelCannoli         2022-11-30 16:44:39 -0500  879) 				}
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  945) 	int moveInfo[6] = {0,0,0,0,0,0};
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  952) 				moveInfo[0] = i;
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  964) 	if(capturedPieceType == 2){
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  965) 		if(color){
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  966) 			if(whiteCastleRightsKS && move.toSquare%8 == 7){
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  967) 				moveInfo[2] = 1;
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  968) 				whiteCastleRightsKS = false;
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  969) 			}
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  970) 			if(whiteCastleRightsQS && move.toSquare%8 == 0){
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  971) 				moveInfo[1] = 1;
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  972) 				whiteCastleRightsQS = false;
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  973) 			}
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  974) 		}else{
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  975) 			if(blackCastleRightsQS && move.toSquare%8 == 0){
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  976) 				moveInfo[3] = 1;
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  977) 				blackCastleRightsQS = false;
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  978) 			}
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  979) 			if(blackCastleRightsKS && move.toSquare%8 == 7){
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  980) 				moveInfo[4] = 1;
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  981) 				blackCastleRightsKS = false;
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  982) 			}
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  983) 		}
+3bf97fc4 (ColonelCannoli         2022-11-30 17:32:04 -0500  984) 	}
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1182) 	kingPos = getLSBIndex(pieceTypes[color][0]);
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1183)   oPos = getLSBIndex(pieceTypes[!color][0]);
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1184) 	tmpBitBoard = KING_LOOKUP_TBL[oPos] ^ (pieces[!color] & KING_LOOKUP_TBL[oPos]);
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1185) 	check = squareUnderAttack(oPos);
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1186) 	if(check) rv+= 50;
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1187) 	noMoves = 1;
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1188) 	while(tmpBitBoard != 0){
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1189) 		if(!squareUnderAttack(getLSBIndex(tmpBitBoard))) noMoves = 0;
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1190) 		else rv += 30;
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1191) 		tmpBitBoard &= ~(1ULL << getLSBIndex(tmpBitBoard));
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1192) 	}
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1193) 	if(check && noMoves) rv+= 200;
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1194)
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1195) 	if(kingPos%4 == 1 || kingPos%4 == 2) rv += 50;
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1196)
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1197) 	tmpBitBoard = KING_LOOKUP_TBL[kingPos] & pieces[color];
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1198) 	while(tmpBitBoard != 0){
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1199) 		tmpBitBoard &= ~(1ULL << getLSBIndex(tmpBitBoard));
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1200) 		rv += 25;
+5858f7ce (ColonelCannoli         2022-11-30 20:33:31 -0500 1201) 	}
+7887e93a (JMcknight              2022-11-16 16:00:28 -0500  448)                        pawn_left_moves = genPromoMoves(pawn_left_moves, RANK_8, -7);
+7887e93a (JMcknight              2022-11-16 16:00:28 -0500  463)                        pawn_left_moves = genPromoMoves(pawn_left_moves, RANK_1, 7);
+7887e93a (JMcknight              2022-11-16 16:00:28 -0500  487)                        pawn_sp_moves = genPromoMoves(pawn_sp_moves, RANK_8, -8);
+7887e93a (JMcknight              2022-11-16 16:00:28 -0500  502)                        pawn_sp_moves = genPromoMoves(pawn_sp_moves, RANK_1, 8);
+7887e93a (JMcknight              2022-11-16 16:00:28 -0500  551)                        pawn_right_moves = genPromoMoves(pawn_right_moves, RANK_8, -9);
+7887e93a (JMcknight              2022-11-16 16:00:28 -0500  566)                        pawn_right_moves = genPromoMoves(pawn_right_moves, RANK_1, 9);
+acd8e5bc (JMcknight75            2022-11-29 09:10:19 -0500  730)                        new_square = getLSBIndex(RAYS[square][2]&allPieces);
+5609c9a1 (JMcknight              2022-11-10 13:34:38 -0500  736)                        new_square = getMSBIndex(RAYS[square][4]&allPieces);
+acd8e5bc (JMcknight75            2022-11-29 09:10:19 -0500  742)                        new_square = getMSBIndex(RAYS[square][6]&allPieces);
+7887e93a (JMcknight              2022-11-16 16:00:28 -0500  795)                case 3: return makePromotionMove(move); break;

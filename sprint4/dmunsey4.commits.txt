@@ -1,0 +1,63 @@
+src/board.cpp
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  775) 		capturedPieceType = makeMove(moves[i])[0];
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  789) int* Board::makeMove(Move move){
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  801) int* Board::makeNormalMove(Move move){
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  802) 	// [0] Captured Piece
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  803) 	// [1] White_QS Rook Moved or Captured
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  804) 	// [2] White_KS Rook Moved or Captured
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  805) 	// [3] Black_QS Rook Moved or Captured
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  806) 	// [4] Black_KS Rook Moved or Captured
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  807) 	// [5] King Moved
+70da4c1a (Dev5ter                2022-11-29 13:11:35 -0500  808) 	int moveInfo[6] = {0,0,0,0,0,0};
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  809) 
+0b6cf19b (Dev5ter                2022-11-17 10:13:04 -0500  810) 	// Check for Rook Moving to Stop Castling
+8fffadcb (Dev5ter                2022-11-29 09:48:37 -0500  811) 	if(color == 0 && move.fromSquare == 0 && (pieceTypes[color][2] & move.fromSquare)){
+8fffadcb (Dev5ter                2022-11-29 09:48:37 -0500  812) 		whiteCastleRightsQS = false;
+8fffadcb (Dev5ter                2022-11-29 09:48:37 -0500  813) 	}else if(color == 0 && move.fromSquare == 7 && (pieceTypes[color][2] & move.fromSquare)){
+8fffadcb (Dev5ter                2022-11-29 09:48:37 -0500  814) 		whiteCastleRightsKS = false;
+8fffadcb (Dev5ter                2022-11-29 09:48:37 -0500  815) 	}else if(color == 1 && move.fromSquare == 56 && (pieceTypes[color][2] & move.fromSquare)){
+8fffadcb (Dev5ter                2022-11-29 09:48:37 -0500  816) 		blackCastleRightsQS = false;
+8fffadcb (Dev5ter                2022-11-29 09:48:37 -0500  817) 	}else if(color == 1 && move.fromSquare == 63 && (pieceTypes[color][2] & move.fromSquare)){
+8fffadcb (Dev5ter                2022-11-29 09:48:37 -0500  818) 		blackCastleRightsKS = false;
+8fffadcb (Dev5ter                2022-11-29 09:48:37 -0500  819) 	}
+8fffadcb (Dev5ter                2022-11-29 09:48:37 -0500  820) 	//Captured piece type, all the bools, king moves
+8fffadcb (Dev5ter                2022-11-29 09:48:37 -0500  821) 
+8fffadcb (Dev5ter                2022-11-29 09:48:37 -0500  822) 	if(color == 0 && move.fromSquare != 0 && (pieceTypes[color][2] & move.fromSquare)){
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  823) 		moveInfo[1] = 1;
+8fffadcb (Dev5ter                2022-11-29 09:48:37 -0500  824) 	}else if(color == 0 && move.fromSquare != 7 && (pieceTypes[color][2] & move.fromSquare)){
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  825) 		moveInfo[2] = 1;
+8fffadcb (Dev5ter                2022-11-29 09:48:37 -0500  826) 	}else if(color == 1 && move.fromSquare != 56 && (pieceTypes[color][2] & move.fromSquare)){
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  827) 		moveInfo[3] = 1;
+8fffadcb (Dev5ter                2022-11-29 09:48:37 -0500  828) 	}else if(color == 1 && move.fromSquare != 63 && (pieceTypes[color][2] & move.fromSquare)){
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  829) 		moveInfo[4] = 1;
+8fffadcb (Dev5ter                2022-11-29 09:48:37 -0500  830) 	}
+0b6cf19b (Dev5ter                2022-11-17 10:13:04 -0500  831) 
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  857) 				moveInfo[0] = i;
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  858) 				return moveInfo;
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  867) 	moveInfo[0] = 0;
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  868) 	return moveInfo;
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  921) int* Board::makePromotionMove(Move move){
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  943) 	int moveInfo[1] = {capturedPieceType};
+28103990 (Dev5ter                2022-11-29 13:08:54 -0500  944) 	return moveInfo;
+0b6cf19b (Dev5ter                2022-11-17 10:13:04 -0500  961) 	//Resetting the castling bools for Rook Movements
+bb81c542 (Dev5ter                2022-11-22 07:50:40 -0500  962) 	// if(color == 0 && move.fromSquare == 0 && (pieceTypes[color][2] & move.toSquare) && !whiteQSRookMoved){
+bb81c542 (Dev5ter                2022-11-22 07:50:40 -0500  963) 	// 	whiteCastleRightsQS = true;
+bb81c542 (Dev5ter                2022-11-22 07:50:40 -0500  964) 	// }else if(color == 0 && move.fromSquare == 7 && (pieceTypes[color][2] & move.toSquare) && !whiteKSRookMoved){
+bb81c542 (Dev5ter                2022-11-22 07:50:40 -0500  965) 	// 	whiteCastleRightsKS = true;
+bb81c542 (Dev5ter                2022-11-22 07:50:40 -0500  966) 	// }else if(color == 1 && move.fromSquare == 56 && (pieceTypes[color][2] & move.toSquare) && !blackQSRookMoved){
+bb81c542 (Dev5ter                2022-11-22 07:50:40 -0500  967) 	// 	blackCastleRightsQS = true;
+bb81c542 (Dev5ter                2022-11-22 07:50:40 -0500  968) 	// }else if(color == 1 && move.fromSquare == 63 && (pieceTypes[color][2] & move.toSquare) && !blackKSRookMoved){
+bb81c542 (Dev5ter                2022-11-22 07:50:40 -0500  969) 	// 	blackCastleRightsKS = true;
+bb81c542 (Dev5ter                2022-11-22 07:50:40 -0500  970) 	// }
+0b6cf19b (Dev5ter                2022-11-17 10:13:04 -0500  971) 
+
+src/board.h
+0b6cf19b (Dev5ter        2022-11-17 10:13:04 -0500  38) 	//color - made public || Need Rook Variables for Undo Normal Move
+8fffadcb (Dev5ter        2022-11-29 09:48:37 -0500  43) 
+28103990 (Dev5ter        2022-11-29 13:08:54 -0500  97) 	int* makeMove(class Move move);
+28103990 (Dev5ter        2022-11-29 13:08:54 -0500  98) 	int* makeNormalMove(class Move move);
+28103990 (Dev5ter        2022-11-29 13:08:54 -0500 101) 	int* makePromotionMove(class Move move);
+
+src/search.cpp
+28103990 (Dev5ter        2022-11-29 13:08:54 -0500 28)             capturedPieceType = position->makeMove(whiteMoves[i])[0];
+28103990 (Dev5ter        2022-11-29 13:08:54 -0500 59)             capturedPieceType = position->makeMove(blackMoves[i])[0];

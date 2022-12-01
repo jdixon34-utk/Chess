@@ -1,0 +1,40 @@
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  768) //returns 0 for neither, 1 for checkmate, 2 for stalemate
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  769) //ASSUMES MOVES HAVE ALREADY BEEN GENEREATED
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  770) int Board::checkmateOrStalemate(){
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  771)        int capturedPieceType;
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  772)        int noLegalMoves = 1;
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  773) 
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  774)        for(int i = 0; i < moveIndex; i++){
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  775)                capturedPieceType = makeMove(moves[i])[0];
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  776)                if(!inCheck()){
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  777)                        //we found a legal move that doesn't lead to white being in check
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  778)                        noLegalMoves = 0;
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  779)                        undoMove(moves[i], capturedPieceType);
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  780)                        break;
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  781)                }
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  782)                undoMove(moves[i], capturedPieceType);
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  783)        }
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  784)        if(noLegalMoves && inCheck()) return 1;
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  785)        if(noLegalMoves && !inCheck()) return 2;
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  786)        return 0;
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  787) }
+20058c28 (jdixon34-cs340 2022-11-30 22:04:45 -0500  788)
+6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500  7) int search(Board* position, int depth, int alpha, int beta){
+6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 31)                 wcurrent = search(position, depth + 1, alpha, beta);
+6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 36)                 if(max > alpha) alpha = max;
+6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 37)                 if(beta <= alpha){
+6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 38)                     position->color = 0;
+6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 39)                     position->undoMove(whiteMoves[i], capturedPieceType);
+6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 40)                     break;
+6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 41)                 }
+6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 50)         //printf("Depth %d: Returning %d\n", depth, max);
+6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 69)                 bcurrent = search(position, depth + 1, alpha, beta);
+6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 74)                 if(min < beta) beta = min;
+6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 75)                 if(beta <= alpha){
+6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 76)                     position->color = 1;
+6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 77)                     position->undoMove(blackMoves[i], capturedPieceType);
+6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 78)                     break;
+6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 79)                 }
+6d6e8b71 (jdixon34-cs340           2022-11-30 21:52:12 -0500 88)         //printf("Depth %d: Returning %d\n", depth, min);
+a376ba20 (jdixon34-cs340           2022-11-30 21:53:33 -0500 4) int search(class Board*, int depth, int alpha, int beta);
+e03d86f6 (jdixon34-cs340           2022-11-30 21:53:04 -0500 24)     eval = search(&position, 0, -10000, 10000);

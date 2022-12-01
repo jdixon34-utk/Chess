@@ -829,6 +829,7 @@ int* Board::makeNormalMove(Move move){
 		moveInfo[4] = 1;
 	}
 
+
 	//setting/unsetting squares for side that is moving
 	for(int i = 5; i >= 0; i--){
 		if(pieceTypes[color][i] & (1ULL << move.fromSquare)){
@@ -855,6 +856,27 @@ int* Board::makeNormalMove(Move move){
 				//0 = no capture, 1 = queen capture, 2 = rook capture, etc.
 				//king cannot be captured, so that is why 0 can represent a non capture
 				moveInfo[0] = i;
+				if(i == 2){
+					if(color){
+						if(whiteCastleRightsKS && move.toSquare%8 == 7){
+							moveInfo[2] = 1;
+							whiteCastleRightsKS = false;
+						}
+						if(whiteCastleRightsQS && move.toSquare%8 == 0){
+							moveInfo[1] = 1;
+							whiteCastleRightsQS = false;
+						}
+					}else{
+						if(blackCastleRightsQS && move.toSquare%8 == 0){
+							moveInfo[3] = 1;
+							blackCastleRightsQS = false;
+						}
+						if(blackCastleRightsKS && move.toSquare%8 == 7){
+							moveInfo[4] = 1;
+							blackCastleRightsKS = false;
+						}
+					}
+				}
 				return moveInfo;
 			}
 		}
@@ -920,13 +942,14 @@ void Board::makeCastleMove(Move move){
 //Updates bit boards for a pawn promotion
 int* Board::makePromotionMove(Move move){
 	int capturedPieceType = 0;
+	int moveInfo[6] = {0,0,0,0,0,0};
 	if((allPieces&(1<<move.toSquare)) != 0){
 		//Capture into Promotion
 		for(int i = 1; i < 5; i++){
 			if((pieceTypes[!color][i] & (1ULL << move.toSquare)) != 0){
 				pieceTypes[!color][i] &= ~(1ULL << move.toSquare);
 				pieces[!color] &= ~(1ULL << move.toSquare);
-				capturedPieceType = i;
+				moveInfo[0] = i;
 				break;
 			}
 		}
@@ -938,9 +961,27 @@ int* Board::makePromotionMove(Move move){
 
 	allPieces = pieces[0] | pieces[1];
 	emptySquares = ~allPieces;
-
-//	if(capturedPieceType == 1) printf("here\n");
-	int moveInfo[1] = {capturedPieceType};
+	if(capturedPieceType == 2){
+		if(color){
+			if(whiteCastleRightsKS && move.toSquare%8 == 7){
+				moveInfo[2] = 1;
+				whiteCastleRightsKS = false;
+			}
+			if(whiteCastleRightsQS && move.toSquare%8 == 0){
+				moveInfo[1] = 1;
+				whiteCastleRightsQS = false;
+			}
+		}else{
+			if(blackCastleRightsQS && move.toSquare%8 == 0){
+				moveInfo[3] = 1;
+				blackCastleRightsQS = false;
+			}
+			if(blackCastleRightsKS && move.toSquare%8 == 7){
+				moveInfo[4] = 1;
+				blackCastleRightsKS = false;
+			}
+		}
+	}
 	return moveInfo;
 }
 
@@ -1137,9 +1178,9 @@ int Board::evaluatePosition(){
 	//subtract 10 pts for each possible move that black has
 	rv -= moveIndex * 10;
 
-	/*
+/*
 	kingPos = getLSBIndex(pieceTypes[color][0]);
-	oPos = getLSBIndex(pieceTypes[!color][0]);
+  oPos = getLSBIndex(pieceTypes[!color][0]);
 	tmpBitBoard = KING_LOOKUP_TBL[oPos] ^ (pieces[!color] & KING_LOOKUP_TBL[oPos]);
 	check = squareUnderAttack(oPos);
 	if(check) rv+= 50;
@@ -1157,8 +1198,8 @@ int Board::evaluatePosition(){
 	while(tmpBitBoard != 0){
 		tmpBitBoard &= ~(1ULL << getLSBIndex(tmpBitBoard));
 		rv += 25;
-	}
-	*/
+	}*/
+
 
 
 

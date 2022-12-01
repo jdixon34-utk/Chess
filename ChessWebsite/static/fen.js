@@ -105,7 +105,7 @@ function fen(){
 
     fen += full + ' ';
 
-    //console.log("My fen I send " + fen);
+    console.log("My fen I send " + fen);
 
     return fen;
 }

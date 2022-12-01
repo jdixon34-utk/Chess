@@ -23,7 +23,7 @@
 
 <div class="cringe">
     <div class="menu">
-        <h1 class="baby">Select color</h1>
+        <h1 class="baby">Select a Color</h1>
         <div class="bookshelf">
             <div class="whiteOption">
                 <img src="./pieces_data/Chess_klt60.png" alt="white king" class="d_image" onclick="dont_flip()"/>
@@ -44,39 +44,46 @@
 
 <div class="hidden" id="hid">
     <div class="hidden" id="UI">
-        <div class="whiteOption">
-            <img src="./pieces_data/Chess_qlt60.png" alt="white queen" class="d_image" onclick="wQueen()"/>
-        </div>
-        <div class="whiteOption">
-            <img src="./pieces_data/Chess_nlt60.png" alt="white knight" class="d_image" onclick="wKnight()"/>
-        </div>
-        <div class="whiteOption">
-            <img src="./pieces_data/Chess_blt60.png" alt="white bishop" class="d_image" onclick="wBishop()"/>
-        </div>
-        <div class="whiteOption">
-            <img src="./pieces_data/Chess_rlt60.png" alt="white rook" class="d_image" onclick="wRook()"/>
+        <h1 class="baby2">Promote Your Pawn</h1>
+        <div class="bookshelf2">
+            <div class="whiteOption">
+                <img src="./pieces_data/Chess_qlt60.png" alt="white queen" class="d_image2" onclick="wQueen()"/>
+            </div>
+            <div class="whiteOption">
+                <img src="./pieces_data/Chess_nlt60.png" alt="white knight" class="d_image2" onclick="wKnight()"/>
+            </div>
+            <div class="whiteOption">
+                <img src="./pieces_data/Chess_blt60.png" alt="white bishop" class="d_image2" onclick="wBishop()"/>
+            </div>
+            <div class="whiteOption">
+                <img src="./pieces_data/Chess_rlt60.png" alt="white rook" class="d_image2" onclick="wRook()"/>
+            </div>
         </div>
     </div>
+
 </div>
 
 <div class="hidden" id="hid2">
     <div class="hidden" id="UI2">
-        <div class="blackOption">
-            <img src="./pieces_data/Chess_qdt60.png" alt="black queen" class="d_image" onclick="bQueen()"/>
-        </div>
-        <div class="blackOption">
-            <img src="./pieces_data/Chess_ndt60.png" alt="black knight" class="d_image" onclick="bKnight()"/>
-        </div>
-        <div class="blackOption">
-            <img src="./pieces_data/Chess_bdt60.png" alt="black bishop" class="d_image" onclick="bBishop()"/>
-        </div>
-        <div class="blackOption">
-            <img src="./pieces_data/Chess_rdt60.png" alt="black rook" class="d_image" onclick="bRook()"/>
+        <h1 class="baby2">Promote Your Pawn</h1>
+        <div class="bookshelf2">
+            <div class="blackOption">
+                <img src="./pieces_data/Chess_qdt60.png" alt="black queen" class="d_image2" onclick="bQueen()"/>
+            </div>
+            <div class="blackOption">
+                <img src="./pieces_data/Chess_ndt60.png" alt="black knight" class="d_image2" onclick="bKnight()"/>
+            </div>
+            <div class="blackOption">
+                <img src="./pieces_data/Chess_bdt60.png" alt="black bishop" class="d_image2" onclick="bBishop()"/>
+            </div>
+            <div class="blackOption">
+                <img src="./pieces_data/Chess_rdt60.png" alt="black rook" class="d_image2" onclick="bRook()"/>
+            </div>
         </div>
     </div>
 </div>
 
-<script src="board.js"></script>
+<script type="text/javascript" src="board.js"></script>
 
 <script>
     let newPiece;
@@ -89,7 +96,9 @@
         newPiece.classList.add('Q')
 
         WPPdestroyUI();
+        Please();
     }
+
     function bQueen() {
         newPiece.classList.remove("p");
         newPiece.classList.remove('P');
@@ -99,6 +108,7 @@
         newPiece.classList.add('B_q')
 
         BPPdestroyUI();
+        Please();
     }
 
     function wKnight() {
@@ -109,7 +119,9 @@
         newPiece.classList.add('N');
         
         WPPdestroyUI();
+        Please();
     }
+
     function bKnight() {
         newPiece.classList.remove("p");
         newPiece.classList.remove('P');
@@ -119,6 +131,7 @@
         newPiece.classList.add('B_n');
 
         BPPdestroyUI();
+        Please();
     }
 
     function wBishop() {
@@ -129,7 +142,9 @@
         newPiece.classList.add('B');
 
         WPPdestroyUI();
+        Please();
     }
+
     function bBishop() {
         newPiece.classList.remove("p");
         newPiece.classList.remove('P');
@@ -139,6 +154,7 @@
         newPiece.classList.add('B_b');
 
         BPPdestroyUI();
+        Please();
     }
     
     function wRook() {
@@ -147,19 +163,20 @@
         newPiece.classList.remove('W_p');
         newPiece.classList.add('R');
         newPiece.classList.add('W_r');
-        //newPiece.classList.add('0');
 
         WPPdestroyUI();
+        Please();
     }
+    
     function bRook() {
         newPiece.classList.remove("p");
         newPiece.classList.remove('P');
         newPiece.classList.remove('B_p');
         newPiece.classList.add('r');
         newPiece.classList.add('B_r');
-        //newPiece.classList.add('2');
 
         BPPdestroyUI();
+        Please();
     }
 
     /* Generates the UI needed for white pawn promotion */
@@ -227,6 +244,8 @@
             WPPcreateUI();
         }
         newPiece = pawn;
+
+        return "success";
     }
 
     //Testing for fen strings
@@ -265,9 +284,7 @@
 
         /* Flip the board baby*/
         flip_b();
-        
         instring();
-
     }
 
     //Returns the current fen string of the board
