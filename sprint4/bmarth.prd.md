@@ -2,7 +2,7 @@
 
 Brandon Marth (bmarth) 
 
-Product: ChessWebsite
+Product: ChadChess
 
 ### Background
 - Our product is a website that allows the player to play chess against a difficult engine. Some players can not find another player to play against in real life. There is an opportunity to attract these users to play a single-player game against our engine. The engine is easier than the hardest engines out there but is harder than most and can beat some veteran players. This middle ground is the perfect bot for somewhat new players to challenge themselves against. The website would also have a page describing the rules of chess for new users. The engine could also be used without our website and could be used on other frontends.
