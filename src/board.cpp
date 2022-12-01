@@ -772,7 +772,7 @@ int Board::checkmateOrStalemate(){
 	int noLegalMoves = 1;
 
 	for(int i = 0; i < moveIndex; i++){
-		capturedPieceType = makeMove(moves[i])[0];
+		capturedPieceType = makeMove(moves[i]);
 		if(!inCheck()){
 			//we found a legal move that doesn't lead to white being in check
 			noLegalMoves = 0;
@@ -786,7 +786,7 @@ int Board::checkmateOrStalemate(){
 	return 0;
 }
 
-int* Board::makeMove(Move move){
+int Board::makeMove(Move move){
 	//call appropriate make move function
 	switch(move.specialMove){
 		case 0: return makeNormalMove(move);
@@ -798,38 +798,7 @@ int* Board::makeMove(Move move){
 }
 
 //returns 1 if move is a capture, otherwise returns 0
-int* Board::makeNormalMove(Move move){
-	// [0] Captured Piece
-	// [1] White_QS Rook Moved or Captured
-	// [2] White_KS Rook Moved or Captured
-	// [3] Black_QS Rook Moved or Captured
-	// [4] Black_KS Rook Moved or Captured
-	// [5] King Moved
-	int moveInfo[6] = {0,0,0,0,0,0};
-
-	// Check for Rook Moving to Stop Castling
-	if(color == 0 && move.fromSquare == 0 && (pieceTypes[color][2] & move.fromSquare)){
-		whiteCastleRightsQS = false;
-	}else if(color == 0 && move.fromSquare == 7 && (pieceTypes[color][2] & move.fromSquare)){
-		whiteCastleRightsKS = false;
-	}else if(color == 1 && move.fromSquare == 56 && (pieceTypes[color][2] & move.fromSquare)){
-		blackCastleRightsQS = false;
-	}else if(color == 1 && move.fromSquare == 63 && (pieceTypes[color][2] & move.fromSquare)){
-		blackCastleRightsKS = false;
-	}
-	//Captured piece type, all the bools, king moves
-
-	if(color == 0 && move.fromSquare != 0 && (pieceTypes[color][2] & move.fromSquare)){
-		moveInfo[1] = 1;
-	}else if(color == 0 && move.fromSquare != 7 && (pieceTypes[color][2] & move.fromSquare)){
-		moveInfo[2] = 1;
-	}else if(color == 1 && move.fromSquare != 56 && (pieceTypes[color][2] & move.fromSquare)){
-		moveInfo[3] = 1;
-	}else if(color == 1 && move.fromSquare != 63 && (pieceTypes[color][2] & move.fromSquare)){
-		moveInfo[4] = 1;
-	}
-
-
+int Board::makeNormalMove(Move move){
 	//setting/unsetting squares for side that is moving
 	for(int i = 5; i >= 0; i--){
 		if(pieceTypes[color][i] & (1ULL << move.fromSquare)){
@@ -855,29 +824,7 @@ int* Board::makeNormalMove(Move move){
 				//retval is used for capture parameter in undoNormalMove that tells us the piece that was captured
 				//0 = no capture, 1 = queen capture, 2 = rook capture, etc.
 				//king cannot be captured, so that is why 0 can represent a non capture
-				moveInfo[0] = i;
-				if(i == 2){
-					if(color){
-						if(whiteCastleRightsKS && move.toSquare%8 == 7){
-							moveInfo[2] = 1;
-							whiteCastleRightsKS = false;
-						}
-						if(whiteCastleRightsQS && move.toSquare%8 == 0){
-							moveInfo[1] = 1;
-							whiteCastleRightsQS = false;
-						}
-					}else{
-						if(blackCastleRightsQS && move.toSquare%8 == 0){
-							moveInfo[3] = 1;
-							blackCastleRightsQS = false;
-						}
-						if(blackCastleRightsKS && move.toSquare%8 == 7){
-							moveInfo[4] = 1;
-							blackCastleRightsKS = false;
-						}
-					}
-				}
-				return moveInfo;
+				return i;
 			}
 		}
 	}
@@ -886,8 +833,7 @@ int* Board::makeNormalMove(Move move){
 	allPieces = pieces[0] | pieces[1];
 	emptySquares = ~allPieces;
 
-	moveInfo[0] = 0;
-	return moveInfo;
+	return 0;
 }
 
 void Board::makeEnPassMove(Move move){
@@ -940,16 +886,15 @@ void Board::makeCastleMove(Move move){
 }
 
 //Updates bit boards for a pawn promotion
-int* Board::makePromotionMove(Move move){
+int Board::makePromotionMove(Move move){
 	int capturedPieceType = 0;
-	int moveInfo[6] = {0,0,0,0,0,0};
 	if((allPieces&(1<<move.toSquare)) != 0){
 		//Capture into Promotion
 		for(int i = 1; i < 5; i++){
 			if((pieceTypes[!color][i] & (1ULL << move.toSquare)) != 0){
 				pieceTypes[!color][i] &= ~(1ULL << move.toSquare);
 				pieces[!color] &= ~(1ULL << move.toSquare);
-				moveInfo[0] = i;
+				capturedPieceType = i;
 				break;
 			}
 		}
@@ -961,28 +906,9 @@ int* Board::makePromotionMove(Move move){
 
 	allPieces = pieces[0] | pieces[1];
 	emptySquares = ~allPieces;
-	if(capturedPieceType == 2){
-		if(color){
-			if(whiteCastleRightsKS && move.toSquare%8 == 7){
-				moveInfo[2] = 1;
-				whiteCastleRightsKS = false;
-			}
-			if(whiteCastleRightsQS && move.toSquare%8 == 0){
-				moveInfo[1] = 1;
-				whiteCastleRightsQS = false;
-			}
-		}else{
-			if(blackCastleRightsQS && move.toSquare%8 == 0){
-				moveInfo[3] = 1;
-				blackCastleRightsQS = false;
-			}
-			if(blackCastleRightsKS && move.toSquare%8 == 7){
-				moveInfo[4] = 1;
-				blackCastleRightsKS = false;
-			}
-		}
-	}
-	return moveInfo;
+
+//	if(capturedPieceType == 1) printf("here\n");
+	return capturedPieceType;
 }
 
 void Board::undoMove(Move move, int capturedPieceType){
@@ -999,17 +925,6 @@ void Board::undoMove(Move move, int capturedPieceType){
 }
 
 void Board::undoNormalMove(Move move, int capturedPieceType){
-	//Resetting the castling bools for Rook Movements
-	// if(color == 0 && move.fromSquare == 0 && (pieceTypes[color][2] & move.toSquare) && !whiteQSRookMoved){
-	// 	whiteCastleRightsQS = true;
-	// }else if(color == 0 && move.fromSquare == 7 && (pieceTypes[color][2] & move.toSquare) && !whiteKSRookMoved){
-	// 	whiteCastleRightsKS = true;
-	// }else if(color == 1 && move.fromSquare == 56 && (pieceTypes[color][2] & move.toSquare) && !blackQSRookMoved){
-	// 	blackCastleRightsQS = true;
-	// }else if(color == 1 && move.fromSquare == 63 && (pieceTypes[color][2] & move.toSquare) && !blackKSRookMoved){
-	// 	blackCastleRightsKS = true;
-	// }
-
 	//setting/unsetting squares for side that was moving
 	for(int i = 5; i >= 0; i--){
 		if(pieceTypes[color][i] & (1ULL << move.toSquare)){
@@ -1080,6 +995,7 @@ void Board::undoCastleMove(Move move){
 	allPieces = pieces[0] | pieces[1];
 	emptySquares = ~allPieces;
 }
+
 //reverts to state before promotion move
 void Board::undoPromotionMove(Move move, int capturedPieceType){
 	pieces[color] |= (1ULL << move.fromSquare);
@@ -1178,9 +1094,9 @@ int Board::evaluatePosition(){
 	//subtract 10 pts for each possible move that black has
 	rv -= moveIndex * 10;
 
-/*
+	/*
 	kingPos = getLSBIndex(pieceTypes[color][0]);
-  oPos = getLSBIndex(pieceTypes[!color][0]);
+	oPos = getLSBIndex(pieceTypes[!color][0]);
 	tmpBitBoard = KING_LOOKUP_TBL[oPos] ^ (pieces[!color] & KING_LOOKUP_TBL[oPos]);
 	check = squareUnderAttack(oPos);
 	if(check) rv+= 50;
@@ -1198,8 +1114,8 @@ int Board::evaluatePosition(){
 	while(tmpBitBoard != 0){
 		tmpBitBoard &= ~(1ULL << getLSBIndex(tmpBitBoard));
 		rv += 25;
-	}*/
-
+	}
+	*/
 
 
 
