@@ -1178,28 +1178,28 @@ int Board::evaluatePosition(){
 	//subtract 10 pts for each possible move that black has
 	rv -= moveIndex * 10;
 
-	/*
-	kingPos = getLSBIndex(pieceTypes[color][0]);
-	oPos = getLSBIndex(pieceTypes[!color][0]);
-	tmpBitBoard = KING_LOOKUP_TBL[oPos] ^ (pieces[!color] & KING_LOOKUP_TBL[oPos]);
-	check = squareUnderAttack(oPos);
-	if(check) rv+= 50;
-	noMoves = 1;
-	while(tmpBitBoard != 0){
-		if(!squareUnderAttack(getLSBIndex(tmpBitBoard))) noMoves = 0;
-		else rv += 30;
-		tmpBitBoard &= ~(1ULL << getLSBIndex(tmpBitBoard));
-	}
-	if(check && noMoves) rv+= 200;
 
-	if(kingPos%4 == 1 || kingPos%4 == 2) rv += 50;
+	//kingPos = getLSBIndex(pieceTypes[color][0]);
+  //oPos = getLSBIndex(pieceTypes[!color][0]);
+	//tmpBitBoard = KING_LOOKUP_TBL[oPos] ^ (pieces[!color] & KING_LOOKUP_TBL[oPos]);
+	//check = squareUnderAttack(oPos);
+	//if(check) rv+= 50;
+	//noMoves = 1;
+	//while(tmpBitBoard != 0){
+	//	if(!squareUnderAttack(getLSBIndex(tmpBitBoard))) noMoves = 0;
+	//	else rv += 30;
+	//	tmpBitBoard &= ~(1ULL << getLSBIndex(tmpBitBoard));
+	//}
+	//if(check && noMoves) rv+= 200;
 
-	tmpBitBoard = KING_LOOKUP_TBL[kingPos] & pieces[color];
-	while(tmpBitBoard != 0){
-		tmpBitBoard &= ~(1ULL << getLSBIndex(tmpBitBoard));
-		rv += 25;
-	}
-	*/
+	//if(kingPos%4 == 1 || kingPos%4 == 2) rv += 50;
+
+	//tmpBitBoard = KING_LOOKUP_TBL[kingPos] & pieces[color];
+	//while(tmpBitBoard != 0){
+	//	tmpBitBoard &= ~(1ULL << getLSBIndex(tmpBitBoard));
+	//	rv += 25;
+	//}
+
 
 
 
