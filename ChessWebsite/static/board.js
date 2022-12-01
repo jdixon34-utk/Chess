@@ -253,7 +253,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         //Good attempt but there is already a piece there ;D
         else if(col.children[0] !== undefined){
-            alert("Column already has a piece of the same color");
+            //alert("Column already has a piece of the same color");
+            cur.classList.remove("current");
+            col.children[0].classList.add("current");  
         }
         //Else nothing is currently selected and the selected square has no piece so do nothing
 
