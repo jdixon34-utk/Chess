@@ -400,7 +400,7 @@
             }
 
             //For taking pieces diagonally
-            if(take && (((Math.abs((new_index + diff) - old_index) === 1) && piece.classList.item(0) === "black-piece") 
+            if(take && (Math.floor(new_index % 8) !== Math.floor(new_index % 8)) && (((Math.abs((new_index + diff) - old_index) === 1) && piece.classList.item(0) === "black-piece") 
                 || ((Math.abs((new_index - diff) - old_index) === 1) && piece.classList.item(0) === "white-piece"))){
 
                     if(!stale){
@@ -1033,14 +1033,14 @@
                     || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R")
                     ){
                     
-                    console.log("Move is " + counter + " queen or rook left");
+                    console.log(index + " Move is " + counter + " queen or rook left");
                     return true;
                 }
 
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
                     ){
                     
-                    console.log("Move is " + counter + " king left");
+                    console.log(index + " Move is " + counter + " king left");
                     return true;
                 }
 
@@ -1065,13 +1065,13 @@
                 if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("r")  
                     || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R") 
                     && ((Math.floor(index / 8) - Math.floor(counter / 8)) === 0)){
-                    console.log("Move is " + counter + " queen or rook right");
+                    console.log(index + " Move is " + counter + " queen or rook right");
                     return true;
                 }
 
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
                     && (counter - index) === 1 && ((Math.floor(index / 8) - Math.floor(counter / 8)) === 0)){
-                    console.log("Move is " + counter + " king right");
+                    console.log(index + " Move is " + counter + " king right");
                     return true;
                 }
 
@@ -1096,14 +1096,14 @@
                 if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("r")  
                     || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R")){
                     
-                    console.log("Move is " + counter + " queen or rook up");
+                    console.log(index + " Move is " + counter + " queen or rook up");
                     return true;
                 }
 
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
                     && (index - 8) === counter){
                     
-                    console.log("Move is " + counter + " king up")
+                    console.log(index + " Move is " + counter + " king up")
                     return true;
                 }
 
@@ -1128,14 +1128,14 @@
                 if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("r")  
                     || board.children[counter].children[0].classList.contains("Q") || board.children[counter].children[0].classList.contains("R")){
                     
-                    console.log("Move is " + counter + " queen or rook down")
+                    console.log(index + " Move is " + counter + " queen or rook down")
                     return true;
                 }
 
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
                     && (index + 8) === counter){
                     
-                    console.log("Move is " + counter + " king down")
+                    console.log(index + " Move is " + counter + " king down")
                     return true;
                 }
 
@@ -1160,14 +1160,14 @@
                 if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("Q")  
                     || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
                     
-                    console.log("Move is " + counter + " queen or bishop up left");
+                    console.log(index + " Move is " + counter + " queen or bishop up left");
                     return true;
                 }
 
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
                     && (index - 9) === counter){
 
-                    console.log("Move is " + counter + " king up left")
+                    console.log(index + " Move is " + counter + " king up left")
                     return true;
                 }
 
@@ -1176,7 +1176,7 @@
                     || (board.children[counter].children[0].classList.contains("P") && flip === "1")) && (index - 9) === counter){
                     
 
-                    console.log("Move is " + counter + " pawn up left");
+                    console.log(index + " Move is " + counter + " pawn up left");
                     return true;
                 }
 
@@ -1206,14 +1206,14 @@
                 if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("Q")  
                     || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
 
-                    console.log("Move is " + counter + " queen or bishop up right");
+                    console.log(index + " Move is " + counter + " queen or bishop up right");
                     return true;
                 }
         
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
                     && (index - 7) === counter){
                     
-                    console.log("Move is " + counter + " king up right");
+                    console.log(index + " Move is " + counter + " king up right");
                     return true;
                 }
         
@@ -1221,7 +1221,7 @@
                 if(((board.children[counter].children[0].classList.contains("p") && flip === "0")
                     || (board.children[counter].children[0].classList.contains("P") && flip === "1")) && (index - 7) === counter){
                     
-                    console.log("Move is " + counter + " pawn up right");
+                    console.log(index + " Move is " + counter + " pawn up right");
                     return true;
                 }
         
@@ -1250,14 +1250,14 @@
                  if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("Q")  
                     || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
                      
-                    console.log("Move is " + counter + " queen or bishop down right");
+                    console.log(index + " Move is " + counter + " queen or bishop down right");
                     return true;
                  }
  
                  if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
                     && (index + 9) === counter){
                     
-                    console.log("Move is " + counter + " king down right");
+                    console.log(index + " Move is " + counter + " king down right");
                     return true;
                  }
  
@@ -1265,7 +1265,7 @@
                  if(((board.children[counter].children[0].classList.contains("p") && flip === "1")
                     || (board.children[counter].children[0].classList.contains("P") && flip === "0")) && (index + 9) === counter){
                     
-                    console.log("Move is " + counter + " pawn down right");
+                    console.log(index + " Move is "+ counter + " pawn down right");
                     return true;
                  }
  
@@ -1294,14 +1294,14 @@
                 if(board.children[counter].children[0].classList.contains("q") || board.children[counter].children[0].classList.contains("Q")  
                     || board.children[counter].children[0].classList.contains("B") || board.children[counter].children[0].classList.contains("b")){
                 
-                        console.log("Move is " + counter + " queen or bishop down left");
+                        console.log(index + " Move is " + counter + " queen or bishop down left");
                     return true;
                 }
 
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
                     && (index + 9) === counter){
                 
-                        console.log("Move is " + counter + " king down left");
+                        console.log(index + " Move is " + counter + " king down left");
                     return true;
                 }
 
@@ -1309,7 +1309,7 @@
                 if(((board.children[counter].children[0].classList.contains("p") && flip === "1")
                     || (board.children[counter].children[0].classList.contains("P") && flip === "0")) && (index + 9) === counter){
                     
-                        console.log("Move is " + counter + " pawn down left");
+                        console.log(index + " Move is " + counter + " pawn down left");
                     return true;
                 }
 
@@ -1329,7 +1329,7 @@
                 if(!(board.children[index + 17].children[0].classList.contains(color_check))
                     && (board.children[index + 17].children[0].classList.contains("N") || board.children[index + 17].children[0].classList.contains("n"))){
                     
-                        console.log("Move is " + counter + " knight 1");
+                        console.log(index + " Move is " + counter + " knight 1");
                     return true;
                 }
             }
@@ -1339,7 +1339,7 @@
                 if(!(board.children[index + 15].children[0].classList.contains(color_check)) 
                     && (board.children[index + 15].children[0].classList.contains("N") || board.children[index + 15].children[0].classList.contains("n"))){
                     
-                        console.log("Move is " + counter + " knight 2");
+                        console.log(index + " Move is " + counter + " knight 2");
                     return true;
                 }
             }
@@ -1349,7 +1349,7 @@
                 if(!(board.children[index + 10].children[0].classList.contains(color_check)) 
                     && (board.children[index + 10].children[0].classList.contains("N") || board.children[index + 10].children[0].classList.contains("n"))){
                     
-                        console.log("Move is " + counter + " knight 3");
+                        console.log(index + " Move is " + counter + " knight 3");
                     return true;
                 }
             }
@@ -1359,7 +1359,7 @@
                 if(!(board.children[index + 6].children[0].classList.contains(color_check)) 
                     && (board.children[index + 6].children[0].classList.contains("N") || board.children[index + 6].children[0].classList.contains("n"))){
                     
-                        console.log("Move is " + counter + " knight 4");
+                        console.log(index + " Move is " + counter + " knight 4");
                     return true;
                 }
             }
@@ -1369,7 +1369,7 @@
                 if(!(board.children[index - 6].children[0].classList.contains(color_check)) 
                     && (board.children[index - 6].children[0].classList.contains("N") || board.children[index - 6].children[0].classList.contains("n"))){
                     
-                        console.log("Move is " + counter + " knight 5");
+                        console.log(index + " Move is " + counter + " knight 5");
                     return true;
                 }
             }
@@ -1379,7 +1379,7 @@
                 if(!(board.children[index - 10].children[0].classList.contains(color_check)) 
                     && (board.children[index - 10].children[0].classList.contains("N") || board.children[index - 10].children[0].classList.contains("n"))){
                     
-                        console.log("Move is " + counter + " knight 6");
+                        console.log(index + " Move is " + counter + " knight 6");
                     return true;
                 } 
             }
@@ -1389,7 +1389,7 @@
                 if(!(board.children[index - 15].children[0].classList.contains(color_check))
                     && (board.children[index - 15].children[0].classList.contains("N") || board.children[index - 15].children[0].classList.contains("n"))){
                     
-                        console.log("Move is " + counter + " knight 7");
+                        console.log(index + " Move is " + counter + " knight 7");
                     return true;
                 }
             }
@@ -1399,7 +1399,7 @@
                 if(!(board.children[index - 17].children[0].classList.contains(color_check))
                     && (board.children[index - 17].children[0].classList.contains("N") || board.children[index - 17].children[0].classList.contains("n"))){
                     
-                        console.log("Move is " + counter + " knight 8");
+                        console.log(index + " Move is " + counter + " knight 8");
                     return true;
                 }
             }
