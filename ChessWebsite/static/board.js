@@ -400,7 +400,7 @@
             }
 
             //For taking pieces diagonally
-            if(take && (Math.floor(new_index / 8) !== Math.floor(new_index / 8)) && (((Math.abs((new_index + diff) - old_index) === 1) && piece.classList.item(0) === "black-piece") 
+            if(take && (Math.floor(new_index / 8) !== Math.floor(old_index / 8)) && (((Math.abs((new_index + diff) - old_index) === 1) && piece.classList.item(0) === "black-piece") 
                 || ((Math.abs((new_index - diff) - old_index) === 1) && piece.classList.item(0) === "white-piece"))){
 
                     if(!stale){
