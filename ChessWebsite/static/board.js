@@ -390,7 +390,7 @@
         if((piece.classList.item(1) === "P") || (piece.classList.item(1) === "p")){
             
             //Move up one
-            if(!take && (((new_index + diff) === old_index && piece.classList.item(0) === "black-piece") 
+            if(!take && (Math.floor(new_index / 8) !== Math.floor(old_index / 8)) && (((new_index + diff) === old_index && piece.classList.item(0) === "black-piece") 
                 || ((new_index - diff) === old_index && piece.classList.item(0) === "white-piece"))){
 
                     if(!stale){
@@ -400,7 +400,7 @@
             }
 
             //For taking pieces diagonally
-            if(take && (Math.floor(new_index % 8) !== Math.floor(new_index % 8)) && (((Math.abs((new_index + diff) - old_index) === 1) && piece.classList.item(0) === "black-piece") 
+            if(take && (Math.floor(new_index / 8) !== Math.floor(new_index / 8)) && (((Math.abs((new_index + diff) - old_index) === 1) && piece.classList.item(0) === "black-piece") 
                 || ((Math.abs((new_index - diff) - old_index) === 1) && piece.classList.item(0) === "white-piece"))){
 
                     if(!stale){
@@ -412,8 +412,8 @@
 
             //Move up two. Only valid on first move
             if(piece.classList.contains("First")){
-                if(((new_index + (diff * 2)) === old_index && piece.classList.item(0) === "black-piece") 
-                    || ((new_index - (diff * 2)) === old_index) && piece.classList.item(0) === "white-piece"){
+                if(Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8)) === 2 && (((new_index + (diff * 2)) === old_index && piece.classList.item(0) === "black-piece") 
+                    || ((new_index - (diff * 2)) === old_index) && piece.classList.item(0) === "white-piece")){
                     
                     //Must have no piece one above the pawn moving
                     if(check_path(new_index, old_index)){
