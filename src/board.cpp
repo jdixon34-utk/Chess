@@ -271,6 +271,11 @@ void Board::genMoves(){
 	*/
 	moveIndex = 0; //set/reset the index of the moves array
 
+	genPawnLeftMoves();
+	genPawnRightMoves();
+	genPawnDoublePushMoves();
+	genPawnSinglePushMoves();
+
 	tmpBitBoard = pieceTypes[color][0];
 	while(pieceTypes[color][0]){
 		square = getLSBIndex(pieceTypes[color][0]);
@@ -311,11 +316,6 @@ void Board::genMoves(){
 	}
 	pieceTypes[color][4] = tmpBitBoard;
 
-
-	genPawnLeftMoves();
-	genPawnSinglePushMoves();
-	genPawnDoublePushMoves();
-	genPawnRightMoves();
 	//if(enPassantTargetSquare != 0) genEnPassantMoves();
 	//if(color == 0 && whiteCastleRightsKS) genCastleKS();
 	//else if(color == 1 && blackCastleRightsKS) genCastleKS();
@@ -758,11 +758,11 @@ int Board::squareUnderAttack(int square){
 }
 
 int Board::inCheck(){
-	return squareUnderAttack(getKingPosition());
+	return squareUnderAttack(getKingPosition(color));
 }
 
-int Board::getKingPosition(){
-	return getLSBIndex(pieceTypes[color][0]);
+int Board::getKingPosition(int colorParam){
+	return getLSBIndex(pieceTypes[colorParam][0]);
 }
 
 //returns 0 for neither, 1 for checkmate, 2 for stalemate
@@ -1016,6 +1016,9 @@ int Board::getMaterialCount(int colorParam){
 	long long tmpBitBoard;
 
 	rv = 0;
+
+	rv += KING_EVAL_TBL[colorParam][getKingPosition(colorParam)];
+
 	tmpBitBoard = pieceTypes[colorParam][1];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
@@ -1042,12 +1045,16 @@ int Board::getMaterialCount(int colorParam){
 		square = getLSBIndex(tmpBitBoard);
 		tmpBitBoard &= ~(1ULL << square);
 		rv += 300;
+
+		rv += (KNIGHT_EVAL_TBL[colorParam][square] / 2);
 	}
 	tmpBitBoard = pieceTypes[colorParam][5];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
 		tmpBitBoard &= ~(1ULL << square);
 		rv += 100;
+
+		rv += (PAWN_EVAL_TBL[colorParam][square] / 2);
 	}
 	return rv;
 }
