@@ -1046,7 +1046,7 @@ int Board::getMaterialCount(int colorParam){
 		tmpBitBoard &= ~(1ULL << square);
 		rv += 300;
 
-		rv += (KNIGHT_EVAL_TBL[colorParam][square] / 2);
+		rv += (KNIGHT_EVAL_TBL[colorParam][square] / 4);
 	}
 	tmpBitBoard = pieceTypes[colorParam][5];
 	while(tmpBitBoard != 0){
@@ -1054,7 +1054,7 @@ int Board::getMaterialCount(int colorParam){
 		tmpBitBoard &= ~(1ULL << square);
 		rv += 100;
 
-		rv += (PAWN_EVAL_TBL[colorParam][square] / 2);
+		rv += (PAWN_EVAL_TBL[colorParam][square]);
 	}
 	return rv;
 }
