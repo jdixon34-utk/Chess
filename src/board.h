@@ -30,6 +30,10 @@ extern void INITIALIZE_KING_LOOKUP_TBL();
 extern void INITIALIZE_KNIGHT_LOOKUP_TBL();
 extern void INITIALIZE_RAYS();
 
+extern int KING_EVAL_TBL[2][64];
+extern int PAWN_EVAL_TBL[2][64];
+extern int KNIGHT_EVAL_TBL[2][64];
+
 
 class Board{
 private:
@@ -47,6 +51,8 @@ private:
 	int enPassantTargetSquare;//square that a pawn that has moved forward 2 spaces goes over
 	int halfMoveClock;//The number of halfmoves since the last capture or pawn advance, used for the fifty-move rule
     int fullMoveNumber;//The number of the full moves. It starts at 1 and is incremented after Black's move
+
+	int isEndgame;
 
 	unsigned long long allPieces;
 	unsigned long long emptySquares;
@@ -95,7 +101,7 @@ public:
 	int squareUnderAttack(int square);
 	int inCheck();
 	int checkmateOrStalemate(); //returns 0 for neither, 1 for checkmate, 2 for stalemate
-	int getKingPosition();
+	int getKingPosition(int colorParam);
 
 	int makeMove(class Move move);
 	int makeNormalMove(class Move move);
