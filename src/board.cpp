@@ -751,7 +751,7 @@ int Board::squareUnderAttack(int square){
 		if(color){
 			if(((getKingPosition(color) % 8) && (pieceTypes[!color][5] & (1ULL << (square-9))) != 0) || (pieceTypes[!color][5] & (1ULL << (square-7)))) return 1;
 		}else{
-			if(((getKingPosition(color) % 8) && (pieceTypes[!color][5] & (1ULL << (square+9))) != 0 || (pieceTypes[!color][5] & (1ULL << (square+7))))) return 1;
+			if((((getKingPosition(color)+1) % 8) && (pieceTypes[!color][5] & (1ULL << (square+9))) != 0 || (pieceTypes[!color][5] & (1ULL << (square+7))))) return 1;
 		}
 
 	return 0;
