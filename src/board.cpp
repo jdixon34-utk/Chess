@@ -1017,6 +1017,46 @@ int Board::getMaterialCount(int colorParam){
 
 	rv = 0;
 
+	tmpBitBoard = pieceTypes[colorParam][1];
+	while(tmpBitBoard != 0){
+		square = getLSBIndex(tmpBitBoard);
+		tmpBitBoard &= ~(1ULL << square);
+		rv += 900;
+	}
+	tmpBitBoard = pieceTypes[colorParam][2];
+	while(tmpBitBoard != 0){
+		square = getLSBIndex(tmpBitBoard);
+		tmpBitBoard &= ~(1ULL << square);
+		rv += 500;
+	}
+	tmpBitBoard = pieceTypes[colorParam][3];
+	while(tmpBitBoard != 0){
+		square = getLSBIndex(tmpBitBoard);
+		tmpBitBoard &= ~(1ULL << square);
+		rv += 325;
+		count++;
+	}
+	tmpBitBoard = pieceTypes[colorParam][4];
+	while(tmpBitBoard != 0){
+		square = getLSBIndex(tmpBitBoard);
+		tmpBitBoard &= ~(1ULL << square);
+		rv += 300;
+	}
+	tmpBitBoard = pieceTypes[colorParam][5];
+	while(tmpBitBoard != 0){
+		square = getLSBIndex(tmpBitBoard);
+		tmpBitBoard &= ~(1ULL << square);
+		rv += 100;
+	}
+	return rv;
+}
+
+int Board::evalMaterialAndPosition(int colorParam){
+	int rv, square, count = 0;
+	long long tmpBitBoard;
+
+	rv = 0;
+
 	rv += KING_EVAL_TBL[colorParam][getKingPosition(colorParam)];
 
 	tmpBitBoard = pieceTypes[colorParam][1];
@@ -1058,6 +1098,7 @@ int Board::getMaterialCount(int colorParam){
 	}
 	return rv;
 }
+
 //Material imbalance, king safety, weak squares
 int Board::evaluatePosition(){
 	int whiteMaterial, blackMaterial, kingPos, oPos, check, noMoves, rv;
