@@ -127,7 +127,7 @@ void INITIALIZE_KING_LOOKUP_TBL(){
 		}
 
 		//King moves up
-		if(i < 57) KING_LOOKUP_TBL[i] |= 1ULL << (i+8);
+		if(i < 56) KING_LOOKUP_TBL[i] |= 1ULL << (i+8);
 
 		//King moves down
 		if(i > 7) KING_LOOKUP_TBL[i] |= 1ULL << (i-8);
