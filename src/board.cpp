@@ -1074,6 +1074,7 @@ int Board::evaluatePosition(){
 
 	color = 0;
 	genMoves();
+	/*
 	//if white's turn, check if white is checkmated/stalemated
 	if(whiteTurn){
 		checkmateStalemateVal = checkmateOrStalemate();
@@ -1083,12 +1084,14 @@ int Board::evaluatePosition(){
 			case 2: return 0;
 		}
 	}
+	*/
 	//add 10 pts for each possible move that white has
 	rv += moveIndex * 10;
 
 
 	color = 1;
 	genMoves();
+	/*
 	//if black's turn, check if black is checkmated/stalemated
 	if(!whiteTurn){
 		checkmateStalemateVal = checkmateOrStalemate();
@@ -1098,6 +1101,7 @@ int Board::evaluatePosition(){
 			case 2: return 0;
 		}
 	}
+	*/
 	//subtract 10 pts for each possible move that black has
 	rv -= moveIndex * 10;
 
