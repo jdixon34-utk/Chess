@@ -52,8 +52,6 @@ private:
 	int halfMoveClock;//The number of halfmoves since the last capture or pawn advance, used for the fifty-move rule
     int fullMoveNumber;//The number of the full moves. It starts at 1 and is incremented after Black's move
 
-	int isEndgame;
-
 	unsigned long long allPieces;
 	unsigned long long emptySquares;
 	unsigned long long pieces[2];//all white and all black pieces: 0 = white pieces, 1 = black pieces
@@ -63,6 +61,7 @@ public:
 
 	class Move bestMove;
 	int positionsEvaluated;
+	int isEndgame;
 
 	int color;//0 = white's turn, 1 = black's turn
 
@@ -114,6 +113,7 @@ public:
 	void undoCastleMove(class Move move);
 	void undoPromotionMove(class Move move, int capturedPieceType);
 	int getMaterialCount(int color);
+	int evalMaterialAndPosition(int color);
 	int evaluatePosition();
 };
 
