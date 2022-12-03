@@ -11,11 +11,7 @@
 ## About ChessWebsite
 Our goal was to create a chess website that enabled the user to learn the basics of chess and improve their game over time by playing against our chess engine. 
 
-## How to Download
-
-## How to Install
-
-## How to Run
+## Installation
 
 ## How to Play
 
