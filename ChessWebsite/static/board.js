@@ -515,8 +515,9 @@
 
             
             /* If there is attempted diagonal move, we return true and allow move */
-            if(( 6 < Math.abs(new_index - old_index) && Math.abs(new_index - old_index) < 10) 
-                && (Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8)) === 1) || (Math.abs(new_index - old_index) === 1)){
+            if((( 6 < Math.abs(new_index - old_index) && Math.abs(new_index - old_index) < 10) 
+                && (Math.abs(Math.floor(new_index / 8) - Math.floor(old_index / 8)) === 1)) 
+                || ((Math.abs(new_index - old_index) === 1) && (Math.floor(new_index / 8) - Math.floor(old_index / 8) === 0))){
                 
                 return true;
             }
