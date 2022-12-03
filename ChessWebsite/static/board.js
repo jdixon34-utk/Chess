@@ -1039,7 +1039,7 @@
                 }
 
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
-                    ){
+                    && ((counter - 1) === index)){
                     
                     console.log(index + " Move is " + counter + " king left");
                     return true;
@@ -1548,6 +1548,7 @@
             //If the king is in check it is a checkmate, if not then it is a stalemate.
             if(in_check(index, color)){
                 victory = (turn === "white-piece") ? "black-piece" : "white-piece";
+                console.log("Engine won " + turn);
                 alert("Checkmate! " + victory + " has won!");
                 win_con = "The game has ended with " + victory + " winning by checkmate. Please refresh the page to play again";
                 return;
