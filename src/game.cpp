@@ -39,9 +39,9 @@ std::string Game::playTurn(std::string FEN){
     return position.genFENFromBoard();
 }
 
-//EMSCRIPTEN_BINDINGS(my_class_example) {
-// class_<Game>("chessGame")
-//    .constructor<>()
-//    .function("playTurn", &Game::playTurn)
-//    ;
-//}
+EMSCRIPTEN_BINDINGS(my_class_example) {
+class_<Game>("chessGame")
+   .constructor<>()
+   .function("playTurn", &Game::playTurn)
+   ;
+}
