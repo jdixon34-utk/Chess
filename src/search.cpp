@@ -4,8 +4,8 @@
 #include "move.h"
 #include "search.h"
 
-int search(Board* position, int depth, int alpha, int beta){
-    if(depth == 4){
+int search(Board* position, int maxDepth, int depth, int alpha, int beta){
+    if(depth == maxDepth){
         position->positionsEvaluated++;
         return position->evaluatePosition();
     }
@@ -24,7 +24,7 @@ int search(Board* position, int depth, int alpha, int beta){
             capturedPieceType = position->makeMove(whiteMoves[i]);
             if(!position->inCheck()){
                 position->color = 1;
-                wcurrent = search(position, depth + 1, alpha, beta);
+                wcurrent = search(position, maxDepth, depth + 1, alpha, beta);
                 position->color = 0;
                 if(wcurrent > max){
                     max = wcurrent;
@@ -59,7 +59,7 @@ int search(Board* position, int depth, int alpha, int beta){
             capturedPieceType = position->makeMove(blackMoves[i]);
             if(!position->inCheck()){
                 position->color = 0;
-                bcurrent = search(position, depth + 1, alpha, beta);
+                bcurrent = search(position, maxDepth, depth + 1, alpha, beta);
                 position->color = 1;
                 if(bcurrent < min){
                     min = bcurrent;

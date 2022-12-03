@@ -11,7 +11,7 @@ using namespace std;
 
 
 std::string Game::playTurn(std::string FEN){
-    int eval;
+    int eval, materialCount, maxDepth;
     Board position;
     positions.push_back(position);
 
@@ -19,12 +19,19 @@ std::string Game::playTurn(std::string FEN){
     position.positionsEvaluated = 0;
     position.initialize_tables();
     position.genBoardFromFEN(FEN);
-    
+
+
+    materialCount = position.getMaterialCount(0) + position.getMaterialCount(1);
+    if(materialCount > 2000) {maxDepth = 4; position.isEndgame = 0;}
+    else if(materialCount > 750) {maxDepth = 6; position.isEndgame = 1;}
+    else {maxDepth = 8; position.isEndgame = 1;}
+
     //then do the search for the best move
-    eval = search(&position, 0, -10010, 10010);
+    eval = search(&position, maxDepth, 0, -10010, 10010);
 
     printf("Evaluation: %f\n", double(eval) / 100);
     printf("Positions Evaluated: %d\n", position.positionsEvaluated);
+    printf("Max Depth: %d\n", maxDepth);
     printf("Best Move: ");
     (position.bestMove).printMove();
 
