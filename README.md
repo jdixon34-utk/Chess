@@ -22,20 +22,24 @@ Next, traverse through the cloned repository and enter the **ChessWebsite** dire
 ```
 $ cd Chess/Chesswebsite
 ```
-From here, install all the dependencies for this project by running:
+From here, **install all the dependencies** for this project by running:
 ```
 $ npm install
 ```
-You have installed the application and are all set! To play, in the **ChessWebsite** directory, just run this command:
+You have installed the application and are all set! 
+
+## How to Run
+
+To play, in the **ChessWebsite** directory, just run this command:
 ```
 $ npm run dev
 ```
-This will create a local server and output the address to use in your browser to access the website.
+This will **create a local server** and output the address to use in your browser to access the website.
 ```
 > Local:   http://localhost:xxxx/ (Where xxxx is just some port)
 ```
 
-When done using the application, kill the local server with:
+When done using the application, **kill the server** with:
 ```
 $ <CTRL + C>
 ```
