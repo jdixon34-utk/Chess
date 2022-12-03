@@ -21,7 +21,7 @@ std::string Game::playTurn(std::string FEN){
     position.genBoardFromFEN(FEN);
     
     //then do the search for the best move
-    eval = search(&position, 0, -10000, 10000);
+    eval = search(&position, 0, -10010, 10010);
 
     printf("Evaluation: %f\n", double(eval) / 100);
     printf("Positions Evaluated: %d\n", position.positionsEvaluated);
