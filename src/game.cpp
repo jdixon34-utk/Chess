@@ -4,10 +4,10 @@
 #include "board.h"
 #include "move.h"
 #include "search.h"
-#include <emscripten/bind.h>
-using namespace emscripten;
+//#include <emscripten/bind.h>
+//using namespace emscripten;
 //When using webassembly comment namespace out
-// using namespace std;
+using namespace std;
 
 
 std::string Game::playTurn(std::string FEN){
