@@ -1300,7 +1300,7 @@
                 }
 
                 if((board.children[counter].children[0].classList.contains("k") || board.children[counter].children[0].classList.contains("K"))
-                    && (index + 9) === counter){
+                    && (index + 7) === counter){
                 
                         console.log(index + " Move is " + counter + " king down left");
                     return true;
