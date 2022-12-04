@@ -33,7 +33,7 @@ extern void INITIALIZE_RAYS();
 extern int KING_EVAL_TBL[2][64];
 extern int PAWN_EVAL_TBL[2][64];
 extern int KNIGHT_EVAL_TBL[2][64];
-
+extern int KING_EVAL_TBL_ENDG[2][64];
 
 class Board{
 private:
@@ -62,6 +62,8 @@ public:
 	class Move bestMove;
 	int positionsEvaluated;
 	int isEndgame;
+	int whiteCastled;
+	int blackCastled;
 
 	int color;//0 = white's turn, 1 = black's turn
 
