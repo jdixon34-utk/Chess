@@ -1396,7 +1396,7 @@
             }
         }
         if(index - 17 >= 0){
-            if(board.children[index - 17].children[0] !== undefined && (((index + 17) % 8) - (index % 8) === -1)){
+            if(board.children[index - 17].children[0] !== undefined && (((index - 17) % 8) - (index % 8) === -1)){
                 if(!(board.children[index - 17].children[0].classList.contains(color_check))
                     && (board.children[index - 17].children[0].classList.contains("N") || board.children[index - 17].children[0].classList.contains("n"))){
                     
