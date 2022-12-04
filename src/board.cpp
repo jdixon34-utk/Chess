@@ -271,6 +271,11 @@ void Board::genMoves(){
 	*/
 	moveIndex = 0; //set/reset the index of the moves array
 
+	if(color == 0 && whiteCastleRightsKS) genCastleKS();
+	else if(color == 1 && blackCastleRightsKS) genCastleKS();
+	if(color == 0 && whiteCastleRightsQS) genCastleQS();
+	else if(color == 1 && blackCastleRightsQS) genCastleQS();
+
 	genPawnLeftMoves();
 	genPawnRightMoves();
 	genPawnDoublePushMoves();
@@ -317,10 +322,6 @@ void Board::genMoves(){
 	pieceTypes[color][4] = tmpBitBoard;
 
 	//if(enPassantTargetSquare != 0) genEnPassantMoves();
-	//if(color == 0 && whiteCastleRightsKS) genCastleKS();
-	//else if(color == 1 && blackCastleRightsKS) genCastleKS();
-	//if(color == 0 && whiteCastleRightsQS) genCastleQS();
-	//else if(color == 1 && blackCastleRightsQS) genCastleQS();
 }
 
 void Board::genKingMoves(int square){
@@ -333,7 +334,7 @@ void Board::genKingMoves(int square){
 	while(king_moves != 0){
         new_square = getLSBIndex(king_moves);
         king_moves &= king_moves - 1;
-    	move.createMove(square, new_square, 0, 0);
+    	move.createMove(square, new_square, 0, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 		moves[moveIndex++] = move;
     }
 }
@@ -376,7 +377,7 @@ void Board::genRookMoves(int square){
 	while(rm != 0){
         new_square = getLSBIndex(rm);
         rm &= rm - 1;
-    	move.createMove(square, new_square, 0, 0);
+    	move.createMove(square, new_square, 0, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 		moves[moveIndex++] = move;
     }
 }
@@ -414,7 +415,7 @@ void Board::genBishopMoves(int square){
     while(bishop_moves != 0){
         new_square = getLSBIndex(bishop_moves);
         bishop_moves &= bishop_moves - 1;
-    	move.createMove(square, new_square, 0, 0);
+    	move.createMove(square, new_square, 0, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 		moves[moveIndex++] = move;
     }
 }
@@ -429,7 +430,7 @@ void Board::genKnightMoves(int square){
 	while(knight_moves != 0){
         new_square = getLSBIndex(knight_moves);
         knight_moves &= knight_moves - 1;
-    	move.createMove(square, new_square, 0, 0);
+    	move.createMove(square, new_square, 0, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 		moves[moveIndex++] = move;
     }
 }
@@ -452,7 +453,7 @@ void Board::genPawnLeftMoves(){
 			new_square = getLSBIndex(pawn_left_moves);
 			square = new_square - 7;
 			pawn_left_moves &= pawn_left_moves - 1;
-			move.createMove(square, new_square, 0, 0);
+			move.createMove(square, new_square, 0, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 			moves[moveIndex++] = move;
 		}
     }else{ // Black's Turn
@@ -467,7 +468,7 @@ void Board::genPawnLeftMoves(){
 			new_square = getLSBIndex(pawn_left_moves);
 			square = new_square + 7;
 			pawn_left_moves &= pawn_left_moves - 1;
-			move.createMove(square, new_square, 0, 0);
+			move.createMove(square, new_square, 0, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 			moves[moveIndex++] = move;
 		}
     }
@@ -491,7 +492,7 @@ void Board::genPawnSinglePushMoves(){
 			new_square = getLSBIndex(pawn_sp_moves);
 			square = new_square - 8;
 			pawn_sp_moves &= pawn_sp_moves - 1;
-			move.createMove(square, new_square, 0, 0);
+			move.createMove(square, new_square, 0, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 			moves[moveIndex++] = move;
 		}
     }else{ // Black's Turn
@@ -506,7 +507,7 @@ void Board::genPawnSinglePushMoves(){
 			new_square = getLSBIndex(pawn_sp_moves);
 			square = new_square + 8;
 			pawn_sp_moves &= pawn_sp_moves - 1;
-			move.createMove(square, new_square, 0, 0);
+			move.createMove(square, new_square, 0, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 			moves[moveIndex++] = move;
 		}
     }
@@ -523,7 +524,7 @@ void Board::genPawnDoublePushMoves(){
 			new_square = getLSBIndex(pawn_dp_moves);
 			square = new_square - 16;
 			pawn_dp_moves &= pawn_dp_moves - 1;
-			move.createMove(square, new_square, 0, 0);
+			move.createMove(square, new_square, 0, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 			moves[moveIndex++] = move;
 		}
     }else{ // Black's Turn
@@ -532,7 +533,7 @@ void Board::genPawnDoublePushMoves(){
 			new_square = getLSBIndex(pawn_dp_moves);
 			square = new_square + 16;
 			pawn_dp_moves &= pawn_dp_moves - 1;
-			move.createMove(square, new_square, 0, 0);
+			move.createMove(square, new_square, 0, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 			moves[moveIndex++] = move;
 		}
     }
@@ -555,7 +556,7 @@ void Board::genPawnRightMoves(){
 			new_square = getLSBIndex(pawn_right_moves);
 			square = new_square - 9;
 			pawn_right_moves &= pawn_right_moves - 1;
-			move.createMove(square, new_square, 0, 0);
+			move.createMove(square, new_square, 0, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 			moves[moveIndex++] = move;
 		}
     }else{ // Black's Turn
@@ -570,7 +571,7 @@ void Board::genPawnRightMoves(){
 			new_square = getLSBIndex(pawn_right_moves);
 			square = new_square + 9;
 			pawn_right_moves &= pawn_right_moves - 1;
-			move.createMove(square, new_square, 0, 0);
+			move.createMove(square, new_square, 0, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 			moves[moveIndex++] = move;
 		}
     }
@@ -585,13 +586,13 @@ unsigned long long Board::genPromoMoves(unsigned long long input_bb, unsigned lo
 		new_square = getLSBIndex(promo_moves);
 		square = new_square + offset;
 		promo_moves &= promo_moves - 1;
-		move.createMove(square, new_square, 3, 1);
+		move.createMove(square, new_square, 3, 1, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 		moves[moveIndex++] = move;
-		move.createMove(square, new_square, 3, 2);
+		move.createMove(square, new_square, 3, 2, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 		moves[moveIndex++] = move;
-		move.createMove(square, new_square, 3, 3);
+		move.createMove(square, new_square, 3, 3, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 		moves[moveIndex++] = move;
-		move.createMove(square, new_square, 3, 4);
+		move.createMove(square, new_square, 3, 4, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 		moves[moveIndex++] = move;
 	}
 	input_bb &= ~rank_mask;
@@ -610,7 +611,7 @@ void Board::genEnPassantMoves(){
 			new_square = getLSBIndex(enpass_moves);
 			square = new_square - 7;
 			enpass_moves &= enpass_moves - 1;
-			move.createMove(square, new_square, 1, 0);
+			move.createMove(square, new_square, 1, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 			moves[moveIndex++] = move;
 		}
 
@@ -620,7 +621,7 @@ void Board::genEnPassantMoves(){
 			new_square = getLSBIndex(enpass_moves);
 			square = new_square - 9;
 			enpass_moves &= enpass_moves - 1;
-			move.createMove(square, new_square, 1, 0);
+			move.createMove(square, new_square, 1, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 			moves[moveIndex++] = move;
 		}
     }else{ // Black's Turn
@@ -630,7 +631,7 @@ void Board::genEnPassantMoves(){
 			new_square = getLSBIndex(enpass_moves);
 			square = new_square + 7;
 			enpass_moves &= enpass_moves - 1;
-			move.createMove(square, new_square, 1, 0);
+			move.createMove(square, new_square, 1, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 			moves[moveIndex++] = move;
 		}
 
@@ -640,7 +641,7 @@ void Board::genEnPassantMoves(){
 			new_square = getLSBIndex(enpass_moves);
 			square = new_square + 9;
 			enpass_moves &= enpass_moves - 1;
-			move.createMove(square, new_square, 1, 0);
+			move.createMove(square, new_square, 1, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 			moves[moveIndex++] = move;
 		}
     }
@@ -652,14 +653,14 @@ void Board::genCastleKS(){
 	if(color == 0){
 		//makes sure no pieces are blocking and not castling into/through check
 		if(((3ULL << 5) & allPieces) == 0 && !squareUnderAttack(4) && !squareUnderAttack(5) && !squareUnderAttack(6)){
-			move.createMove(4, 6, 2, 0);
+			move.createMove(4, 6, 2, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 			moves[moveIndex++] = move;
 		}
 	}
 	else{
 		//makes sure no pieces are blocking and not castling into/through check
 		if(((3ULL << 61) & allPieces) == 0 && !squareUnderAttack(60) && !squareUnderAttack(61) && !squareUnderAttack(62)){
-			move.createMove(60, 62, 2, 0);
+			move.createMove(60, 62, 2, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 			moves[moveIndex++] = move;
 		}
 	}
@@ -671,14 +672,14 @@ void Board::genCastleQS(){
 	if(color == 0){
 		//makes sure no pieces are blocking and not castling into/through check
 		if(((7ULL << 1) & allPieces) == 0 && !squareUnderAttack(2) && !squareUnderAttack(3) && !squareUnderAttack(4)){
-			move.createMove(4, 2, 2, 0);
+			move.createMove(4, 2, 2, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 			moves[moveIndex++] = move;
 		}
 	}
 	else{
 		//makes sure no pieces are blocking and not castling into/through check
 		if(((7ULL << 57) & allPieces) == 0 && !squareUnderAttack(58) && !squareUnderAttack(59) && !squareUnderAttack(60)){
-			move.createMove(60, 58, 2, 0);
+			move.createMove(60, 58, 2, 0, whiteCastleRightsKS, whiteCastleRightsQS, blackCastleRightsKS, blackCastleRightsQS);
 			moves[moveIndex++] = move;
 		}
 	}
@@ -806,6 +807,18 @@ int Board::makeNormalMove(Move move){
 			pieces[color] ^= (1ULL << move.fromSquare);
 			pieceTypes[color][i] |= (1ULL << move.toSquare);
 			pieces[color] |= (1ULL << move.toSquare);
+			//if rook is moving, update castle rights
+			if(i == 2){
+				if(move.fromSquare == 0) whiteCastleRightsQS = 0;
+				else if(move.fromSquare == 7) whiteCastleRightsKS = 0;
+				else if(move.fromSquare == 56) blackCastleRightsQS = 0;
+				else if(move.fromSquare == 63) blackCastleRightsKS = 0;
+			}
+			//if king is moving, update castle rights
+			else if(i == 0){
+				if(color == 0){whiteCastleRightsKS = 0; whiteCastleRightsQS = 0;}
+				else if(color == 1){blackCastleRightsKS = 0; blackCastleRightsQS = 0;}
+			}
 			break;
 		}
 	}
@@ -816,6 +829,14 @@ int Board::makeNormalMove(Move move){
 			if(pieceTypes[!color][i] & (1ULL << move.toSquare)){
 				pieceTypes[!color][i] ^= (1ULL << move.toSquare);
 				pieces[!color] ^= (1ULL << move.toSquare);
+
+				//if rook is captured, update castle rights
+				if(i == 2){
+					if(move.toSquare == 0) whiteCastleRightsQS = 0;
+					else if(move.toSquare == 7) whiteCastleRightsKS = 0;
+					else if(move.toSquare == 56) blackCastleRightsQS = 0;
+					else if(move.toSquare == 63) blackCastleRightsKS = 0;
+				}
 
 				//update allPieces and emptySquares
 				allPieces = pieces[0] | pieces[1];
@@ -880,6 +901,11 @@ void Board::makeCastleMove(Move move){
 		pieces[color] |= (1ULL << (move.toSquare + 1));
 	}
 
+	//updating castle rights
+	if(color == 0){whiteCastleRightsKS = 0; whiteCastleRightsQS = 0; whiteCastled = 1;}
+	else if(color == 1){blackCastleRightsKS = 0; blackCastleRightsQS = 0; blackCastled = 1;}
+
+
 	//update allPieces and emptySquares
 	allPieces = pieces[0] | pieces[1];
 	emptySquares = ~allPieces;
@@ -895,6 +921,15 @@ int Board::makePromotionMove(Move move){
 				pieceTypes[!color][i] &= ~(1ULL << move.toSquare);
 				pieces[!color] &= ~(1ULL << move.toSquare);
 				capturedPieceType = i;
+
+				//if rook is captured, update castle rights
+				if(i == 2){
+					if(move.toSquare == 0) whiteCastleRightsQS = 0;
+					else if(move.toSquare == 7) whiteCastleRightsKS = 0;
+					else if(move.toSquare == 56) blackCastleRightsQS = 0;
+					else if(move.toSquare == 63) blackCastleRightsKS = 0;
+				}
+
 				break;
 			}
 		}
@@ -925,6 +960,12 @@ void Board::undoMove(Move move, int capturedPieceType){
 }
 
 void Board::undoNormalMove(Move move, int capturedPieceType){
+	//reverting castle rights to before the move was made
+	whiteCastleRightsKS =  move.castleInfo[0];
+	whiteCastleRightsQS =  move.castleInfo[1];
+	blackCastleRightsKS =  move.castleInfo[2];
+	blackCastleRightsQS =  move.castleInfo[3];
+
 	//setting/unsetting squares for side that was moving
 	for(int i = 5; i >= 0; i--){
 		if(pieceTypes[color][i] & (1ULL << move.toSquare)){
@@ -967,6 +1008,14 @@ void Board::undoEnPassMove(Move move){
 }
 
 void Board::undoCastleMove(Move move){
+	//reverting castle rights to before the move was made
+	whiteCastleRightsKS =  move.castleInfo[0];
+	whiteCastleRightsQS =  move.castleInfo[1];
+	blackCastleRightsKS =  move.castleInfo[2];
+	blackCastleRightsQS =  move.castleInfo[3];
+	if(color == 0) whiteCastled = 0;
+	else if(color == 1) blackCastled = 0;
+
 	//unsetting/setting king bitboards
 	pieceTypes[color][0] ^= (1ULL << move.toSquare);
 	pieces[color] ^= (1ULL << move.toSquare);
@@ -998,6 +1047,12 @@ void Board::undoCastleMove(Move move){
 
 //reverts to state before promotion move
 void Board::undoPromotionMove(Move move, int capturedPieceType){
+	//reverting castle rights to before the move was made
+	whiteCastleRightsKS =  move.castleInfo[0];
+	whiteCastleRightsQS =  move.castleInfo[1];
+	blackCastleRightsKS =  move.castleInfo[2];
+	blackCastleRightsQS =  move.castleInfo[3];
+
 	pieces[color] |= (1ULL << move.fromSquare);
 	pieceTypes[color][5] |= (1ULL << move.fromSquare);
 
@@ -1057,7 +1112,8 @@ int Board::evalMaterialAndPosition(int colorParam){
 
 	rv = 0;
 
-	rv += KING_EVAL_TBL[colorParam][getKingPosition(colorParam)];
+	if(!isEndgame) rv += KING_EVAL_TBL[colorParam][getKingPosition(colorParam)];
+	else rv += KING_EVAL_TBL_ENDG[colorParam][getKingPosition(colorParam)];
 
 	tmpBitBoard = pieceTypes[colorParam][1];
 	while(tmpBitBoard != 0){
@@ -1086,7 +1142,7 @@ int Board::evalMaterialAndPosition(int colorParam){
 		tmpBitBoard &= ~(1ULL << square);
 		rv += 300;
 
-		rv += (KNIGHT_EVAL_TBL[colorParam][square] / 4);
+		rv += (KNIGHT_EVAL_TBL[colorParam][square]);
 	}
 	tmpBitBoard = pieceTypes[colorParam][5];
 	while(tmpBitBoard != 0){
@@ -1107,11 +1163,29 @@ int Board::evaluatePosition(){
 	int capturedPieceType;
 	int checkmateStalemateVal;
 	unsigned long long tmpBitBoard;
+	int square;
 
 
-	whiteMaterial = getMaterialCount(0);
-	blackMaterial = getMaterialCount(1);
+	whiteMaterial = evalMaterialAndPosition(0);
+	blackMaterial = evalMaterialAndPosition(1);
 	rv = whiteMaterial-blackMaterial;
+
+	tmpBitBoard = pieces[0] & KING_LOOKUP_TBL[getKingPosition(0)];
+	while(tmpBitBoard != 0){
+		square = getLSBIndex(tmpBitBoard);
+		tmpBitBoard &= ~(1ULL << square);
+		rv += 20;
+	}
+
+	tmpBitBoard = pieces[1] & KING_LOOKUP_TBL[getKingPosition(1)];
+	while(tmpBitBoard != 0){
+		square = getLSBIndex(tmpBitBoard);
+		tmpBitBoard &= ~(1ULL << square);
+		rv -= 20;
+	}
+
+	if(whiteCastled) rv += 50;
+	if(blackCastled) rv -= 50;
 
 	color = 0;
 	genMoves();
@@ -1127,7 +1201,7 @@ int Board::evaluatePosition(){
 	}
 	*/
 	//add 10 pts for each possible move that white has
-	rv += moveIndex * 10;
+	//rv += moveIndex * 10;
 
 
 	color = 1;
@@ -1144,7 +1218,7 @@ int Board::evaluatePosition(){
 	}
 	*/
 	//subtract 10 pts for each possible move that black has
-	rv -= moveIndex * 10;
+	//rv -= moveIndex * 10;
 
 	/*
 	kingPos = getLSBIndex(pieceTypes[color][0]);
