@@ -3,11 +3,15 @@
 #include "move.h"
 using namespace std;
 
-void Move::createMove(char fromSquareArg, char toSquareArg, char specialMoveArg, char promotedPieceArg){
+void Move::createMove(char fromSquareArg, char toSquareArg, char specialMoveArg, char promotedPieceArg, int whiteCastleRightsKS, int whiteCastleRightsQS, int blackCastleRightsKS, int blackCastleRightsQS){
     fromSquare = fromSquareArg;
     toSquare = toSquareArg;
     specialMove = specialMoveArg;
     promotedPiece = promotedPieceArg;
+    castleInfo[0] = whiteCastleRightsKS;
+    castleInfo[1] = whiteCastleRightsQS;
+    castleInfo[2] = blackCastleRightsKS;
+    castleInfo[3] = blackCastleRightsQS;
 }
 
 void Move::printMove(){
