@@ -989,14 +989,18 @@
         //Removes future castling potential
         if(color === "w"){
             cas = cas.replace("K", '');
+            //if(){
             document.getElementsByClassName("K")[0].classList.remove("First");
+            //}
             cas = cas.replace("Q", '');
-            document.getElementsByClassName("Q")[0].classList.remove("First");
+            //if(document.getElementsByClassName("Q")[0] !== undefined){
+            //    document.getElementsByClassName("Q")[0].classList.remove("First");
+            //}
         }else{
             cas = cas.replace("k", '');
             document.getElementsByClassName("k")[0].classList.remove("First");
             cas = cas.replace("q", '');
-            document.getElementsByClassName("q")[0].classList.remove("First");
+            //document.getElementsByClassName("q")[0].classList.remove("First");
         }
 
         localStorage.cas = cas;
