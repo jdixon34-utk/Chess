@@ -64,6 +64,8 @@ public:
 	int isEndgame;
 	int whiteCastled;
 	int blackCastled;
+	int whiteMovedQueen;
+	int blackMovedQueen;
 
 	int color;//0 = white's turn, 1 = black's turn
 
