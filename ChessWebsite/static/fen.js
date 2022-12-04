@@ -160,7 +160,7 @@ function fenin(fen){
     var index;
     var slash = 0;
     localStorage.cur_en_pas = cur_en_pas;
-    localStorage.cas = cas;
+    localStorage.cas = castle;
     localStorage.pas = pas;
     localStorage.half = half;
     localStorage.full = full;

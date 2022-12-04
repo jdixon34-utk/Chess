@@ -21,11 +21,14 @@ std::string Game::playTurn(std::string FEN){
     position.genBoardFromFEN(FEN);
     position.whiteCastled = 0;
     position.blackCastled = 0;
+    position.whiteMovedQueen = 0;
+    position.blackMovedQueen = 0;
 
     materialCount = position.getMaterialCount(0) + position.getMaterialCount(1);
     if(materialCount > 2000) {maxDepth = 4; position.isEndgame = 0;}
     else if(materialCount > 750) {maxDepth = 6; position.isEndgame = 1;}
     else {maxDepth = 8; position.isEndgame = 1;}
+    
     //then do the search for the best move
     eval = search(&position, maxDepth, 0, -10010, 10010);
 

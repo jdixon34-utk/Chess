@@ -807,6 +807,10 @@ int Board::makeNormalMove(Move move){
 			pieces[color] ^= (1ULL << move.fromSquare);
 			pieceTypes[color][i] |= (1ULL << move.toSquare);
 			pieces[color] |= (1ULL << move.toSquare);
+			if(i == 1){
+				if(color == 0) whiteMovedQueen = 1;
+				else if(color == 1) blackMovedQueen = 1;
+			}
 			//if rook is moving, update castle rights
 			if(i == 2){
 				if(move.fromSquare == 0) whiteCastleRightsQS = 0;
@@ -973,6 +977,10 @@ void Board::undoNormalMove(Move move, int capturedPieceType){
 			pieces[color] ^= (1ULL << move.toSquare);
 			pieceTypes[color][i] |= (1ULL << move.fromSquare);
 			pieces[color] |= (1ULL << move.fromSquare);
+			if(i == 1){
+				if(color == 0) whiteMovedQueen = 0;
+				else if(color == 1) blackMovedQueen = 0;
+			}
 			break;
 		}
 	}
@@ -1150,7 +1158,8 @@ int Board::evalMaterialAndPosition(int colorParam){
 		tmpBitBoard &= ~(1ULL << square);
 		rv += 100;
 
-		rv += (PAWN_EVAL_TBL[colorParam][square]);
+		if(!isEndgame) rv += (PAWN_EVAL_TBL[colorParam][square]);
+		else rv += (PAWN_EVAL_TBL[colorParam][square] * 2);
 	}
 	return rv;
 }
@@ -1163,6 +1172,8 @@ int Board::evaluatePosition(){
 	int capturedPieceType;
 	int checkmateStalemateVal;
 	unsigned long long tmpBitBoard;
+	unsigned long long developmentMaskWhite = 0x0000000000001866;
+	unsigned long long developmentMaskBlack = 0x6618000000000000;
 	int square;
 
 
@@ -1170,6 +1181,7 @@ int Board::evaluatePosition(){
 	blackMaterial = evalMaterialAndPosition(1);
 	rv = whiteMaterial-blackMaterial;
 
+	//white king safety
 	tmpBitBoard = pieces[0] & KING_LOOKUP_TBL[getKingPosition(0)];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
@@ -1177,6 +1189,7 @@ int Board::evaluatePosition(){
 		rv += 20;
 	}
 
+	//black king safety
 	tmpBitBoard = pieces[1] & KING_LOOKUP_TBL[getKingPosition(1)];
 	while(tmpBitBoard != 0){
 		square = getLSBIndex(tmpBitBoard);
@@ -1184,8 +1197,26 @@ int Board::evaluatePosition(){
 		rv -= 20;
 	}
 
+	//white development index
+	tmpBitBoard = developmentMaskWhite & (pieceTypes[0][3] | pieceTypes[0][4] | pieceTypes[0][5]);
+	while(tmpBitBoard != 0){
+		square = getLSBIndex(tmpBitBoard);
+		tmpBitBoard &= ~(1ULL << square);
+		rv -= 50;
+	}
+
+	//black development index
+	tmpBitBoard = developmentMaskBlack & (pieceTypes[1][3] | pieceTypes[1][4] | pieceTypes[1][5]);
+	while(tmpBitBoard != 0){
+		square = getLSBIndex(tmpBitBoard);
+		tmpBitBoard &= ~(1ULL << square);
+		rv += 50;
+	}
+
 	if(whiteCastled) rv += 50;
 	if(blackCastled) rv -= 50;
+	if(!isEndgame && whiteMovedQueen) rv -= 50;
+	if(!isEndgame && blackMovedQueen) rv += 50;
 
 	color = 0;
 	genMoves();
@@ -1201,7 +1232,7 @@ int Board::evaluatePosition(){
 	}
 	*/
 	//add 10 pts for each possible move that white has
-	//rv += moveIndex * 10;
+	rv += moveIndex * 10;
 
 
 	color = 1;
@@ -1218,7 +1249,7 @@ int Board::evaluatePosition(){
 	}
 	*/
 	//subtract 10 pts for each possible move that black has
-	//rv -= moveIndex * 10;
+	rv -= moveIndex * 10;
 
 	/*
 	kingPos = getLSBIndex(pieceTypes[color][0]);
