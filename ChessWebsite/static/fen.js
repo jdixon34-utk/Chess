@@ -237,12 +237,12 @@ function fenin(fen){
                             cas.replace('K', '');
                             cas += "W"
                             piece.classList.add("First");
-                            piece.classList.add(0);
+                            piece.classList.add(1);
                         }else if(cas.includes("Q")){
                             cas.replace('Q', '');
                             //cas += "W"
                             piece.classList.add("First");
-                            piece.classList.add(1); 
+                            piece.classList.add(0); 
                         }
                     }else if(fen[check] === "K"){
                         piece.classList.add("K");
@@ -299,12 +299,12 @@ function fenin(fen){
                             cas.replace('q', '');
                             cas += "b"
                             piece.classList.add("First");
-                            piece.classList.add(2);
+                            piece.classList.add(3);
                         }else if(cas.includes("k")){
                             cas.replace('k', '');
                             //cas += "b"
                             piece.classList.add("First");
-                            piece.classList.add(3); 
+                            piece.classList.add(2); 
                         }
                         //console.log("black rook " + index);
                     }else if(fen[check] === "k"){
@@ -344,12 +344,12 @@ function fenin(fen){
                             cas.replace('Q', '');
                             cas += "W"
                             piece.classList.add("First");
-                            piece.classList.add(0);
+                            piece.classList.add(1);
                         }else if(cas.includes("K")){
                             cas.replace('K', '');
                             //cas += "W"
                             piece.classList.add("First");
-                            piece.classList.add(1); 
+                            piece.classList.add(0); 
                         }
                         //console.log("white rook " + index);
                     }else if(fen[check] === "K"){
