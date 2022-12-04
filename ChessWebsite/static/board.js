@@ -335,7 +335,7 @@
             //if(pro){
             //    setTimeout(engine_move,8000);
             //}else{
-                setTimeout(engine_move,1);
+                //setTimeout(engine_move,1);
             //}
         }   
     }
@@ -1308,7 +1308,7 @@
 
                 //For pawns
                 if(((board.children[counter].children[0].classList.contains("p") && flip === "1")
-                    || (board.children[counter].children[0].classList.contains("P") && flip === "0")) && (index + 9) === counter){
+                    || (board.children[counter].children[0].classList.contains("P") && flip === "0")) && (index + 7) === counter){
                     
                         console.log(index + " Move is " + counter + " pawn down left");
                     return true;
