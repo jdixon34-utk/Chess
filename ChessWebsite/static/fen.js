@@ -45,12 +45,12 @@ function fen(){
         }
     }else{
         for(let i = 7; i >= 0; i--){
-            for(let j = 0; j < 8; j++){
+            for(let j = 7; j >= 0; j--){
 
             //Add a space if there is no piece
                 if(tab.children[(i * 8) + j].children[0] === undefined){
                     space++;
-            }   else{
+                }else{
                     //Add the spaces now that there is a piece
                     if(space !== 0){
                         fen += space;
@@ -61,7 +61,7 @@ function fen(){
                 }
 
                 //End of the row and not the last row
-                if(j === 7 && i !== 0){
+                if(j === 0 && i !== 0){
                 
                     if(space !== 0){
                         fen += space;
@@ -149,6 +149,8 @@ function fenin(fen){
             check--;
         }
         check++;
+
+        castle = castle.split('').reverse().join('');
     }else{
         castle = "-";
     }
@@ -372,7 +374,7 @@ function fenin(fen){
 
                 }
 
-                board.children[((Math.floor(index / 8) * 8) + (8 - 1)) - (index % 8)].appendChild(piece);
+                board.children[index].appendChild(piece);
 
             }else{
                 slash++;
