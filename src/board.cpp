@@ -812,7 +812,7 @@ int Board::makeNormalMove(Move move){
 				else if(color == 1) blackMovedQueen = 1;
 			}
 			//if rook is moving, update castle rights
-			if(i == 2){
+			else if(i == 2){
 				if(move.fromSquare == 0) whiteCastleRightsQS = 0;
 				else if(move.fromSquare == 7) whiteCastleRightsKS = 0;
 				else if(move.fromSquare == 56) blackCastleRightsQS = 0;
@@ -881,6 +881,8 @@ void Board::makeEnPassMove(Move move){
 }
 
 void Board::makeCastleMove(Move move){
+	int rookSquare;
+
 	//unsetting/setting king bitboards
 	pieceTypes[color][0] ^= (1ULL << move.fromSquare);
 	pieces[color] ^= (1ULL << move.fromSquare);
@@ -890,7 +892,8 @@ void Board::makeCastleMove(Move move){
 	//unsetting/setting rook bitboards
 	//if kingside castle
 	if(move.fromSquare < move.toSquare){
-		int rookSquare = getMSBIndex(pieceTypes[color][2]);
+		if(color == 0) rookSquare = 7;
+		else rookSquare = 63;
 		pieceTypes[color][2] ^= (1ULL << rookSquare);
 		pieces[color] ^= (1ULL << rookSquare);
 		pieceTypes[color][2] |= (1ULL << (move.toSquare - 1));
@@ -898,7 +901,8 @@ void Board::makeCastleMove(Move move){
 	}
 	//else queenside castle
 	else{
-		int rookSquare = getLSBIndex(pieceTypes[color][2]);
+		if(color == 0) rookSquare = 0;
+		else rookSquare = 56;
 		pieceTypes[color][2] ^= (1ULL << rookSquare);
 		pieces[color] ^= (1ULL << rookSquare);
 		pieceTypes[color][2] |= (1ULL << (move.toSquare + 1));
@@ -1016,6 +1020,8 @@ void Board::undoEnPassMove(Move move){
 }
 
 void Board::undoCastleMove(Move move){
+	int rookSquare;
+
 	//reverting castle rights to before the move was made
 	whiteCastleRightsKS =  move.castleInfo[0];
 	whiteCastleRightsQS =  move.castleInfo[1];
@@ -1033,7 +1039,8 @@ void Board::undoCastleMove(Move move){
 	//unsetting/setting rook bitboards
 	//if kingside castle
 	if(move.fromSquare < move.toSquare){
-		int rookSquare = getMSBIndex(pieceTypes[color][2]);
+		if(color == 0) rookSquare = 5;
+		else rookSquare = 61;
 		pieceTypes[color][2] ^= (1ULL << rookSquare);
 		pieces[color] ^= (1ULL << rookSquare);
 		pieceTypes[color][2] |= (1ULL << (rookSquare + 2));
@@ -1041,7 +1048,8 @@ void Board::undoCastleMove(Move move){
 	}
 	//else queenside castle
 	else{
-		int rookSquare = getLSBIndex(pieceTypes[color][2]);
+		if(color == 0) rookSquare = 3;
+		else rookSquare = 59;
 		pieceTypes[color][2] ^= (1ULL << rookSquare);
 		pieces[color] ^= (1ULL << rookSquare);
 		pieceTypes[color][2] |= (1ULL << (rookSquare - 3));
