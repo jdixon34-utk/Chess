@@ -70,12 +70,12 @@
                         piece.classList.add("r");
                         piece.classList.add("B_r");
                         piece.classList.add("First");
-                        piece.classList.add(3);
+                        piece.classList.add(2);
                     }else if(j === 8){
                         piece.classList.add("r");
                         piece.classList.add("B_r");
                         piece.classList.add("First");
-                        piece.classList.add(2);   
+                        piece.classList.add(3);   
                     }else if(j === 2 || j === 7){
                         piece.classList.add("n");
                         piece.classList.add("B_n");
@@ -220,6 +220,8 @@
                 if(((cur.classList.contains("k") || cur.classList.contains("K")) || ((cur.classList.contains("r") || cur.classList.contains("R")))) 
                     && cur.classList.contains("First")){
                         castling(cur);
+                }else if((cur.classList.contains("r") || cur.classList.contains("R"))){
+                    console.log(cur.classList.item(2));
                 }
 
                 move(col, cur.parentNode, cur)
@@ -873,7 +875,7 @@
         //Rook just moved remove its side from the cas string
         if(piece.classList.contains("r") || piece.classList.contains("R")){
             b = cas.replace(options[piece.classList.item(4)], '');
-            console.log(piece.classList.item(4));
+            console.log(piece.classList.item(4) + " " + b);
         }
         //White king just moved remove all its future castling potential
         else if(piece.classList.contains("K")){

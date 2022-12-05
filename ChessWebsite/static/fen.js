@@ -170,6 +170,7 @@ function fenin(fen){
     localStorage.full = full;
     localStorage.turn = (color === "w") ? "white-piece" : "black-piece";
     let board = document.getElementById("chessboard");
+    let cas = castle;
 
     for(var i = 0; i < 64; i++){
         if(board.children[i].children[0] !== undefined){
@@ -198,13 +199,13 @@ function fenin(fen){
                     }else if(fen[check] === "r"){
                         piece.classList.add("r");
                         piece.classList.add("B_r");
-                        if(cas.includes("k")){
-                            cas.replace('k', '');
+                        if(castle.includes("k")){
+                            castle = castle.replace('k', '');
                             cas += "b"
                             piece.classList.add("First");
                             piece.classList.add(2);
-                        }else if(cas.includes("q")){
-                            cas.replace('q', '');
+                        }else if(castle.includes("q")){
+                            castle = castle.replace('q', '');
                             //cas += "b"
                             piece.classList.add("First");
                             piece.classList.add(3); 
@@ -237,16 +238,19 @@ function fenin(fen){
                     }else if(fen[check] === "R"){
                         piece.classList.add("R");
                         piece.classList.add("W_r");
-                        if(cas.includes("K")){
-                            cas.replace('K', '');
+                        console.log("TEST IN ROOK");
+                        if(castle.includes("K")){
+                            castle = castle.replace('K', '');
                             cas += "W"
+                            console.log("TEST IN ROOK KING");
                             piece.classList.add("First");
-                            piece.classList.add(1);
-                        }else if(cas.includes("Q")){
-                            cas.replace('Q', '');
+                            piece.classList.add(0);
+                        }else if(castle.includes("Q")){
+                            castle = castle.replace('Q', '');
                             //cas += "W"
                             piece.classList.add("First");
-                            piece.classList.add(0); 
+                            piece.classList.add(1); 
+                            console.log("TEST IN ROOK King");
                         }
                     }else if(fen[check] === "K"){
                         piece.classList.add("K");
@@ -298,17 +302,21 @@ function fenin(fen){
                         //console.log("black pawn " + index);
                     }else if(fen[check] === "r"){
                         piece.classList.add("r");
+                        console.log("TEST IN Black ROOK cas is " + cas);
                         piece.classList.add("B_r");
-                        if(cas.includes("q")){
-                            cas.replace('q', '');
-                            cas += "b"
+                        if(castle.includes("k")){
+                            console.log("TEST please " + castle);
+                            castle = castle.replace('q', '-');
+                            cas += "b";
+                            console.log("TEST IN Black ROOK cas is please " + castle + " " + index);
                             piece.classList.add("First");
-                            piece.classList.add(3);
-                        }else if(cas.includes("k")){
-                            cas.replace('k', '');
+                            piece.classList.add(2);
+                        }else if(castle.includes("q")){
+                            castle = castle.replace('k', '-');
                             //cas += "b"
+                            console.log("TEST IN Black ROOK cas is please king" + castle + " " + index);
                             piece.classList.add("First");
-                            piece.classList.add(2); 
+                            piece.classList.add(3); 
                         }
                         //console.log("black rook " + index);
                     }else if(fen[check] === "k"){
@@ -344,13 +352,13 @@ function fenin(fen){
                     }else if(fen[check] === "R"){
                         piece.classList.add("R");
                         piece.classList.add("W_r");
-                        if(cas.includes("Q")){
-                            cas.replace('Q', '');
+                        if(castle.includes("Q")){
+                            castle = castle.replace('Q', '');
                             cas += "W"
                             piece.classList.add("First");
                             piece.classList.add(1);
-                        }else if(cas.includes("K")){
-                            cas.replace('K', '');
+                        }else if(castle.includes("K")){
+                            castle = castle.replace('K', '');
                             //cas += "W"
                             piece.classList.add("First");
                             piece.classList.add(0); 
