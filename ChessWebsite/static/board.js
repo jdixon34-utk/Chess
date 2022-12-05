@@ -346,7 +346,7 @@
             //if(pro){
             //    setTimeout(engine_move,8000);
             //}else{
-                //setTimeout(engine_move,1);
+                setTimeout(engine_move,1);
             //}
         }   
     }
