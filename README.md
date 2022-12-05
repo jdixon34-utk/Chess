@@ -45,6 +45,24 @@ $ <CTRL + C>
 ```
 
 ## How to Play
+#### 1. Select Color
+After every refresh of the page or return to the Play page, you will need to **select a color to play as**.
+
+#### 2. Select a Piece to Move
+**Click once** to *select piece* (indicated by a highlight around the piece), **click again** to *deselect* piece, or **click one of your other pieces** to *select that piece instead*.
+
+#### 3. Move Piece or Take an Opposing Piece
+After selecting your piece, the next step is to **click on a valid square** to move to **or** an **opposing piece** to take.
+
+Since you can only make valid moves, it is best you understand the movement of each type of piece on the board. In case you are brand new, we have a **How To Play** page just for this. If needed, please take a look!
+
+#### 4. Pawn Promotion/Castling
+For pawn promotion, you will be **prompted with a UI** that shows all pieces you can promote to. Just **click which piece you would like to promote to**.
+
+When castling, **select the king** and **click the square** where the **king would move to** if you were to castle.
+
+#### 5. Invalid Moves/Checkmate/Stalemate and Playing Again
+You will be **prompted with an alert** that informs you of *invalid moves, checkmates, and stalemates*. When the game ends with a *stalemate or checkmate*, you only need to **refresh the page to play again**.
 
 ## License
 [LICENSE](LICENSE)
