@@ -47,3 +47,4 @@ $ <CTRL + C>
 ## How to Play
 
 ## License
+[LICENSE](LICENSE)
