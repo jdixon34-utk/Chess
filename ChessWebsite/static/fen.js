@@ -352,16 +352,16 @@ function fenin(fen){
                     }else if(fen[check] === "R"){
                         piece.classList.add("R");
                         piece.classList.add("W_r");
-                        if(castle.includes("Q")){
-                            castle = castle.replace('Q', '');
+                        if(castle.includes("K")){
+                            castle = castle.replace('K', '');
                             cas += "W"
                             piece.classList.add("First");
-                            piece.classList.add(1);
-                        }else if(castle.includes("K")){
-                            castle = castle.replace('K', '');
+                            piece.classList.add(0);
+                        }else if(castle.includes("Q")){
+                            castle = castle.replace('Q', '');
                             //cas += "W"
                             piece.classList.add("First");
-                            piece.classList.add(0); 
+                            piece.classList.add(1); 
                         }
                         //console.log("white rook " + index);
                     }else if(fen[check] === "K"){
