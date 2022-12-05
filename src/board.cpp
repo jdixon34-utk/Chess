@@ -824,8 +824,8 @@ int Board::makeNormalMove(Move move){
 			}
 			//if king is moving, update castle rights
 			else if(i == 0){
-				if(color == 0){whiteCastleRightsKS = 0; whiteCastleRightsQS = 0;}
-				else if(color == 1){blackCastleRightsKS = 0; blackCastleRightsQS = 0;}
+				if(color == 0){whiteCastleRightsKS = 0; whiteCastleRightsQS = 0; whiteMovedKing = 1;}
+				else if(color == 1){blackCastleRightsKS = 0; blackCastleRightsQS = 0; blackMovedKing = 1;}
 			}
 			break;
 		}
@@ -988,6 +988,10 @@ void Board::undoNormalMove(Move move, int capturedPieceType){
 			if(i == 1){
 				if(color == 0) whiteMovedQueen = 0;
 				else if(color == 1) blackMovedQueen = 0;
+			}
+			if(i == 0){
+				if(color == 0) whiteMovedKing = 0;
+				else if(color == 1) blackMovedKing = 0;
 			}
 			break;
 		}
@@ -1229,6 +1233,8 @@ int Board::evaluatePosition(){
 	if(blackCastled) rv -= 50;
 	if(!isEndgame && whiteMovedQueen) rv -= 50;
 	if(!isEndgame && blackMovedQueen) rv += 50;
+	if(!isEndgame && whiteMovedKing) rv -= 50;
+	if(!isEndgame && blackMovedKing) rv += 50;
 
 	if(!isOpening){
 		color = 0;

@@ -23,6 +23,8 @@ std::string Game::playTurn(std::string FEN){
     position.blackCastled = 0;
     position.whiteMovedQueen = 0;
     position.blackMovedQueen = 0;
+    position.whiteMovedKing = 0;
+    position.blackMovedKing = 0;
     position.isOpening = 0;
 
     materialCount = position.getMaterialCount(0) + position.getMaterialCount(1);
