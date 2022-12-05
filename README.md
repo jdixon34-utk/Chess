@@ -9,7 +9,7 @@
 * Jake Shoffner [Jxk0be](https://github.com/Jxk0be)
 
 ## About ChessWebsite
-Our goal was to create a chess website that enabled the user to learn the basics of chess and improve their game over time by playing against our chess engine. 
+ChessWebsite is a chess web application that enables the user to learn the basics of chess and improve their game over time by playing against our custom chess engine.
 
 ## Installation
 Before we begin, **download the latest version of [Node.js](https://nodejs.org/en/)** from their website. This is needed to install dependencies and run the application.
