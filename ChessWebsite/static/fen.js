@@ -32,13 +32,15 @@ function fen(){
                 }
 
                 //End of the row and not the last row
-                if(j === 7 && i !== 7){
+                if(j === 7){
                 
                     if(space !== 0){
                         fen += space;
                     }
 
-                    fen += '/';
+                    if(i !== 7){
+                        fen += '/';
+                    }
                     space = 0;
                 }
             }
@@ -61,13 +63,15 @@ function fen(){
                 }
 
                 //End of the row and not the last row
-                if(j === 0 && i !== 0){
+                if(j === 0){
                 
                     if(space !== 0){
                         fen += space;
                     }
 
-                    fen += '/';
+                    if(i !== 0){
+                        fen += '/';
+                    }
                     space = 0;
                 }
             }
