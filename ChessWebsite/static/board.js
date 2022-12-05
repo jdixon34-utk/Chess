@@ -8,8 +8,8 @@
     //Fen string variables
     turn = "white-piece";
     pas = "-";
-    //cas = "KQkq";
-    cas = "-";
+    cas = "KQkq";
+    //cas = "-";
     half = 0;
     full = 0;
     var en_pas_ignore = false;
