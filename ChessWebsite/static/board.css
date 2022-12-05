@@ -142,7 +142,15 @@
 
 /*Currently selected piece to move*/
 .current{
-    filter: drop-shadow(0 0 0.85rem rgb(70, 234, 108));
+    /* Original Green */
+    /* filter: drop-shadow(0 0 0.85rem rgb(70, 234, 108)); */
+
+    /* Alternate options */
+    /* filter: drop-shadow(0 0 0.75rem #bb340b); */
+    /* filter: drop-shadow(0 0 0.75rem #cc200a); */
+
+    /* Red - Easiest to see on white and green squares */
+    filter: drop-shadow(0 0 0.8rem #e90c0c);
 }
 .container {
     width: 49.2vw;
