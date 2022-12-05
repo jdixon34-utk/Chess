@@ -8,7 +8,8 @@
     //Fen string variables
     turn = "white-piece";
     pas = "-";
-    cas = "KQkq";
+    //cas = "KQkq";
+    cas = "-";
     half = 0;
     full = 0;
     var en_pas_ignore = false;
@@ -56,7 +57,7 @@
             //Define the colors and piece type of the pieces
             if (i < 3) {
                 //Uncomment to test checkmate and stalemate
-                //if((i === 1 && j === 5) || (i === 1 && j === 4)){
+                //if((i === 1 && j === 5) || (i === 1 && j === 2)){
                 //|| (i === 1 && j === 4) || (i === 1 && j === 8) || (i === 1 && j === 1))
                 //{
                     document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
@@ -97,7 +98,7 @@
             }
             else if (i > 6) {
                 //Uncomment to test stalemate and checkmate
-                //if((i === 8 && j === 5) || (i === 8 && j === 6)){
+                //if((i === 8 && j === 5) || (i === 7 && j === 2)){
                     document.getElementById(((i-1) * 8) + (j-1)).appendChild(piece);
                     piece.classList.add("white-piece");
                 //}
@@ -701,34 +702,40 @@
 
         //Only kings left
         if(black_bis === 0 && black_kni === 0 && white_bis === 0 && white_kni === 0){
+            console.log("Insuf by only kings");
             return true;
         }
         //King and bishop vs king
         else if(((black_bis === 1 && white_bis === 0) || (black_bis === 0 && white_bis === 1)) 
             && black_kni === 0 && white_kni === 0){
             
+            console.log("Insuf by only kings and one bishop");
             return true;
         }
         //King and knight vs king
         else if(((black_kni === 1 && white_kni === 0) || (black_kni === 0 && white_kni === 1))
             && black_bis === 0 && white_bis === 0){
 
+            console.log("Insuf by only kings and a knight");
             return true;
         }
         //King and two knights vs king
         else if(((black_kni === 2 && white_kni === 0) || (black_kni === 0 && white_kni === 2))
             && black_bis === 0 && white_bis === 0){
 
+            console.log("Insuf by only kings and two knights");
             return true;
         }
         //King and bishop vs king and bishop when both bishops are on the same color.
         else if(((black_bis === 1 && white_bis === 1) && (black_kni === 0 && white_kni === 0))
             && ((black_bis_white && white_bis_white) || (black_bis_black && white_bis_black))){
 
+            console.log("Insuf by only kings and two bishops of same colors");
             return true;
         }else if(((black_kni === 1 && white_kni === 0) && (black_bis === 0 && white_bis === 1)) 
             || ((black_kni === 0 && white_kni === 1) && (black_bis === 1 && white_bis === 0))){
 
+            console.log("Insuf by only kings and a knight and bishop of different colors(type)");
             return true;
         }
 
