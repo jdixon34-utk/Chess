@@ -243,6 +243,17 @@
                     
                 half = 0;
 
+                if(((cur.classList.contains("k") || cur.classList.contains("K")) || ((cur.classList.contains("r") || cur.classList.contains("R")))) 
+                    && cur.classList.contains("First")){
+                        castling(cur);
+                }
+
+                if(((col.children[0].classList.contains("k") || col.children[0].classList.contains("K")) 
+                    || ((col.children[0].classList.contains("r") || col.children[0].classList.contains("R")))) 
+                    && col.children[0].classList.contains("First")){
+                        castling(col.children[0]);
+                }
+
                 col.removeChild(col.children[0]);
                 move(col, cur.parentNode, cur);
                     
@@ -335,7 +346,7 @@
             //if(pro){
             //    setTimeout(engine_move,8000);
             //}else{
-                setTimeout(engine_move,1);
+                //setTimeout(engine_move,1);
             //}
         }   
     }
