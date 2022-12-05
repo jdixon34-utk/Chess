@@ -12,6 +12,10 @@ void Board::initialize_tables(){
 	INITIALIZE_RAYS();
 }
 
+int Board::getFullMoveNumber(){
+	return fullMoveNumber;
+}
+
 void Board::genBoardFromFEN(string FEN){
 	int indexFEN = 0, indexBoard = 56;
 
@@ -281,29 +285,13 @@ void Board::genMoves(){
 	genPawnDoublePushMoves();
 	genPawnSinglePushMoves();
 
-	tmpBitBoard = pieceTypes[color][0];
-	while(pieceTypes[color][0]){
-		square = getLSBIndex(pieceTypes[color][0]);
-		genKingMoves(square);
-		pieceTypes[color][0] &= pieceTypes[color][0] - 1;
+	tmpBitBoard = pieceTypes[color][4];
+	while(pieceTypes[color][4]){
+		square = getLSBIndex(pieceTypes[color][4]);
+		genKnightMoves(square);
+		pieceTypes[color][4] &= pieceTypes[color][4] - 1;
 	}
-	pieceTypes[color][0] = tmpBitBoard;
-
-	tmpBitBoard = pieceTypes[color][1];
-	while(pieceTypes[color][1]){
-		square = getLSBIndex(pieceTypes[color][1]);
-		genQueenMoves(square);
-		pieceTypes[color][1] &= pieceTypes[color][1] - 1;
-	}
-	pieceTypes[color][1] = tmpBitBoard;
-
-	tmpBitBoard = pieceTypes[color][2];
-	while(pieceTypes[color][2]){
-		square = getLSBIndex(pieceTypes[color][2]);
-		genRookMoves(square);
-		pieceTypes[color][2] &= pieceTypes[color][2] - 1;
-	}
-	pieceTypes[color][2] = tmpBitBoard;
+	pieceTypes[color][4] = tmpBitBoard;
 
 	tmpBitBoard = pieceTypes[color][3];
 	while(pieceTypes[color][3]){
@@ -313,13 +301,29 @@ void Board::genMoves(){
 	}
 	pieceTypes[color][3] = tmpBitBoard;
 
-	tmpBitBoard = pieceTypes[color][4];
-	while(pieceTypes[color][4]){
-		square = getLSBIndex(pieceTypes[color][4]);
-		genKnightMoves(square);
-		pieceTypes[color][4] &= pieceTypes[color][4] - 1;
+	tmpBitBoard = pieceTypes[color][2];
+	while(pieceTypes[color][2]){
+		square = getLSBIndex(pieceTypes[color][2]);
+		genRookMoves(square);
+		pieceTypes[color][2] &= pieceTypes[color][2] - 1;
 	}
-	pieceTypes[color][4] = tmpBitBoard;
+	pieceTypes[color][2] = tmpBitBoard;
+
+	tmpBitBoard = pieceTypes[color][1];
+	while(pieceTypes[color][1]){
+		square = getLSBIndex(pieceTypes[color][1]);
+		genQueenMoves(square);
+		pieceTypes[color][1] &= pieceTypes[color][1] - 1;
+	}
+	pieceTypes[color][1] = tmpBitBoard;
+
+	tmpBitBoard = pieceTypes[color][0];
+	while(pieceTypes[color][0]){
+		square = getLSBIndex(pieceTypes[color][0]);
+		genKingMoves(square);
+		pieceTypes[color][0] &= pieceTypes[color][0] - 1;
+	}
+	pieceTypes[color][0] = tmpBitBoard;
 
 	//if(enPassantTargetSquare != 0) genEnPassantMoves();
 }
@@ -1226,38 +1230,17 @@ int Board::evaluatePosition(){
 	if(!isEndgame && whiteMovedQueen) rv -= 50;
 	if(!isEndgame && blackMovedQueen) rv += 50;
 
-	color = 0;
-	genMoves();
-	/*
-	//if white's turn, check if white is checkmated/stalemated
-	if(whiteTurn){
-		checkmateStalemateVal = checkmateOrStalemate();
-		switch(checkmateStalemateVal){
-			case 0: break;
-			case 1: return -10000;
-			case 2: return 0;
-		}
-	}
-	*/
-	//add 10 pts for each possible move that white has
-	rv += moveIndex * 10;
+	if(!isOpening){
+		color = 0;
+		genMoves();
+		//add 10 pts for each possible move that white has
+		rv += moveIndex * 10;
 
-
-	color = 1;
-	genMoves();
-	/*
-	//if black's turn, check if black is checkmated/stalemated
-	if(!whiteTurn){
-		checkmateStalemateVal = checkmateOrStalemate();
-		switch(checkmateStalemateVal){
-			case 0: break;
-			case 1: return 10000;
-			case 2: return 0;
-		}
+		color = 1;
+		genMoves();
+		//subtract 10 pts for each possible move that black has
+		rv -= moveIndex * 10;
 	}
-	*/
-	//subtract 10 pts for each possible move that black has
-	rv -= moveIndex * 10;
 
 	/*
 	kingPos = getLSBIndex(pieceTypes[color][0]);
