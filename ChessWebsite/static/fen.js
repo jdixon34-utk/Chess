@@ -119,12 +119,14 @@ function fenin(fen){
         full += fen[check];
         check--;
     }
+    full = full.split('').reverse().join('');
     check--;
     let half = "";
     while(fen[check] !== " "){
         half += fen[check];
         check--;
     }
+    half = half.split('').reverse().join('');
 
     check--;
     let pas = "-";
