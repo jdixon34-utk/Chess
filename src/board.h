@@ -61,6 +61,7 @@ public:
 
 	class Move bestMove;
 	int positionsEvaluated;
+	int isOpening;
 	int isEndgame;
 	int whiteCastled;
 	int blackCastled;
@@ -75,6 +76,7 @@ public:
 	int moveIndex;
 
 	void initialize_tables();
+	int getFullMoveNumber();
 
 	void genBoardFromFEN(std::string FEN);
 	std::string genFENFromBoard();
