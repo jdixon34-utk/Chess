@@ -66,3 +66,6 @@ You will be **prompted with an alert** that informs you of *invalid moves, check
 
 ## License
 [LICENSE](LICENSE)
+
+## Presentation Slides
+[Presentation](chessWebsite.pdf)
