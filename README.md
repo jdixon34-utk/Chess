@@ -16,7 +16,7 @@ Before we begin, **download the latest version of [Node.js](https://nodejs.org/e
 
 First, find a location on your system where you want to install the application. Then, **clone the repository** by running the following command:
 ```
-$ git clone https://github.com/utk-cs340-fall22/Chess.git
+$ git clone https://github.com/utk-cs340-fall22/Chess.git 
 ```
 Next, traverse through the cloned repository and enter the **ChessWebsite** directory:
 ```
