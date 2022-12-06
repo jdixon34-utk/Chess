@@ -20,7 +20,7 @@ $ git clone https://github.com/utk-cs340-fall22/Chess.git
 ```
 Next, traverse through the cloned repository and enter the **ChessWebsite** directory:
 ```
-$ cd Chess/Chesswebsite
+$ cd Chess/ChessWebsite
 ```
 From here, **install all the dependencies** for this project by running:
 ```
