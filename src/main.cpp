@@ -130,7 +130,7 @@ void INITIALIZE_KING_LOOKUP_TBL(){
 		if((i+1) % 8){
 			KING_LOOKUP_TBL[i] |= 1ULL << (i+1);
 			// Up to the Right
-			if(i+1 < 57) KING_LOOKUP_TBL[i] |= 1ULL << (i+9);
+			if(i+1 < 56) KING_LOOKUP_TBL[i] |= 1ULL << (i+9);
 			//Down to the Right
 			if(i+1 > 7) KING_LOOKUP_TBL[i] |= 1ULL << (i-7);
 		}
@@ -139,7 +139,7 @@ void INITIALIZE_KING_LOOKUP_TBL(){
 		if((i-1) % 8 != 7){
 			KING_LOOKUP_TBL[i] |= 1ULL << (i-1);
 			// Left-Up
-			if(i-1 < 57) KING_LOOKUP_TBL[i] |= 1ULL << (i+7);
+			if(i-1 < 56) KING_LOOKUP_TBL[i] |= 1ULL << (i+7);
 			// Left-Down
 			if(i-1 > 7) KING_LOOKUP_TBL[i] |= 1ULL << (i-9);
 		}
